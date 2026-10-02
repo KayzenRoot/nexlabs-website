@@ -76,7 +76,33 @@ For `37f2e7ca5ebc5858fdf509be0d547763e0785a13`, the exact-head checks reported:
 - Active `Nex Labs main governance` ruleset applies to `main`, has no bypass actors, and requires strict `CI Quality` and `Browser Smoke` statuses. The branch-protection endpoint returns 404 because this repository uses a ruleset.
 - The active ruleset reports zero required approving reviews; WO-006 still requires an independent `APPROVED` review before any merge. Keep the PR open until that approval exists. CI Quality, Browser Smoke, Socket and SonarCloud passed on corrected source/test SHA `37f2e7c`; only CI Quality and Browser Smoke are required statuses in the current ruleset.
 - The PR is ready for review. CodeRabbit's valid E2E assertion finding was corrected in `37f2e7c` and marked addressed; the exact source/test head review check completed successfully. Independent reviewer approval remains pending by design.
+- CodeRabbit's documentation-only review of PR head `a06711d` identified that the required Brazilian Portuguese review record was missing. This section supplies that record; it does not grant the independent approval required before merge.
 - Docker remains a local development environment only. No public deployment was performed.
+
+## Revisão final da execução (pt-BR)
+
+**Base e head verificados:** base obrigatória `a226542594d480ab254cb7256a18f748b642dde4`; implementação e testes em `37f2e7ca5ebc5858fdf509be0d547763e0785a13`; o head documental revisado antes deste registro era `a06711d64eacfd30ca7e7388bb94a7b5c4f2d259`. A branch permanece `work/nexlabs-wo-006-brand-integration`, PR #8 contra `main`.
+
+**Arquivos por finalidade:**
+
+- Geometria e ativos de marca: `src/brand/precision-blades.ts`, `public/brand/nex-n-precision-blades-master.svg`, variantes monocromáticas, lockups, apresentação chrome/blue e `src/app/icon.svg`.
+- Integração visual e movimento: `src/components/brand-mark.tsx`, `src/components/brand-mark.module.css`, header, footer, layout e tokens existentes.
+- Regressão: `src/brand/precision-blades.test.tsx` e `tests/e2e/home.spec.ts`.
+- Provas: `.engineering/evidence/NEXLABS-WO-006-BRAND-INTEGRATION/`, Evidence Bundle e Checkpoint Delta proposto.
+
+**Fidelidade visual:** o contorno vetorial deriva do símbolo monocromático aprovado preservado em `approved-flat-symbol-only-source.png`, traçado para SVG e reutilizado em todas as variantes. A apresentação cromada usa o material aprovado recortado pelo mesmo master. As capturas de lockups/chrome, header, footer, favicon e marcas de 16/24 px estão preservadas junto da imagem de referência. A alteração de correção substituiu a silhueta aproximada anterior.
+
+**Arquitetura dos ativos:** a geometria SVG plana é a fonte de identidade; variantes não mantêm contornos independentes. O material cromado é uma apresentação visual recortada pela geometria comum. Não foi adicionado pacote de frontend, dependência de M04, Three.js/R3F/Drei/GSAP nem código 3D.
+
+**Testes, build e navegador:** `npm ci` instalou 244 pacotes do lockfile; lint e typecheck passaram; Vitest passou com 2 arquivos/6 testes; build Next.js 16.3.8 passou para `/`, `/_not-found` e `/icon.svg`; Playwright Chromium passou 6/6 em 390×844 e 1440×900; axe não apontou violações nos critérios configurados; E2E confirmou foco de teclado e `prefers-reduced-motion` estático nos dois elementos animados. `npm audit --audit-level=moderate` encontrou 0 vulnerabilidades e `git diff --check` passou.
+
+**Docker e acesso:** Docker Engine 29.8.1, Compose v5.5.1; `nexlabs-website-web-1` está `running` e `healthy`, sem falhas, publicado em `127.0.0.1:3000`. A Home respondeu HTTP 200. O container continua ativo; `docker compose down` não foi executado.
+
+**Acessibilidade, segurança e dependências:** nome acessível e navegação existente foram preservados; movimentos decorativos são desligados em reduced motion. Audit npm: 0 vulnerabilidades; SonarCloud: Quality Gate PASS e API pública sem issues abertas no PR na última consulta. Os checks de CI, Browser Smoke, Socket e Sonar passaram no head documental `a06711d`; CodeRabbit encontrou apenas a lacuna documental minor registrada acima. Nenhum achado HIGH/CRITICAL foi reportado. O ruleset `Nex Labs main governance` não exige quantidade positiva de aprovações, portanto a revisão independente `APPROVED` exigida pelo Work Order continua uma condição explícita antes de merge.
+
+**Desvios:** nenhum desvio de escopo conhecido. Não houve merge, force-push, rebase, deploy público ou implementação M04. O conteúdo do site permanece em inglês por padrão.
+
+**Disposição desta revisão de execução: `BLOCKED` para promoção/merge.** A execução e a validação técnica estão concluídas e a PR está OPEN/READY FOR REVIEW. O merge permanece bloqueado até uma pessoa revisora independente registrar `APPROVED`; este registro do executor não substitui nem simula essa aprovação.
 
 ## Proposed checkpoint delta
 
