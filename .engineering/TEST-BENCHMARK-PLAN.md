@@ -1,15 +1,46 @@
-# Validation Plan
+# Test / Benchmark Plan
 
-## Bootstrap checks
+## Planning baseline
 
-- Verify Node.js >=22, npm, Git, and GitHub CLI authentication/capability when available.
-- Verify exact direct dependency and lockfile resolution with npm ls.
-- Run npm audit at the high severity threshold and capture npm signature verification output where supported.
-- Run all required GEF CLI commands in the specified order, with init preview before apply.
-- Run GEF doctor and status after the canonical checkpoint exists.
-- Validate JSON documents, exact Context Lock bindings, git diff --check, and final Git cleanliness.
-- Do not add an application test suite or claim website behavior is tested; no product code exists.
+M01 contains no product runtime. Its validation is source consistency, decision completeness, exact-head review and absence of unauthorized implementation.
 
-## Product validation
+## Required implementation checks from M02 onward
 
-Browser, accessibility, performance, security, and deployment checks are not selected until a product Work Order defines the application architecture and acceptance criteria.
+Baseline STANDARD checks:
+- install/lockfile integrity;
+- lint;
+- TypeScript typecheck;
+- production build;
+- unit tests for logic introduced;
+- integration/component tests for important interactions;
+- dependency/security checks;
+- git diff/check and secret scan.
+
+Frontend quality:
+- automated accessibility checks plus keyboard/manual spot checks;
+- responsive rendering at representative mobile, tablet and desktop widths;
+- no unexpected horizontal overflow;
+- reduced-motion behavior;
+- no console errors in supported browsers.
+
+Visual fidelity:
+- capture deterministic screenshots at agreed reference viewports;
+- compare structure, typography, spacing, color, cards and hero composition against the Visual Master;
+- material visual drift requires explicit approval, not silent approximation.
+
+Performance:
+- Lighthouse/Web Vitals style measurements on representative throttled mobile and desktop profiles;
+- track LCP, CLS and INP proxies where available;
+- track initial JS and 3D chunk sizes;
+- record hero model/texture transfer size;
+- verify STATIC mode works with 3D disabled;
+- verify the page remains usable before live 3D is ready.
+
+3D-specific:
+- asset load success/failure paths;
+- context-loss/fallback behavior where practical;
+- reduced quality tier selection;
+- no content dependency on canvas;
+- memory/frame-rate sampling on at least one mid-tier profile before release.
+
+No numeric performance claim is considered met without retained evidence.

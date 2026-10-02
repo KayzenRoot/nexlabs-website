@@ -1,18 +1,24 @@
 # Definition of Done
 
-## GEF bootstrap increment
+## Completed: GEF bootstrap
 
-The increment is complete for review when:
+NEXLABS-WO-001-GEF-BOOTSTRAP is approved and merged.
 
-1. The correct repository and base SHA are recorded and the branch starts from main without destructive synchronization.
-2. Node.js >=22, npm, Git, and available GitHub CLI identity/capabilities are recorded.
-3. Only @gef-bootstrap/cli@1.1.2 is a direct GEF dependency, fixed exactly in the manifest and lockfile.
-4. The required version, help, preview, apply, doctor, and status commands have recorded outputs; preview precedes apply.
-5. The canonical governance documents and Source Pack index are present, internally consistent, and identify unvalidated or unknown state explicitly.
-6. Relevant checks pass or every failure/capability gap is stated with evidence; no HIGH or CRITICAL finding is known.
-7. A commit is pushed to gef/bootstrap-v1.1.2 and a PR against main is open.
-8. The PR remains unmerged.
+## M01 — Product Foundation & Visual System
 
-## Website product increments
+M01 is complete only when:
 
-Product-specific completion criteria are NOT_DEFINED and must be admitted in a future product Work Order.
+1. Product scope, information architecture and V1 page set are explicit.
+2. The selected chrome-humanoid Home concept is recorded as Visual Master and the cube concept is assigned to infrastructure storytelling.
+3. The N monogram direction and animation constraints are documented.
+4. Frontend/3D architecture is decided with progressive quality tiers and fallbacks.
+5. Performance, accessibility, SEO, security/privacy and content-integrity requirements are objective enough to audit.
+6. M02 implementation boundary is defined without product code entering M01.
+7. Canonical sources and Decisions Ledger are coherent.
+8. Exact-head independent review reports no unresolved HIGH/CRITICAL finding.
+9. The checkpoint delta is promoted only after approval.
+10. The planning PR is merged before implementation begins.
+
+## Website implementation increments
+
+Each implementation Work Order must be FUNCIONAL + TESTADA + DOCUMENTADA + DEPLOYABLE + objectively validated within its admitted scope. Required checks include lint, typecheck, build, relevant unit/integration tests, accessibility checks and performance evidence where affected. Visual increments additionally require screenshot/reference comparison evidence at defined viewport sizes.

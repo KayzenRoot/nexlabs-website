@@ -1,12 +1,47 @@
 # Backlog
 
-All product items below are future planning candidates, not admitted implementation work.
+## M01 — Product Foundation & Visual System
 
-1. Create the first product Work Order from approved business and brand sources.
-2. Define target audiences, content, information architecture, and page requirements.
-3. Resolve approved brand assets and logo provenance.
-4. Select the frontend/runtime architecture through an accepted decision.
-5. Define accessibility, privacy, security, SEO, performance, and browser support requirements.
-6. Select hosting, domain, environments, and deployment/release policy.
+ACTIVE under NEXLABS-WO-002-PRODUCT-FOUNDATION.
 
-No owner, schedule, or priority beyond this listed ordering is inferred.
+## Next planned increments
+
+1. M02 — Runtime & Repository Foundation
+   - Next.js/TypeScript project shell.
+   - Design tokens and layout primitives.
+   - CI checks, professional main protection/ruleset and repository quality gates where GitHub capabilities allow.
+   - Static Home shell and immediate visual fallback.
+   - No production 3D hero yet.
+
+2. M03 — Brand System & N Monogram
+   - Generate/select final N mark.
+   - SVG master, favicon/app icons and restrained motion treatment.
+   - Typography and finalized brand tokens.
+
+3. M04 — Home Hero 3D
+   - Blender hero reconstruction from the approved chrome intelligence direction.
+   - GLB optimization and FULL/BALANCED/STATIC runtime.
+   - Parallax, lighting, hover and scroll choreography.
+   - Performance and fallback evidence.
+
+4. M05 — Home Content Sections
+   - Capability cards, vision, technology/infrastructure, research, contact CTA and footer.
+   - Cube visual language where appropriate.
+
+5. M06 — Secondary Pages
+   - Technology, Solutions, Research, Company and Contact.
+
+6. M07 — Production Hardening & Launch
+   - Cross-browser/accessibility/performance regression.
+   - SEO/metadata/structured data.
+   - Contact security.
+   - Deployment provider decision, staging, rollback and production validation.
+
+## Future
+
+- Localization after content strategy approval.
+- Careers when real openings exist.
+- CMS.
+- CRM/newsletter.
+- Advanced analytics/personalization.
+- WebGPU-specific path if benchmarks justify it.

@@ -1,10 +1,27 @@
 # Technology Ledger
 
-| Technology | Purpose | State | Constraint |
-| --- | --- | --- | --- |
-| Node.js | Local bootstrap runtime | Present, v24.19.0 observed | Must remain >=22 |
-| npm | Package manager and lockfile | Present, v11.17.0 observed | Preserve exact GEF pin and lockfile |
-| Git | Repository and branch control | Present, v2.55.0.windows.3 observed | No history rewrite or force-push |
-| @gef-bootstrap/cli | Repository governance bootstrap | 1.1.2 exact | Sole direct GEF dependency |
+## Accepted for Website V1
 
-Frontend, rendering, content-management, analytics, and hosting technologies remain NOT_SELECTED.
+| Area | Technology / rule | State |
+| --- | --- | --- |
+| Framework | Next.js App Router | ACCEPTED |
+| Language | TypeScript strict | ACCEPTED |
+| UI styling | CSS Modules + project design tokens | ACCEPTED |
+| 3D runtime | Three.js + React Three Fiber | ACCEPTED |
+| 3D helpers | Drei, only when narrowly justified | ACCEPTED WITH LIMIT |
+| Motion | CSS-first for ordinary UI; GSAP/ScrollTrigger for complex choreography | ACCEPTED |
+| 3D authoring | Blender | ACCEPTED |
+| 3D delivery | glTF/GLB with mesh/texture optimization | ACCEPTED |
+| Heavy runtime loading | dynamic import/client islands | REQUIRED |
+| Reduced capability | FULL/BALANCED/STATIC rendering tiers | REQUIRED |
+
+## Not selected
+
+- CMS
+- analytics vendor
+- CRM/newsletter provider
+- deployment provider
+- database
+- authentication
+
+Technology additions require a later Work Order and evidence that they are necessary.
