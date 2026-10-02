@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-001-GEF-BOOTSTRAP",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "gef/bootstrap-v1.1.2",
+  "capturedAtUtc": "2026-10-02T13:28:37Z",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_EXECUTION_ORDER",
+    "source": "Direct user Work Order persisted at .engineering/work-orders/NEXLABS-WO-001-GEF-BOOTSTRAP.md",
+    "sourceSha256": "f1c59207fc7f4c3e47fff23bba84ca21a5172cd4aaf7734893326faf1fd06fb0",
+    "startingHead": "51c9a3c5170dbeffcb8f856c38b62cce624d294b",
+    "mainSha": "51c9a3c5170dbeffcb8f856c38b62cce624d294b",
+    "mergeAuthorizedNow": false,
+    "releaseAuthorizedNow": false
+  },
+  "sourceFingerprintsAtStartingHead": {
+    "README.md": "ce576120f4435c9c316418e784fe52d1339cf4fd"
+  },
+  "writeAllowed": [
+    "AGENTS.md",
+    ".gitignore",
+    "package.json",
+    "package-lock.json",
+    ".gef/**",
+    ".engineering/**"
+  ],
+  "writeForbidden": [
+    "website product pages or components",
+    "frontend framework or runtime dependencies",
+    "Three.js implementation",
+    "Blender assets or logo creation",
+    "deployment or release",
+    ".gef-private/**",
+    "GitHub protection or security-gate changes",
+    "merge, force-push, rebase, or history rewrite"
+  ],
+  "proofObligations": [
+    "Exact @gef-bootstrap/cli@1.1.2 dependency and lockfile",
+    "GEF init preview before init apply",
+    "GEF doctor and status outputs recorded after checkpoint creation",
+    "Canonical source map and product progress remain truthful",
+    "Relevant local checks and exact final head recorded",
+    "PR remains open and unmerged"
+  ],
+  "stopCondition": "PR_OPEN_UNMERGED_NO_KNOWN_HIGH_OR_CRITICAL_FINDING"
+}

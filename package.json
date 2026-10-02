@@ -1,0 +1,22 @@
+{
+  "name": "nexlabs-website",
+  "version": "1.0.0",
+  "description": "Official website repository for Nex Labs Technology.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KayzenRoot/nexlabs-website.git"
+  },
+  "license": "UNLICENSED",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/KayzenRoot/nexlabs-website/issues"
+  },
+  "homepage": "https://github.com/KayzenRoot/nexlabs-website#readme",
+  "devDependencies": {
+    "@gef-bootstrap/cli": "1.1.2"
+  },
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "kind": "help",
+  "commands": [
+    {
+      "id": "gef.adopt.apply",
+      "summary": "run the governed adoption path",
+      "schema": null
+    },
+    {
+      "id": "gef.adopt.preview",
+      "summary": "preview brownfield adoption (safe, read-only)",
+      "schema": null
+    },
+    {
+      "id": "gef.doctor.run",
+      "summary": "run read-only environment, repository and integrity diagnostics",
+      "schema": null
+    },
+    {
+      "id": "gef.init.plan",
+      "summary": "plan project initialization (safe, read-only)",
+      "schema": null
+    },
+    {
+      "id": "gef.init.run",
+      "summary": "run the governed initialization path",
+      "schema": null
+    },
+    {
+      "id": "gef.status.show",
+      "summary": "show observed governed project and repository status",
+      "schema": null
+    },
+    {
+      "id": "gef.upgrade.apply",
+      "summary": "apply the governed project upgrade",
+      "schema": null
+    },
+    {
+      "id": "gef.upgrade.preview",
+      "summary": "preview a managed project upgrade (safe, read-only)",
+      "schema": null
+    }
+  ]
+}

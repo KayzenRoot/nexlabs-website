@@ -1,0 +1,4 @@
+node_modules/
+.gef-private/
+.DS_Store
+Thumbs.db

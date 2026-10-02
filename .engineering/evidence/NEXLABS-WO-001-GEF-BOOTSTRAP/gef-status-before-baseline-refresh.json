@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "commandId": "gef.status.show",
+  "contractVersion": "1.0",
+  "terminal": "SUCCEEDED",
+  "value": {
+    "commandId": "gef.status.show",
+    "effect": "NONE",
+    "status": {
+      "verb": "status",
+      "readOnly": true,
+      "target": {
+        "targetRef": "D:\\Projects\\nexlabs-website",
+        "exists": true,
+        "isDirectory": true
+      },
+      "repository": {
+        "verdict": {
+          "state": "DIRTY",
+          "dirty": true,
+          "conflict": false,
+          "digest": "1848ea4f9d6277c4d85ed154b4ccb4fab14635c94c8d0aae7961a03cb5776566"
+        },
+        "dirtiness": "OBSERVED",
+        "observationLimits": [
+          "GEF_MANAGED_METADATA_EXCLUDED_FROM_REPOSITORY_DIRTINESS"
+        ]
+      },
+      "release": {
+        "source": ".engineering/CHECKPOINT.json",
+        "present": true,
+        "readable": true,
+        "valid": true,
+        "production": {
+          "status": "GEF_BOOTSTRAP_PR_OPEN",
+          "phase": "GEF_BOOTSTRAP",
+          "stopState": "PR_OPEN_UNMERGED",
+          "completedThroughModule": "NONE",
+          "mainProductionDenominatorWeight": 100,
+          "earnedProductionWeight": 0,
+          "overallCompletionPercent": 0,
+          "nextLegalStage": "INDEPENDENT_REVIEW_AND_REQUIRED_CHECKS"
+        },
+        "development": null
+      },
+      "operator": {
+        "state": "GEF_BOOTSTRAP_PR_OPEN",
+        "progress": 0,
+        "evidence": [
+          ".engineering/CHECKPOINT.json",
+          ".engineering/CHECKPOINT.md",
+          ".engineering/SCOPE.md",
+          ".engineering/DEFINITION-OF-DONE.md",
+          "AGENTS.md",
+          "README.md"
+        ],
+        "stale": true,
+        "optional": false
+      },
+      "documentation": {
+        "entries": [
+          {
+            "id": ".engineering/CHECKPOINT.json",
+            "source": ".engineering/CHECKPOINT.json",
+            "version": null,
+            "digest": "6976acd51b721a1788aef8a78447d513edd0b32ef68d221bc2e7c446ec7fd83c"
+          },
+          {
+            "id": ".engineering/CHECKPOINT.md",
+            "source": ".engineering/CHECKPOINT.md",
+            "version": null,
+            "digest": "54be382c98a5155727ce84aeac2a11f05cf128bbb981b8f6287c3b0b08ce0f5c"
+          },
+          {
+            "id": ".engineering/DEFINITION-OF-DONE.md",
+            "source": ".engineering/DEFINITION-OF-DONE.md",
+            "version": null,
+            "digest": "a0b29d1fd4b40b92a6880e411728804bd6526f248c4df63993a4961dd3a4eab7"
+          },
+          {
+            "id": ".engineering/SCOPE.md",
+            "source": ".engineering/SCOPE.md",
+            "version": null,
+            "digest": "bcde2a06a937863319d8a59076e4bd8d013edbef0f477ebecf027fe0a30d4f8f"
+          },
+          {
+            "id": "AGENTS.md",
+            "source": "AGENTS.md",
+            "version": null,
+            "digest": "5a243f36d5e14c8bf78f422bab068b7c1b5b023add53f8e052ed7383b085cc98"
+          },
+          {
+            "id": "README.md",
+            "source": "README.md",
+            "version": null,
+            "digest": "b00789187dc13913fa048c711b860f952f54b609bc09624d898355e75599d543"
+          }
+        ],
+        "digest": "ccf65739726c2b3cc6bbf5d1fcdbace17a059e720e136c18dd678290dd5bd55b"
+      },
+      "navigation": {
+        "files": [
+          ".engineering/CHECKPOINT.json",
+          ".engineering/CHECKPOINT.md",
+          ".engineering/DEFINITION-OF-DONE.md",
+          ".engineering/SCOPE.md",
+          "AGENTS.md",
+          "README.md"
+        ],
+        "ioBudget": 6,
+        "digest": "559925bb3919b05172735b0b8eac40344152c25e54cce98b4867f01385217adb"
+      },
+      "drift": {
+        "before": "1b3720c8b693d2ef446cf4b2cfee085e21c05c29bc6e425d5020db8225878dbf",
+        "after": "a8f8946ec6dcc9eb69c2a35496f69897ea99429b42274e09558b7e41b06308b1",
+        "changed": true,
+        "class": "UNEXPECTED",
+        "digest": "6387bc503ea293776b51f691f80ab17d8809503aba2c485b6d85cfbe75da6963"
+      },
+      "driftBaseline": {
+        "state": "RECORDED",
+        "ref": ".gef/init-state.json"
+      },
+      "observationLimits": [],
+      "integrity": {
+        "root": "1e8abbe61a5e5c3a2c2d8b75a92c4e35dd332675c30f6237b58bddb6e27c9671",
+        "schema": 1,
+        "digest": "a1737748bf9816bf87b37a3f4d077e342cf5211a33dac09564aee9530df897fe"
+      }
+    },
+    "statusDigest": "3e0e9158f1f308c03d4819ffc72f6a6192bfe32a8b7d1009e1d75ea66c735406"
+  }
+}

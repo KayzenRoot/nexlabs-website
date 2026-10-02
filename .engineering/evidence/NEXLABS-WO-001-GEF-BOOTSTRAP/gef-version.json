@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "name": "gef",
+  "version": "1.1.2",
+  "nodeVersion": "v24.19.0",
+  "platform": "win32"
+}
