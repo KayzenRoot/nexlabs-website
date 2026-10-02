@@ -10,7 +10,9 @@
 | D-0006 | 3D uses Blender source assets, glTF/GLB delivery, React Three Fiber/Three.js and capability-aware FULL/BALANCED/STATIC tiers. | ACCEPTED for V1 | ADR-0004 |
 | D-0007 | Heavy 3D must never block content; poster/fallback renders immediately and live 3D crossfades when ready. | ACCEPTED | ADR-0004 |
 | D-0008 | No fabricated client logos, metrics, testimonials or partnerships are allowed in public UI. | ACCEPTED | Product requirements |
-| D-0009 | M01 is planning-only; implementation begins only after M01 approval and merge. | ACCEPTED | NEXLABS-WO-002 |
-| D-0010 | Promote the bootstrap governance constitution into a product-development baseline while preserving the original WO-001 historical stop condition and evidence rules. | ACCEPTED | NEXLABS-WO-002 correction audit |
+| D-0009 | M01 is planning-only; implementation begins only after M01 approval and merge. | SATISFIED | NEXLABS-WO-002 |
+| D-0010 | Promote the bootstrap governance constitution into a product-development baseline while preserving evidence rules. | ACCEPTED | NEXLABS-WO-002 |
+| D-0011 | M02 Runtime & Repository Foundation is accepted after exact-head review and merge; Docker continuity becomes a repository operating rule for runnable frontend increments. | ACCEPTED / MERGED | NEXLABS-WO-003 / PR #4 |
+| D-0012 | M03 separates brand-system planning from final logo implementation so concept selection is explicit and auditable. | ACCEPTED | NEXLABS-WO-004 |
 
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.
