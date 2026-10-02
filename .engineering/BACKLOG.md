@@ -1,37 +1,46 @@
 # Backlog
 
-## M01 — Product Foundation & Visual System
+## Completed planning
 
-Content APPROVED under NEXLABS-WO-002-PRODUCT-FOUNDATION. Checkpoint promotion remains a candidate pending exact-head validation and merge of PR #3.
+### M01 — Product Foundation & Visual System
+
+APPROVED and merged in PR #3. Product scope, visual direction, frontend architecture, 3D/motion strategy and quality boundaries are canonical.
+
+## Active increment
+
+### M02 — Runtime & Repository Foundation
+
+ADMITTED under NEXLABS-WO-003-RUNTIME-FOUNDATION.
+
+Scope:
+- Next.js/TypeScript project shell.
+- Design tokens and layout primitives.
+- CI checks and professional main ruleset/repository quality gates.
+- Static Home shell and immediate no-WebGL fallback.
+- Test/accessibility/browser-smoke foundation.
+- No production 3D hero.
 
 ## Next planned increments
 
-1. M02 — Runtime & Repository Foundation
-   - Next.js/TypeScript project shell.
-   - Design tokens and layout primitives.
-   - CI checks, professional main protection/ruleset and repository quality gates where GitHub capabilities allow.
-   - Static Home shell and immediate visual fallback.
-   - No production 3D hero yet.
-
-2. M03 — Brand System & N Monogram
+1. M03 — Brand System & N Monogram
    - Generate/select final N mark.
    - SVG master, favicon/app icons and restrained motion treatment.
    - Typography and finalized brand tokens.
 
-3. M04 — Home Hero 3D
+2. M04 — Home Hero 3D
    - Blender hero reconstruction from the approved chrome intelligence direction.
    - GLB optimization and FULL/BALANCED/STATIC runtime.
    - Parallax, lighting, hover and scroll choreography.
    - Performance and fallback evidence.
 
-4. M05 — Home Content Sections
+3. M05 — Home Content Sections
    - Capability cards, vision, technology/infrastructure, research, contact CTA and footer.
    - Cube visual language where appropriate.
 
-5. M06 — Secondary Pages
+4. M06 — Secondary Pages
    - Technology, Solutions, Research, Company and Contact.
 
-6. M07 — Production Hardening & Launch
+5. M07 — Production Hardening & Launch
    - Cross-browser/accessibility/performance regression.
    - SEO/metadata/structured data.
    - Contact security.
