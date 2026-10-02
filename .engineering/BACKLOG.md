@@ -8,27 +8,33 @@ APPROVED and merged.
 ### M02 — Runtime & Repository Foundation
 APPROVED and merged.
 
-### M03 — Brand System & N Monogram Planning
-APPROVED and merged in PR #6.
+### M03 — Brand System Planning
+APPROVED and merged.
+
+### M03 — Brand Concept Exploration
+APPROVED and merged in PR #7.
+Selected concept: `NEX-N-A-PRECISION-BLADES`.
 
 ## Active
 
-### M03 — Brand Concept Exploration
-ADMITTED under `NEXLABS-WO-005-BRAND-CONCEPTS`.
+### M03 — Vector Master & Brand Integration
+ADMITTED under `NEXLABS-WO-006-BRAND-INTEGRATION`.
 
-- Generate at least 12 N concepts.
-- Cover precision blades, ribbon/flow, crystalline/glass, and monolithic/architectural.
-- Shortlist exactly 3.
-- Obtain explicit owner selection.
-- No final vector master before selection.
+- build production flat SVG geometry;
+- monochrome/enhanced variants;
+- lockups;
+- favicon/icon surfaces;
+- header/footer integration;
+- lightweight brand motion;
+- screenshots/tests/evidence;
+- Docker left UP/healthy.
 
 ## Next
 
-1. M03 — Vector Master & Brand Integration
-2. M04 — Home Hero 3D
-3. M05 — Home Content Sections
-4. M06 — Secondary Pages
-5. M07 — Production Hardening & Launch
+1. M04 — Home Hero 3D / Living Organism
+2. M05 — Home Content Sections
+3. M06 — Secondary Pages
+4. M07 — Production Hardening & Launch
 
 ## Future
 

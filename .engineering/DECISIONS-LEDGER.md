@@ -12,7 +12,9 @@
 | D-0008 | No fabricated client logos, metrics, testimonials or partnerships are allowed in public UI. | ACCEPTED | Product requirements |
 | D-0009 | M01 is planning-only; implementation begins only after M01 approval and merge. | SATISFIED | NEXLABS-WO-002 |
 | D-0010 | Promote the bootstrap governance constitution into a product-development baseline while preserving evidence rules. | ACCEPTED | NEXLABS-WO-002 |
-| D-0011 | M02 Runtime & Repository Foundation is accepted after exact-head review and merge; Docker continuity becomes a repository operating rule for runnable frontend increments. | ACCEPTED / MERGED | NEXLABS-WO-003 / PR #4 |
+| D-0011 | M02 Runtime & Repository Foundation is accepted after exact-head review and merge; Docker continuity is a repository operating rule for runnable frontend increments. | ACCEPTED / MERGED | NEXLABS-WO-003 |
 | D-0012 | M03 separates brand-system planning from final logo implementation so concept selection is explicit and auditable. | ACCEPTED | NEXLABS-WO-004 |
+| D-0013 | Owner selected Finalist A / Precision Blades as the single production identity target, canonical ID `NEX-N-A-PRECISION-BLADES`. | ACCEPTED / MERGED | NEXLABS-WO-005 / owner selection |
+| D-0014 | The final Home target is a cinematic living technology-lab world centered on the selected chrome N, with connected energy/light/network behavior across sections. | ACCEPTED | Owner direction, 2026-10-02 |
 
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.

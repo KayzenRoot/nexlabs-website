@@ -15,9 +15,13 @@
   --color-accent-cyan: #a5e9f2;
   --color-accent-blue: #87bfff;
   --color-accent-violet: #b2a1fa;
+  --color-brand-mark: #dce8f5;
+  --color-brand-energy: #74bfff;
+  --color-brand-subtle: #91a3b7;
   --color-chrome-light: #f5f7fa;
   --color-chrome-mid: #8793a2;
   --color-chrome-dark: #27313f;
+  --color-chrome-blue-edge: #69b8ff;
 
   /* Spacing */
   --space-0: 0;

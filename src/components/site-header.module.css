@@ -15,10 +15,26 @@
   padding-inline: clamp(var(--space-4), 4.6vw, var(--space-12));
 }
 
+.brandLink {
+  display: inline-flex;
+  min-width: 0;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: var(--space-3);
+  text-decoration: none;
+}
+
+.markFrame {
+  display: block;
+  width: 2.625rem;
+  height: 2.625rem;
+  flex: 0 0 auto;
+  color: var(--color-brand-mark);
+}
+
 .wordmark {
   display: grid;
-  gap: 0.05rem;
-  text-decoration: none;
+  gap: 0.08rem;
 }
 
 .name {
@@ -30,7 +46,7 @@
 }
 
 .descriptor {
-  color: var(--color-text-muted);
+  color: var(--color-brand-subtle);
   font-family: var(--font-mono);
   font-size: 0.56rem;
   letter-spacing: 0.26em;
@@ -69,5 +85,24 @@
 
   .link {
     font-size: var(--text-xs);
+  }
+
+  .markFrame {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .brandLink {
+    gap: var(--space-2);
+  }
+
+  .name {
+    font-size: var(--text-xs);
+    letter-spacing: 0.16em;
+  }
+
+  .descriptor {
+    font-size: 0.48rem;
+    letter-spacing: 0.2em;
   }
 }
