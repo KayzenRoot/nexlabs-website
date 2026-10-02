@@ -1,0 +1,45 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-002-PRODUCT-FOUNDATION",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "planning/nexlabs-wo-002-product-foundation",
+  "capturedAtUtc": "2026-10-02T14:10:16Z",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE_WEBSITE_CREATION",
+    "source": "Direct owner instruction to continue website creation after approved bootstrap",
+    "startingHead": "424dca87a7fbb39c62347707f003fe4111f617ea",
+    "mainSha": "424dca87a7fbb39c62347707f003fe4111f617ea",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": false
+  },
+  "writeAllowed": [
+    ".engineering/**",
+    "AGENTS.md"
+  ],
+  "writeForbidden": [
+    "application/runtime source code",
+    "runtime package installation",
+    "Blender production binaries",
+    "final logo binaries",
+    "deployment or release",
+    "force-push, rebase or history rewrite"
+  ],
+  "criticalSources": [
+    ".engineering/CHECKPOINT.md",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/DECISIONS-LEDGER.md",
+    ".engineering/SCOPE.md",
+    ".engineering/DEFINITION-OF-DONE.md",
+    ".engineering/ARCHITECTURE.md",
+    ".engineering/REQUIREMENTS.md"
+  ],
+  "proofObligations": [
+    "No product code/runtime dependency introduced",
+    "Visual Master and logo direction recorded",
+    "Architecture decisions recorded",
+    "Performance/accessibility/security requirements auditable",
+    "M02 boundary defined",
+    "Exact-head independent review before promotion/merge"
+  ],
+  "stopCondition": "PLANNING_PR_OPEN_UNMERGED_NO_HIGH_OR_CRITICAL"
+}

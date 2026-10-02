@@ -1,17 +1,43 @@
 # Scope
 
-## Admitted: NEXLABS-WO-001-GEF-BOOTSTRAP
+## Completed baseline
 
-- Install only @gef-bootstrap/cli@1.1.2 as an exact development dependency.
-- Initialize GEF using the required preview-before-apply sequence.
-- Create the initial canonical governance source set and Source Pack index from the Work Order and verified repository facts.
-- Run and record GEF diagnostics, dependency checks, and available repository checks.
-- Verify GitHub repository identity/configuration, commit and push the branch, and open a PR against main.
+NEXLABS-WO-001-GEF-BOOTSTRAP is APPROVED and merged. GEF Bootstrap 1.1.2 and the initial Source Pack are the project governance baseline.
 
-## Explicitly out of scope
+## Admitted: NEXLABS-WO-002-PRODUCT-FOUNDATION
 
-- Any website page, component, frontend framework, visual design, Three.js runtime, Blender asset, logo, or product code.
-- Selecting a product stack, public content, hosting provider, deployment, release, or domain.
-- Weakening GitHub protections or merging the PR.
+### NECESSARY
 
-Any added scope requires a separately admitted Work Order and refreshed Context Lock.
+- Define the public website purpose, audience and information architecture.
+- Freeze the selected homepage visual direction as the product's Visual Master.
+- Define the new Nex Labs "N" monogram direction and logo behavior requirements.
+- Define the 3D/motion architecture, progressive quality tiers and static/reduced-motion fallbacks.
+- Define the frontend architecture and technology boundaries before implementation.
+- Define accessibility, SEO, privacy/security and performance requirements.
+- Define M02 implementation scope and acceptance criteria.
+- Update canonical product sources, decisions, backlog, DoD and checkpoint state.
+
+### IMPORTANT
+
+- Define a future bilingual/content-localization path without forcing localization into the first implementation increment.
+- Reserve architecture for future CMS/contact integrations without selecting them yet.
+
+### FUTURE
+
+- Careers/jobs experience when real openings exist.
+- CMS/editorial workflow.
+- CRM/newsletter/marketing automation.
+- WebGPU-specific rendering path if later evidence justifies it.
+- Advanced personalization or analytics beyond privacy-minimal measurement.
+
+## Explicitly out of scope for WO-002
+
+- Website runtime or page/component code.
+- Installing the frontend stack.
+- Producing the final Blender hero asset.
+- Producing/finalizing the logo artwork.
+- Publishing/deploying the site.
+- Fabricated client logos, fabricated metrics, testimonials or partnerships.
+- Selecting a CMS, CRM or analytics vendor.
+
+Any implementation requires a new Work Order and fresh Context Lock after this planning increment is approved.

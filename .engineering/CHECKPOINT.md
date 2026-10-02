@@ -1,13 +1,21 @@
 # Project Checkpoint
 
-Status: GEF_BOOTSTRAP_PR_OPEN
+Status: M01_APPROVED_PROMOTION_PENDING_EXACT_HEAD
 
-- Project phase: GEF bootstrap; greenfield product work has not started.
-- Active Work Order: NEXLABS-WO-001-GEF-BOOTSTRAP.
-- Active increment: initialize and validate GEF Bootstrap 1.1.2 and establish the canonical governance source set.
-- Product implementation: NOT_STARTED; earned product progress is 0/100 (0%).
-- Website pages, components, frontend framework, Three.js, Blender assets, logo, and deployment: none admitted or implemented.
-- Pull request boundary: remain OPEN and UNMERGED; merge is not authorized by this Work Order.
-- Next stage: exact-head review and required checks, followed by a separately authorized merge decision.
+- GEF Bootstrap v1.1.2: APPROVED and merged to main in PR #2.
+- M01 Product Foundation & Visual System: content APPROVED after independent review and correction of the Context Lock finding.
+- PR #3 checkpoint promotion is a candidate only until the final PR head itself passes all required exact-head checks.
+- Product implementation: NOT_STARTED; earned product implementation progress remains 0/100 (0%).
+- Approved V1 foundation:
+  - chrome-humanoid Home Visual Master;
+  - cube visual language reserved for Technology/Infrastructure;
+  - proprietary-looking vector-first N monogram direction;
+  - Next.js App Router + strict TypeScript + CSS Modules/design tokens;
+  - Blender → optimized glTF/GLB → Three.js/React Three Fiber;
+  - CSS-first motion with GSAP/ScrollTrigger only for complex choreography;
+  - FULL / BALANCED / STATIC capability tiers;
+  - poster-first fallback, accessibility, performance, SEO, privacy/security and content-integrity requirements.
+- No website runtime, final logo asset, production Blender hero, deployment or analytics has been implemented.
+- Next legal stage: exact-head validation of the promotion candidate, then merge PR #3. M02 may be admitted only from the resulting main SHA.
 
-The machine-readable view is CHECKPOINT.json. Any material state change requires a proposed checkpoint delta and coherent updates to both views.
+The machine-readable view is CHECKPOINT.json.

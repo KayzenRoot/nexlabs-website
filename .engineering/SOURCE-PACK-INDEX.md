@@ -1,8 +1,13 @@
 # Source Pack Index
 
-Project binding: KayzenRoot/nexlabs-website, bootstrap branch gef/bootstrap-v1.1.2, base main SHA 51c9a3c5170dbeffcb8f856c38b62cce624d294b.
+Project binding: KayzenRoot/nexlabs-website.
 
-This index maps the required GEF semantic source classes to canonical project documents. The listed sources are the initial human-curated baseline derived from the direct bootstrap Work Order and verified repository facts.
+Current baseline:
+- GEF Bootstrap v1.1.2 merged to main at 424dca87a7fbb39c62347707f003fe4111f617ea.
+- Active planning branch: planning/nexlabs-wo-002-product-foundation.
+- Active Work Order: NEXLABS-WO-002-PRODUCT-FOUNDATION.
+
+This index maps required GEF semantic source classes to canonical project documents.
 
 | Semantic class | Canonical source | Authority domain | State |
 | --- | --- | --- | --- |
@@ -21,8 +26,12 @@ This index maps the required GEF semantic source classes to canonical project do
 | BACKLOG_FUTURE_WORK | BACKLOG.md | FUTURE_WORK | RESOLVED_ACTIVE |
 | INNOVATION_LEDGER | INNOVATION-LEDGER.md | INNOVATION | RESOLVED_ACTIVE |
 
-Conditional source: DEPLOYMENT.md records that no provider or release target has been selected. Its presence documents the user's requested deployment governance class; it does not activate a deployment or authorize one.
+Additional canonical product-planning sources:
+- UI-UX.md — interaction/layout/brand experience rules.
+- VISUAL-DIRECTION.md — Home Visual Master and visual anti-patterns.
+- TECHNOLOGY-LEDGER.md — admitted product technologies and exclusions.
+- DEPLOYMENT.md — deployment boundary; provider remains unselected.
 
 ## Integrity boundary
 
-The GEF CLI v1.1.2 init command records .gef/init-state.json and a run receipt. It does not generate or validate this Source Pack index or compute a Source Pack integrity epoch. Therefore this index is a bootstrap candidate, not an engine-issued conformance receipt. Structural mapping is recorded; independent review and exact-head validation remain pending. No canonical source is inferred from absence.
+GEF CLI v1.1.2 does not generate or validate this Source Pack index or compute a Source Pack integrity epoch. The index therefore remains human-curated and requires exact-head independent review. It must not be described as engine-issued conformance evidence.
