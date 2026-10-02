@@ -22,7 +22,7 @@ Evidence state: command outputs below are retained in the adjacent evidence dire
 - Direct GEF dependency: @gef-bootstrap/cli@1.1.2, exact in package.json and package-lock.json.
 - npm ls --depth=0: PASS; one direct dependency, @gef-bootstrap/cli@1.1.2.
 - npm audit --audit-level=high: PASS; zero vulnerabilities.
-- Package integrity: lockfile SRI matches the npm registry and the official GEF v1.1.2 release record.
+- Package integrity: unretained author observation — lockfile SRI matches the npm registry and the official GEF v1.1.2 release record.
 
 ## Required GEF commands
 
