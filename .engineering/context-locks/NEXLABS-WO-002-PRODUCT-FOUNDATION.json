@@ -13,7 +13,8 @@
     "implementationAuthorizedNow": false
   },
   "writeAllowed": [
-    ".engineering/**"
+    ".engineering/**",
+    "AGENTS.md"
   ],
   "writeForbidden": [
     "application/runtime source code",
