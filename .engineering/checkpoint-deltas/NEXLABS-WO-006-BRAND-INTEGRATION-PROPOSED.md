@@ -13,17 +13,17 @@ State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
 ## Implementation evidence captured
 
 - Required base and merge-base: `a226542594d480ab254cb7256a18f748b642dde4`.
-- Tested implementation head: `dc1d298916da70f1c31575793ba3e4c639a9890a` on `work/nexlabs-wo-006-brand-integration`, PR #8.
+- Brand implementation head: `dc1d298916da70f1c31575793ba3e4c639a9890a`; review-correction/source-test head: `37f2e7ca5ebc5858fdf509be0d547763e0785a13` on `work/nexlabs-wo-006-brand-integration`, PR #8.
 - Evidence Bundle: `.engineering/evidence/NEXLABS-WO-006-BRAND-INTEGRATION-EVIDENCE.md`.
-- Local `npm ci`, lint, typecheck, unit tests, production build, six browser tests, dependency audit and diff checks passed.
+- Local `npm ci`, lint, typecheck, unit tests, production build, six browser tests (including both reduced-motion mark animations), dependency audit and diff checks passed on the corrected source tree.
 - Docker Compose config/build/start passed; `nexlabs-website-web-1` is UP/healthy at `http://127.0.0.1:3000/`.
-- Exact implementation-head checks: CI Quality, Browser Smoke, Socket Security Project Report/PR Alerts and SonarCloud passed. CodeRabbit skipped while the PR was draft; independent review is still pending.
+- Exact corrected-source-head checks: CI Quality, Browser Smoke, Socket Security Project Report/PR Alerts, SonarCloud and CodeRabbit passed. CodeRabbit's reduced-motion finding is marked addressed in `37f2e7c`; independent human review is still pending.
 - The active `main` ruleset requires CI Quality and Browser Smoke, but its required approving review count is zero. Do not merge without the independent `APPROVED` review required by WO-006.
 
 ## Evidence required before promotion
 
-- final PR head SHA and exact-head GitHub checks after the PR is marked ready for review;
-- CodeRabbit review executed on the ready PR;
+- final documentation-inclusive PR head SHA and exact-head GitHub checks;
+- exact-head CodeRabbit review completed on the ready source/test PR head;
 - independent reviewer verdict `APPROVED`;
 - Docker confirmed UP/healthy at final owner handoff;
 - authorized merge and subsequent checkpoint approval.
