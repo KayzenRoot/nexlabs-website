@@ -6,6 +6,10 @@ const navigation = [
   { href: "#contact", label: "Contact" },
 ];
 
+/**
+ * Renders the accessible global header and the temporary in-page navigation used
+ * until governed secondary routes are implemented.
+ */
 export function SiteHeader() {
   return (
     <header className={styles.header}>

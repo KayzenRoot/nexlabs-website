@@ -9,6 +9,10 @@ const plannedHomeAnchors = [
   "research",
 ] as const;
 
+/**
+ * Renders the M02 Home shell with the approved static fallback and placeholder
+ * anchors for later governed Home-section increments.
+ */
 export default function HomePage() {
   return (
     <div className={styles.homePage}>

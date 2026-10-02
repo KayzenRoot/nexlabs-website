@@ -9,6 +9,10 @@ export const metadata: Metadata = {
     "The new digital home of Nex Labs Technology is taking shape.",
 };
 
+/**
+ * Defines the shared document shell, accessibility skip link, header, main content,
+ * and footer for every route in the Nex Labs Technology website.
+ */
 export default function RootLayout({
   children,
 }: Readonly<{

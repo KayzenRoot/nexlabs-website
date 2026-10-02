@@ -1,5 +1,9 @@
 import styles from "./static-hero.module.css";
 
+/**
+ * Renders the immediate no-WebGL Home hero fallback that preserves the approved
+ * visual direction while later 3D work remains outside M02.
+ */
 export function StaticHero() {
   return (
     <section className={styles.hero} id="home" aria-labelledby="hero-title">
