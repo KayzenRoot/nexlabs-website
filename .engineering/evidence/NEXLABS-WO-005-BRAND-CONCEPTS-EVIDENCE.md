@@ -37,13 +37,48 @@ The selected visual reference exists in the current design conversation. Pixel-l
 
 ## Concept exploration evidence
 
-The exploration produced more than the required 12 directions and covered the four canonical families:
-- precision blades;
-- ribbon / flow;
-- crystalline / glass;
-- monolithic / architectural.
+Primary concept-board reference in the design conversation:
+- `a_dark_futuristic_high_end_branding_concept_boar.png`
 
-The owner selected Precision Blades / Finalist A after reviewing the concept boards and identity applications.
+Identity-system follow-up reference:
+- `manual_de_identidade_nex_labs_futurista.png`
+
+Approved Home/world reference:
+- `nex_labs_tecnologia_que_transforma_o_amanhã.png`
+
+### Enumerated concept set
+
+| Concept ID | Board no. | Family | Evaluation summary |
+| --- | ---: | --- | --- |
+| NEX-N-PB-01 | 01 | Precision Blades | Strongest readable N, premium technical silhouette, excellent flat-mark basis, viable at small size. |
+| NEX-N-PB-02 | 02 | Precision Blades | Dynamic diagonal energy, but more fragmented and less stable as a favicon. |
+| NEX-N-PB-03 | 03 | Precision Blades | Clean and restrained, but less distinctive than PB-01. |
+| NEX-N-RF-04 | 04 | Ribbon / Flow | Expressive and fluid, good motion language, weaker technical authority as the primary mark. |
+| NEX-N-RF-05 | 05 | Ribbon / Flow | Strongest ribbon N, readable and memorable, but softer than the selected architectural direction. |
+| NEX-N-RF-06 | 06 | Ribbon / Flow | Attractive flowing gesture, but recognition depends more heavily on the material treatment. |
+| NEX-N-CG-07 | 07 | Crystalline / Glass | Strong faceted N, distinctive and aligned with holographic visual language; more complex at favicon scale. |
+| NEX-N-CG-08 | 08 | Crystalline / Glass | Highly technical crystalline structure, but too much internal geometry for the primary flat mark. |
+| NEX-N-CG-09 | 09 | Crystalline / Glass | Rich glass treatment and strong depth, but requires simplification for robust monochrome use. |
+| NEX-N-MA-10 | 10 | Monolithic / Architectural | Stable architectural silhouette, premium and simple, but less unique than PB-01. |
+| NEX-N-MA-11 | 11 | Monolithic / Architectural | Strong dark metallic construction with blue seam; good supporting/infrastructure vocabulary. |
+| NEX-N-MA-12 | 12 | Monolithic / Architectural | Bold industrial mass, but visually heavier than the intended Nex Labs identity. |
+
+### Exactly three finalists
+
+1. `NEX-N-FINAL-A` → `NEX-N-PB-01` — Precision Blades.
+2. `NEX-N-FINAL-B` → `NEX-N-RF-05` — Ribbon / Flow.
+3. `NEX-N-FINAL-C` → `NEX-N-CG-07` — Crystalline / Glass.
+
+Shortlist rationale:
+- Finalist A offers the best balance of N recognition, premium technology tone, monochrome viability, small-size stability and compatibility with the selected Home.
+- Finalist B preserves a stronger organic/flow vocabulary and remains useful as inspiration for motion/energy behavior rather than the primary symbol.
+- Finalist C strongly matches the holographic/crystalline world but carries more geometric complexity than desired for the core mark.
+
+### Owner selection
+
+The owner selected `NEX-N-FINAL-A` / `NEX-N-PB-01`, canonical implementation ID `NEX-N-A-PRECISION-BLADES`.
+
+The exploration therefore satisfies the governed gate of 12 enumerated concepts, exactly three finalists, and one explicit owner-selected direction.
 
 ## Rejected directions
 
