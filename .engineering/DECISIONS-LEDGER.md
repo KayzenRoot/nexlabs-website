@@ -11,5 +11,6 @@
 | D-0007 | Heavy 3D must never block content; poster/fallback renders immediately and live 3D crossfades when ready. | ACCEPTED | ADR-0004 |
 | D-0008 | No fabricated client logos, metrics, testimonials or partnerships are allowed in public UI. | ACCEPTED | Product requirements |
 | D-0009 | M01 is planning-only; implementation begins only after M01 approval and merge. | ACCEPTED | NEXLABS-WO-002 |
+| D-0010 | Promote the bootstrap governance constitution into a product-development baseline while preserving the original WO-001 historical stop condition and evidence rules. | ACCEPTED | NEXLABS-WO-002 correction audit |
 
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.

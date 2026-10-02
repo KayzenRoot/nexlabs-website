@@ -1,16 +1,30 @@
 # Nex Labs Technology Website — Repository Instructions
 
-This repository is GREENFIELD. The current admitted increment is bootstrap/governance only.
-
 ## Authority and execution
 
-1. Read .engineering/SOURCE-HIERARCHY.md and .engineering/CHECKPOINT.md before work.
+1. Read .engineering/SOURCE-HIERARCHY.md and .engineering/CHECKPOINT.md before any work.
 2. Read the active Work Order and its Context Lock before implementation.
-3. Treat exact Git state, tracked canonical documents, and validated evidence as authoritative.
-4. Keep missing, unknown, stale, or conflicting sources explicit; do not infer success.
-5. Do not implement website product scope until a separate product Work Order and Context Lock are admitted.
-6. Do not merge a pull request unless a direct user instruction authorizes that action.
+3. Treat exact Git state, tracked canonical documents, accepted decisions and validated evidence as authoritative.
+4. Keep missing, unknown, stale or conflicting evidence explicit; do not infer success.
+5. Implement only the active Work Order. New scope requires a new or explicitly amended Work Order plus refreshed Context Lock.
+6. Do not merge a pull request unless the current increment has passed objective review and the user has authorized continuation through that gate.
+7. Never force-push, rewrite history, weaken a security/review gate or expose credentials to make an increment pass.
+8. Executor review/result summaries are written in Brazilian Portuguese.
 
-## Bootstrap boundary
+## Product-development boundary
 
-The GEF Bootstrap v1.1.2 increment may add the exact CLI dependency, GEF initialization state, repository governance sources, and evidence. It must not add a frontend framework, page, component, Three.js runtime, Blender asset, logo, or deployment configuration.
+The GEF Bootstrap v1.1.2 baseline is merged. Product work is now governed module by module.
+
+Before product implementation:
+- the preceding planning/decision increment must be APPROVED;
+- the active implementation Work Order must exist;
+- the Context Lock must bind the current base and critical sources;
+- architecture and acceptance criteria must be explicit.
+
+## Visual fidelity
+
+For visual increments, .engineering/UI-UX.md and .engineering/VISUAL-DIRECTION.md are canonical. The selected chrome-humanoid Home direction is not a loose inspiration: material deviation requires explicit review evidence and approval.
+
+## Evidence
+
+Completed is not proof. Each implementation increment must retain evidence appropriate to its risk, including exact base/head, changed files, checks, tests, build/typecheck/lint, security findings, visual/performance evidence when affected, risks and proposed Checkpoint Delta.
