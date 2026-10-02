@@ -11,7 +11,8 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Scope | SCOPE.md and the active Work Order |
 | Requirements | REQUIREMENTS.md and the active Work Order |
 | Architecture | ARCHITECTURE.md and accepted architecture decisions |
-| UI/UX and visual identity | UI-UX.md, VISUAL-DIRECTION.md, BRAND-SYSTEM.md and accepted owner visual decisions |
+| Home visual composition | HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md and the exact approved reference asset |
+| UI/UX and brand identity | UI-UX.md, BRAND-SYSTEM.md and accepted owner visual decisions |
 | Decisions | DECISIONS-LEDGER.md and accepted ADRs |
 | Completion | DEFINITION-OF-DONE.md and Work Order acceptance criteria |
 | Execution | Active Work Order plus its exact Context Lock |
@@ -20,4 +21,4 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-For the active increment, `NEXLABS-WO-004-BRAND-SYSTEM` and its Context Lock are the execution authority. The owner-approved chrome-intelligence Home direction and prior architectural decisions remain binding.
+For the active increment, `NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM` and its Context Lock are the execution authority. The exact Home Visual Master and selected `NEX-N-A-PRECISION-BLADES` identity are binding visual inputs.
