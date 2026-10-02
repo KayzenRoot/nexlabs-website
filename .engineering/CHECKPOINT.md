@@ -1,15 +1,17 @@
 # Project Checkpoint
 
-Status: M03_BRAND_SYSTEM_PLANNING_ADMITTED
+Status: M03_BRAND_CONCEPT_EXPLORATION_ADMITTED
 
 - GEF Bootstrap v1.1.2: APPROVED and merged.
-- M01 Product Foundation & Visual System: APPROVED and merged in PR #3.
-- M02 Runtime & Repository Foundation: APPROVED at exact head `b5cdd0fbb58397deef32aa03712046ba8233fb19` and merged in PR #4.
-- Current main/base SHA after M02 merge: `dee3d01d24c8f7ad9a6c4ab9db2eca31d2f0afbb`.
-- M03 Brand System & N Monogram: ADMITTED for planning under `NEXLABS-WO-004-BRAND-SYSTEM`.
-- Active branch: `planning/nexlabs-wo-004-brand-system`.
-- M03 implementation/art production is NOT_STARTED.
-- Approved development Docker continuity remains in force for later runnable increments.
-- Next legal stage: finalize the M03 brand/monogram specification, independently review it, merge it, then execute the visual concept/vector implementation under a separate implementation Work Order.
+- M01 Product Foundation & Visual System: APPROVED and merged.
+- M02 Runtime & Repository Foundation: APPROVED and merged.
+- M03 Brand System & N Monogram Planning: APPROVED and merged in PR #6.
+- Current main/base SHA: `06cef4bc6c03af2025b3f5b93be053d20cc12cde`.
+- Active increment: M03 Brand Concept Exploration under `NEXLABS-WO-005-BRAND-CONCEPTS`.
+- Active branch: `work/nexlabs-wo-005-brand-concepts`.
+- Goal: generate at least 12 distinct N-monogram directions, shortlist 3, and obtain explicit owner selection before vector-master implementation.
+- Final SVG master, favicon suite, header integration and final motion implementation are NOT admitted until owner selection is recorded.
+- Docker continuity rule remains active for later runnable frontend increments.
+- Next legal stage after owner selection: admit M03 vector/brand implementation from the selected concept.
 
 The machine-readable view is CHECKPOINT.json.

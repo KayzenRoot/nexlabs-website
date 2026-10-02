@@ -1,0 +1,55 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-005-BRAND-CONCEPTS",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "work/nexlabs-wo-005-brand-concepts",
+  "capturedAtUtc": "2026-10-02T18:15:00Z",
+  "riskClass": "STANDARD",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE",
+    "source": "Direct owner instruction to continue website development",
+    "startingHead": "06cef4bc6c03af2025b3f5b93be053d20cc12cde",
+    "mainSha": "06cef4bc6c03af2025b3f5b93be053d20cc12cde",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": true
+  },
+  "writeAllowed": [
+    ".engineering/**"
+  ],
+  "writeForbidden": [
+    "runtime/package source changes",
+    "final SVG/logo/favicon binaries",
+    "header integration",
+    "final logo animation implementation",
+    "M04 hero 3D",
+    "backend/analytics/deployment",
+    "force-push, rebase or history rewrite"
+  ],
+  "criticalSources": {
+    ".engineering/CHECKPOINT.json": "87754e51385d9bfeade069742d4b59e38f55ea90",
+    ".engineering/CHECKPOINT.md": "644b8d389f2741835e644efcccf8219e0eab6942",
+    ".engineering/SOURCE-HIERARCHY.md": "0166f0fab2abd6d7548a6eb58b4e4c6e9a4d135b",
+    ".engineering/DEFINITION-OF-DONE.md": "799c0fc3e58140e8d3f27328f2bb07feac84cd11",
+    ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+    ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+    ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+    ".engineering/DECISIONS-LEDGER.md": "de6220e2c40b969804dda0a3d36729b65c318c01",
+    ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+    ".engineering/VISUAL-DIRECTION.md": "145e75978e4ee2d6fd529c6c96c64786c4bd6ab1",
+    ".engineering/BRAND-SYSTEM.md": "4bf2f02468f8e92b6d6d97c35c1ff6185f9f5b8d",
+    ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+    ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+    ".engineering/BACKLOG.md": "4592141f60e419b0cc93b703fd4670676bc6da0d",
+    "AGENTS.md": "a7253838a4e63acb341767fac57dfa75c3ba33e1",
+    "package.json": "f42583b3644fd87c2e1033a8845e4f2ccc28d147",
+    "package-lock.json": "b557cf27e907e9fdaf8a36bb32a258e9fb4b7e5f"
+  },
+  "proofObligations": [
+    "12 or more concepts across all four brand families",
+    "exactly three finalists",
+    "no final vector implementation before owner selection",
+    "no runtime/package change",
+    "selection evidence recorded"
+  ],
+  "stopCondition": "OWNER_SELECTION_REQUIRED_BEFORE_FINAL_VECTOR_IMPLEMENTATION"
+}
