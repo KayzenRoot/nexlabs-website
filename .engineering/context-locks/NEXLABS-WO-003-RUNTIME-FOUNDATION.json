@@ -51,7 +51,7 @@
       "authorizedAtUtc": "2026-10-02T16:36:47Z",
       "source": "Direct owner instruction in the active thread, formalized in the linked addendum",
       "sourceDocument": ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
-      "sourceDocumentSha256": "470153a82358db3dee3e551b3d45779af4e9e9c1434099c536a1399dfc77b475",
+      "sourceDocumentSha256": "8a0d15960f479485beac89019166ecc039b1a74076f8d69e9d4bff7f7c19361c",
       "pullRequest": 4,
       "startingHead": "61334748d42f331a6370f7587effa464830a4210",
       "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
@@ -65,12 +65,13 @@
         ".engineering/context-locks/NEXLABS-WO-003-RUNTIME-FOUNDATION.json",
         ".engineering/evidence/NEXLABS-WO-003-RUNTIME-FOUNDATION-EVIDENCE.md",
         ".engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md",
+        "src/components/site-footer.tsx (single English-default footer correction only)",
         "src/app/page.tsx (temporary hot-reload validation probe only; restore starting blob 04f5619cd25be6124713b7e562fa2b812dc356d6 before completion)"
       ],
       "writeForbidden": [
         "package.json",
         "package-lock.json",
-        "persistent changes to src/** or public/**",
+        "persistent changes to src/** or public/** except the single English-default footer correction",
         "public/**",
         "additional services such as databases, Redis or proxies",
         "production container/deployment configuration",
@@ -97,7 +98,7 @@
       },
       "amendedAuthorityFingerprints": {
         ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "d23e6f69ed7bcd58d725774c1b50ac28250e8940",
-        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "4bc944a0688fb38dd28f150c436699438432a7e8"
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "2f71bf4609eb8b3846069db5dbdc261117416569"
       },
       "acceptanceCriteria": [
         "Dockerfile uses Node.js 22 and starts the Next.js development server without changing npm manifests or GEF 1.1.2",
@@ -113,6 +114,13 @@
         "startingGitBlob": "04f5619cd25be6124713b7e562fa2b812dc356d6",
         "purpose": "Verify host-to-container Next.js hot reload using a temporary title probe",
         "requiredFinalState": "Restore byte-for-byte to startingGitBlob and confirm no final diff"
+      },
+      "carryForwardLocaleCorrection": {
+        "path": "src/components/site-footer.tsx",
+        "startingGitBlob": "35236ecbeb93f73b6fd05b05e741a08cf7e96fa6",
+        "purpose": "Apply the owner's earlier direct requirement that English be the website default language",
+        "expectedChange": "Replace only the Portuguese footer sentence with English copy",
+        "noOtherChanges": true
       }
     }
   ],

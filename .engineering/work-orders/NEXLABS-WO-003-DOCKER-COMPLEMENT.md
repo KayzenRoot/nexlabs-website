@@ -20,6 +20,7 @@ Este complemento formaliza a instrução direta do owner de 2026-10-02. O Contex
 - Executar como usuário não-root, fornecer healthcheck e não incluir secrets.
 - Criar somente o serviço web; nenhum banco, Redis, proxy ou outro serviço.
 - Documentar os comandos Docker solicitados no `README.md` e registrar a evidência e o Checkpoint Delta proposto em `.engineering/**`.
+- Corrigir somente o texto herdado do rodapé da Home para inglês, atendendo à instrução direta anterior do owner de que inglês seja o idioma padrão do website; não traduzir nem alterar outros conteúdos neste complemento.
 
 ## Validação obrigatória
 
@@ -30,14 +31,14 @@ Executar e registrar:
 3. `docker compose up -d`
 4. `docker compose ps`
 5. `docker compose logs --tail=100`
-6. Abrir o site no navegador do host e confirmar a Home.
+6. Abrir o site no navegador do host e confirmar a Home em inglês.
 7. Alterar temporariamente o título em `src/app/page.tsx`, confirmar hot reload no navegador do host e restaurar byte a byte o conteúdo inicial (`git blob 04f5619cd25be6124713b7e562fa2b812dc356d6`), sem deixar diff.
 8. Confirmar versão Docker/Compose, imagem, container, porta publicada e estado do healthcheck.
 
 ## Limites e condição de parada
 
 - Preservar os manifests npm/lockfile e não adicionar dependências.
-- Não deixar alteração persistente em páginas, componentes ou copy do website; a única escrita admitida em `src/app/page.tsx` é o probe temporário de HMR acima, que deve ser revertido e validado contra o blob inicial.
+- A única alteração persistente de conteúdo admitida é substituir a frase em português do rodapé da Home por sua versão em inglês, conforme instrução direta anterior do owner; sem outras alterações em páginas, componentes ou copy. A única escrita admitida em `src/app/page.tsx` é o probe temporário de HMR acima, que deve ser revertido e validado contra o blob inicial.
 - Docker Desktop no Windows pode deixar o HMR mais lento por causa do acesso a arquivos bind-mounted; medir o resultado real e registrar a limitação se aparecer. [Guia oficial do Next.js](https://nextjs.org/docs/app/guides/local-development).
 - Documentar `docker compose down`, mas não executá-lo: o container precisa permanecer rodando ao concluir.
 - Não fazer merge; não usar force-push, rebase ou reescrita de histórico.
