@@ -22,6 +22,7 @@ Este complemento formaliza a instrução direta do owner de 2026-10-02. O Contex
 - Documentar os comandos Docker solicitados no `README.md` e registrar a evidência e o Checkpoint Delta proposto em `.engineering/**`.
 - Corrigir somente o texto herdado do rodapé da Home para inglês, atendendo à instrução direta anterior do owner de que inglês seja o idioma padrão do website; não traduzir nem alterar outros conteúdos neste complemento.
 - Como a execução do navegador mostrou que Next.js bloqueava os recursos HMR para o host `127.0.0.1`, permitir somente essa origem local em `next.config.ts` via `allowedDevOrigins`; sem curingas ou hosts externos. A configuração oficial do Next.js documenta essa opção para origens de desenvolvimento adicionais ([referência](https://nextjs.org/docs/pages/api-reference/config/next-config-js/allowedDevOrigins)).
+- O primeiro probe confirmou que o bind mount atualiza o arquivo dentro do container, porém não dispara rebuild no watcher Turbopack deste host Windows/Docker. Permitir o fallback de desenvolvimento limitado ao container: `NEXT_DOCKER_DEV=1`, `next dev --webpack` e `watchOptions.poll=1000` sob essa variável somente. A configuração Webpack não pode afetar lint/build local/CI. Polling em Docker/VM é uma solução documentada pelo Webpack ([referência](https://webpack.js.org/configuration/watch/#watchoptionspoll)).
 
 ## Validação obrigatória
 
@@ -39,7 +40,7 @@ Executar e registrar:
 ## Limites e condição de parada
 
 - Preservar os manifests npm/lockfile e não adicionar dependências.
-- Alterações persistentes de escopo limitado: substituir somente a frase em português do rodapé da Home por sua versão em inglês, conforme instrução direta anterior do owner; e adicionar somente `allowedDevOrigins: ["127.0.0.1"]` em `next.config.ts` para que o navegador no host possa receber HMR pelo mapeamento de loopback. Não alterar outras páginas, componentes ou copy, não permitir wildcard/external origin. A única escrita adicional em `src/app/page.tsx` é o probe temporário de HMR acima, que deve ser revertido e validado contra o blob inicial.
+- Alterações persistentes de escopo limitado: substituir somente a frase em português do rodapé da Home por sua versão em inglês; adicionar somente `allowedDevOrigins: ["127.0.0.1"]` e polling Webpack de 1000 ms condicionado a `NEXT_DOCKER_DEV=1` em `next.config.ts`; e definir essa variável/flag no Docker dev. Não alterar outras páginas, componentes ou copy, não permitir wildcard/external origin, nem afetar o build/local fora do Docker. A única escrita adicional em `src/app/page.tsx` é o probe temporário de HMR acima, que deve ser revertido e validado contra o blob inicial.
 - Docker Desktop no Windows pode deixar o HMR mais lento por causa do acesso a arquivos bind-mounted; medir o resultado real e registrar a limitação se aparecer. [Guia oficial do Next.js](https://nextjs.org/docs/app/guides/local-development).
 - Documentar `docker compose down`, mas não executá-lo: o container precisa permanecer rodando ao concluir.
 - Não fazer merge; não usar force-push, rebase ou reescrita de histórico.

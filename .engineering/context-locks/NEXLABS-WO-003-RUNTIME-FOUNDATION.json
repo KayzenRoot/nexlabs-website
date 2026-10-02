@@ -51,7 +51,7 @@
       "authorizedAtUtc": "2026-10-02T16:36:47Z",
       "source": "Direct owner instruction in the active thread, formalized in the linked addendum",
       "sourceDocument": ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
-      "sourceDocumentSha256": "886fb0e5141d5484d7f13d4faec3d766abe1623a193481c3af7b525c08e35bca",
+      "sourceDocumentSha256": "2c65d16871411aec2e12cbe48be954df2c52d4632ccaf0c2f600538c915baf7e",
       "pullRequest": 4,
       "startingHead": "61334748d42f331a6370f7587effa464830a4210",
       "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
@@ -99,7 +99,7 @@
       },
       "amendedAuthorityFingerprints": {
         ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "d23e6f69ed7bcd58d725774c1b50ac28250e8940",
-        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "fda0cc685aa891c2b23aa3d076adf063588f0ab4"
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "056dce666e42df037ef2caf6a32237f99a128f88"
       },
       "acceptanceCriteria": [
         "Dockerfile uses Node.js 22 and starts the Next.js development server without changing npm manifests or GEF 1.1.2",
@@ -129,6 +129,12 @@
         "purpose": "Allow the host browser's loopback origin after Next.js blocked HMR resources from 127.0.0.1",
         "expectedChange": "Add only allowedDevOrigins: [\"127.0.0.1\"]",
         "noWildcardOrigins": true
+      },
+      "dockerBindMountPollingFix": {
+        "paths": ["Dockerfile", "compose.yaml", "next.config.ts"],
+        "purpose": "Enable HMR for the observed Windows host bind-mount filesystem",
+        "expectedChange": "Set NEXT_DOCKER_DEV=1 and run next dev --webpack in Docker; conditionally apply watchOptions.poll=1000 only when that variable is set",
+        "mustNotAffectLocalOrCiBuild": true
       }
     }
   ],
