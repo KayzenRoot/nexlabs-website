@@ -51,7 +51,7 @@
       "authorizedAtUtc": "2026-10-02T16:36:47Z",
       "source": "Direct owner instruction in the active thread, formalized in the linked addendum",
       "sourceDocument": ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
-      "sourceDocumentSha256": "8a0d15960f479485beac89019166ecc039b1a74076f8d69e9d4bff7f7c19361c",
+      "sourceDocumentSha256": "886fb0e5141d5484d7f13d4faec3d766abe1623a193481c3af7b525c08e35bca",
       "pullRequest": 4,
       "startingHead": "61334748d42f331a6370f7587effa464830a4210",
       "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
@@ -66,6 +66,7 @@
         ".engineering/evidence/NEXLABS-WO-003-RUNTIME-FOUNDATION-EVIDENCE.md",
         ".engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md",
         "src/components/site-footer.tsx (single English-default footer correction only)",
+        "next.config.ts (allow only 127.0.0.1 as a development origin for host HMR)",
         "src/app/page.tsx (temporary hot-reload validation probe only; restore starting blob 04f5619cd25be6124713b7e562fa2b812dc356d6 before completion)"
       ],
       "writeForbidden": [
@@ -98,7 +99,7 @@
       },
       "amendedAuthorityFingerprints": {
         ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "d23e6f69ed7bcd58d725774c1b50ac28250e8940",
-        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "2f71bf4609eb8b3846069db5dbdc261117416569"
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "fda0cc685aa891c2b23aa3d076adf063588f0ab4"
       },
       "acceptanceCriteria": [
         "Dockerfile uses Node.js 22 and starts the Next.js development server without changing npm manifests or GEF 1.1.2",
@@ -121,6 +122,13 @@
         "purpose": "Apply the owner's earlier direct requirement that English be the website default language",
         "expectedChange": "Replace only the Portuguese footer sentence with English copy",
         "noOtherChanges": true
+      },
+      "hostHotReloadOriginFix": {
+        "path": "next.config.ts",
+        "startingGitBlob": "dcf478452042490bb80ab95e300ce09d99e7b965",
+        "purpose": "Allow the host browser's loopback origin after Next.js blocked HMR resources from 127.0.0.1",
+        "expectedChange": "Add only allowedDevOrigins: [\"127.0.0.1\"]",
+        "noWildcardOrigins": true
       }
     }
   ],
