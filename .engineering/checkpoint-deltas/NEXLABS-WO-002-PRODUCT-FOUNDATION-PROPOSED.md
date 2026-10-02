@@ -1,21 +1,27 @@
-# Proposed Checkpoint Delta — NEXLABS-WO-002-PRODUCT-FOUNDATION
+# Checkpoint Delta — NEXLABS-WO-002-PRODUCT-FOUNDATION
 
-State: PROPOSED_NOT_PROMOTED
+State: PROMOTED_AFTER_APPROVAL
 
-## Proposed change after approval
+## Promoted change
 
-- Mark GEF Bootstrap v1.1.2 baseline as merged and complete.
-- Mark M01 Product Foundation & Visual System as complete.
-- Accept the V1 visual direction, logo direction, frontend stack and 3D/motion architecture.
-- Keep product implementation progress at 0% because M01 is planning-only.
-- Set next legal increment to M02 Runtime & Repository Foundation.
+- GEF Bootstrap v1.1.2 remains the merged baseline.
+- M01 Product Foundation & Visual System is marked APPROVED.
+- V1 visual direction, logo direction, frontend stack and 3D/motion architecture are accepted.
+- Product implementation progress remains 0% because M01 is planning-only.
+- Next legal stage is merge of PR #3, followed by admission of M02 Runtime & Repository Foundation.
 
-## Promotion gates
+## Promotion evidence
 
-- Planning PR exact-head review completed.
-- No unresolved HIGH/CRITICAL finding.
-- Canonical source consistency confirmed.
-- No product code/runtime dependency introduced.
-- Owner/independent audit authorizes merge.
+- Base main SHA: 424dca87a7fbb39c62347707f003fe4111f617ea.
+- Reviewed exact head before promotion: 7294bf258e9fae038890f5396a21322561192dbb.
+- Independent audit: APPROVED.
+- CodeRabbit: SUCCESS; recent incremental review generated no actionable comments.
+- Prior CodeRabbit MINOR finding about Context Lock write scope: resolved in commit 7294bf2.
+- Socket Security checks: SUCCESS.
+- No unresolved review thread.
+- No known HIGH/CRITICAL finding.
+- package.json unchanged from base during M01.
 
-Do not promote this delta before those gates are satisfied.
+## Boundary
+
+This promotion authorizes merge of the approved M01 planning increment. It does not itself authorize M02 implementation before PR #3 is merged and a new Work Order/Context Lock is admitted from the resulting main SHA.

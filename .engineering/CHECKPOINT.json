@@ -1,15 +1,15 @@
 {
   "schemaVersion": 2,
   "project": "Nex Labs Technology Website",
-  "status": "PRODUCT_FOUNDATION_PLANNING_ACTIVE",
+  "status": "M01_APPROVED_READY_FOR_MERGE",
   "phase": "PRODUCT_PLANNING",
-  "completedThroughModule": "GEF_BOOTSTRAP_V1_1_2",
+  "completedThroughModule": "M01_PRODUCT_FOUNDATION_VISUAL_SYSTEM",
   "completedModuleRange": {
-    "from": 0,
-    "through": 0
+    "from": 1,
+    "through": 1
   },
-  "activeModule": "M01_PRODUCT_FOUNDATION_VISUAL_SYSTEM",
-  "activeModuleStatus": "PLANNING_PR_PREPARATION",
+  "activeModule": "NONE",
+  "activeModuleStatus": "M01_APPROVED_PR3_READY_FOR_MERGE",
   "activeWorkOrder": "NEXLABS-WO-002-PRODUCT-FOUNDATION",
   "mainProductionDenominatorWeight": 100,
   "earnedProductionWeight": 0,
@@ -17,7 +17,8 @@
   "overallCompletionPercent": 0,
   "remainingCompletionPercent": 100,
   "activeModuleEarnedWeight": 0,
-  "nextLegalStage": "INDEPENDENT_REVIEW_AND_CHECKPOINT_PROMOTION",
-  "stopState": "PLANNING_ONLY_NO_PRODUCT_CODE",
+  "nextLegalStage": "MERGE_PR_3_THEN_ADMIT_M02",
+  "stopState": "NO_PRODUCT_IMPLEMENTATION_BEFORE_M01_MERGE",
+  "lastApprovedReviewHead": "7294bf258e9fae038890f5396a21322561192dbb",
   "v11": null
 }
