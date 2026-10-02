@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "commandId": "gef.init.run",
+  "contractVersion": "1.0",
+  "terminal": "BLOCKED",
+  "error": {
+    "id": "m05-apply-run-1-5394fbc93d87-dry_run_stale",
+    "category": "PRECONDITION",
+    "reasonCode": "gef.precondition.mutation_refused",
+    "severity": "ERROR",
+    "summary": "Apply blocked because dry run is STALE",
+    "retryability": "NEVER",
+    "recoverability": "NONE_REQUIRED",
+    "effectStatus": "NONE",
+    "causes": [],
+    "remediations": []
+  }
+}

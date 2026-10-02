@@ -1,0 +1,96 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "commandId": "gef.init.plan",
+  "contractVersion": "1.0",
+  "terminal": "SUCCEEDED",
+  "value": {
+    "commandId": "gef.init.plan",
+    "effect": "NONE",
+    "plan": {
+      "verb": "init",
+      "observation": {
+        "targetRef": "D:\\Projects\\nexlabs-website",
+        "exists": true,
+        "isDirectory": true,
+        "entryCount": 10,
+        "hasGefDirectory": true,
+        "entries": [
+          ".engineering",
+          ".gef",
+          ".gef-private",
+          ".git",
+          ".gitignore",
+          "AGENTS.md",
+          "README.md",
+          "node_modules",
+          "package-lock.json",
+          "package.json"
+        ],
+        "hasGefPrivateDirectory": true,
+        "stateFingerprint": "aa29d4cab2ba2432da546aa71753db39bd2a57f183e3ff92e7b8917c9eab5c81",
+        "projectDriftFingerprint": "7667f96761765c6e92559a72189d44ddbc0587e35a6ec6909bfcc38ad1874ca5"
+      },
+      "repository": {
+        "verdict": {
+          "state": "DIRTY",
+          "dirty": true,
+          "conflict": false,
+          "digest": "1848ea4f9d6277c4d85ed154b4ccb4fab14635c94c8d0aae7961a03cb5776566"
+        },
+        "dirtiness": "OBSERVED",
+        "observationLimits": [
+          "GEF_MANAGED_METADATA_EXCLUDED_FROM_REPOSITORY_DIRTINESS"
+        ]
+      },
+      "install": {
+        "state": "READY",
+        "platform": "win32",
+        "target": "D:\\Projects\\nexlabs-website",
+        "version": "1.1.2",
+        "current": null,
+        "elevated": false,
+        "phases": [
+          "PRECHECK",
+          "STAGE",
+          "VERIFY",
+          "COMMIT"
+        ],
+        "digest": "49fbb21eddd20952b123a7796c522e3a983b3f7e770cd184dda193d5b24ba662"
+      },
+      "governance": {
+        "observationSource": "NOT_OBSERVED",
+        "metadata": {},
+        "labels": [
+          "gef-managed",
+          "governed"
+        ],
+        "templates": {},
+        "labelsToAdd": [
+          "gef-managed",
+          "governed"
+        ],
+        "preservedUnknown": [],
+        "idempotencyKey": "3225b0592637765065843dffae4d61c5365102d3047a7e024a458e38e09fd9d6"
+      },
+      "canonical": {
+        "selected": {
+          "id": ".engineering/CHECKPOINT.json",
+          "kind": "checkpoint",
+          "value": "78e0c7b33ef48a46119911d2a89a35b26c276fa16fea8bce195876c1d1c4a0b4"
+        },
+        "conflict": false,
+        "state": "READY",
+        "digest": "1cf159dc10ab58bac4df83afb6e41377ad7793cc0b616d83ee9f93583855a2ea"
+      },
+      "drift": {
+        "before": "1b3720c8b693d2ef446cf4b2cfee085e21c05c29bc6e425d5020db8225878dbf",
+        "after": "a8f8946ec6dcc9eb69c2a35496f69897ea99429b42274e09558b7e41b06308b1",
+        "changed": true,
+        "class": "UNEXPECTED",
+        "digest": "6387bc503ea293776b51f691f80ab17d8809503aba2c485b6d85cfbe75da6963"
+      }
+    },
+    "planDigest": "5e936c0b9d0a1a93c1bcda57db45711f6551233ce3d191118af2230876531f80"
+  }
+}

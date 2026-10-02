@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "commandId": "gef.init.run",
+  "contractVersion": "1.0",
+  "terminal": "SUCCEEDED",
+  "value": {
+    "commandId": "gef.init.run",
+    "effect": "CONFIRMED",
+    "plan": {
+      "verb": "init",
+      "observation": {
+        "targetRef": "D:\\Projects\\nexlabs-website",
+        "exists": true,
+        "isDirectory": true,
+        "entryCount": 5,
+        "hasGefDirectory": false,
+        "entries": [
+          ".git",
+          "README.md",
+          "node_modules",
+          "package-lock.json",
+          "package.json"
+        ],
+        "hasGefPrivateDirectory": false,
+        "stateFingerprint": "3f4ec30540028330307889a60aae24ca75a16aef8e8b5cd974cd9e6aa99eb872",
+        "projectDriftFingerprint": "3f4ec30540028330307889a60aae24ca75a16aef8e8b5cd974cd9e6aa99eb872"
+      },
+      "repository": {
+        "verdict": {
+          "state": "DIRTY",
+          "dirty": true,
+          "conflict": false,
+          "digest": "69c1f482cd022bc70d571c0a6aa94e52b045b816cb5f395515ca7de8ab5b3622"
+        },
+        "dirtiness": "OBSERVED",
+        "observationLimits": []
+      },
+      "install": {
+        "state": "READY",
+        "platform": "win32",
+        "target": "D:\\Projects\\nexlabs-website",
+        "version": "1.1.2",
+        "current": null,
+        "elevated": false,
+        "phases": [
+          "PRECHECK",
+          "STAGE",
+          "VERIFY",
+          "COMMIT"
+        ],
+        "digest": "49fbb21eddd20952b123a7796c522e3a983b3f7e770cd184dda193d5b24ba662"
+      },
+      "governance": {
+        "observationSource": "NOT_OBSERVED",
+        "metadata": {},
+        "labels": [
+          "gef-managed",
+          "governed"
+        ],
+        "templates": {},
+        "labelsToAdd": [
+          "gef-managed",
+          "governed"
+        ],
+        "preservedUnknown": [],
+        "idempotencyKey": "3225b0592637765065843dffae4d61c5365102d3047a7e024a458e38e09fd9d6"
+      },
+      "canonical": {
+        "selected": null,
+        "conflict": false,
+        "state": "UNKNOWN",
+        "digest": "2211756c625d7e4deb5dee4c396e5b745ca2c78c9b9c3b9a62ddf5be16a78812"
+      },
+      "drift": {
+        "before": "ab59db8e1df899ef0260c0fe18a600a04ef76e85c015de61c155ec7bcf83b75e",
+        "after": "1b3720c8b693d2ef446cf4b2cfee085e21c05c29bc6e425d5020db8225878dbf",
+        "changed": true,
+        "class": "UNEXPECTED",
+        "digest": "6c78af64124d1bf243d4e7c9634908bfccedca7966a394eb0c43b39ab359196b"
+      }
+    },
+    "planDigest": "e7c55bed5c91ff1899d369a55dd112386a9f0598844054a8240c7830ced86649",
+    "document": {
+      "schemaVersion": "1.0",
+      "kind": "gef.init.state",
+      "verb": "init",
+      "commandId": "gef.init.run",
+      "contractVersion": "1.0",
+      "productVersion": "1.1.2",
+      "runId": "run-1-5fb3f415978c",
+      "planDigest": "e7c55bed5c91ff1899d369a55dd112386a9f0598844054a8240c7830ced86649",
+      "observationFingerprint": "3f4ec30540028330307889a60aae24ca75a16aef8e8b5cd974cd9e6aa99eb872",
+      "observationModel": "PROJECT_DRIFT_V1",
+      "transaction": {
+        "planDigest": "e7c55bed5c91ff1899d369a55dd112386a9f0598844054a8240c7830ced86649",
+        "outcome": "APPLIED"
+      }
+    },
+    "artifactRef": ".gef/init-state.json",
+    "transaction": {
+      "outcome": "APPLIED",
+      "planDigest": "f3aed5ae98f95672a7c5b8652a4e03d74cd3221c4291709393dc314f850b31a7",
+      "receiptDigest": "24a59b1fa32a05539c68e2bf216b0aaddea9502221672f23206f109f11ba99d4",
+      "postFingerprint": "db955cfd53e68b5b1bcb2d1bce4fdc6fc62887b1f619f622faac8c73d54d4a7c"
+    }
+  }
+}

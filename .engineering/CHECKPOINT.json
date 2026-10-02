@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "project": "Nex Labs Technology Website",
+  "status": "GEF_BOOTSTRAP_PR_OPEN",
+  "phase": "GEF_BOOTSTRAP",
+  "completedThroughModule": "NONE",
+  "completedModuleRange": {
+    "from": 0,
+    "through": 0
+  },
+  "activeModule": "GEF_BOOTSTRAP_V1_1_2",
+  "activeModuleStatus": "PR_OPEN_NO_MERGE",
+  "activeWorkOrder": "NEXLABS-WO-001-GEF-BOOTSTRAP",
+  "mainProductionDenominatorWeight": 100,
+  "earnedProductionWeight": 0,
+  "remainingProductionWeight": 100,
+  "overallCompletionPercent": 0,
+  "remainingCompletionPercent": 100,
+  "activeModuleEarnedWeight": 0,
+  "nextLegalStage": "INDEPENDENT_REVIEW_AND_REQUIRED_CHECKS",
+  "stopState": "PR_OPEN_UNMERGED",
+  "v11": null
+}
