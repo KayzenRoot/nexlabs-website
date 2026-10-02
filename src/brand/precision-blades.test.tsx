@@ -21,6 +21,10 @@ const geometryAssets = [
   "src/app/icon.svg",
 ];
 
+/**
+ * Reads the canonical master-path geometry embedded in a generated brand SVG
+ * so tests can prove every exported asset remains aligned with the approved N.
+ */
 function readMasterGeometry(relativePath: string) {
   const source = readFileSync(resolve(process.cwd(), relativePath), "utf8");
   return Array.from(
