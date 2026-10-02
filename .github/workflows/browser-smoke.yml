@@ -1,0 +1,52 @@
+name: Browser Smoke
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: browser-smoke-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  smoke:
+    name: Browser Smoke
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Set up Node.js 22
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Install Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Build the production application
+        run: npm run build
+
+      - name: Run browser smoke and accessibility checks
+        run: npm run test:e2e
+
+      - name: Retain responsive screenshots and browser traces
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: nex-labs-home-evidence-${{ github.sha }}
+          path: |
+            .engineering/evidence/NEXLABS-WO-003-RUNTIME-FOUNDATION/screenshots/*.png
+            test-results/
+          if-no-files-found: error
+          retention-days: 30

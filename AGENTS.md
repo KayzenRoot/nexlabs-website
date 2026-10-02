@@ -28,3 +28,7 @@ For visual increments, .engineering/UI-UX.md and .engineering/VISUAL-DIRECTION.m
 ## Evidence
 
 Completed is not proof. Each implementation increment must retain evidence appropriate to its risk, including exact base/head, changed files, checks, tests, build/typecheck/lint, security findings, visual/performance evidence when affected, risks and proposed Checkpoint Delta.
+
+## Development Docker continuity
+
+For any frontend/application increment that has a runnable local UI, the executor must leave the approved development Docker service running and healthy at the stop condition unless the owner explicitly asks otherwise. The Evidence Bundle must record the local URL/port, container health and the commands needed to inspect logs/status. Do not run `docker compose down` as part of normal completion. This rule exists so the owner can continuously inspect the current visual state while development advances.

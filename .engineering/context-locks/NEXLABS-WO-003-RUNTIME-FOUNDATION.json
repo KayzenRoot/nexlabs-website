@@ -1,0 +1,171 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-003-RUNTIME-FOUNDATION",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "work/nexlabs-wo-003-runtime-foundation",
+  "capturedAtUtc": "2026-10-02T14:50:01Z",
+  "riskClass": "STANDARD",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE_AFTER_M01_MERGE",
+    "source": "Direct owner instruction to continue development after the M01 gate",
+    "startingHead": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
+    "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": true
+  },
+  "writeAllowed": [
+    "package.json",
+    "package-lock.json",
+    ".nvmrc",
+    ".node-version",
+    "next.config.*",
+    "tsconfig.json",
+    "eslint.config.*",
+    "postcss.config.*",
+    "vitest.config.*",
+    "playwright.config.*",
+    ".gitignore",
+    "README.md",
+    "src/**",
+    "public/**",
+    ".github/**",
+    ".engineering/**",
+    "AGENTS.md"
+  ],
+  "writeForbidden": [
+    "Three.js, React Three Fiber, Drei, GSAP or production 3D runtime dependencies",
+    "Blender/GLB/glTF production assets",
+    "final logo/favicons from M03",
+    "secondary public pages from M06",
+    "backend/database/authentication/contact submission",
+    "analytics, trackers, pixels, cookies, CRM or CMS",
+    "public deployment or release",
+    "unrelated cleanup",
+    "force-push, rebase or history rewrite",
+    "weakening required security/review gates"
+  ],
+  "scopeAmendments": [
+    {
+      "id": "NEXLABS-WO-003-DOCKER-COMPLEMENT",
+      "state": "OWNER_AUTHORIZED_SUPPLEMENT",
+      "authorizedAtUtc": "2026-10-02T16:36:47Z",
+      "source": "Direct owner instruction in the active thread, formalized in the linked addendum",
+      "sourceDocument": ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
+      "sourceDocumentSha256": "2c65d16871411aec2e12cbe48be954df2c52d4632ccaf0c2f600538c915baf7e",
+      "pullRequest": 4,
+      "startingHead": "61334748d42f331a6370f7587effa464830a4210",
+      "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
+      "writeAllowed": [
+        "Dockerfile",
+        "compose.yaml",
+        ".dockerignore",
+        "README.md",
+        ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md",
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
+        ".engineering/context-locks/NEXLABS-WO-003-RUNTIME-FOUNDATION.json",
+        ".engineering/evidence/NEXLABS-WO-003-RUNTIME-FOUNDATION-EVIDENCE.md",
+        ".engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md",
+        "src/components/site-footer.tsx (single English-default footer correction only)",
+        "next.config.ts (allow only 127.0.0.1 as a development origin for host HMR)",
+        "src/app/page.tsx (temporary hot-reload validation probe only; restore starting blob 04f5619cd25be6124713b7e562fa2b812dc356d6 before completion)"
+      ],
+      "writeForbidden": [
+        "package.json",
+        "package-lock.json",
+        "persistent changes to src/** or public/** except the single English-default footer correction",
+        "public/**",
+        "additional services such as databases, Redis or proxies",
+        "production container/deployment configuration",
+        "secrets or credentials"
+      ],
+      "repositoryFingerprintsAtStartingHead": {
+        ".engineering/CHECKPOINT.json": "6497622682eb1041a11cb5035a02d44d8ff8d5ce",
+        ".engineering/CHECKPOINT.md": "50488599d22ba1bee49be1f121c6c0f436bf3397",
+        ".engineering/SOURCE-HIERARCHY.md": "7095adc817fdc797dcf48597925e36feb6a6d7d7",
+        ".engineering/DEFINITION-OF-DONE.md": "d2ac3790b426e8c0f1f84987130d8b27f494eb36",
+        ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+        ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+        ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+        ".engineering/DECISIONS-LEDGER.md": "bfce2841796592bdf2fa22dafd53541f0f774ac1",
+        ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+        ".engineering/VISUAL-DIRECTION.md": "145e75978e4ee2d6fd529c6c96c64786c4bd6ab1",
+        ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+        ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+        ".engineering/BACKLOG.md": "27e908081e78c297f37c19559e69ef0043ef9af2",
+        "AGENTS.md": "070b1facdccb8a19245d5235e545a41062104710",
+        "package.json": "f42583b3644fd87c2e1033a8845e4f2ccc28d147",
+        "package-lock.json": "b557cf27e907e9fdaf8a36bb32a258e9fb4b7e5f",
+        ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "f27e4b459a15272441e5c1dd3a397577a2c27d42"
+      },
+      "amendedAuthorityFingerprints": {
+        ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "d23e6f69ed7bcd58d725774c1b50ac28250e8940",
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "056dce666e42df037ef2caf6a32237f99a128f88"
+      },
+      "acceptanceCriteria": [
+        "Dockerfile uses Node.js 22 and starts the Next.js development server without changing npm manifests or GEF 1.1.2",
+        "compose.yaml publishes Home to the host, bind-mounts source safely for hot reload, runs as non-root and exposes a healthcheck",
+        ".dockerignore excludes local dependencies, build output, governance/test artifacts and environment secrets",
+        "docker compose config, build, up -d, ps and logs --tail=100 pass; host browser and a reversible source edit confirm Home/HMR",
+        "Evidence Bundle records Docker/Compose versions, image/container, port, health, commands, browser result and limitations",
+        "README documents up -d, logs -f, ps and down; down is documentation only and must not be executed",
+        "No merge; the development container remains running at the stop condition"
+      ],
+      "temporaryValidationWrite": {
+        "path": "src/app/page.tsx",
+        "startingGitBlob": "04f5619cd25be6124713b7e562fa2b812dc356d6",
+        "purpose": "Verify host-to-container Next.js hot reload using a temporary title probe",
+        "requiredFinalState": "Restore byte-for-byte to startingGitBlob and confirm no final diff"
+      },
+      "carryForwardLocaleCorrection": {
+        "path": "src/components/site-footer.tsx",
+        "startingGitBlob": "35236ecbeb93f73b6fd05b05e741a08cf7e96fa6",
+        "purpose": "Apply the owner's earlier direct requirement that English be the website default language",
+        "expectedChange": "Replace only the Portuguese footer sentence with English copy",
+        "noOtherChanges": true
+      },
+      "hostHotReloadOriginFix": {
+        "path": "next.config.ts",
+        "startingGitBlob": "dcf478452042490bb80ab95e300ce09d99e7b965",
+        "purpose": "Allow the host browser's loopback origin after Next.js blocked HMR resources from 127.0.0.1",
+        "expectedChange": "Add only allowedDevOrigins: [\"127.0.0.1\"]",
+        "noWildcardOrigins": true
+      },
+      "dockerBindMountPollingFix": {
+        "paths": ["Dockerfile", "compose.yaml", "next.config.ts"],
+        "purpose": "Enable HMR for the observed Windows host bind-mount filesystem",
+        "expectedChange": "Set NEXT_DOCKER_DEV=1 and run next dev --webpack in Docker; conditionally apply watchOptions.poll=1000 only when that variable is set",
+        "mustNotAffectLocalOrCiBuild": true
+      }
+    }
+  ],
+  "criticalSources": {
+    ".engineering/CHECKPOINT.json": "efd51e0f34cd090a694379a9d9932c139ab942a4",
+    ".engineering/CHECKPOINT.md": "3a7d0396504126b3f0a86d22b232ecd85056da71",
+    ".engineering/SOURCE-HIERARCHY.md": "db2c00f16061d36abc04bcbc4e88fad1123a303f",
+    ".engineering/DEFINITION-OF-DONE.md": "6a1428cbf3baa00e6b3024e6ba114d0fc06f4f8d",
+    ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+    ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+    ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+    ".engineering/DECISIONS-LEDGER.md": "bfce2841796592bdf2fa22dafd53541f0f774ac1",
+    ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+    ".engineering/VISUAL-DIRECTION.md": "145e75978e4ee2d6fd529c6c96c64786c4bd6ab1",
+    ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+    ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+    ".engineering/BACKLOG.md": "26b47b93106cb08c33594ce6dc4a57b1556e86b4",
+    "AGENTS.md": "070b1facdccb8a19245d5235e545a41062104710",
+    "package.json": "f1d7cb4df0d3f5098e597d7d1fae0cd3f4dd466a",
+    "package-lock.json": "4caf2466ffb837d93d3da95dc3900ed57a90bc26"
+  },
+  "proofObligations": [
+    "Next.js App Router and strict TypeScript runtime is functional",
+    "GEF 1.1.2 pin and private package invariant preserved",
+    "lint, typecheck, unit tests, production build and browser smoke pass",
+    "Home static shell and no-WebGL fallback satisfy accessibility and responsive checks",
+    "No M03-M07 scope or 3D runtime dependency enters the diff",
+    "CI Quality and Browser Smoke checks are green",
+    "Professional main ruleset and merge settings are verified or objectively BLOCKED by permissions",
+    "Evidence Bundle is complete",
+    "Exact-head independent audit before merge"
+  ],
+  "stopCondition": "IMPLEMENTATION_COMPLETE_EVIDENCE_READY_PR_UNMERGED"
+}
