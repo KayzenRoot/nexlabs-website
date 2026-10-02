@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 264" role="img" aria-labelledby="title desc">
+  <title id="title">Nex Labs N mark for dark surfaces</title>
+  <desc id="desc">Monochrome light Nex Labs Precision Blades N, with the same geometry as the flat master.</desc>
+  <g fill="#F3F6FB" transform="translate(4 4)">
+    <path d="M42 30H89L93 34V222H42L30 210V42Z" />
+    <path d="M80 222L155 30H214L139 222Z" />
+    <path d="M167 34L171 30H214L226 42V210L214 222H167V34Z" />
+  </g>
+</svg>

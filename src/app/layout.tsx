@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: "Nex Labs Technology — A New Space Taking Shape",
   description:
     "The new digital home of Nex Labs Technology is taking shape.",
+  icons: {
+    icon: [
+      {
+        url: "/brand/nex-n-precision-blades-mono-dark.svg",
+        type: "image/svg+xml",
+      },
+    ],
+  },
 };
 
 /**

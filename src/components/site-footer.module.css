@@ -12,7 +12,43 @@
   font-size: var(--text-xs);
 }
 
-.footer p {
+.brandLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  color: var(--color-text-primary);
+  text-decoration: none;
+}
+
+.markFrame {
+  display: block;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex: 0 0 auto;
+  color: var(--color-brand-mark);
+}
+
+.wordmark {
+  display: grid;
+  gap: 0.08rem;
+}
+
+.name {
+  font-size: var(--text-xs);
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+}
+
+.descriptor {
+  color: var(--color-brand-subtle);
+  font-family: var(--font-mono);
+  font-size: 0.5rem;
+  letter-spacing: 0.24em;
+  line-height: 1.4;
+}
+
+.note {
   margin: 0;
 }
 

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 450 110" role="img" aria-labelledby="title desc">
+  <title id="title">Nex Labs</title>
+  <desc id="desc">Nex Labs horizontal lockup with the Precision Blades N mark.</desc>
+  <g fill="#111820" transform="translate(10 8) scale(.36)">
+    <path d="M42 30H89L93 34V222H42L30 210V42Z" />
+    <path d="M80 222L155 30H214L139 222Z" />
+    <path d="M167 34L171 30H214L226 42V210L214 222H167V34Z" />
+  </g>
+  <text x="105" y="68" fill="#111820" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="35" font-weight="700" letter-spacing="3.5">NEX LABS</text>
+</svg>

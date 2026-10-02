@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 264 264" role="img" aria-labelledby="title desc">
+  <title id="title">Nex Labs Precision Blades N in chrome and electric blue</title>
+  <desc id="desc">Enhanced metallic presentation of the same flat master geometry, with a restrained electric-blue edge on the diagonal.</desc>
+  <defs>
+    <linearGradient id="bladeChrome" x1="34" y1="34" x2="230" y2="226" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F5F7FA" />
+      <stop offset=".18" stop-color="#AEB9C6" />
+      <stop offset=".36" stop-color="#313C4B" />
+      <stop offset=".55" stop-color="#DFE6ED" />
+      <stop offset=".72" stop-color="#697687" />
+      <stop offset=".88" stop-color="#F2F5F8" />
+      <stop offset="1" stop-color="#8997A8" />
+    </linearGradient>
+    <linearGradient id="bridgeChromeBlue" x1="84" y1="226" x2="159" y2="34" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#98A5B5" />
+      <stop offset=".62" stop-color="#E9EFF5" />
+      <stop offset=".88" stop-color="#C7E8FF" />
+      <stop offset="1" stop-color="#69B8FF" />
+    </linearGradient>
+  </defs>
+  <g transform="translate(4 4)">
+    <path fill="url(#bladeChrome)" d="M42 30H89L93 34V222H42L30 210V42Z" />
+    <path fill="url(#bridgeChromeBlue)" d="M80 222L155 30H214L139 222Z" />
+    <path fill="url(#bladeChrome)" d="M167 34L171 30H214L226 42V210L214 222H167V34Z" />
+  </g>
+</svg>

@@ -1,4 +1,5 @@
 import styles from "./site-header.module.css";
+import { BrandMark } from "./brand-mark";
 
 const navigation = [
   { href: "#home", label: "Home" },
@@ -14,9 +15,14 @@ export function SiteHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.wordmark} href="#home" aria-label="Nex Labs Technology — home">
-          <span className={styles.name}>NEX LABS</span>
-          <span className={styles.descriptor}>TECHNOLOGY</span>
+        <a className={styles.brandLink} href="#home" aria-label="Nex Labs Technology — home">
+          <span className={styles.markFrame}>
+            <BrandMark />
+          </span>
+          <span className={styles.wordmark}>
+            <span className={styles.name}>NEX LABS</span>
+            <span className={styles.descriptor}>TECHNOLOGY</span>
+          </span>
         </a>
 
         <nav className={styles.navigation} aria-label="Main navigation">
