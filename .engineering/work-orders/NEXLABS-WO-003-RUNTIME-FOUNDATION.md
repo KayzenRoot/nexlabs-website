@@ -235,3 +235,7 @@ Final executor report in Brazilian Portuguese:
 ## STOP CONDITION
 
 Stop after implementation, corrections, evidence, push and PR update when all executor-controlled acceptance criteria are satisfied. Do not merge. If a required permission, invariant or HIGH/CRITICAL issue cannot be resolved safely, stop BLOCKED with evidence. Merge and checkpoint promotion belong to the independent audit gate.
+
+## OWNER-AUTHORIZED ADDENDUM
+
+On 2026-10-02 the owner added the bounded local Docker development environment in [NEXLABS-WO-003-DOCKER-COMPLEMENT.md](NEXLABS-WO-003-DOCKER-COMPLEMENT.md). Its paths, current PR starting HEAD, fingerprints, acceptance criteria and stop condition are recorded in the refreshed Context Lock. This does not admit public deployment or production containers.
