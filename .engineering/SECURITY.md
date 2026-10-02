@@ -1,14 +1,24 @@
 # Security Policy
 
-## Bootstrap baseline
+## Repository baseline
 
-- Keep the npm project private until licensing and publication intent are explicitly decided.
-- Pin the GEF CLI exactly and retain the package lockfile.
-- Do not commit credentials, tokens, local transaction journals, or user-specific secrets.
-- Keep .gef-private excluded from version control; retain the GEF-managed .gef state and receipt as review evidence.
-- Run the available npm dependency audit and report signature/provenance tooling gaps without converting them into a PASS.
-- Do not change branch protections or security gates within this bootstrap increment.
+- Keep the npm package private.
+- Keep @gef-bootstrap/cli pinned exactly and retain package-lock.
+- Never commit credentials, tokens, local transaction journals or personal secrets.
+- Keep .gef-private excluded from version control.
+- Dependency/security tooling gaps must remain explicit and must not be converted into PASS without evidence.
 
-## Product security
+## Website V1 product security
 
-Threat model, data flows, collection, retention, and runtime security requirements remain NOT_STARTED until product scope is admitted.
+- Public content must not expose private repository, account or operational secrets.
+- Contact handling, when implemented, requires server-side schema validation, rate limiting, abuse controls and failure-safe logging.
+- No authentication, privileged admin surface or customer data store is admitted in V1 without a separate elevated-risk Work Order.
+- Do not add third-party trackers, pixels or cookies by default.
+- Any analytics/marketing integration requires an explicit privacy review and data-flow update.
+- External links and embeds must be deliberately allowlisted where practical.
+- Security headers/CSP strategy must be addressed before production release.
+- Public claims, partner names, metrics and testimonials require factual source verification.
+
+## Current M01 boundary
+
+M01 is planning-only and introduces no runtime attack surface. Runtime threat modeling is refined during M02/M06 as concrete routes and integrations exist.

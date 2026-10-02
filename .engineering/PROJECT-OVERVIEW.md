@@ -5,12 +5,22 @@
 - Project: Nex Labs Technology official website
 - Repository: KayzenRoot/nexlabs-website
 - Default branch: main
-- Lifecycle: GREENFIELD
+- Lifecycle: GREENFIELD PRODUCT PLANNING
 
 ## Current state
 
-The repository begins with the GEF Bootstrap v1.1.2 governance increment. Product planning and website implementation remain NOT_STARTED. No public website URL, hosting provider, product framework, logo, or page requirements are established by this bootstrap Work Order.
+GEF Bootstrap v1.1.2 is approved and merged. Product planning is ACTIVE under NEXLABS-WO-002-PRODUCT-FOUNDATION. Product implementation remains NOT_STARTED.
+
+The V1 website direction now has:
+- approved information architecture;
+- approved chrome-humanoid Home Visual Master direction;
+- approved secondary cube/infrastructure visual language;
+- approved N monogram direction;
+- accepted frontend and 3D/motion architecture;
+- explicit performance, accessibility, security/privacy and content-integrity requirements.
+
+No website runtime, public deployment, final logo binary or production Blender asset exists yet.
 
 ## Operating boundary
 
-The active bootstrap Work Order creates repository governance and records GEF initialization evidence. It does not admit product implementation. A separate product Work Order must establish product requirements and architecture before website code is added.
+M01 is planning-only. Implementation begins only after the active planning Work Order is independently reviewed, its checkpoint delta is promoted and the planning PR is merged.
