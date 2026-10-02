@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "project": "Nex Labs Technology Website",
-  "status": "M03_BRAND_CONCEPT_EXPLORATION_ADMITTED",
+  "status": "M03_BRAND_CONCEPT_SELECTED_AWAITING_REVIEW",
   "phase": "BRAND_IMPLEMENTATION",
   "completedThroughModule": "M03_BRAND_SYSTEM_PLANNING",
   "completedModuleRange": {
@@ -9,7 +9,7 @@
     "through": 2
   },
   "activeModule": "M03_BRAND_CONCEPT_EXPLORATION",
-  "activeModuleStatus": "ADMITTED_AWAITING_CONCEPT_GENERATION_AND_OWNER_SELECTION",
+  "activeModuleStatus": "OWNER_SELECTED_AWAITING_EXACT_HEAD_REVIEW",
   "activeWorkOrder": "NEXLABS-WO-005-BRAND-CONCEPTS",
   "activeBranch": "work/nexlabs-wo-005-brand-concepts",
   "mainProductionDenominatorWeight": 100,
@@ -18,9 +18,10 @@
   "overallCompletionPercent": 0,
   "remainingCompletionPercent": 100,
   "activeModuleEarnedWeight": 0,
-  "nextLegalStage": "GENERATE_12_CONCEPTS_SHORTLIST_3_OWNER_SELECTS",
-  "stopState": "NO_FINAL_VECTOR_IMPLEMENTATION_BEFORE_OWNER_SELECTION",
+  "nextLegalStage": "APPROVE_MERGE_WO_005_THEN_ADMIT_VECTOR_IMPLEMENTATION",
+  "stopState": "NO_FINAL_VECTOR_IMPLEMENTATION_BEFORE_WO_005_APPROVAL_MERGE",
   "lastApprovedReviewHead": "5dc06e53b28cf2ee668070f0d29d74c13e8d86f1",
   "lastMergedMainSha": "06cef4bc6c03af2025b3f5b93be053d20cc12cde",
-  "v11": null
+  "v11": null,
+  "selectedBrandConcept": "NEX-N-A-PRECISION-BLADES"
 }
