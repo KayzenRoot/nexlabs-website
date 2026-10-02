@@ -25,7 +25,7 @@ State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
 
 - final documentation-inclusive PR head SHA and exact-head GitHub checks;
 - exact-head CodeRabbit review completed on the ready source/test PR head;
-- documentation-only correction for CodeRabbit's minor request to add the required Brazilian Portuguese review record, followed by its exact-head checks;
+- Brazilian Portuguese review record added; exact-head checks for the documentation-inclusive PR head remain required;
 - independent reviewer verdict `APPROVED`;
 - Docker confirmed UP/healthy at final owner handoff;
 - authorized merge and subsequent checkpoint approval.
