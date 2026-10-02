@@ -65,6 +65,20 @@ Required implementation variants:
 5. Monochrome dark.
 6. Enhanced chrome presentation.
 
+### Clear space and minimum-size rules
+
+Use the canonical symbol width as unit `N`.
+
+- Minimum clear space around symbol-only usage: `0.25N` on every side.
+- Minimum clear space around horizontal lockups: `0.25N` above/below and at the outer edges.
+- Symbol-to-wordmark gap: target `0.20N`–`0.28N`, finalized optically with the selected type treatment.
+- Standard digital symbol minimum: 24 CSS px.
+- Simplified favicon mark: permitted at 16 px only after the selected geometry passes a dedicated legibility check.
+- Horizontal lockup minimum rendered height: 24 CSS px.
+- Extended NEX LABS / TECHNOLOGY lockup minimum rendered height: 28 CSS px.
+- Below these sizes, use the simplified symbol-only variant rather than compressing the full lockup.
+- Clear-space exceptions are not allowed for decorative chrome effects; glow/reflection may visually extend outside the protected area but the underlying vector geometry may not.
+
 ## Typography direction
 
 - Wordmark: custom-spaced geometric grotesk treatment.
