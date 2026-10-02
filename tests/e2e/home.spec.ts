@@ -108,7 +108,11 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
     .getByRole("link", { name: /contact nex labs/i })
     .evaluate((link) => getComputedStyle(link).transitionDuration);
   expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.0001);
-  await expect(page.locator("header svg path").first()).toHaveCSS("animation-name", "none");
+  await expect(page.locator("header svg [data-master-geometry]")).toHaveCSS(
+    "animation-name",
+    "none",
+  );
+  await expect(page.locator("header svg > path")).toHaveCSS("animation-name", "none");
   mkdirSync(screenshotDirectory, { recursive: true });
   await page.screenshot({
     path: resolve(screenshotDirectory, "home-reduced-motion-desktop-1440x900.png"),

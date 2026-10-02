@@ -6,8 +6,8 @@ import styles from "./brand-mark.module.css";
 import { useId } from "react";
 
 type BrandMarkProps = {
-  className?: string;
-  decorative?: boolean;
+  readonly className?: string;
+  readonly decorative?: boolean;
 };
 
 /**
