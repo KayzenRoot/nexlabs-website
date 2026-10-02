@@ -1,12 +1,10 @@
 /**
- * Canonical, flat geometry for the owner-selected NEX-N-A-PRECISION-BLADES mark.
- * Keep the standalone SVG variants in public/brand and src/app/icon.svg aligned
- * with these paths; precision-blades.test.ts guards that contract.
+ * Vector contour traced from the owner-approved monochrome N on the Nex Labs
+ * identity board. The approved chrome artwork is clipped to this exact master.
  */
 export const precisionBladesGeometry = {
-  leftBlade: "M42 30H89L93 34V222H42L30 210V42Z",
-  diagonalBridge: "M80 222L155 30H214L139 222Z",
-  rightBlade: "M167 34L171 30H214L226 42V210L214 222H167V34Z",
+  silhouette: 'M0,0 L4,1 L5,7 L5,272 L3,276 L-3,276 L-2,285 L-3,286 L-48,285 L-61,284 L-69,277 L-102,244 L-109,236 L-118,227 L-126,220 L-133,213 L-140,205 L-148,197 L-153,192 L-163,182 L-171,175 L-187,159 L-187,157 L-191,155 L-192,152 L-196,150 L-202,144 L-209,143 L-209,162 L-210,220 L-216,227 L-224,234 L-232,242 L-240,249 L-245,253 L-250,258 L-259,267 L-268,274 L-275,282 L-281,283 L-284,281 L-283,114 L-283,20 L-279,18 L-270,20 L-270,15 L-269,14 L-224,15 L-216,22 L-191,47 L-184,55 L-177,62 L-170,70 L-97,143 L-89,150 L-81,158 L-74,159 L-74,70 L-72,65 L-60,54 L-52,47 L-49,44 L-47,44 L-46,41 L-38,34 L-25,22 L-9,7 L-2,1 Z ',
 } as const;
 
+export const precisionBladesTransform = 'translate(311 14)';
 export const precisionBladesPathData = Object.values(precisionBladesGeometry);

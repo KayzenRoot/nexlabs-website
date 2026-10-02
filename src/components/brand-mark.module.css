@@ -7,30 +7,11 @@
 }
 
 .assembly {
-  transform-box: fill-box;
-  transform-origin: center;
   animation: mark-reveal 720ms var(--ease-standard) both;
 }
 
-.leftBlade,
-.diagonalBridge,
-.rightBlade {
-  fill: currentColor;
-}
-
-.leftBlade {
-  transform-origin: 62px 126px;
-  animation: blade-left 720ms var(--ease-standard) both;
-}
-
-.diagonalBridge {
-  transform-origin: 128px 126px;
-  animation: blade-bridge 840ms var(--ease-standard) 70ms both;
-}
-
-.rightBlade {
-  transform-origin: 196px 126px;
-  animation: blade-right 720ms var(--ease-standard) both;
+.material {
+  pointer-events: none;
 }
 
 .lightSweep {
@@ -60,39 +41,6 @@
   }
 }
 
-@keyframes blade-left {
-  from {
-    opacity: 0;
-    transform: translateX(-3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes blade-bridge {
-  from {
-    opacity: 0;
-    transform: translateY(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes blade-right {
-  from {
-    opacity: 0;
-    transform: translateX(3px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
 @keyframes light-sweep {
   0% {
     stroke-dashoffset: 1;
@@ -112,13 +60,14 @@
 
 @media (prefers-reduced-motion: reduce) {
   .assembly,
-  .leftBlade,
-  .diagonalBridge,
-  .rightBlade,
   .lightSweep {
     animation: none !important;
     opacity: 1;
     transform: none;
+  }
+
+  .lightSweep {
+    opacity: 0;
   }
 
   .mark:hover .assembly,

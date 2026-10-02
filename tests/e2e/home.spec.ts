@@ -171,6 +171,12 @@ test("horizontal lockups and the chrome-blue treatment load as the selected iden
       await mark.evaluate((image: HTMLImageElement) => image.complete && image.naturalWidth > 0),
     ).toBe(true);
   }
+  const chromeAsset = await page.evaluate(async (url) => {
+    const response = await fetch(url);
+    return { status: response.status, svg: await response.text() };
+  }, `${origin}/brand/nex-n-precision-blades-chrome-blue.svg`);
+  expect(chromeAsset.status).toBe(200);
+  expect(chromeAsset.svg).toContain("data:image/webp;base64,");
   await page.screenshot({
     path: resolve(screenshotDirectory, "lockups-and-chrome-blue.png"),
     fullPage: true,
