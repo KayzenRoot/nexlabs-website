@@ -31,6 +31,27 @@ npm ci
 npm run dev
 ```
 
+## Docker development
+
+Requires Docker Engine/Desktop with Docker Compose. The development container
+uses Node.js 22, publishes the site on `http://localhost:3000`, and bind-mounts
+`src/` read-only so local source edits are picked up by Next.js Fast Refresh.
+Dependencies and `.next` output stay in the Linux image/named volume rather
+than using Windows host `node_modules` or build output.
+
+```sh
+docker compose up -d
+docker compose logs -f
+docker compose ps
+docker compose down
+```
+
+Use `docker compose up -d --build` after changing `package.json` or
+`package-lock.json` so the image installs the updated locked dependencies. The
+service runs as the image's non-root `node` user and binds port 3000 to loopback
+on the host. Docker Desktop on Windows may deliver file changes more slowly
+than local Node.js; see the [Next.js development environment guide](https://nextjs.org/docs/app/guides/local-development).
+
 ## Validation
 
 ```sh
