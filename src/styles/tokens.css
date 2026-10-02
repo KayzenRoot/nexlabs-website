@@ -1,0 +1,96 @@
+:root {
+  color-scheme: dark;
+
+  /* Palette */
+  --color-space-0: #050608;
+  --color-space-1: #090d13;
+  --color-space-2: #101722;
+  --color-surface-glass: rgb(17 24 34 / 72%);
+  --color-surface-raised: rgb(22 30 42 / 88%);
+  --color-line-soft: rgb(202 218 236 / 12%);
+  --color-line-strong: rgb(214 228 244 / 24%);
+  --color-text-primary: #f3f6fb;
+  --color-text-secondary: #b3bfce;
+  --color-text-muted: #8492a3;
+  --color-accent-cyan: #a5e9f2;
+  --color-accent-blue: #87bfff;
+  --color-accent-violet: #b2a1fa;
+  --color-chrome-light: #f5f7fa;
+  --color-chrome-mid: #8793a2;
+  --color-chrome-dark: #27313f;
+
+  /* Spacing */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+
+  /* Typography */
+  --font-sans: Inter, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.25rem;
+  --text-display: clamp(3.125rem, 6.2vw, 6.25rem);
+  --leading-tight: 0.98;
+  --leading-heading: 1.12;
+  --leading-copy: 1.7;
+  --tracking-wide: 0.16em;
+  --tracking-display: -0.055em;
+
+  /* Surfaces, radii and shadows */
+  --radius-xs: 0.5rem;
+  --radius-sm: 0.75rem;
+  --radius-md: 1.125rem;
+  --radius-lg: 1.75rem;
+  --radius-xl: 2.5rem;
+  --radius-pill: 999px;
+  --glass-border: 1px solid var(--color-line-soft);
+  --glass-blur: 18px;
+  --chrome-gradient: linear-gradient(
+    145deg,
+    #f4f7fb 0%,
+    #8995a4 16%,
+    #242e3b 34%,
+    #d8e0e9 48%,
+    #536071 64%,
+    #eef3f8 78%,
+    #526071 100%
+  );
+  --shadow-glass: 0 24px 72px rgb(0 0 0 / 34%);
+  --shadow-chrome: inset 0 1px 1px rgb(255 255 255 / 60%),
+    inset 0 -16px 24px rgb(7 12 20 / 52%), 0 28px 70px rgb(0 0 0 / 44%);
+  --shadow-focus: 0 0 0 3px var(--color-space-0),
+    0 0 0 5px var(--color-accent-cyan);
+
+  /* Layering */
+  --z-base: 0;
+  --z-content: 1;
+  --z-header: 10;
+  --z-overlay: 20;
+  --z-skip-link: 30;
+
+  /* Motion */
+  --motion-fast: 140ms;
+  --motion-medium: 220ms;
+  --motion-slow: 420ms;
+  --ease-standard: cubic-bezier(0.2, 0.7, 0.2, 1);
+
+  /* Responsive breakpoints (kept in sync with media queries) */
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 56rem;
+  --breakpoint-lg: 76rem;
+}

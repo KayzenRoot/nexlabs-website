@@ -1,0 +1,83 @@
+@import "../styles/tokens.css";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 20rem;
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
+  background: var(--color-space-0);
+}
+
+body {
+  min-width: 20rem;
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(ellipse at 52% -18%, rgb(57 83 118 / 18%), transparent 44rem),
+    var(--color-space-0);
+  color: var(--color-text-primary);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: var(--leading-copy);
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+a {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: rgb(165 233 242 / 28%);
+  color: var(--color-text-primary);
+}
+
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.skipLink {
+  position: fixed;
+  z-index: var(--z-skip-link);
+  top: var(--space-4);
+  left: var(--space-4);
+  padding: var(--space-3) var(--space-5);
+  transform: translateY(calc(-100% - var(--space-8)));
+  border-radius: var(--radius-sm);
+  background: var(--color-text-primary);
+  color: var(--color-space-0);
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+
+.skipLink:focus-visible {
+  transform: translateY(0);
+}
+
+main:focus {
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
