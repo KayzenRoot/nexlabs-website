@@ -1,6 +1,6 @@
 # NEXLABS-WO-002 — Product Foundation & Visual System
 
-Status: APPROVED — CHECKPOINT PROMOTED — MERGE GATE
+Status: APPROVED CONTENT — PROMOTION PENDING EXACT-HEAD VALIDATION
 
 ## OBJECTIVE
 
@@ -75,7 +75,7 @@ GEF Bootstrap v1.1.2 is approved and merged at main SHA 424dca87a7fbb39c62347707
 - No new runtime dependency.
 - No deployment.
 - No fake business claims.
-- Checkpoint promotion only after independent review.
+- Checkpoint promotion requires exact-head validation of the final promotion candidate.
 
 ## ACCEPTANCE CRITERIA
 
@@ -87,7 +87,7 @@ GEF Bootstrap v1.1.2 is approved and merged at main SHA 424dca87a7fbb39c62347707
 6. M02 is decomposed clearly in Backlog/DoD.
 7. No product code or runtime dependency enters the diff.
 8. Exact-head review finds no HIGH/CRITICAL issue.
-9. Proposed checkpoint delta is reviewed before promotion.
+9. Checkpoint promotion is not reported complete until the final PR head is validated and merged.
 
 ## TESTS
 
@@ -106,8 +106,8 @@ GEF Bootstrap v1.1.2 is approved and merged at main SHA 424dca87a7fbb39c62347707
 - ADR-0003 Website Stack.
 - ADR-0004 3D/Motion Strategy.
 - Context Lock.
-- Promoted Checkpoint Delta.
-- PR #3 ready for merge.
+- Checkpoint promotion candidate.
+- PR #3 prepared for exact-head validation and merge.
 
 ## REVIEW FORMAT
 
@@ -120,12 +120,11 @@ Review in Brazilian Portuguese with:
 
 ## REVIEW RESULT
 
-- Reviewed exact head: 7294bf258e9fae038890f5396a21322561192dbb.
-- Independent audit: APPROVED.
-- CodeRabbit: SUCCESS after the Context Lock correction.
-- Socket Security: SUCCESS.
-- No unresolved HIGH/CRITICAL finding known.
+- M01 content/correction head 7294bf258e9fae038890f5396a21322561192dbb passed independent audit and CodeRabbit review.
+- A later checkpoint-promotion attempt at 3e6648c328863525b877eb293c68d6b75b240270 was correctly flagged because it reported promotion before its own exact-head review completed.
+- The current checkpoint state therefore remains a promotion candidate pending validation of the final PR head.
+- No product implementation is authorized by this status.
 
 ## STOP CONDITION
 
-WO-002 is complete when this checkpoint-promotion delta receives exact-head validation and PR #3 is merged. Do not begin M02 implementation before that merge.
+WO-002 completes only when the final PR #3 head itself passes required exact-head validation and PR #3 is merged. Do not begin M02 implementation before that merge.

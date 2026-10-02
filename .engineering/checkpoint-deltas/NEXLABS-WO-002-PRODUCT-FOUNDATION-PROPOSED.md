@@ -1,27 +1,31 @@
 # Checkpoint Delta — NEXLABS-WO-002-PRODUCT-FOUNDATION
 
-State: PROMOTED_AFTER_APPROVAL
+State: PROMOTION_CANDIDATE_PENDING_EXACT_HEAD_VALIDATION
 
-## Promoted change
+## Candidate change
+
+If the final PR #3 head passes all required exact-head checks and is merged:
 
 - GEF Bootstrap v1.1.2 remains the merged baseline.
-- M01 Product Foundation & Visual System is marked APPROVED.
-- V1 visual direction, logo direction, frontend stack and 3D/motion architecture are accepted.
+- M01 Product Foundation & Visual System becomes canonically complete.
+- V1 visual direction, logo direction, frontend stack and 3D/motion architecture remain accepted.
 - Product implementation progress remains 0% because M01 is planning-only.
-- Next legal stage is merge of PR #3, followed by admission of M02 Runtime & Repository Foundation.
+- The next legal increment becomes M02 Runtime & Repository Foundation.
 
-## Promotion evidence
+## Retained evidence before final promotion
 
 - Base main SHA: 424dca87a7fbb39c62347707f003fe4111f617ea.
-- Reviewed exact head before promotion: 7294bf258e9fae038890f5396a21322561192dbb.
-- Independent audit: APPROVED.
-- CodeRabbit: SUCCESS; recent incremental review generated no actionable comments.
+- Content review/correction head: 7294bf258e9fae038890f5396a21322561192dbb.
+- Independent audit at that content head: APPROVED.
+- CodeRabbit at that content head: SUCCESS with no remaining actionable comment after the Context Lock correction.
 - Prior CodeRabbit MINOR finding about Context Lock write scope: resolved in commit 7294bf2.
-- Socket Security checks: SUCCESS.
-- No unresolved review thread.
-- No known HIGH/CRITICAL finding.
-- package.json unchanged from base during M01.
+- Socket Security checks at the reviewed content head: SUCCESS.
+- package.json remained unchanged during M01.
+
+## Exact-head rule
+
+The checkpoint is NOT reported as promoted merely because the content review passed. The final promotion candidate must itself receive exact-head validation. Promotion becomes effective only when the exact final PR #3 head has passed the required checks, has no unresolved HIGH/CRITICAL finding, and is merged to main.
 
 ## Boundary
 
-This promotion authorizes merge of the approved M01 planning increment. It does not itself authorize M02 implementation before PR #3 is merged and a new Work Order/Context Lock is admitted from the resulting main SHA.
+This candidate does not authorize M02 implementation before PR #3 is merged and a new M02 Work Order/Context Lock is admitted from the resulting main SHA.

@@ -1,10 +1,8 @@
 # Backlog
 
-## Completed planning
+## M01 — Product Foundation & Visual System
 
-### M01 — Product Foundation & Visual System
-
-APPROVED under NEXLABS-WO-002-PRODUCT-FOUNDATION. Checkpoint delta promoted; PR #3 merge is the remaining lifecycle gate.
+Content APPROVED under NEXLABS-WO-002-PRODUCT-FOUNDATION. Checkpoint promotion remains a candidate pending exact-head validation and merge of PR #3.
 
 ## Next planned increments
 

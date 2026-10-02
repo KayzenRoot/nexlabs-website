@@ -9,9 +9,9 @@
 
 ## Current state
 
-GEF Bootstrap v1.1.2 is approved and merged. M01 Product Foundation & Visual System has passed independent and CodeRabbit review and its checkpoint delta is promoted in PR #3, pending final exact-head validation and merge.
+GEF Bootstrap v1.1.2 is approved and merged. M01 Product Foundation & Visual System content is approved, while its checkpoint promotion remains a candidate pending exact-head validation and merge of PR #3.
 
-The V1 website foundation now includes:
+The V1 website foundation includes:
 - approved information architecture;
 - approved chrome-humanoid Home Visual Master direction;
 - approved secondary cube/infrastructure visual language;
@@ -23,4 +23,4 @@ No website runtime, public deployment, final logo binary or production Blender a
 
 ## Operating boundary
 
-M02 implementation may begin only after PR #3 is merged and a new M02 Work Order plus Context Lock are admitted from the resulting main SHA.
+M02 implementation may begin only after the final PR #3 head passes required checks, PR #3 is merged, and a new M02 Work Order plus Context Lock are admitted from the resulting main SHA.
