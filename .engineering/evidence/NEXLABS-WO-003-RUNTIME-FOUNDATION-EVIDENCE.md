@@ -1,12 +1,12 @@
 # Evidence Bundle — NEXLABS-WO-003-RUNTIME-FOUNDATION
 
-Estado: validação do executor concluída para o conteúdo de runtime; PR #4 permanece aberta e em draft, aguardando auditoria independente. Este documento é evidência, não promoção de Checkpoint.
+Estado: validação do executor concluída para o conteúdo de runtime; PR #4 permanece aberta e está READY FOR REVIEW; o executor encerrou em draft e o auditor a promoveu para review para habilitar a auditoria externa. Este documento é evidência, não promoção de Checkpoint.
 
 ## Identidade e estado
 
 - Repositório: `KayzenRoot/nexlabs-website` (`origin` verificado).
 - Branch: `work/nexlabs-wo-003-runtime-foundation`.
-- PR: [#4](https://github.com/KayzenRoot/nexlabs-website/pull/4), base `main`, draft.
+- PR: [#4](https://github.com/KayzenRoot/nexlabs-website/pull/4), base `main`, OPEN/READY FOR REVIEW.
 - Base SHA imutável: `9aa51209bfda05246ffc3d558e459b2a4243ff62`.
 - HEAD do incremento de runtime validado localmente e no primeiro conjunto exato de CI: `824836ec3eeef65645817b6298919e4e88aff8da`.
 - HEAD inicial da branch antes da edição: `83689d2b5f81ddc8d9998618c912bf1e2649fa6e`; a working tree estava limpa e a base correspondia a `origin/main`.
@@ -95,7 +95,7 @@ Checks GitHub do HEAD de runtime acima:
 - Nenhuma falha HIGH/CRITICAL conhecida foi encontrada; auditoria npm e checks Socket Security passaram.
 - O provenance das dependências não foi validado pelo GEF doctor (`unverified`); os pacotes estão fixos no lockfile e `npm audit` não encontrou vulnerabilidades.
 - Atualizações automáticas de segurança do Dependabot permanecem desabilitadas no nível do repositório; atualizações de versão semanais estão configuradas.
-- O review automático CodeRabbit foi ignorado por a PR permanecer draft. Auditoria exata independente é pendente e continua obrigatória antes de qualquer merge.
+- O executor encerrou com a PR em draft; o auditor a marcou READY FOR REVIEW e o CodeRabbit foi acionado no exact head subsequente. Auditoria exata independente é pendente e continua obrigatória antes de qualquer merge.
 - A visualização é fallback CSS estático para M02; arte final, páginas adicionais, backend, implantação e recursos 3D seguem fora do escopo.
 - Não houve merge, ampliação de escopo nem enfraquecimento de gates.
 
@@ -138,4 +138,4 @@ Validado na branch `work/nexlabs-wo-003-runtime-foundation`, PR #4, contra a bas
 
 Após checks finais no HEAD atual da PR, revisão independente `APPROVED` e merge autorizado separadamente, propor: M02 Runtime & Repository Foundation aprovado; runtime Next.js/TypeScript, tokens, Home estática, testes, CI e regras do repositório validados; M03 Brand System & N Monogram como próximo incremento elegível. Não atribuir percentual sem modelo ponderado explícito.
 
-Até esses gates: manter `.engineering/CHECKPOINT.md` e `.engineering/CHECKPOINT.json` como estão, M02 sem promoção e PR #4 OPEN/DRAFT. Ver `.engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md`.
+Até esses gates: manter `.engineering/CHECKPOINT.md` e `.engineering/CHECKPOINT.json` como estão, M02 sem promoção e PR #4 OPEN/READY FOR REVIEW. Ver `.engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md`.
