@@ -63,7 +63,7 @@ Checkpoint operator as stale and drift as `UNEXPECTED` against the initial GEF
 baseline; that baseline was not refreshed and the canonical Checkpoint was not
 promoted. These outputs are documented in the Evidence Bundle.
 
-This is executor evidence only. PR #4 remains OPEN/DRAFT; independent exact-head
+This is executor evidence only. PR #4 remains OPEN/READY FOR REVIEW; independent exact-head
 audit, approval and merge have not occurred. No completion percentage is claimed.
 
 ## Owner-authorized Docker development supplement — proposed only
@@ -85,5 +85,9 @@ fallback, host-origin restriction, English default footer, operator commands,
 image/container identity, browser proof and filesystem latency limitation are
 recorded in the Evidence Bundle. This supplement adds evidence to M02's
 development environment only; it does not promote the canonical Checkpoint.
-PR #4 remains OPEN/DRAFT and the independent audit/approval/merge gate remains
+PR #4 remains OPEN/READY FOR REVIEW and the independent audit/approval/merge gate remains
 separate.
+
+## Docker continuity rule
+
+The owner requires runnable frontend increments to leave the approved development Docker service running and healthy for visual follow-up. This operational rule is now persisted in `AGENTS.md`; it does not change the checkpoint promotion gate.
