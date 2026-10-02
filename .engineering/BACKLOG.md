@@ -1,56 +1,57 @@
 # Backlog
 
-## Completed planning
+## Completed
 
 ### M01 — Product Foundation & Visual System
 
-APPROVED and merged in PR #3. Product scope, visual direction, frontend architecture, 3D/motion strategy and quality boundaries are canonical.
-
-## Active increment
+APPROVED and merged in PR #3.
 
 ### M02 — Runtime & Repository Foundation
 
-ADMITTED under NEXLABS-WO-003-RUNTIME-FOUNDATION.
+APPROVED at exact head `b5cdd0fbb58397deef32aa03712046ba8233fb19` and merged in PR #4 as main SHA `dee3d01d24c8f7ad9a6c4ab9db2eca31d2f0afbb`.
 
-Scope:
-- Next.js/TypeScript project shell.
-- Design tokens and layout primitives.
-- CI checks and professional main ruleset/repository quality gates.
-- Static Home shell and immediate no-WebGL fallback.
-- Test/accessibility/browser-smoke foundation.
-- No production 3D hero.
+Delivered:
+- Next.js App Router + strict TypeScript shell;
+- design tokens/layout foundation;
+- static Home fallback;
+- unit/component/browser/a11y checks;
+- CI Quality + Browser Smoke;
+- professional main ruleset;
+- Docker development environment with HMR and healthcheck.
 
-## Next planned increments
+## Active
 
-1. M03 — Brand System & N Monogram
-   - Generate/select final N mark.
-   - SVG master, favicon/app icons and restrained motion treatment.
-   - Typography and finalized brand tokens.
+### M03 — Brand System & N Monogram
 
+Planning under `NEXLABS-WO-004-BRAND-SYSTEM`.
+
+Goals:
+- freeze the N monogram geometry brief;
+- define logo lockups and clear-space/min-size rules;
+- select typography strategy;
+- finalize brand color/material roles;
+- define restrained logo animation states;
+- define favicon/app-icon simplification;
+- define visual concept-generation and selection process;
+- prepare implementation acceptance criteria.
+
+## Next
+
+1. M03 — Brand concept/vector implementation
+   - Generate at least 12 N-monogram concepts under the approved categories.
+   - Shortlist 3 candidates using BRAND-SYSTEM.md rejection criteria.
+   - Obtain explicit owner selection before final vector master work.
+   - Produce SVG master, small-mark variant, lockups, favicon/app-icon assets, motion treatment and header integration evidence.
 2. M04 — Home Hero 3D
-   - Blender hero reconstruction from the approved chrome intelligence direction.
-   - GLB optimization and FULL/BALANCED/STATIC runtime.
-   - Parallax, lighting, hover and scroll choreography.
-   - Performance and fallback evidence.
-
 3. M05 — Home Content Sections
-   - Capability cards, vision, technology/infrastructure, research, contact CTA and footer.
-   - Cube visual language where appropriate.
-
 4. M06 — Secondary Pages
-   - Technology, Solutions, Research, Company and Contact.
-
 5. M07 — Production Hardening & Launch
-   - Cross-browser/accessibility/performance regression.
-   - SEO/metadata/structured data.
-   - Contact security.
-   - Deployment provider decision, staging, rollback and production validation.
 
 ## Future
 
-- Localization after content strategy approval.
-- Careers when real openings exist.
-- CMS.
-- CRM/newsletter.
-- Advanced analytics/personalization.
+- localization;
+- careers;
+- CMS;
+- CRM/newsletter;
+- advanced analytics/personalization;
 - WebGPU-specific path if benchmarks justify it.

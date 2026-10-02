@@ -1,0 +1,54 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-004-BRAND-SYSTEM",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "planning/nexlabs-wo-004-brand-system",
+  "capturedAtUtc": "2026-10-02T18:00:00Z",
+  "riskClass": "STANDARD",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE_AFTER_M02",
+    "source": "Direct owner instruction to continue website development",
+    "startingHead": "dee3d01d24c8f7ad9a6c4ab9db2eca31d2f0afbb",
+    "mainSha": "dee3d01d24c8f7ad9a6c4ab9db2eca31d2f0afbb",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": false
+  },
+  "writeAllowed": [
+    ".engineering/**"
+  ],
+  "writeForbidden": [
+    "runtime/product source changes",
+    "package manifest changes",
+    "final logo/SVG/favicon binaries",
+    "image-generation assets committed as final",
+    "M04 hero 3D code/assets",
+    "backend, analytics or deployment",
+    "force-push, rebase or history rewrite"
+  ],
+  "criticalSources": {
+    ".engineering/CHECKPOINT.json": "6497622682eb1041a11cb5035a02d44d8ff8d5ce",
+    ".engineering/CHECKPOINT.md": "50488599d22ba1bee49be1f121c6c0f436bf3397",
+    ".engineering/SOURCE-HIERARCHY.md": "7095adc817fdc797dcf48597925e36feb6a6d7d7",
+    ".engineering/DEFINITION-OF-DONE.md": "d2ac3790b426e8c0f1f84987130d8b27f494eb36",
+    ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+    ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+    ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+    ".engineering/DECISIONS-LEDGER.md": "bfce2841796592bdf2fa22dafd53541f0f774ac1",
+    ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+    ".engineering/VISUAL-DIRECTION.md": "145e75978e4ee2d6fd529c6c96c64786c4bd6ab1",
+    ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+    ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+    ".engineering/BACKLOG.md": "27e908081e78c297f37c19559e69ef0043ef9af2",
+    "AGENTS.md": "a7253838a4e63acb341767fac57dfa75c3ba33e1",
+    "package.json": "f42583b3644fd87c2e1033a8845e4f2ccc28d147",
+    "package-lock.json": "b557cf27e907e9fdaf8a36bb32a258e9fb4b7e5f"
+  },
+  "proofObligations": [
+    "M02 completion reflected canonically",
+    "Brand-system brief is objectively specific",
+    "Concept count/categories and rejection criteria are explicit",
+    "No final logo/runtime/package asset introduced",
+    "Exact-head independent review before merge"
+  ],
+  "stopCondition": "PLANNING_PR_OPEN_UNMERGED_NO_HIGH_OR_CRITICAL"
+}
