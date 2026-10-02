@@ -1,0 +1,72 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-006-BRAND-INTEGRATION",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "work/nexlabs-wo-006-brand-integration",
+  "capturedAtUtc": "2026-10-02T18:55:00Z",
+  "riskClass": "STANDARD",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE_AFTER_BRAND_SELECTION",
+    "source": "Owner explicitly approved the selected identity and instructed continuation of website development",
+    "startingHead": "a226542594d480ab254cb7256a18f748b642dde4",
+    "mainSha": "a226542594d480ab254cb7256a18f748b642dde4",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": true
+  },
+  "selectedBrandConcept": "NEX-N-A-PRECISION-BLADES",
+  "writeAllowed": [
+    "src/**",
+    "public/**",
+    "package.json",
+    "package-lock.json",
+    "next.config.*",
+    ".github/**",
+    ".engineering/**",
+    "README.md",
+    "AGENTS.md"
+  ],
+  "writeForbidden": [
+    "Three.js, React Three Fiber, Drei, GSAP or production 3D dependencies",
+    "Blender/GLB/glTF production hero assets",
+    "full M04 living-organism environment implementation",
+    "secondary routes/pages",
+    "backend/database/authentication",
+    "analytics/trackers/CMS/CRM",
+    "public deployment",
+    "unrelated cleanup",
+    "force-push, rebase or history rewrite",
+    "weakening required review/security gates"
+  ],
+  "criticalSources": {
+    ".engineering/CHECKPOINT.json": "0aca0a7c2792f714314cb00d79c6e1b8984a2305",
+    ".engineering/CHECKPOINT.md": "9998d77061894a6bbbf0204b687d7eb494fdc7b3",
+    ".engineering/SOURCE-HIERARCHY.md": "0166f0fab2abd6d7548a6eb58b4e4c6e9a4d135b",
+    ".engineering/DEFINITION-OF-DONE.md": "799c0fc3e58140e8d3f27328f2bb07feac84cd11",
+    ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+    ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+    ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+    ".engineering/DECISIONS-LEDGER.md": "de6220e2c40b969804dda0a3d36729b65c318c01",
+    ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+    ".engineering/VISUAL-DIRECTION.md": "a860d2ee3f11232036434ccdd1168711f1b65e54",
+    ".engineering/BRAND-SYSTEM.md": "4bf2f02468f8e92b6d6d97c35c1ff6185f9f5b8d",
+    ".engineering/evidence/NEXLABS-WO-005-BRAND-CONCEPTS-EVIDENCE.md": "008f7af06af6d79a424437451525f87d8dee5eda",
+    ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+    ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+    ".engineering/BACKLOG.md": "4f1c46fc80782084bf45acacd4a6f0e28af9a08d",
+    "AGENTS.md": "a7253838a4e63acb341767fac57dfa75c3ba33e1",
+    "package.json": "f42583b3644fd87c2e1033a8845e4f2ccc28d147",
+    "package-lock.json": "b557cf27e907e9fdaf8a36bb32a258e9fb4b7e5f"
+  },
+  "proofObligations": [
+    "selected NEX-N-A-PRECISION-BLADES geometry implemented as flat vector source",
+    "required lockups and monochrome variants",
+    "small-size and favicon evidence",
+    "header/footer integration",
+    "CSS/SVG motion with reduced-motion fallback",
+    "no M04 3D dependency or scope",
+    "tests/build/browser/a11y green",
+    "Docker UP/healthy at stop",
+    "exact-head independent audit before merge"
+  ],
+  "stopCondition": "BRAND_INTEGRATION_COMPLETE_DOCKER_UP_PR_OPEN_UNMERGED"
+}
