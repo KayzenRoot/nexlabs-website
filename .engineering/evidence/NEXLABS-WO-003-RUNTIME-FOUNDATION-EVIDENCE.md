@@ -99,6 +99,41 @@ Checks GitHub do HEAD de runtime acima:
 - A visualização é fallback CSS estático para M02; arte final, páginas adicionais, backend, implantação e recursos 3D seguem fora do escopo.
 - Não houve merge, ampliação de escopo nem enfraquecimento de gates.
 
+## Complemento de desenvolvimento Docker — complemento do owner
+
+Validado na branch `work/nexlabs-wo-003-runtime-foundation`, PR #4, contra a base imutável `9aa51209bfda05246ffc3d558e459b2a4243ff62`. O commit de implementação deste complemento é `3fe86cf2722514b0500644456150c734a5ba3d44`; o commit documental final e o HEAD remoto exato permanecem registrados na descrição/checks da PR.
+
+### Arquivos do complemento
+
+- Adicionados: `.dockerignore`, `Dockerfile`, `compose.yaml`.
+- Modificados: `README.md` (comandos de operação), `next.config.ts` (origem loopback e polling restritos a Docker), `src/components/site-footer.tsx` (copy herdada ajustada para o idioma padrão inglês).
+- Governança atualizada antes das alterações: `.engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md`, `.engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md` e `.engineering/context-locks/NEXLABS-WO-003-RUNTIME-FOUNDATION.json`; o Context Lock limita a origem extra a `127.0.0.1`, o polling a `NEXT_DOCKER_DEV=1` e o fallback Webpack somente ao container.
+- Nenhuma alteração em `package.json` ou `package-lock.json`; `git diff --exit-code -- package.json package-lock.json` passou. GEF permanece fixado em `@gef-bootstrap/cli@1.1.2`.
+
+### Docker e navegador host
+
+- Docker Engine: `29.8.1`; Docker Compose: `v5.5.1`.
+- Imagem: `nexlabs-website-web:latest`, ID/digest `sha256:04a225f37acbbcfb73053bae84d436140e07361ce4381a21999049ace1d2a888`, construída de `node:22-bookworm-slim` (base digest `sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c`).
+- Container: `nexlabs-website-web-1`, ID `cfe764b6d4e594fd901cbd5d9b9801da0ca3f014dac810c4657c18b19bd17710`; usuário efetivo `node` (não-root), healthcheck `healthy`.
+- Runtime no container: Node `v22.23.3`, npm `10.9.9`.
+- Porta: host `127.0.0.1:3000` → container `3000/tcp`; `Invoke-WebRequest http://127.0.0.1:3000/` retornou HTTP `200`.
+- Compose tem somente `web`; `src/` é bind-mounted read-only, `.next` usa volume nomeado gravável, capabilities são removidas e `no-new-privileges` está ativo. O `.dockerignore` exclui dependências locais, artefatos de governança/teste e arquivos de segredo; nenhum secret ou serviço extra foi adicionado.
+- Comandos obrigatórios: `docker compose config` — PASS; `docker compose build` — PASS (`npm ci` no build adicionou 247 pacotes, auditou 258, 0 vulnerabilidades); `docker compose up -d` — PASS; `docker compose ps` — PASS (`Up`, health `healthy`); `docker compose logs --tail=100` — PASS (Next.js pronto e requisições `GET /` retornando 200). `docker compose down` está documentado e **não foi executado**.
+- Chrome no host abriu `http://localhost:3000/`; título `Nex Labs Technology — A New Space Taking Shape`, página Home renderizada com título principal `Technology for what comes next.`, navegação inglesa e copy do rodapé `A new space is taking shape.`. `src/app/layout.tsx` declara `lang="en"`.
+- HMR: uma alteração temporária no H2 (`HMR probe`) apareceu no DOM do Chrome sem reload. O arquivo foi restaurado byte a byte ao blob inicial `04f5619cd25be6124713b7e562fa2b812dc356d6`; hash final confirmado igual e o container/navegador voltou ao H2 original. O primeiro probe com Turbopack não detectou o evento do bind mount Windows; foi corrigido com Webpack e `watchOptions.poll=1000` apenas quando `NEXT_DOCKER_DEV=1`, além da origem loopback estritamente local indicada pelo Next.js.
+- Limitação observada: a primeira compilação de desenvolvimento no filesystem Windows/Docker levou aproximadamente 8,2 s. Polling a cada 1 s aumenta a leitura do diretório `src/`; o probe final confirmou atualização automática. Os guias oficiais do [Next.js](https://nextjs.org/docs/app/guides/local-development), [origens dev do Next.js](https://nextjs.org/docs/pages/api-reference/config/next-config-js/allowedDevOrigins) e [polling Webpack](https://webpack.js.org/configuration/watch/#watchoptionspoll) fundamentam o fallback.
+
+### Checks finais depois do ajuste
+
+- `npm run lint` — PASS.
+- `npm run typecheck` — PASS.
+- `npm run test` — PASS, 2/2.
+- `npm run build` — PASS com Turbopack (prova que a configuração Webpack condicionada a Docker não altera o build local/CI).
+- `npm run test:e2e` — PASS, 4/4 Chromium, incluindo acessibilidade, teclado/foco, reduced motion e viewports móveis/desktop.
+- `npm audit --audit-level=high` — PASS, 0 vulnerabilidades; `npm ls --depth=0` — PASS, inclui GEF `1.1.2`; `git diff --check` — PASS.
+- `docker compose ps` final mostrou o container ativo/healthy. A Home segue aberta no Chrome e a PR permanece sem merge.
+- Estado Git de encerramento após o commit deste bundle: working tree limpa, branch local sincronizada com `origin/work/nexlabs-wo-003-runtime-foundation`; `origin/main` permanece em `9aa51209bfda05246ffc3d558e459b2a4243ff62`. O SHA final documental está no estado atual da PR #4.
+
 ## Checkpoint Delta proposto
 
 Após checks finais no HEAD atual da PR, revisão independente `APPROVED` e merge autorizado separadamente, propor: M02 Runtime & Repository Foundation aprovado; runtime Next.js/TypeScript, tokens, Home estática, testes, CI e regras do repositório validados; M03 Brand System & N Monogram como próximo incremento elegível. Não atribuir percentual sem modelo ponderado explícito.

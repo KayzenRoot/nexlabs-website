@@ -65,3 +65,25 @@ promoted. These outputs are documented in the Evidence Bundle.
 
 This is executor evidence only. PR #4 remains OPEN/DRAFT; independent exact-head
 audit, approval and merge have not occurred. No completion percentage is claimed.
+
+## Owner-authorized Docker development supplement — proposed only
+
+The owner-authorized Docker supplement was implemented in source commit
+`3fe86cf2722514b0500644456150c734a5ba3d44` and validated against base
+`9aa51209bfda05246ffc3d558e459b2a4243ff62`. Docker Engine 29.8.1 and Compose
+v5.5.1 built and started the single non-root Node 22 service. Host port
+`127.0.0.1:3000` returned HTTP 200; Compose health was `healthy`; host Chrome
+confirmed the English Home and an automatic HMR update from a temporary source
+probe. `src/app/page.tsx` was restored to its locked initial blob. Lint,
+typecheck, 2 unit tests, production build, 4 Chromium e2e tests, dependency
+audit, dependency tree and diff checks passed. `package.json`,
+`package-lock.json` and GEF 1.1.2 remain unchanged. Container remains active;
+`docker compose down` was not executed.
+
+The Dockerfile, Compose configuration, read-only source bind mount, polling
+fallback, host-origin restriction, English default footer, operator commands,
+image/container identity, browser proof and filesystem latency limitation are
+recorded in the Evidence Bundle. This supplement adds evidence to M02's
+development environment only; it does not promote the canonical Checkpoint.
+PR #4 remains OPEN/DRAFT and the independent audit/approval/merge gate remains
+separate.
