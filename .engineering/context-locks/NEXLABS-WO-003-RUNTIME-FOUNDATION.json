@@ -51,7 +51,7 @@
       "authorizedAtUtc": "2026-10-02T16:36:47Z",
       "source": "Direct owner instruction in the active thread, formalized in the linked addendum",
       "sourceDocument": ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
-      "sourceDocumentSha256": "06381a0e6319bb778dbb60547e5e84681c95d9ee38ee9637f3977639bce0f69e",
+      "sourceDocumentSha256": "470153a82358db3dee3e551b3d45779af4e9e9c1434099c536a1399dfc77b475",
       "pullRequest": 4,
       "startingHead": "61334748d42f331a6370f7587effa464830a4210",
       "mainSha": "9aa51209bfda05246ffc3d558e459b2a4243ff62",
@@ -64,12 +64,13 @@
         ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md",
         ".engineering/context-locks/NEXLABS-WO-003-RUNTIME-FOUNDATION.json",
         ".engineering/evidence/NEXLABS-WO-003-RUNTIME-FOUNDATION-EVIDENCE.md",
-        ".engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md"
+        ".engineering/checkpoint-deltas/NEXLABS-WO-003-RUNTIME-FOUNDATION-PROPOSED.md",
+        "src/app/page.tsx (temporary hot-reload validation probe only; restore starting blob 04f5619cd25be6124713b7e562fa2b812dc356d6 before completion)"
       ],
       "writeForbidden": [
         "package.json",
         "package-lock.json",
-        "src/**",
+        "persistent changes to src/** or public/**",
         "public/**",
         "additional services such as databases, Redis or proxies",
         "production container/deployment configuration",
@@ -96,7 +97,7 @@
       },
       "amendedAuthorityFingerprints": {
         ".engineering/work-orders/NEXLABS-WO-003-RUNTIME-FOUNDATION.md": "d23e6f69ed7bcd58d725774c1b50ac28250e8940",
-        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "1d28f8af7c97aea5fac8a2306af4ea475e764d07"
+        ".engineering/work-orders/NEXLABS-WO-003-DOCKER-COMPLEMENT.md": "4bc944a0688fb38dd28f150c436699438432a7e8"
       },
       "acceptanceCriteria": [
         "Dockerfile uses Node.js 22 and starts the Next.js development server without changing npm manifests or GEF 1.1.2",
@@ -106,7 +107,13 @@
         "Evidence Bundle records Docker/Compose versions, image/container, port, health, commands, browser result and limitations",
         "README documents up -d, logs -f, ps and down; down is documentation only and must not be executed",
         "No merge; the development container remains running at the stop condition"
-      ]
+      ],
+      "temporaryValidationWrite": {
+        "path": "src/app/page.tsx",
+        "startingGitBlob": "04f5619cd25be6124713b7e562fa2b812dc356d6",
+        "purpose": "Verify host-to-container Next.js hot reload using a temporary title probe",
+        "requiredFinalState": "Restore byte-for-byte to startingGitBlob and confirm no final diff"
+      }
     }
   ],
   "criticalSources": {

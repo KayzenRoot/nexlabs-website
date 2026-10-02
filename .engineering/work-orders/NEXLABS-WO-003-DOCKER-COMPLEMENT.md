@@ -31,13 +31,13 @@ Executar e registrar:
 4. `docker compose ps`
 5. `docker compose logs --tail=100`
 6. Abrir o site no navegador do host e confirmar a Home.
-7. Alterar temporariamente um texto sob `src/`, confirmar hot reload no host e restaurar o conteúdo sem deixar diff.
+7. Alterar temporariamente o título em `src/app/page.tsx`, confirmar hot reload no navegador do host e restaurar byte a byte o conteúdo inicial (`git blob 04f5619cd25be6124713b7e562fa2b812dc356d6`), sem deixar diff.
 8. Confirmar versão Docker/Compose, imagem, container, porta publicada e estado do healthcheck.
 
 ## Limites e condição de parada
 
 - Preservar os manifests npm/lockfile e não adicionar dependências.
-- Não alterar páginas, componentes ou copy do website como parte deste complemento.
+- Não deixar alteração persistente em páginas, componentes ou copy do website; a única escrita admitida em `src/app/page.tsx` é o probe temporário de HMR acima, que deve ser revertido e validado contra o blob inicial.
 - Docker Desktop no Windows pode deixar o HMR mais lento por causa do acesso a arquivos bind-mounted; medir o resultado real e registrar a limitação se aparecer. [Guia oficial do Next.js](https://nextjs.org/docs/app/guides/local-development).
 - Documentar `docker compose down`, mas não executá-lo: o container precisa permanecer rodando ao concluir.
 - Não fazer merge; não usar force-push, rebase ou reescrita de histórico.
