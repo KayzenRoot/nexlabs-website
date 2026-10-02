@@ -79,6 +79,29 @@ Use the canonical symbol width as unit `N`.
 - Below these sizes, use the simplified symbol-only variant rather than compressing the full lockup.
 - Clear-space exceptions are not allowed for decorative chrome effects; glow/reflection may visually extend outside the protected area but the underlying vector geometry may not.
 
+### Favicon and app-icon simplification rules
+
+The small-mark variant is a governed simplification of the selected N, not a different logo.
+
+At 16–20 px:
+- use symbol only; never include NEX LABS or TECHNOLOGY text;
+- preserve the outer silhouette and the defining diagonal bridge;
+- remove secondary internal cuts/gaps that collapse below one device pixel;
+- reduce material treatment to flat monochrome or at most two solid tones;
+- do not rely on gradients, glow, transparency, bevels or chrome reflections for recognition;
+- optical corrections may thicken narrow planes or enlarge negative-space openings, but may not change the identifying direction of the mark.
+
+For favicon exports:
+- validate at 16x16 and 32x32 raster previews in addition to the SVG/vector master;
+- prefer a transparent field when contrast remains sufficient; otherwise use the approved near-black field;
+- center the mark optically, not mechanically, while keeping at least 1 px visual breathing room at 16x16.
+
+For app/icon-square usage:
+- use symbol only inside a square artboard;
+- keep core vector geometry inside a 75% central safe area, leaving approximately 12.5% per side before presentation effects;
+- chrome/glass effects may exist only in enhanced large-size exports; the base app icon must remain identifiable in flat monochrome;
+- rounded container corners belong to the platform/app icon container, not to the core N geometry.
+
 ## Typography direction
 
 - Wordmark: custom-spaced geometric grotesk treatment.
