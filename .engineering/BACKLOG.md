@@ -37,10 +37,15 @@ Goals:
 
 ## Next
 
-1. M04 — Home Hero 3D
-2. M05 — Home Content Sections
-3. M06 — Secondary Pages
-4. M07 — Production Hardening & Launch
+1. M03 — Brand concept/vector implementation
+   - Generate at least 12 N-monogram concepts under the approved categories.
+   - Shortlist 3 candidates using BRAND-SYSTEM.md rejection criteria.
+   - Obtain explicit owner selection before final vector master work.
+   - Produce SVG master, small-mark variant, lockups, favicon/app-icon assets, motion treatment and header integration evidence.
+2. M04 — Home Hero 3D
+3. M05 — Home Content Sections
+4. M06 — Secondary Pages
+5. M07 — Production Hardening & Launch
 
 ## Future
 
