@@ -138,9 +138,11 @@
 
 @media (max-width: 48rem) {
   .inner {
-    min-height: 4.1rem;
-    gap: 0.55rem;
-    padding-inline: 1rem;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    min-height: 0;
+    gap: 0.35rem 1rem;
+    padding: 0.55rem 1rem 0.35rem;
   }
 
   .markFrame {
@@ -163,10 +165,29 @@
   }
 
   .navigation {
-    display: none;
+    grid-column: 1 / -1;
+    grid-row: 2;
+    width: 100%;
+    min-width: 0;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-left: 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding-block: 0.25rem 0.4rem;
+    scrollbar-color: rgb(85 165 255 / 45%) transparent;
+    scrollbar-width: thin;
+  }
+
+  .link {
+    flex: 0 0 auto;
+    white-space: nowrap;
   }
 
   .contactAction {
+    grid-column: 2;
+    grid-row: 1;
+    justify-self: end;
     min-height: 2rem;
     padding-inline: 0.8rem;
     font-size: 0.68rem;

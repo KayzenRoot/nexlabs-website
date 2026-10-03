@@ -1,6 +1,6 @@
 # Evidence Bundle — NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM
 
-**Executor state:** implementation complete; security and deterministic-browser remediation applied by independent review and awaiting exact-head GitHub proof. **Review state:** BLOCKED until the new exact head has zero HIGH/CRITICAL audit findings and all required checks pass. **Merge state:** not merged.
+**Executor state:** implementation and latest review corrections are locally validated on top of PR head `8b35242`; the final correction head is pending commit/push and exact-head GitHub proof. The PR remains open and unmerged.
 
 ## Candidate identity and authority
 
@@ -11,7 +11,7 @@
 - Branch tip before this implementation: `df7f2aed6aed503b0a5f771d23819174725d0ba4`.
 - Implementation and full application-check candidate: `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` (parent `df7f2aed6aed503b0a5f771d23819174725d0ba4`).
 - Two valid CodeRabbit review findings on the next candidate were corrected: runtime WebGL failure now remains in poster fallback across resize, and particle-field oscillation uses fixed elapsed-time amplitude scaled by tier. Post-correction local checks and E2E evidence are included below.
-- The final pushed PR HEAD and exact-head GitHub check results are recorded in the PR description. The native hardware sample below is retained from implementation SHA `6fc2efa`; post-correction performance was rerun with the Playwright lab profiles.
+- Latest remote PR HEAD at the start of this correction was `8b35242c7a285a3ae64118dd143e31f0b389a4ec`; the correction patch fixes the new review findings and is validated locally. The final pushed HEAD and its exact-head GitHub checks are recorded in the PR description. The native hardware sample below is retained from implementation SHA `6fc2efa`; current post-correction performance was rerun with the Playwright lab profiles.
 - Approved visual master: `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`; 1600×900. It matches the supplied Downloads image and the required Context Lock hash.
 
 ## Runtime and dependencies
@@ -19,7 +19,7 @@
 - Node.js `v24.19.0` (satisfies `>=22`); npm `11.17.0`; Git `2.55.0`; GitHub CLI `2.101.0`, authenticated as `KayzenRoot`.
 - `@gef-bootstrap/cli@1.1.2` remains exactly pinned; `npx gef --version` reports `1.1.2`.
 - Added exact dependency pins: `@react-three/fiber@9.8.1`, `three@0.186.1`, `@types/three@0.186.0`. No `@react-three/drei`, GSAP, GLB asset, or WebGPU dependency was added.
-- A newly surfaced HIGH advisory against `braces@3.0.3` affected the dev-only chain `@next/eslint-plugin-next -> fast-glob -> micromatch -> braces`. The current published `braces@3.0.3` line has no patched release for that advisory. The remediation candidate removes `@next/eslint-plugin-next` and its now-unreachable transitive chain instead of downgrading, overriding or suppressing the advisory. TypeScript ESLint, typecheck, Next production build, unit tests, browser/a11y checks and Sonar remain enforced. `CI Quality` now runs `npm audit --audit-level=moderate` so exact-head audit status is a required merge gate.
+- A HIGH advisory against `braces@3.0.3` affected the dev-only chain `@next/eslint-plugin-next -> fast-glob -> micromatch -> braces`. The remediation removed `@next/eslint-plugin-next` and its unreachable transitive chain rather than downgrading, overriding or suppressing the finding. A fresh `npm ci` installed 243 packages, audited 254, and reported zero vulnerabilities; `npm audit --audit-level=moderate` also passed. TypeScript ESLint, typecheck, Next production build, unit tests, browser/a11y checks and Sonar remain enforced. `CI Quality` now runs the audit on every exact head. Next-specific ESLint rules are temporarily absent while the upstream chain has no patched release.
 
 ## Implementation and changed files
 
@@ -42,7 +42,7 @@ The implementation commit changed 37 files (2,450 insertions, 342 deletions):
 | `npm run typecheck` | PASS |
 | `npm run test` | PASS — 3 files, 15 tests |
 | `npm run build` | PASS — Next.js production build and static Home route |
-| `E2E_PORT=3101 npm run test:e2e` | PASS — 10/10 Playwright scenarios after the review fixes, including runtime WebGL failure that stays in poster fallback after resize, axe, STATIC/reduced motion, tiers, responsiveness and lab performance assertions |
+| `E2E_PORT=3101 npm run test:e2e` | PASS — 11/11 Playwright scenarios, including keyboard access to all five mobile navigation destinations at 320 px, runtime WebGL failure after resize, axe, STATIC/reduced motion, tiers, responsiveness and lab performance assertions |
 | `npm audit --audit-level=moderate` | PASS — 0 vulnerabilities |
 | `git diff --check` | PASS on implementation changes |
 | Secret-pattern scan of changed source/package/evidence paths | No credential-pattern matches |
@@ -50,16 +50,16 @@ The implementation commit changed 37 files (2,450 insertions, 342 deletions):
 
 GEF baseline probes were also run. `npx gef doctor` returned terminal `SUCCEEDED`; Node, platform, Git, and repository-observable findings were `HEALTHY`. The dependency provenance finding was `unverified` / `REVIEW`, and the GEF GitHub capability probe reported `writePermission: false` / `REVIEW`, despite `gh` being authenticated as `KayzenRoot`. The `npx gef status` run after the documentation closeout reported repository `CLEAN`, operator metadata `stale: true`, and drift `UNEXPECTED` against the recorded init baseline; while the post-review patch is pending commit, the worktree is naturally `DIRTY`. No GEF baseline or gate was rewritten. Exact final Git and PR status are recorded in the PR description.
 
-The E2E server used port 3101 because another local service already occupies port 3100; the existing service was left untouched. The E2E interaction metric is a single laboratory CTA Event Timing proxy, not field INP.
+The E2E server used port 3101 because another local service already occupies port 3100; the existing service was left untouched. The E2E interaction metric is a single laboratory CTA Event Timing proxy, not field INP. Latest review fixes also keep mobile section navigation horizontally scrollable and keyboard reachable, propagate failed chunk-body reads instead of reporting a false zero-byte measurement, and dispose the memoized ExtrudeGeometry, MeshPhysicalMaterial, TubeGeometry and particle BufferGeometry on unmount.
 
 ### Visual and performance evidence
 
 - `home-reference-side-by-side.png` records the 1600×900 comparison with the hash-matching reference. `home-desktop-1600x900.png`, `home-desktop-1440x900.png`, `home-mobile-390x844.png`, `home-full-scene-1600x900.png`, `home-balanced-scene-900x768.png`, `home-reduced-motion-desktop-1440x900.png`, and `home-webgl-fallback-1600x900.png` retain viewport, tier, motion, and fallback evidence.
-- Static poster path after review corrections: LCP 256 ms, CLS 0, initial route JavaScript 136,829 bytes gzip. Poster files are 227,644 bytes desktop and 137,561 bytes mobile.
-- Playwright desktop 1600×900 after review corrections: BALANCED ready; LCP 232 ms, CLS 0; lazy 3D chunk 252,938 bytes gzip (below 700 KB target). Headless renderer was SwiftShader, sampling 119 frames at 20 FPS median / 50 ms median frame / 66.7 ms p95.
-- FULL capability override exercised the FULL code path under SwiftShader: 119 samples, 10 FPS median / 100 ms median frame / 183.3 ms p95. This is a software-renderer test, not high-end hardware qualification.
+- Static poster path after the latest UI/runtime corrections: LCP 224 ms, CLS 0, initial route JavaScript 136,828 bytes gzip. Poster files are 227,644 bytes desktop and 137,561 bytes mobile.
+- Playwright desktop 1600×900: BALANCED ready; LCP 392 ms, CLS 0; lazy 3D chunk 252,982 bytes gzip (below 700 KB target). Headless renderer was SwiftShader, sampling 119 frames at 20 FPS median / 50.1 ms median frame / 66.8 ms p95.
+- FULL capability override exercised the FULL code path under SwiftShader: 119 samples, 8.6 FPS median / 116.6 ms median frame / 216.6 ms p95. This is a software-renderer test, not high-end hardware qualification.
 - BALANCED constrained 900×768 profile: 119 samples, 30 FPS median / 33.3 ms median frame / 33.4 ms p95.
-- Mobile emulation 390×844, cellular 4G (150 ms latency), 4× CPU throttle: STATIC; LCP 2,384 ms, CLS 0; one CTA interaction with 3 Event Timing samples, maximum 88 ms. These are laboratory samples, not field percentile measurements.
+- Mobile emulation 390×844, cellular 4G (150 ms latency), 4× CPU throttle: STATIC; LCP 2,360 ms, CLS 0; one CTA interaction with 3 Event Timing samples, maximum 80 ms. These are laboratory samples, not field percentile measurements.
 - Native Chrome on the active Docker page, no CPU throttle or capability override, NVIDIA GeForce RTX 5050 / Direct3D11: BALANCED ready at 1920×855; 119 frame samples, 75.2 FPS median, 13.3 ms median and 13.5 ms p95, captured 2026-10-03 00:24:07 UTC on implementation SHA `6fc2efa`. This is a pre-correction capable-desktop reference sample, not a fresh post-correction measurement. The current post-correction result is the headless SwiftShader profile above.
 
 ## Docker continuity
@@ -76,7 +76,7 @@ The E2E server used port 3101 because another local service already occupies por
 - FULL frame timing in headless software rendering is slow; the active NVIDIA hardware measurement is BALANCED, matching detected host capabilities. FULL hardware performance remains unmeasured on a machine that selects FULL naturally.
 - Mobile LCP and interaction figures are laboratory samples only; field LCP/INP percentiles are not available in this local run.
 - Remaining M05 content below the hero is intentionally not implemented in WO-007. No final research/infrastructure sections or card content were added.
-- The prior pushed candidate had Browser Smoke red because the runtime-WebGL-failure test assumed CI hardware/WebGL capability. The remediation makes that test deterministic by stubbing only the capability probe while still forcing the connected runtime canvas to fail. Exact-head checks must prove the correction. The PR must remain OPEN and unmerged.
+- CodeRabbit's latest comments on `8b35242` identified mobile navigation being hidden, failed script-response measurement being masked as zero bytes, and manually created R3F resources needing disposal. All three areas are corrected and local lint/type/unit/build/E2E checks pass; exact-head GitHub checks and a fresh CodeRabbit result remain to be confirmed after push. The PR must remain OPEN and unmerged.
 - The proposed Checkpoint Delta remains `PROPOSED`; independent exact-head review/approval and merge are outside this execution stop condition.
 - CodeRabbit identified two defects on the earlier PR candidate. Both were confirmed and fixed; exact post-correction GitHub checks/review must be inspected at the final pushed HEAD.
 

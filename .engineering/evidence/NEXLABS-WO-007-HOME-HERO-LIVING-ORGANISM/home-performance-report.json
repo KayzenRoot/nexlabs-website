@@ -6,20 +6,20 @@
   },
   "static": {
     "tier": "STATIC",
-    "loadMs": 349,
-    "lcpMs": 256,
+    "loadMs": 273,
+    "lcpMs": 224,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 47.200000000186265,
-    "loadEventMs": 245.20000000018626,
-    "scriptGzipBytes": 136829,
+    "domContentLoadedMs": 34.40000000037253,
+    "loadEventMs": 195.90000000037253,
+    "scriptGzipBytes": 136828,
     "scripts": {
       "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js": 7245,
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
-      "http://127.0.0.1:3101/_next/static/chunks/1i1nwb7d3nygv.js": 3170,
       "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
-      "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293,
-      "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628
+      "http://127.0.0.1:3101/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
+      "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
+      "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293
     }
   },
   "desktop": {
@@ -33,33 +33,33 @@
       "webgl2Ready": true,
       "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
     },
-    "loadMs": 7590,
-    "lcpMs": 232,
+    "loadMs": 8736,
+    "lcpMs": 392,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 39.59999999962747,
-    "loadEventMs": 211,
-    "scriptGzipBytes": 389767,
+    "domContentLoadedMs": 154.09999999962747,
+    "loadEventMs": 256.5,
+    "scriptGzipBytes": 389810,
     "chunks": {
       "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js": 7245,
-      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
+      "http://127.0.0.1:3101/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
+      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293,
-      "http://127.0.0.1:3101/_next/static/chunks/1i1nwb7d3nygv.js": 3170,
       "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
-      "http://127.0.0.1:3101/_next/static/chunks/1_8nip5cmzjzw.js": 252938
+      "http://127.0.0.1:3101/_next/static/chunks/0rfvdcdqlumx5.js": 252982
     },
-    "lazyChunkGzipBytes": 252938,
+    "lazyChunkGzipBytes": 252982,
     "lazyChunks": [
       {
-        "url": "http://127.0.0.1:3101/_next/static/chunks/1_8nip5cmzjzw.js",
-        "gzipBytes": 252938
+        "url": "http://127.0.0.1:3101/_next/static/chunks/0rfvdcdqlumx5.js",
+        "gzipBytes": 252982
       }
     ],
     "frameTimes": {
       "sampleCount": 119,
-      "medianFrameMs": 50,
-      "p95FrameMs": 66.7,
+      "medianFrameMs": 50.1,
+      "p95FrameMs": 66.8,
       "medianFps": 20
     }
   },
@@ -74,9 +74,9 @@
     },
     "frameTimes": {
       "sampleCount": 119,
-      "medianFrameMs": 100,
-      "p95FrameMs": 183.4,
-      "medianFps": 10
+      "medianFrameMs": 116.6,
+      "p95FrameMs": 216.6,
+      "medianFps": 8.6
     }
   },
   "balanced": {
@@ -100,45 +100,27 @@
       "uploadBytesPerSecond": 96000
     },
     "cpuThrottlingRate": 4,
-    "loadMs": 2774,
-    "lcpMs": 2384,
+    "loadMs": 2869,
+    "lcpMs": 2360,
     "cls": 0,
-    "inpMs": 88,
+    "inpMs": 80,
     "inpSampleCount": 3,
-    "domContentLoadedMs": 791.8999999994412,
-    "loadEventMs": 2342.199999999255,
-    "scriptGzipBytes": 136829,
+    "domContentLoadedMs": 750.6000000014901,
+    "loadEventMs": 2326.9000000003725,
+    "scriptGzipBytes": 136828,
     "scripts": {
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
       "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js": 7245,
       "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
-      "http://127.0.0.1:3101/_next/static/chunks/1i1nwb7d3nygv.js": 3170,
+      "http://127.0.0.1:3101/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
       "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293,
       "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628
     },
     "interactionLatency": {
       "type": "single laboratory CTA activation; proxy only, not field INP",
       "eventSampleCount": 3,
-      "maximumEventDurationMs": 88,
+      "maximumEventDurationMs": 80,
       "budgetMs": 200
     }
-  },
-  "nativeChromeDesktopBeforeReviewFix": {
-    "source": "Read-only Chrome DevTools Protocol sample on the active local Docker page; no capability override or CPU throttle",
-    "implementationHead": "6fc2efa67a7e96c30aa220f052d755be0fb7c23f",
-    "capturedAtUtc": "2026-10-03T00:24:07.393Z",
-    "url": "http://localhost:3000/#home",
-    "viewport": "1920x855",
-    "tier": "BALANCED",
-    "sceneState": "ready",
-    "hardwareConcurrency": 8,
-    "deviceMemoryGb": 16,
-    "devicePixelRatio": 1,
-    "renderer": "ANGLE (NVIDIA, NVIDIA GeForce RTX 5050 (0x00002D83) Direct3D11 vs_5_0 ps_5_0, D3D11)",
-    "sampleCount": 119,
-    "medianFrameMs": 13.3,
-    "p95FrameMs": 13.5,
-    "medianFps": 75.2,
-    "note": "Measured before the two post-review corrections. The current Playwright profiles are post-correction; this hardware sample is retained for comparison, not represented as a fresh post-correction sample."
   }
 }

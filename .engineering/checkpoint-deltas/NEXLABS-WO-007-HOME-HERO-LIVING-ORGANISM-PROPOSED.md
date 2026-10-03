@@ -13,13 +13,13 @@ State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
 
 ## Evidence required
 
-- Base: `c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c`; implementation/test SHA: `6fc2efa67a7e96c30aa220f052d755be0fb7c23f`.
+- Base: `c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c`; implementation SHA: `6fc2efa67a7e96c30aa220f052d755be0fb7c23f`; latest remote PR head before these corrections: `8b35242c7a285a3ae64118dd143e31f0b389a4ec`. The final pushed head and exact-head GitHub checks are recorded in the PR description.
 - Reference image verified at SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647` (1600x900); supplied binary retained in the WO-007 evidence folder.
 - Responsive, side-by-side fidelity, FULL/BALANCED/STATIC, reduced-motion, and WebGL-fallback evidence retained under `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/`.
-- Lint, typecheck, unit tests (3 files / 15 tests), production build, browser/a11y suite (10/10 after review corrections), audit (0 vulnerabilities), and local secret-pattern scan passed on the implementation/correction patch.
-- Lazy 3D JS is 252,938 bytes gzip (target <=700 KB). Static route JS is 136,829 bytes gzip. Native Chrome/NVIDIA RTX 5050 BALANCED profile on implementation SHA `6fc2efa` (before the two review fixes) sampled 75.2 FPS median; synthetic SwiftShader FULL profile sampled 10 FPS median and is not hardware qualification.
+- Latest local verification after the review corrections: `npm ci` (243 added, 254 audited), `npm audit --audit-level=moderate` (0 vulnerabilities), lint, typecheck, unit tests (3 files / 15 tests), production build, `git diff --check`, and browser/a11y/performance suite (11/11) all pass. The added mobile keyboard test reaches all five section links at 320 px.
+- Latest Playwright evidence: lazy 3D JS 252,982 bytes gzip (target <=700 KB); static route JS 136,828 bytes gzip; BALANCED SwiftShader desktop profile 20 FPS median; constrained 900x768 BALANCED profile 30 FPS median; mobile STATIC profile LCP 2,360 ms, CLS 0, maximum CTA interaction sample 80 ms. Native Chrome/NVIDIA RTX 5050 BALANCED profile on implementation SHA `6fc2efa` (before the earlier runtime/motion review fixes) sampled 75.2 FPS median; it is retained as historical capable-desktop evidence, not a fresh current-head qualification.
 - Docker Engine 29.8.1 / Compose v5.5.1; container `nexlabs-website-web-1` is running and healthy at `http://localhost:3000` (HTTP 200). Docker remains UP; no `docker compose down` was run.
-- CodeRabbit's two actionable findings were validated and corrected: preserve runtime failure after resize and use tier-scaled elapsed-time particle oscillation. Exact-final-HEAD CI/check results are required after push; independent reviewer verdict and approval remain required before promotion.
+- CodeRabbit's earlier runtime fallback and tier-scaled motion findings are corrected. The latest review's mobile navigation, failed script-body measurement and manual Three.js resource disposal findings are also corrected. Exact-final-HEAD CI and fresh CodeRabbit results are pending after push; independent reviewer approval and merge remain required before promotion.
 - Full metrics, changed-file summary, Docker details, and limitations: `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM-EVIDENCE.md`.
 
 ## Boundary
@@ -28,8 +28,8 @@ Executor may update this proposal with factual evidence but may not self-promote
 
 ## Current execution state
 
-- Initial implementation SHA `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` was locally validated; two verified review corrections and the 10/10 post-correction E2E are recorded in the Evidence Bundle.
-- The final post-correction PR SHA is recorded in the PR description after push; required checks must be inspected at that exact SHA.
+- Initial implementation SHA `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` and the subsequent review corrections are recorded in the Evidence Bundle.
+- Latest remote PR head before the active correction patch is `8b35242c7a285a3ae64118dd143e31f0b389a4ec`; local checks on the correction patch pass, including 11/11 Playwright scenarios. Final push and exact-head checks remain outstanding.
 - PR #9 must remain OPEN and unmerged at the stop condition. This delta remains PROPOSED pending exact-head checks and independent approval.
 
 

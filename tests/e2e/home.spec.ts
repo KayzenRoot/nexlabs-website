@@ -20,7 +20,7 @@ function collectScriptGzipSizes(page: Page) {
     }
     pending.set(
       response.url(),
-      response.body().then((body) => gzipSync(body).byteLength).catch(() => 0),
+      response.body().then((body) => gzipSync(body).byteLength),
     );
   };
   page.on("response", onResponse);
@@ -195,6 +195,43 @@ test("skip link and keyboard focus are visible and usable", async ({ page }) => 
   await page.keyboard.press("Enter");
   await expect(page.locator("#main")).toBeFocused();
   await expect(page.getByRole("link", { name: /explore the project/i })).toBeVisible();
+});
+
+test("mobile navigation keeps every section link reachable by keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/");
+
+  const navigation = page.getByRole("navigation", { name: "Main navigation" });
+  const links = navigation.getByRole("link");
+  const expectedDestinations = [
+    "#capabilities",
+    "#infrastructure",
+    "#products",
+    "#research",
+    "#vision",
+  ];
+
+  await expect(navigation).toBeVisible();
+  await expect(links).toHaveCount(expectedDestinations.length);
+  for (const [index, destination] of expectedDestinations.entries()) {
+    await expect(links.nth(index)).toHaveAttribute("href", destination);
+  }
+
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
+
+  for (const link of await links.all()) {
+    await page.keyboard.press("Tab");
+    await expect(link).toBeFocused();
+    await expect(link).toBeInViewport();
+  }
+
+  const hasHorizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  );
+  expect(hasHorizontalOverflow).toBe(false);
 });
 
 test("lazy scene reaches ready on capable WebGL and retains the poster otherwise", async ({

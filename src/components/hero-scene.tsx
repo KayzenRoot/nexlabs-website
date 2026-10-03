@@ -61,7 +61,7 @@ function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
  * geometry so flat and spatial brand forms stay structurally aligned.
  */
 function useHeroGeometry() {
-  return useMemo(() => {
+  const geometry = useMemo(() => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 335 335"><path d="${precisionBladesGeometry.silhouette}" transform="${precisionBladesTransform}" /></svg>`;
     const paths = new SVGLoader().parse(svg).paths;
     const shapes = paths.flatMap((path) => path.toShapes());
@@ -80,6 +80,9 @@ function useHeroGeometry() {
     geometry.computeVertexNormals();
     return geometry;
   }, []);
+
+  useEffect(() => () => geometry.dispose(), [geometry]);
+  return geometry;
 }
 
 /** Renders the selected Precision Blades N with tier-scaled living motion. */
@@ -100,6 +103,7 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
       }),
     [],
   );
+  useEffect(() => () => material.dispose(), [material]);
 
   useFrame(({ clock }, delta) => {
     if (!mark.current) return;
@@ -216,6 +220,7 @@ function EnergyFilament({
     ]);
   }, [index]);
   const geometry = useMemo(() => new TubeGeometry(curve, 96, 0.011, 5, false), [curve]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
   const speed = livingOrganismMotion.energyFlowPerSecond * (1 + index * 0.11);
 
   useFrame(({ clock }) => {
@@ -316,6 +321,7 @@ function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
     buffer.setAttribute("position", new Float32BufferAttribute(values, 3));
     return buffer;
   }, [tier]);
+  useEffect(() => () => geometry.dispose(), [geometry]);
   const field = useRef<Group>(null);
   const motionScale = getMotionScale(tier);
 
