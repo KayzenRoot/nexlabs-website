@@ -19,6 +19,6 @@
 - Security headers/CSP strategy must be addressed before production release.
 - Public claims, partner names, metrics and testimonials require factual source verification.
 
-## Current M01 boundary
+## Current boundary through M05
 
-M01 is planning-only and introduces no runtime attack surface. Runtime threat modeling is refined during M02/M06 as concrete routes and integrations exist.
+The shipped surface through M05 is a public content-led frontend with no authentication, customer data store, analytics tracker, CMS/CRM or contact-submission backend admitted. M06 planning must refine route-level threat assumptions, external-link handling and the Contact page boundary. Any form submission or data collection requires a separately explicit server-side security scope.

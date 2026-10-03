@@ -17,5 +17,6 @@
 | D-0013 | Owner selected Finalist A / Precision Blades as the single production identity target, canonical ID `NEX-N-A-PRECISION-BLADES`. | ACCEPTED / MERGED | NEXLABS-WO-005 / owner selection |
 | D-0014 | The final Home target is a cinematic living technology-lab world centered on the selected chrome N, with connected energy/light/network behavior across sections; it supersedes D-0003 as the composition master. | ACCEPTED | Owner direction, 2026-10-02; HOME-VISUAL-MASTER-SPEC.md |
 | D-0015 | English is the default and canonical V1 website language; Portuguese and Spanish are planned localization targets for a future increment and are outside WO-008. | ACCEPTED | Owner direction; HOME-CONTENT-SPEC.md; BACKLOG.md |
+| D-0016 | M05 Home Content Sections is accepted after independent exact-head audit and squash merge; M06 may enter planning only after checkpoint promotion, and M06 implementation requires a separately admitted Work Order and Context Lock. | ACCEPTED / MERGED | NEXLABS-WO-008 / PR #10 |
 
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.

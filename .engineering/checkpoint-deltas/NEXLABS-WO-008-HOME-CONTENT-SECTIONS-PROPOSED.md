@@ -1,14 +1,15 @@
 # Checkpoint Delta — NEXLABS-WO-008-HOME-CONTENT-SECTIONS
 
-State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
+State: PROMOTED AFTER INDEPENDENT APPROVAL AND PRODUCT MERGE
 
-## Proposed post-approval state
+## Promoted post-approval state
 
-- M05 Home Content Sections becomes APPROVED.
+- M05 Home Content Sections is APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0`.
 - Home contains completed capability, principles, vision, research, technology and final CTA sections.
 - Unsupported metric/social-proof placeholders are absent.
 - Living-organism visual continuity extends below the M04 hero.
-- M06 Secondary Pages becomes the next legal increment.
+- PR #10 was squash-merged as product merge `9f6aab7004fe10ccd5120cefd666df2a1efe9060`.
+- M06 Secondary Pages becomes the next legal planning increment; implementation still requires a separately admitted Work Order and Context Lock.
 
 ## Evidence required
 
@@ -25,4 +26,4 @@ State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
 
 ## Boundary
 
-Executor may update this proposal with factual evidence but may not self-promote it or merge the PR. Keep PR #10 OPEN; do not start M06 until independent exact-head approval and merge are separately authorized and complete.
+The executor did not self-promote this delta. Independent audit APPROVED exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0`, and PR #10 was then squash-merged. This governance follow-up promotes the resulting checkpoint. Do not begin M06 implementation until its own Work Order and Context Lock are admitted.

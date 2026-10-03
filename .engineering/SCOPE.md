@@ -1,43 +1,54 @@
 # Scope
 
-## Completed baseline
+## Completed product scope
 
-NEXLABS-WO-001-GEF-BOOTSTRAP is APPROVED and merged. GEF Bootstrap 1.1.2 and the initial Source Pack are the project governance baseline.
+- NEXLABS-WO-001 GEF Bootstrap: APPROVED and merged.
+- M01 Product Foundation & Visual System: APPROVED and merged.
+- M02 Runtime & Repository Foundation: APPROVED and merged.
+- M03 Brand System program: APPROVED and merged.
+- M04 Home Hero 3D / Living Organism: APPROVED and merged.
+- M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and squash-merged in PR #10.
 
-## Admitted: NEXLABS-WO-002-PRODUCT-FOUNDATION
+The production Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES` identity.
 
-### NECESSARY
+## Current state
 
-- Define the public website purpose, audience and information architecture.
-- Freeze the selected homepage visual direction as the product's Visual Master.
-- Define the new Nex Labs "N" monogram direction and logo behavior requirements.
-- Define the 3D/motion architecture, progressive quality tiers and static/reduced-motion fallbacks.
-- Define the frontend architecture and technology boundaries before implementation.
-- Define accessibility, SEO, privacy/security and performance requirements.
-- Define M02 implementation scope and acceptance criteria.
-- Update canonical product sources, decisions, backlog, DoD and checkpoint state.
+No product implementation Work Order is active.
+
+M06 Secondary Pages is the next legal planning increment. Its implementation is **not admitted** until a fresh Work Order and exact Context Lock are compiled against the post-promotion main state.
+
+### NECESSARY candidate scope for M06 planning
+
+- Implement the planned public secondary destinations already present in Requirements: Technology, Solutions, Research, Company and Contact.
+- Preserve the approved brand, dark cinematic/living-organism visual language and factual-safe content rules.
+- Reuse existing runtime, design tokens, global chrome and quality/fallback principles instead of introducing a parallel frontend stack.
+- Keep navigation coherent between Home and implemented routes.
+- Define route-level responsive, accessibility, SEO, performance and evidence requirements before execution.
+- Keep Contact informational unless a separately admitted backend/form scope satisfies the security requirements.
 
 ### IMPORTANT
 
-- Define a future bilingual/content-localization path without forcing localization into the first implementation increment.
-- Reserve architecture for future CMS/contact integrations without selecting them yet.
+- Prepare content structure so future localization can be added without forcing localization into M06.
+- Preserve extension points for future CMS/contact integrations without selecting or implementing vendors.
 
 ### FUTURE
 
+- Portuguese and Spanish localization.
 - Careers/jobs experience when real openings exist.
 - CMS/editorial workflow.
 - CRM/newsletter/marketing automation.
+- Advanced analytics/personalization after privacy review.
 - WebGPU-specific rendering path if later evidence justifies it.
-- Advanced personalization or analytics beyond privacy-minimal measurement.
 
-## Explicitly out of scope for WO-002
+## Explicitly not admitted yet
 
-- Website runtime or page/component code.
-- Installing the frontend stack.
-- Producing the final Blender hero asset.
-- Producing/finalizing the logo artwork.
-- Publishing/deploying the site.
-- Fabricated client logos, fabricated metrics, testimonials or partnerships.
-- Selecting a CMS, CRM or analytics vendor.
+Until the M06 Work Order is approved/admitted, do not implement:
+- secondary-page code;
+- contact submission backend;
+- CMS/CRM;
+- authentication or database;
+- analytics/trackers;
+- production deployment;
+- fabricated customers, partners, metrics, awards, testimonials or outcome claims.
 
-Any implementation requires a new Work Order and fresh Context Lock after this planning increment is approved.
+Any M06 implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.
