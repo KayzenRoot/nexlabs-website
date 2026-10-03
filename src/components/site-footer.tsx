@@ -8,7 +8,7 @@ import { BrandMark } from "./brand-mark";
 export function SiteFooter() {
   return (
     <footer className={styles.footer}>
-      <a className={styles.brandLink} href="#home" aria-label="Nex Labs Technology — back to home">
+      <a className={styles.brandLink} href="/" aria-label="Nex Labs Technology — back to home">
         <span className={styles.markFrame}>
           <BrandMark />
         </span>
@@ -18,11 +18,11 @@ export function SiteFooter() {
         </span>
       </a>
       <nav className={styles.navigation} aria-label="Footer navigation">
-        <a href="#capabilities">Solutions</a>
-        <a href="#infrastructure">Technology</a>
-        <a href="#research">Research</a>
-        <a href="#vision">Company</a>
-        <a href="#contact">Explore the next chapter</a>
+        <a href="/solutions">Solutions</a>
+        <a href="/technology">Technology</a>
+        <a href="/#research">Research</a>
+        <a href="/#vision">Company</a>
+        <a href="/#contact">Explore the next chapter</a>
       </nav>
       <p className={styles.note}>Technology, research and engineering with intent.</p>
     </footer>

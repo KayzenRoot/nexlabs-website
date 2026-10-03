@@ -2,10 +2,10 @@ import styles from "./site-header.module.css";
 import { BrandMark } from "./brand-mark";
 
 const navigation = [
-  { href: "#capabilities", label: "Solutions" },
-  { href: "#infrastructure", label: "Technology" },
-  { href: "#research", label: "Research" },
-  { href: "#vision", label: "Company" },
+  { href: "/solutions", label: "Solutions" },
+  { href: "/technology", label: "Technology" },
+  { href: "/#research", label: "Research" },
+  { href: "/#vision", label: "Company" },
 ];
 
 /**
@@ -15,7 +15,7 @@ export function SiteHeader() {
   return (
     <header className={styles.header}>
       <div className={styles.inner}>
-        <a className={styles.brandLink} href="#home" aria-label="Nex Labs Technology — home">
+        <a className={styles.brandLink} href="/" aria-label="Nex Labs Technology — home">
           <span className={styles.markFrame}>
             <BrandMark />
           </span>
@@ -33,7 +33,7 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <a className={styles.contactAction} href="#contact">
+        <a className={styles.contactAction} href="/#contact">
           Explore the next chapter <span aria-hidden="true">→</span>
         </a>
 

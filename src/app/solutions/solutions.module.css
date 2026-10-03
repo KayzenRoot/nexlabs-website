@@ -1,0 +1,410 @@
+.page {
+  position: relative;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse at 80% 7%, rgb(24 94 157 / 23%), transparent 35rem),
+    radial-gradient(ellipse at 8% 46%, rgb(27 45 74 / 26%), transparent 42rem);
+}
+
+.container {
+  width: min(calc(100% - clamp(2rem, 8vw, 8rem)), 86rem);
+  margin-inline: auto;
+}
+
+.capabilities,
+.framing {
+  position: relative;
+  padding-block: clamp(4.2rem, 7vw, 7rem);
+  border-top: 1px solid rgb(157 206 246 / 14%);
+}
+
+.capabilities::before,
+.framing::before {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: min(14rem, 40vw);
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-accent-cyan), transparent);
+  content: "";
+}
+
+.capabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.65rem, 1.4vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.capabilityCard {
+  position: relative;
+  min-width: 0;
+  min-height: 19rem;
+  overflow: hidden;
+  padding: 1.15rem clamp(0.85rem, 1.35vw, 1.2rem) 1.35rem;
+  border: 1px solid rgb(133 191 241 / 21%);
+  border-radius: var(--radius-md);
+  background:
+    radial-gradient(ellipse at 58% 14%, rgb(60 150 230 / 20%), transparent 9rem),
+    linear-gradient(150deg, rgb(27 48 71 / 55%), rgb(7 12 20 / 92%) 68%);
+  box-shadow: inset 0 1px rgb(235 248 255 / 7%);
+}
+
+.capabilityCard::after {
+  position: absolute;
+  right: -35%;
+  bottom: -27%;
+  width: 10rem;
+  aspect-ratio: 1;
+  border: 1px solid rgb(89 200 255 / 17%);
+  border-radius: 50%;
+  content: "";
+}
+
+.capabilityGlyph {
+  position: relative;
+  display: grid;
+  width: 4.1rem;
+  height: 4.1rem;
+  align-items: center;
+  justify-items: center;
+  margin: 0.15rem 0 1.35rem;
+  border: 1px solid rgb(137 216 255 / 44%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(52 151 220 / 24%), rgb(11 22 36 / 30%) 68%);
+  box-shadow: inset 0 0 1.1rem rgb(79 180 255 / 16%), 0 0 1.3rem rgb(41 139 227 / 12%);
+}
+
+.capabilityGlyph span {
+  position: absolute;
+  width: 1.2rem;
+  height: 1.2rem;
+  border: 1px solid rgb(196 242 255 / 72%);
+  border-radius: 0.35rem;
+  box-shadow: 0 0 0.7rem rgb(74 195 255 / 28%);
+  transform: rotate(45deg);
+}
+
+.capabilityGlyph span:nth-child(2) {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-color: rgb(94 216 255 / 72%);
+  transform: translate(0.75rem, -0.48rem) rotate(45deg);
+}
+
+.capabilityGlyph span:nth-child(3) {
+  width: 0.4rem;
+  height: 0.4rem;
+  border-color: rgb(151 183 255 / 62%);
+  transform: translate(-0.76rem, 0.42rem) rotate(45deg);
+}
+
+.layers span:first-child {
+  width: 1.5rem;
+  height: 0.7rem;
+  border-radius: 0.15rem;
+  transform: translateY(-0.5rem) rotate(45deg) skew(-8deg, -8deg);
+}
+
+.layers span:nth-child(2) {
+  width: 1.5rem;
+  height: 0.7rem;
+  transform: translateY(0.15rem) rotate(45deg) skew(-8deg, -8deg);
+}
+
+.layers span:nth-child(3) {
+  width: 1.5rem;
+  height: 0.7rem;
+  transform: translateY(0.8rem) rotate(45deg) skew(-8deg, -8deg);
+}
+
+.interface span:first-child {
+  width: 1.65rem;
+  height: 1.1rem;
+  border-radius: 0.2rem;
+  transform: translateY(-0.2rem);
+}
+
+.interface span:nth-child(2) {
+  width: 0.3rem;
+  height: 0.3rem;
+  transform: translate(-0.43rem, -0.22rem);
+}
+
+.interface span:nth-child(3) {
+  width: 0.85rem;
+  height: 0.14rem;
+  border: 0;
+  border-radius: 0;
+  background: rgb(167 233 255 / 78%);
+  transform: translate(0.25rem, 0.43rem);
+}
+
+.orbit span:first-child {
+  width: 2rem;
+  height: 0.8rem;
+  border-radius: 50%;
+  transform: rotate(-35deg);
+}
+
+.orbit span:nth-child(2) {
+  width: 0.42rem;
+  height: 0.42rem;
+  transform: translate(0.78rem, -0.48rem);
+}
+
+.crystal span:first-child {
+  width: 1.1rem;
+  height: 1.5rem;
+  border-radius: 0.14rem;
+  transform: rotate(45deg) skew(5deg, 5deg);
+}
+
+.capabilityIndex {
+  display: inline-block;
+  margin-bottom: 0.75rem;
+  color: rgb(149 222 255 / 72%);
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+}
+
+.capabilityCard h3,
+.stageCard h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(0.98rem, 1.08vw, 1.16rem);
+  font-weight: 620;
+  letter-spacing: -0.025em;
+  line-height: 1.24;
+}
+
+.capabilityCard p,
+.stageCard p {
+  margin: 0.72rem 0 0;
+  color: var(--color-text-secondary);
+  font-size: 0.87rem;
+  line-height: 1.64;
+  text-wrap: pretty;
+}
+
+.framing {
+  background: linear-gradient(110deg, rgb(10 18 29 / 62%), transparent 72%);
+}
+
+.stageGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.7rem, 1.4vw, 1.25rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.stageCard {
+  position: relative;
+  min-width: 0;
+  min-height: 13rem;
+  padding: 1.35rem 1.1rem 1.25rem;
+  border-top: 1px solid rgb(142 219 255 / 50%);
+  background: linear-gradient(180deg, rgb(21 46 71 / 45%), rgb(7 12 20 / 23%) 80%);
+}
+
+.stageCard::before {
+  position: absolute;
+  top: -0.24rem;
+  left: 1.15rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  border-radius: 50%;
+  background: #a8efff;
+  box-shadow: 0 0 0.85rem rgb(69 208 255 / 86%);
+  content: "";
+}
+
+.stageIndex {
+  display: inline-block;
+  margin-bottom: 2.1rem;
+  color: rgb(149 222 255 / 72%);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+}
+
+.integrity {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  overflow: hidden;
+  margin-block: clamp(3.5rem, 6vw, 6rem) clamp(4rem, 7vw, 7rem);
+  padding: clamp(1.8rem, 4vw, 3.8rem);
+  border: 1px solid rgb(116 205 255 / 25%);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(ellipse at 10% 55%, rgb(20 107 178 / 24%), transparent 22rem),
+    linear-gradient(125deg, rgb(18 28 42 / 96%), rgb(5 9 15 / 96%));
+  box-shadow: var(--shadow-glass);
+}
+
+.integritySignal {
+  position: relative;
+  display: grid;
+  width: clamp(4.8rem, 10vw, 8.5rem);
+  aspect-ratio: 1;
+  align-items: center;
+  justify-items: center;
+  border: 1px solid rgb(105 205 255 / 40%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(72 175 255 / 20%), transparent 68%);
+}
+
+.integritySignal::before,
+.integritySignal::after,
+.integritySignal span {
+  position: absolute;
+  inset: 16%;
+  border: 1px solid rgb(141 226 255 / 44%);
+  border-radius: 50%;
+  content: "";
+}
+
+.integritySignal::after {
+  inset: 34%;
+  border-color: rgb(207 247 255 / 70%);
+  background: rgb(86 192 255 / 18%);
+  box-shadow: 0 0 1.4rem rgb(53 170 255 / 38%);
+}
+
+.integritySignal span:nth-child(1) {
+  inset: -9%;
+  border-style: dashed;
+  border-color: rgb(92 181 255 / 26%);
+}
+
+.integritySignal span:nth-child(2) {
+  inset: 48%;
+  border: 0;
+  border-radius: 50%;
+  background: #c4f7ff;
+  box-shadow: 0 0 0.9rem rgb(76 209 255 / 94%);
+}
+
+.integritySignal span:nth-child(3) {
+  inset: 4% 48%;
+  border: 0;
+  background: linear-gradient(180deg, transparent, rgb(134 225 255 / 70%), transparent);
+}
+
+.integrityCopy {
+  max-width: 54rem;
+}
+
+.integrityEyebrow {
+  margin: 0 0 0.9rem;
+  color: var(--color-accent-cyan);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.2em;
+}
+
+.integrityCopy h2 {
+  max-width: 18ch;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  font-weight: 560;
+  letter-spacing: -0.05em;
+  line-height: 1.02;
+  text-wrap: balance;
+}
+
+.integrityCopy > p:not(.integrityEyebrow) {
+  max-width: 48rem;
+  margin: 0.9rem 0 0;
+  color: var(--color-text-secondary);
+  line-height: 1.72;
+  text-wrap: pretty;
+}
+
+.integrityAction {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1.35rem;
+  color: #9cecff;
+  font-size: 0.88rem;
+  font-weight: 650;
+  text-decoration-color: rgb(156 236 255 / 44%);
+  text-underline-offset: 0.35em;
+}
+
+.integrityAction:hover {
+  color: #fff;
+}
+
+@media (max-width: 68rem) {
+  .capabilityGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .capabilityCard {
+    min-height: 17rem;
+  }
+
+  .stageGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 48rem) {
+  .container {
+    width: min(calc(100% - 2rem), 42rem);
+  }
+
+  .capabilities,
+  .framing {
+    padding-block: 3.7rem;
+  }
+
+  .integrity {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.35rem;
+    margin-block: 3rem 4rem;
+    padding: 1.55rem;
+  }
+
+  .integritySignal {
+    width: 5.3rem;
+  }
+}
+
+@media (max-width: 35rem) {
+  .capabilityGrid,
+  .stageGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .capabilityCard {
+    min-height: 0;
+    padding: 1rem 1rem 1.2rem;
+  }
+
+  .capabilityGlyph {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .stageCard {
+    min-height: 0;
+    padding-block: 1.15rem;
+  }
+
+  .stageIndex {
+    margin-bottom: 1.15rem;
+  }
+}
