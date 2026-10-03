@@ -9,10 +9,16 @@
 
 ## Current state
 
-GEF Bootstrap v1.1.2, M01 Product Foundation & Visual System, and M02 Runtime & Repository Foundation are approved and merged. Main currently includes the functional Next.js/TypeScript shell, design-token base, static Home fallback, tests, CI, repository governance and Docker development environment.
+GEF Bootstrap, M01, M02 and the complete M03 brand program are approved and merged.
 
-M03 Brand System & N Monogram is the active planning increment. It will define the final visual system for the Nex Labs identity, with special focus on an original technological N monogram that is recognizable in flat SVG and can receive a restrained chrome/glass animated treatment.
+Production identity:
+- `NEX-N-A-PRECISION-BLADES`;
+- vector-first SVG master;
+- monochrome and chrome/electric-blue presentations;
+- header/footer/favicon integration complete.
 
-The accepted website direction remains the dark cinematic chrome-intelligence Home concept, with the monumental cube reserved for infrastructure storytelling.
+M04 Home Hero 3D / Living Organism is the active implementation increment. It targets the owner-approved 1600x900 Home master centered on a monumental chrome N inside a luminous research-laboratory chamber, with global-network imagery and continuous restrained energy/light behavior.
 
-Production 3D hero work remains M04 and is not admitted by M03 planning.
+The runtime foundation remains Next.js App Router + strict TypeScript + CSS Modules/design tokens. M04 introduces isolated lazy Three.js/React Three Fiber rendering behind poster-first FULL/BALANCED/STATIC capability tiers.
+
+M05 content sections, secondary pages, backend, analytics and public deployment remain deferred.

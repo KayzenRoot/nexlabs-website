@@ -1,14 +1,118 @@
 import AxeBuilder from "@axe-core/playwright";
-import { mkdirSync } from "node:fs";
+import { mkdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
-import { expect, test } from "@playwright/test";
+import { gzipSync } from "node:zlib";
+import { expect, test, type Page, type Response } from "@playwright/test";
 
 const screenshotDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-006-BRAND-INTEGRATION",
+  ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM",
 );
+const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
 
-test("Home renders without horizontal overflow and retains desktop/mobile screenshots", async ({
+/** Collects gzip byte sizes for Next.js script chunks observed by a test page. */
+function collectScriptGzipSizes(page: Page) {
+  const pending = new Map<string, Promise<number>>();
+  const onResponse = (response: Response) => {
+    const request = response.request();
+    if (request.resourceType() !== "script" || !response.url().includes("/_next/static/chunks/")) {
+      return;
+    }
+    pending.set(
+      response.url(),
+      response.body().then((body) => gzipSync(body).byteLength),
+    );
+  };
+  page.on("response", onResponse);
+
+  return {
+    async finish() {
+      page.off("response", onResponse);
+      const sizes = await Promise.all(
+        Array.from(pending, async ([url, size]) => [url, await size] as const),
+      );
+      return Object.fromEntries(sizes);
+    },
+  };
+}
+
+/** Installs lightweight lab observers for LCP, CLS and interaction timing evidence. */
+async function installVitalsObserver(page: Page) {
+  await page.addInitScript(() => {
+    const vitals = { lcpMs: 0, cls: 0, inpSamples: [] as number[] };
+    Reflect.set(window, "__nexlabsVitals", vitals);
+
+    try {
+      new PerformanceObserver((entries) => {
+        const lastEntry = entries.getEntries().at(-1);
+        if (lastEntry) vitals.lcpMs = lastEntry.startTime;
+      }).observe({ type: "largest-contentful-paint", buffered: true });
+    } catch {
+      // A browser without this observer keeps the zero value explicit in evidence.
+    }
+
+    try {
+      new PerformanceObserver((entries) => {
+        for (const entry of entries.getEntries()) {
+          const layoutShift = entry as PerformanceEntry & {
+            hadRecentInput?: boolean;
+            value?: number;
+          };
+          if (!layoutShift.hadRecentInput) vitals.cls += layoutShift.value ?? 0;
+        }
+      }).observe({ type: "layout-shift", buffered: true });
+    } catch {
+      // A browser without this observer keeps the zero value explicit in evidence.
+    }
+
+    try {
+      new PerformanceObserver((entries) => {
+        for (const entry of entries.getEntries()) {
+          const interaction = entry as PerformanceEntry & {
+            interactionId?: number;
+          };
+          if ((interaction.interactionId ?? 0) > 0) {
+            vitals.inpSamples.push(entry.duration);
+          }
+        }
+      }).observe({
+        type: "event",
+        buffered: true,
+        durationThreshold: 16,
+      } as PerformanceObserverInit);
+    } catch {
+      // Unsupported Event Timing keeps the lab interaction proxy explicit.
+    }
+  });
+}
+
+/** Samples requestAnimationFrame intervals and returns median/p95 frame evidence. */
+async function sampleFrameTimes(page: Page) {
+  return page.evaluate(async () => {
+    const intervals: number[] = [];
+    await new Promise<void>((resolveSamples) => {
+      let previous: number | undefined;
+      const sample = (time: number) => {
+        if (previous !== undefined) intervals.push(time - previous);
+        previous = time;
+        if (intervals.length < 119) requestAnimationFrame(sample);
+        else resolveSamples();
+      };
+      requestAnimationFrame(sample);
+    });
+    const sorted = [...intervals].sort((left, right) => left - right);
+    const medianFrameMs = sorted[Math.floor(sorted.length * 0.5)] ?? 0;
+    const p95FrameMs = sorted[Math.floor(sorted.length * 0.95)] ?? 0;
+    return {
+      sampleCount: intervals.length,
+      medianFrameMs: Number(medianFrameMs.toFixed(2)),
+      p95FrameMs: Number(p95FrameMs.toFixed(2)),
+      medianFps: medianFrameMs > 0 ? Number((1000 / medianFrameMs).toFixed(1)) : 0,
+    };
+  });
+}
+
+test("Home renders the approved poster and retains responsive screenshots", async ({
   page,
 }) => {
   const browserErrors: string[] = [];
@@ -31,7 +135,7 @@ test("Home renders without horizontal overflow and retains desktop/mobile screen
   await expect(
     page.getByRole("heading", {
       level: 1,
-      name: /technology for what comes next/i,
+      name: /human potential multiplied/i,
     }),
   ).toBeVisible();
 
@@ -41,12 +145,17 @@ test("Home renders without horizontal overflow and retains desktop/mobile screen
       .filter((id) => !document.getElementById(id)),
   );
   expect(unresolvedAnchors).toEqual([]);
-  await expect(page.locator("canvas")).toHaveCount(0);
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.getByTestId("hero-scene-stage")).toHaveAttribute(
+    "data-identity-source",
+    "NEX-N-A-PRECISION-BLADES",
+  );
 
   mkdirSync(screenshotDirectory, { recursive: true });
   for (const viewport of [
-    { width: 390, height: 844, name: "mobile-390x844" },
-    { width: 1440, height: 900, name: "desktop-1440x900" },
+    { width: 390, height: 844, name: "mobile-390x844", fullPage: false },
+    { width: 1440, height: 900, name: "desktop-1440x900", fullPage: false },
+    { width: 1600, height: 900, name: "desktop-1600x900", fullPage: false },
   ]) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
     const hasHorizontalOverflow = await page.evaluate(
@@ -55,7 +164,7 @@ test("Home renders without horizontal overflow and retains desktop/mobile screen
     expect(hasHorizontalOverflow, `${viewport.name} horizontal overflow`).toBe(false);
     await page.screenshot({
       path: resolve(screenshotDirectory, `home-${viewport.name}.png`),
-      fullPage: true,
+      fullPage: viewport.fullPage,
       animations: "disabled",
     });
 
@@ -88,6 +197,466 @@ test("skip link and keyboard focus are visible and usable", async ({ page }) => 
   await expect(page.getByRole("link", { name: /explore the project/i })).toBeVisible();
 });
 
+test("mobile navigation keeps every section link reachable by keyboard", async ({ page }) => {
+  await page.setViewportSize({ width: 320, height: 844 });
+  await page.goto("/");
+
+  const navigation = page.getByRole("navigation", { name: "Main navigation" });
+  const links = navigation.getByRole("link");
+  const expectedDestinations = [
+    "#capabilities",
+    "#infrastructure",
+    "#products",
+    "#research",
+    "#vision",
+  ];
+
+  await expect(navigation).toBeVisible();
+  await expect(links).toHaveCount(expectedDestinations.length);
+  for (const [index, destination] of expectedDestinations.entries()) {
+    await expect(links.nth(index)).toHaveAttribute("href", destination);
+  }
+
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
+  await page.keyboard.press("Tab");
+  await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
+
+  for (const link of await links.all()) {
+    await page.keyboard.press("Tab");
+    await expect(link).toBeFocused();
+    await expect(link).toBeInViewport();
+  }
+
+  const hasHorizontalOverflow = await page.evaluate(
+    () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
+  );
+  expect(hasHorizontalOverflow).toBe(false);
+});
+
+test("lazy scene reaches ready on capable WebGL and retains the poster otherwise", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED|STATIC)$/);
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+
+  const tier = await stage.getAttribute("data-quality-tier");
+  if (tier === "STATIC") {
+    await expect(page.locator("canvas")).toHaveCount(0);
+    await expect(stage).toHaveAttribute("data-scene-state", "poster");
+  } else {
+    await expect(stage).toHaveAttribute("data-scene-state", /^(ready|fallback)$/i, {
+      timeout: 30_000,
+    });
+    const state = await stage.getAttribute("data-scene-state");
+    if (state === "ready") {
+      await expect(page.locator("canvas")).toBeVisible();
+    } else {
+      await expect(page.locator("canvas")).toHaveCount(0);
+    }
+  }
+
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-scene-transition-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+});
+
+test("WebGL failure selects the static hero without blocking semantic content", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      configurable: true,
+      value: function getContext(type: string, ...args: unknown[]) {
+        if (type === "webgl2") return null;
+        return Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+      },
+    });
+  });
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", "STATIC");
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /human potential multiplied/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /contact nex labs/i })).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-webgl-fallback-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+});
+
+test("runtime WebGL failure keeps the poster fallback after resize", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "hardwareConcurrency", {
+      configurable: true,
+      value: 8,
+    });
+    Object.defineProperty(navigator, "deviceMemory", {
+      configurable: true,
+      value: 8,
+    });
+    if (typeof window.WebGL2RenderingContext === "undefined") {
+      Object.defineProperty(window, "WebGL2RenderingContext", {
+        configurable: true,
+        value: function WebGL2RenderingContext() {},
+      });
+    }
+
+    const original = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      configurable: true,
+      value: function getContext(type: string, ...args: unknown[]) {
+        if (type === "webgl2" && this.isConnected) return null;
+
+        const context = Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+        if (type === "webgl2" && context === null) {
+          return {
+            getExtension(name: string) {
+              return name === "WEBGL_lose_context" ? { loseContext() {} } : null;
+            },
+          } as unknown as RenderingContext;
+        }
+        return context;
+      },
+    });
+  });
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED)$/);
+  await expect(stage).toHaveAttribute("data-scene-state", "fallback", {
+    timeout: 30_000,
+  });
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+
+  await page.setViewportSize({ width: 1500, height: 900 });
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED)$/);
+  await expect(stage).toHaveAttribute("data-scene-state", "fallback");
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+  mkdirSync(screenshotDirectory, { recursive: true });
+  await page.screenshot({
+    path: resolve(
+      screenshotDirectory,
+      "home-webgl-runtime-fallback-after-resize-1600x900.png",
+    ),
+    fullPage: false,
+    animations: "disabled",
+  });
+});
+
+test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles", async ({
+  browser,
+  page,
+}) => {
+  test.setTimeout(90_000);
+  mkdirSync(screenshotDirectory, { recursive: true });
+
+  const staticPage = await browser.newPage({
+    viewport: { width: 1600, height: 900 },
+    reducedMotion: "reduce",
+  });
+  await installVitalsObserver(staticPage);
+  const staticChunkCollector = collectScriptGzipSizes(staticPage);
+  const staticStart = Date.now();
+  await staticPage.goto(`${testBaseURL}/`, { waitUntil: "load" });
+  await expect(staticPage.getByTestId("hero-scene-stage")).toHaveAttribute(
+    "data-quality-tier",
+    "STATIC",
+  );
+  await expect(staticPage.getByTestId("hero-static-poster")).toBeVisible();
+  const staticChunks = await staticChunkCollector.finish();
+  const staticVitals = await staticPage.evaluate(() => {
+    const values = Reflect.get(window, "__nexlabsVitals") as {
+      cls: number;
+      lcpMs: number;
+    };
+    const navigation = performance.getEntriesByType(
+      "navigation",
+    )[0] as PerformanceNavigationTiming | undefined;
+    return {
+      ...values,
+      domContentLoadedMs: navigation?.domContentLoadedEventEnd ?? 0,
+      loadEventMs: navigation?.loadEventEnd ?? 0,
+    };
+  });
+  const staticLoadMs = Date.now() - staticStart;
+  await staticPage.close();
+
+  const mobilePage = await browser.newPage({
+    viewport: { width: 390, height: 844 },
+    isMobile: true,
+    deviceScaleFactor: 1,
+  });
+  await installVitalsObserver(mobilePage);
+  const mobileChunkCollector = collectScriptGzipSizes(mobilePage);
+  const mobileCdp = await mobilePage.context().newCDPSession(mobilePage);
+  await mobileCdp.send("Network.enable");
+  await mobileCdp.send("Network.emulateNetworkConditions", {
+    offline: false,
+    latency: 150,
+    downloadThroughput: (1.6 * 1024 * 1024) / 8,
+    uploadThroughput: (750 * 1024) / 8,
+    connectionType: "cellular4g",
+  });
+  await mobileCdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
+  const mobileStart = Date.now();
+  await mobilePage.goto(`${testBaseURL}/`, { waitUntil: "load" });
+  await expect(mobilePage.getByTestId("hero-scene-stage")).toHaveAttribute(
+    "data-quality-tier",
+    "STATIC",
+  );
+  await expect(mobilePage.getByTestId("hero-static-poster")).toBeVisible();
+  const mobileLoadMs = Date.now() - mobileStart;
+  await mobilePage.screenshot({
+    path: resolve(screenshotDirectory, "home-performance-mobile-390x844.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+  await mobilePage
+    .getByRole("link", { name: /explore the project/i })
+    .click();
+  await mobilePage.evaluate(
+    () =>
+      new Promise<void>((resolveFrame) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolveFrame()));
+      }),
+  );
+  const mobileChunks = await mobileChunkCollector.finish();
+  const mobileVitals = await mobilePage.evaluate(() => {
+    const values = Reflect.get(window, "__nexlabsVitals") as {
+      cls: number;
+      inpSamples: number[];
+      lcpMs: number;
+    };
+    const navigation = performance.getEntriesByType(
+      "navigation",
+    )[0] as PerformanceNavigationTiming | undefined;
+    return {
+      lcpMs: values.lcpMs,
+      cls: values.cls,
+      inpMs: values.inpSamples.length ? Math.max(...values.inpSamples) : 0,
+      inpSampleCount: values.inpSamples.length,
+      domContentLoadedMs: navigation?.domContentLoadedEventEnd ?? 0,
+      loadEventMs: navigation?.loadEventEnd ?? 0,
+    };
+  });
+  await mobilePage.close();
+
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await installVitalsObserver(page);
+  const liveChunkCollector = collectScriptGzipSizes(page);
+  const desktopStart = Date.now();
+  await page.goto("/");
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED|STATIC)$/);
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+
+  const desktopTier = await stage.getAttribute("data-quality-tier");
+  let desktopState = await stage.getAttribute("data-scene-state");
+  if (desktopTier !== "STATIC") {
+    await expect(stage).toHaveAttribute("data-scene-state", /^(ready|fallback)$/i, {
+      timeout: 30_000,
+    });
+    desktopState = await stage.getAttribute("data-scene-state");
+  }
+
+  const desktopFrames =
+    desktopState === "ready" ? await sampleFrameTimes(page) : null;
+  const desktopCapabilities = await page.evaluate(() => {
+    const memoryNavigator = navigator as Navigator & { deviceMemory?: number };
+    const canvas = document.querySelector("canvas");
+    const context = canvas?.getContext("webgl2");
+    const debugInfo = context?.getExtension("WEBGL_debug_renderer_info");
+    return {
+      hardwareConcurrency: navigator.hardwareConcurrency,
+      deviceMemoryGb: memoryNavigator.deviceMemory ?? null,
+      devicePixelRatio: window.devicePixelRatio,
+      webgl2Ready: Boolean(context),
+      renderer: debugInfo
+        ? context?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) ?? null
+        : null,
+    };
+  });
+  const desktopChunks = await liveChunkCollector.finish();
+  const liveVitals = await page.evaluate(() => {
+    const values = Reflect.get(window, "__nexlabsVitals") as {
+      cls: number;
+      lcpMs: number;
+    };
+    const navigation = performance.getEntriesByType(
+      "navigation",
+    )[0] as PerformanceNavigationTiming | undefined;
+    return {
+      ...values,
+      domContentLoadedMs: navigation?.domContentLoadedEventEnd ?? 0,
+      loadEventMs: navigation?.loadEventEnd ?? 0,
+    };
+  });
+  const desktopLoadMs = Date.now() - desktopStart;
+
+  const fullProfilePage = await browser.newPage({
+    viewport: { width: 1600, height: 900 },
+  });
+  await fullProfilePage.addInitScript(() => {
+    Object.defineProperty(navigator, "hardwareConcurrency", {
+      configurable: true,
+      value: 16,
+    });
+    Object.defineProperty(navigator, "deviceMemory", {
+      configurable: true,
+      value: 8,
+    });
+  });
+  await fullProfilePage.goto(`${testBaseURL}/`);
+  const fullStage = fullProfilePage.getByTestId("hero-scene-stage");
+  await expect(fullStage).toHaveAttribute("data-quality-tier", "FULL");
+  await expect(fullStage).toHaveAttribute("data-scene-state", "ready", {
+    timeout: 30_000,
+  });
+  const fullFrames = await sampleFrameTimes(fullProfilePage);
+  await fullProfilePage.screenshot({
+    path: resolve(screenshotDirectory, "home-full-scene-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+  await fullProfilePage.close();
+
+  const staticChunkUrls = new Set(Object.keys(staticChunks));
+  const staticScriptGzipBytes = Object.values(staticChunks).reduce(
+    (total, bytes) => total + bytes,
+    0,
+  );
+  const mobileScriptGzipBytes = Object.values(mobileChunks).reduce(
+    (total, bytes) => total + bytes,
+    0,
+  );
+  const lazyChunks = Object.entries(desktopChunks)
+    .filter(([url]) => !staticChunkUrls.has(url))
+    .map(([url, gzipBytes]) => ({ url, gzipBytes }));
+  const lazyChunkGzipBytes = lazyChunks.reduce((total, chunk) => total + chunk.gzipBytes, 0);
+  const desktopPosterBytes = statSync(
+    resolve(process.cwd(), "public/hero/home-hero-poster.jpg"),
+  ).size;
+  const mobilePosterBytes = statSync(
+    resolve(process.cwd(), "public/hero/home-hero-poster-mobile.jpg"),
+  ).size;
+  expect(desktopPosterBytes).toBeLessThan(600 * 1024);
+  expect(mobilePosterBytes).toBeLessThan(desktopPosterBytes * 0.75);
+  expect(staticScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
+  expect(mobileScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
+  if (desktopState === "ready") {
+    expect(lazyChunkGzipBytes).toBeLessThanOrEqual(700 * 1024);
+  }
+  if (liveVitals.lcpMs > 0) expect(liveVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(liveVitals.cls).toBeLessThanOrEqual(0.1);
+  if (mobileVitals.lcpMs > 0) expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(mobileVitals.cls).toBeLessThanOrEqual(0.1);
+  expect(mobileVitals.inpSampleCount).toBeGreaterThan(0);
+  expect(mobileVitals.inpMs).toBeLessThanOrEqual(200);
+
+  let balancedTier: string | null = null;
+  let balancedState: string | null = null;
+  let balancedFrames: Awaited<ReturnType<typeof sampleFrameTimes>> | null = null;
+  if (desktopState === "ready") {
+    await page.setViewportSize({ width: 900, height: 768 });
+    await expect(stage).toHaveAttribute("data-quality-tier", "BALANCED");
+    await expect(stage).toHaveAttribute("data-scene-state", "ready");
+    balancedTier = await stage.getAttribute("data-quality-tier");
+    balancedState = await stage.getAttribute("data-scene-state");
+    balancedFrames = await sampleFrameTimes(page);
+    await page.screenshot({
+      path: resolve(screenshotDirectory, "home-balanced-scene-900x768.png"),
+      fullPage: false,
+      animations: "disabled",
+    });
+  }
+
+  const report = {
+    source: "Playwright Chromium; desktop and 390x844 mobile emulation with 4G/4x CPU throttling",
+    posterAssets: {
+      desktopBytes: desktopPosterBytes,
+      mobileBytes: mobilePosterBytes,
+    },
+    static: {
+      tier: "STATIC",
+      loadMs: staticLoadMs,
+      ...staticVitals,
+      scriptGzipBytes: staticScriptGzipBytes,
+      scripts: staticChunks,
+    },
+    desktop: {
+      viewport: "1600x900",
+      tier: desktopTier,
+      state: desktopState,
+      hostCapabilities: desktopCapabilities,
+      loadMs: desktopLoadMs,
+      ...liveVitals,
+      scriptGzipBytes: Object.values(desktopChunks).reduce((total, bytes) => total + bytes, 0),
+      chunks: desktopChunks,
+      lazyChunkGzipBytes,
+      lazyChunks,
+      frameTimes: desktopFrames,
+    },
+    fullCapabilityProfile: {
+      viewport: "1600x900",
+      tier: "FULL",
+      state: "ready",
+      capabilityOverrides: {
+        hardwareConcurrency: 16,
+        deviceMemoryGb: 8,
+        note: "Exercises the FULL scene path on this WebGL-capable host; this is not a separate high-end-hardware qualification.",
+      },
+      frameTimes: fullFrames,
+    },
+    balanced: {
+      viewport: "900x768",
+      tier: balancedTier,
+      state: balancedState,
+      frameTimes: balancedFrames,
+    },
+    mobile4g: {
+      viewport: "390x844",
+      tier: "STATIC",
+      network: { type: "cellular4g", latencyMs: 150, downloadBytesPerSecond: 209715, uploadBytesPerSecond: 96000 },
+      cpuThrottlingRate: 4,
+      loadMs: mobileLoadMs,
+      ...mobileVitals,
+      scriptGzipBytes: mobileScriptGzipBytes,
+      scripts: mobileChunks,
+      interactionLatency: {
+        type: "single laboratory CTA activation; proxy only, not field INP",
+        eventSampleCount: mobileVitals.inpSampleCount,
+        maximumEventDurationMs: mobileVitals.inpMs,
+        budgetMs: 200,
+      },
+    },
+  };
+  writeFileSync(
+    resolve(screenshotDirectory, "home-performance-report.json"),
+    `${JSON.stringify(report, null, 2)}\n`,
+    "utf8",
+  );
+
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  expect(desktopTier).toMatch(/^(FULL|BALANCED|STATIC)$/);
+});
+
 test("reduced motion keeps the static Home composition usable", async ({ page }) => {
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -96,13 +665,18 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
   await expect(
     page.getByRole("heading", {
       level: 1,
-      name: /technology for what comes next/i,
+      name: /human potential multiplied/i,
     }),
   ).toBeVisible();
   await expect(page.getByRole("link", { name: /contact nex labs/i })).toBeVisible();
   expect(await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(
     true,
   );
+  await expect(page.getByTestId("hero-scene-stage")).toHaveAttribute(
+    "data-quality-tier",
+    "STATIC",
+  );
+  await expect(page.locator("canvas")).toHaveCount(0);
 
   const duration = await page
     .getByRole("link", { name: /contact nex labs/i })

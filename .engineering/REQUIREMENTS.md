@@ -5,17 +5,19 @@
 - Repository: KayzenRoot/nexlabs-website.
 - GEF Bootstrap CLI remains pinned to @gef-bootstrap/cli@1.1.2.
 - Product implementation follows governed Work Orders and exact-head review.
+- Production identity is `NEX-N-A-PRECISION-BLADES`.
 
 ## Product requirements — Website V1
 
-### Brand and visual fidelity
+### Brand and Home visual fidelity
 
-- The selected chrome-humanoid homepage concept is the Visual Master for V1.
-- The implementation must preserve the reference hierarchy, proportions, depth, dark palette, glass/plasmorphism, restrained blue/cyan/violet illumination and premium spacing rather than merely borrowing the general style.
-- The experience must communicate advanced AI/engineering capability without reading as a gaming UI or generic template.
-- The primary hero object must feel alive through subtle 3D motion, lighting, parallax and scroll choreography.
-- The second approved cube concept is reserved as a visual language reference for infrastructure/technology sections rather than the Home hero.
-- The brand mark must be a proprietary-looking N monogram with a clean static vector form and a restrained animated presentation.
+- The owner-approved `home_visual_master.jpg` (1600x900, SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`) is the primary Home visual target.
+- This final N-centered laboratory composition supersedes the earlier chrome-humanoid concept as the Home layout/composition master.
+- Preserve hierarchy, proportions, depth, dark palette, chrome/glass material language, restrained cyan/blue/violet illumination and premium spacing rather than merely borrowing the general style.
+- The monumental Precision Blades N inside a luminous research-lab chamber is the hero focal point.
+- The experience should feel like one living technological organism through subtle energy/light circulation, parallax and depth.
+- A human figure remains a scale/human-centered cue, not a celebrity/character.
+- The floating cube concept remains a secondary vocabulary for Technology/Infrastructure sections.
 - UI icons should use a coherent 3D/glass/chrome family where visual cost is justified.
 - No fake customer logos, partnerships, statistics or testimonials may be published.
 
@@ -44,34 +46,38 @@ Home planned sections:
 
 ### Interaction and motion
 
-- Motion must be smooth, deliberate and low-frequency; no continuous distracting spin.
-- Desktop-capable devices receive full 3D when quality checks pass.
+- Motion must be smooth, deliberate and low-frequency.
+- No continuous N spin.
+- Desktop-capable devices receive FULL 3D when quality checks pass.
 - Balanced devices receive reduced geometry/effects.
-- Low-power/mobile/reduced-motion contexts receive a static or lightly animated fallback preserving composition.
-- 3D readiness must never block first meaningful paint; a poster/fallback renders immediately and crossfades to the live scene when ready.
+- Low-power/mobile/reduced-motion contexts receive STATIC or reduced fallback preserving composition.
+- 3D readiness must never block first meaningful paint.
 - Keyboard focus, semantic navigation and prefers-reduced-motion are mandatory.
+- Nonessential animation should pause/throttle when the document is hidden.
 
 ### Performance targets
 
-Initial engineering targets, to be validated and adjusted with benchmark evidence:
-- LCP target <= 2.5 s on representative mobile/4G and desktop test profiles.
-- CLS target <= 0.10.
-- INP target <= 200 ms.
-- Initial route JS target <= 220 KB gzip excluding lazy 3D/runtime chunks.
+- LCP target <= 2.5 s representative mobile/4G and desktop profiles.
+- CLS <= 0.10.
+- INP <= 200 ms.
+- Initial route JS <= 220 KB gzip excluding lazy 3D/runtime chunks.
 - 3D runtime must be code-split and loaded only where required.
-- Hero production GLB target <= 3 MB compressed for the full desktop tier; balanced/fallback tiers must be materially smaller or avoid the model.
-- Critical UI must remain usable before 3D initialization completes.
+- M04 lazy 3D JS target <= 700 KB gzip unless measured evidence justifies otherwise.
+- Hero production GLB target <= 3 MB compressed if a GLB is used.
+- Critical UI must remain usable before 3D initialization.
 
 ### Accessibility, security and privacy
 
-- Target WCAG 2.2 AA for public interactive UI.
-- All interactive controls must be keyboard reachable and have visible focus states.
-- Motion reduction must be respected.
-- Contact form, when implemented, requires server-side validation, rate limiting and anti-spam controls.
-- Do not add trackers/cookies by default. Any analytics must be separately approved with privacy impact documented.
+- Target WCAG 2.2 AA.
+- All interactive controls keyboard reachable with visible focus.
+- Reduced motion must be respected.
+- Canvas may not contain the only copy of meaningful content.
+- No trackers/cookies by default.
+- Contact form security remains a later increment.
 
 ### SEO and content integrity
 
-- Semantic HTML, metadata, canonical URLs, Open Graph, sitemap and robots support are required before production release.
-- Structured Organization data may be used only with factual company information.
-- Public copy must not claim customers, partnerships, capabilities, benchmarks or outcomes without an approved factual source.
+- Semantic HTML and existing metadata remain valid.
+- Structured Organization data only with factual information.
+- Public copy must not claim customers, partnerships, capabilities, benchmarks or outcomes without approved factual sources.
+- Concept-art numbers are not production facts.

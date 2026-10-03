@@ -12,29 +12,34 @@ APPROVED and merged.
 APPROVED and merged.
 
 ### M03 — Brand Concept Exploration
-APPROVED and merged in PR #7.
-Selected concept: `NEX-N-A-PRECISION-BLADES`.
+APPROVED and merged.
+
+### M03 — Vector Master & Brand Integration
+APPROVED at exact head `f3534134e38d93649728476a2f199d9c952d812c` and merged in PR #8.
+Production identity: `NEX-N-A-PRECISION-BLADES`.
 
 ## Active
 
-### M03 — Vector Master & Brand Integration
-ADMITTED under `NEXLABS-WO-006-BRAND-INTEGRATION`.
+### M04 — Home Hero 3D / Living Organism
+ADMITTED under `NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM`.
 
-- build production flat SVG geometry;
-- monochrome/enhanced variants;
-- lockups;
-- favicon/icon surfaces;
-- header/footer integration;
-- lightweight brand motion;
-- screenshots/tests/evidence;
+- exact 1600x900 Home Visual Master;
+- poster-first hero;
+- isolated lazy Three/R3F scene;
+- monumental 3D Precision Blades N;
+- luminous chamber/lab/world depth;
+- globe/network/energy language;
+- human scale cue;
+- FULL/BALANCED/STATIC tiers;
+- living-organism motion foundation;
+- performance/fidelity evidence;
 - Docker left UP/healthy.
 
 ## Next
 
-1. M04 — Home Hero 3D / Living Organism
-2. M05 — Home Content Sections
-3. M06 — Secondary Pages
-4. M07 — Production Hardening & Launch
+1. M05 — Home Content Sections
+2. M06 — Secondary Pages
+3. M07 — Production Hardening & Launch
 
 ## Future
 

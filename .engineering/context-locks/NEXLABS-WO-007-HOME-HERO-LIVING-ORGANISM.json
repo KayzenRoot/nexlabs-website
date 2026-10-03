@@ -1,0 +1,82 @@
+{
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM",
+  "repository": "KayzenRoot/nexlabs-website",
+  "branch": "work/nexlabs-wo-007-home-hero-living-organism",
+  "capturedAtUtc": "2026-10-02T21:55:00Z",
+  "riskClass": "HIGH_VISUAL_STANDARD_SECURITY",
+  "admission": {
+    "state": "OWNER_AUTHORIZED_CONTINUE_AFTER_M03",
+    "source": "Owner instructed continuation after approving the final identity and Home composition",
+    "startingHead": "c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c",
+    "mainSha": "c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c",
+    "mergeAuthorizedNow": false,
+    "implementationAuthorizedNow": true
+  },
+  "homeVisualMaster": {
+    "filename": "home_visual_master.jpg",
+    "width": 1600,
+    "height": 900,
+    "sha256": "d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647",
+    "repositoryCopyRequiredForFinalFidelityApproval": true
+  },
+  "writeAllowed": [
+    "package.json",
+    "package-lock.json",
+    "src/**",
+    "public/**",
+    ".github/**",
+    ".engineering/**",
+    "README.md",
+    "AGENTS.md",
+    "next.config.*",
+    "vitest.config.*",
+    "playwright.config.*"
+  ],
+  "writeForbidden": [
+    "M05 final Home content/card implementation",
+    "secondary public pages",
+    "backend/database/authentication",
+    "analytics/trackers/CMS/CRM",
+    "public deployment",
+    "audio",
+    "WebGPU-specific renderer",
+    "fabricated business metrics/clients/partners",
+    "unrelated cleanup",
+    "force-push, rebase or history rewrite",
+    "weakening required review/security gates"
+  ],
+  "criticalSources": {
+    ".engineering/CHECKPOINT.json": "e39d0c554b9f10c9eea485425d8e53a8744d82f4",
+    ".engineering/CHECKPOINT.md": "b76182c5bb3409af291581cc840490f6e7e3ce8e",
+    ".engineering/SOURCE-HIERARCHY.md": "0166f0fab2abd6d7548a6eb58b4e4c6e9a4d135b",
+    ".engineering/DEFINITION-OF-DONE.md": "799c0fc3e58140e8d3f27328f2bb07feac84cd11",
+    ".engineering/ARCHITECTURE.md": "9888832866df13054a06751370f72f0965969d35",
+    ".engineering/REQUIREMENTS.md": "f0ca59f70336e7b5129e5a949f595b90f40d25fc",
+    ".engineering/SCOPE.md": "4531e0319ca9de27a1f352873ee6f4a858b73930",
+    ".engineering/DECISIONS-LEDGER.md": "0a5f2243ac9783f9244154b1993e3ac80f51b1a3",
+    ".engineering/UI-UX.md": "05b819360c3b695111fd8a1f95f27b0ed22fd971",
+    ".engineering/VISUAL-DIRECTION.md": "a860d2ee3f11232036434ccdd1168711f1b65e54",
+    ".engineering/BRAND-SYSTEM.md": "4bf2f02468f8e92b6d6d97c35c1ff6185f9f5b8d",
+    ".engineering/SECURITY.md": "7ac1fadf3c739ed4da3aafd62bc2272a77be315d",
+    ".engineering/TEST-BENCHMARK-PLAN.md": "e7e684dc91a5c4d63cc944585f38fea9f1a55604",
+    ".engineering/BACKLOG.md": "e7442bfe4deeeb5b2fb76792abef3461fe4b0b49",
+    "AGENTS.md": "a7253838a4e63acb341767fac57dfa75c3ba33e1",
+    "package.json": "f42583b3644fd87c2e1033a8845e4f2ccc28d147",
+    "package-lock.json": "b557cf27e907e9fdaf8a36bb32a258e9fb4b7e5f"
+  },
+  "proofObligations": [
+    "exact approved reference retained or fidelity explicitly provisional",
+    "poster-first semantic shell",
+    "dynamic Three/R3F client island",
+    "FULL BALANCED STATIC tiers",
+    "reduced-motion and WebGL-failure fallbacks",
+    "selected Precision Blades N as hero geometry",
+    "living-organism chamber/network motion",
+    "responsive fidelity evidence",
+    "performance and lazy-chunk evidence",
+    "Docker UP/healthy at stop",
+    "exact-head independent audit before merge"
+  ],
+  "stopCondition": "M04_IMPLEMENTATION_COMPLETE_DOCKER_UP_PR_OPEN_UNMERGED"
+}

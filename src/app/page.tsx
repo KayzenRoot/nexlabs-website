@@ -3,6 +3,7 @@ import styles from "./page.module.css";
 
 const plannedHomeAnchors = [
   "capabilities",
+  "products",
   "credibility",
   "vision",
   "infrastructure",
@@ -10,8 +11,8 @@ const plannedHomeAnchors = [
 ] as const;
 
 /**
- * Renders the M02 Home shell with the approved static fallback and placeholder
- * anchors for later governed Home-section increments.
+ * Renders the M04 semantic hero and keeps draft-safe anchors for later governed
+ * Home-section increments.
  */
 export default function HomePage() {
   return (

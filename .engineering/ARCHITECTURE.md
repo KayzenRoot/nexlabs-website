@@ -2,49 +2,51 @@
 
 ## Current repository architecture
 
-The repository has a merged GEF Bootstrap 1.1.2 governance baseline. No website runtime is implemented yet.
+The repository has a merged GEF governance baseline, Next.js App Router runtime, strict TypeScript, CSS Modules/design tokens, automated CI/browser/a11y checks, Docker development environment, professional main ruleset and the production Precision Blades brand identity.
 
-## Target product architecture — accepted planning direction
+## M04 product architecture
 
-The first implementation increment will use a browser-first React architecture with:
+M04 adds the first production 3D client island:
 
-- Next.js App Router.
-- TypeScript in strict mode.
-- React Server Components by default; client components only where interaction requires them.
-- CSS Modules plus a project design-token layer for high-fidelity control. No generic component theme or visual kit is allowed to dictate the brand.
-- Three.js through React Three Fiber for isolated 3D scenes.
+- Three.js through React Three Fiber.
 - Drei only for narrowly justified helpers.
-- GSAP/ScrollTrigger for complex timeline choreography; ordinary UI hover/focus transitions remain CSS-first.
-- Blender as the source tool for production 3D assets, exported as glTF/GLB.
-- Mesh/texture optimization using glTF optimization tooling, Meshopt where appropriate and KTX2/Basis-compressed textures where supported.
-- Dynamic import/code splitting for all heavy 3D code.
-- Immediate poster-image fallback plus capability-aware quality tiers.
+- Dynamically imported client-only hero scene.
+- Server-rendered semantic hero and poster/static composition first.
+- Capability-aware FULL / BALANCED / STATIC rendering.
+- Selected Precision Blades SVG geometry reused as the source for the hero N, preferably through procedural shape extrusion when practical.
+- Reusable living-environment motion/config boundary for later Home sections.
+- No semantic content or critical control inside canvas.
+- No provider-specific deployment coupling.
+
+GSAP/ScrollTrigger remains optional for genuinely complex scroll choreography and should not be installed merely for basic motion.
 
 ## Rendering model
 
 1. Server-render semantic page shell and critical visual structure.
 2. Render a faithful hero poster/fallback immediately.
-3. Detect reduced-motion/device capability without blocking the shell.
-4. Lazy-load the 3D client island.
-5. Crossfade to the live scene only after required assets are ready.
-6. Degrade gracefully to balanced/static modes when budgets are exceeded.
+3. Resolve reduced-motion/WebGL/device capability without blocking content.
+4. Lazy-load the 3D island when eligible.
+5. Prepare scene off the critical content path.
+6. Crossfade only after scene readiness.
+7. Degrade permanently to STATIC if live scene initialization fails.
+8. Pause/throttle nonessential scene activity while hidden.
 
 ## Quality tiers
 
-- FULL: capable desktop/GPU, full hero model, controlled lighting/post effects and particles.
-- BALANCED: reduced geometry, texture resolution, post-processing and particle density.
-- STATIC: poster or minimal CSS/SVG animation; required for reduced motion and very constrained devices.
+- FULL: capable desktop/GPU, full chamber/N/network scene, bounded post/light effects and particles.
+- BALANCED: reduced DPR, particle/effect density and scene complexity with the same composition.
+- STATIC: poster/CSS/SVG only; mandatory for reduced motion, missing WebGL and clearly constrained contexts.
 
-The site must never require FULL mode for content, navigation or conversion.
+The site never requires FULL mode for content, navigation or conversion.
 
-## Logo architecture
+## Asset architecture
 
-The primary brand mark is vector-first SVG for reliability, accessibility and small-size clarity. Animated presentation may use CSS/SVG transforms and light/refraction effects. A WebGL logo variant is optional and must not be required for header rendering.
+- Brand remains vector-first.
+- Prefer procedural geometry for rings, rails, panels, globe/network and N extrusion where it reduces asset cost.
+- Blender/glTF remains available for complex production assets when procedural construction is insufficient.
+- Mesh/texture optimization uses glTF tooling, Meshopt and KTX2/Basis where applicable.
+- Heavy assets and runtime are separately measurable and lazy.
 
-## Data and backend boundary
+## Data/backend/deployment boundary
 
-V1 is content-led and does not require a custom database. Contact handling and any future CMS are separate integration decisions. No backend service is selected by this planning increment.
-
-## Deployment boundary
-
-Provider selection remains deferred. Architecture must remain deployable on a mainstream Node/edge-capable platform without provider-specific product coupling.
+V1 remains content-led. No database, CMS, auth or deployment provider is introduced by M04.
