@@ -8,7 +8,7 @@
 - HEAD de entrada ligado ao Context Lock: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
 - Context Lock: `.engineering/context-locks/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS.json` (SHA-256 `5eec29c5ba098109afc29f67969a82838876cfaa3c8e898723957f0e9633dbce`).
 - Preflight: 22 fingerprints críticos corresponderam ao snapshot do lock e os 10 caminhos `staleIfChanged` também corresponderam ao Source Pack travado. Nenhuma fonte crítica STALE.
-- HEAD de implementação/código e testes validado localmente: `114c842bb62af3c6a720f570dc36aedc3ed49a7f`. A atualização documental deste bundle e do Checkpoint Delta é posterior e não altera código/configuração executável. O SHA final da PR e seus checks exatos estão registrados nos metadados da PR #12.
+- HEAD de implementação/código e testes validado localmente: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`. A atualização documental deste bundle e do Checkpoint Delta é posterior e não altera código/configuração executável. O SHA final da PR e seus checks exatos estão registrados nos metadados da PR #12.
 - A PR permanece OPEN/READY FOR REVIEW. Este delta não promove o Checkpoint e não admite M06B.
 
 ## Escopo entregue
@@ -40,7 +40,7 @@
 | Scan de padrões de segredo nos arquivos de implementação/teste | PASS — nenhum match |
 | GEF | PASS — `npm ls @gef-bootstrap/cli --depth=0` mostra `@gef-bootstrap/cli@1.1.2` |
 
-O primeiro E2E completo identificou duas expectativas antigas que ainda esperavam os anchors `#capabilities`/`#infrastructure` no menu global. Os testes foram atualizados para verificar `/solutions`, `/technology` e o conteúdo da rota Technology. A execução completa subsequente passou em 16/16.
+O primeiro E2E completo identificou duas expectativas antigas que ainda esperavam os anchors `#capabilities`/`#infrastructure` no menu global. Os testes foram atualizados para verificar `/solutions`, `/technology` e o conteúdo da rota Technology. Uma análise SonarCloud intermediária no HEAD `417d1807e5ae50792bd3de51fb2f01c6a9ba8ba5` reprovou o gate por 4.1076% de duplicação nova (87 linhas/4 blocos, limite 3%) e apontou um problema MAJOR de contraste em `secondary-page.module.css`. A refatoração parametrizada dos testes e a correção de contraste estão no commit `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`; nenhum gate foi alterado. O E2E integral final passou em 16/16 e a suíte unitária em 21/21.
 
 ## Browser, acessibilidade e responsividade
 
@@ -53,9 +53,9 @@ O primeiro E2E completo identificou duas expectativas antigas que ainda esperava
 ## Performance e isolamento de chunks
 
 - `route-performance-report.json`: budget por rota de 225,280 bytes gzip (220 KiB); `/technology` e `/solutions` mediram 133,659 bytes gzip cada, abaixo do limite. Nenhum chunk específico de Three/hero foi carregado pelas páginas secundárias.
-- Medição laboratorial desktop 1600×900: Technology LCP 184 ms / CLS 0; Solutions LCP 168 ms / CLS 0; sem overflow horizontal.
-- Regressão Home, perfil mobile 4G e CPU 4×: LCP 2,404 ms (alvo ≤2,500 ms), CLS 0, proxy de interação 72 ms (alvo ≤200 ms), JS inicial 136,828 bytes gzip. Resultado dentro dos limites por 96 ms para LCP; é uma medição de laboratório local, não dado de usuários reais.
-- O perfil BALANCED preexistente mediu 59.9 FPS medianos / p95 33.3 ms a 900×768. O perfil FULL, simulado neste host com SwiftShader, mediu 20 FPS medianos / p95 116.6 ms; M06A não alterou a cena ou seu código. O ambiente de GPU virtual não representa uma qualificação de GPU de produção.
+- Medição laboratorial desktop 1600×900: Technology LCP 220 ms / CLS 0; Solutions LCP 176 ms / CLS 0; sem overflow horizontal.
+- Regressão Home, perfil mobile 4G e CPU 4×: LCP 2,404 ms (alvo ≤2,500 ms), CLS 0, proxy de interação 136 ms (alvo ≤200 ms), JS inicial 136,828 bytes gzip. Resultado dentro dos limites por 96 ms para LCP; é uma medição de laboratório local, não dado de usuários reais. Uma execução integral intermediária oscilou para 3,008 ms; a execução isolada seguinte e a execução integral final passaram. O limite permaneceu inalterado.
+- O perfil BALANCED preexistente mediu 59.9 FPS medianos / p95 16.7 ms a 900×768. O perfil FULL, simulado neste host com SwiftShader, mediu 20 FPS medianos / p95 116.6 ms; M06A não alterou a cena ou seu código. O ambiente de GPU virtual não representa uma qualificação de GPU de produção.
 
 Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-performance-report.json) e [regressão/performance Home](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/home-performance-report.json).
 
@@ -69,7 +69,7 @@ Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-perform
 ## Docker e acesso local
 
 - Docker Engine/client `29.8.1`; Compose `v5.5.1`.
-- Imagem `nexlabs-website-web:latest`, ID `sha256:ba3c41a3142af033bca30e7b3196490bba36bf4eaad62aaa67d6b0e2a307eab0`.
+- Imagem reconstruída com o código final M06A: `nexlabs-website-web:latest`, ID `sha256:20f065c0ec56e2ff0a20ea1d3441fbbf6a04709f1fb70bfd7970d7aa62d4d8ad`.
 - Container `nexlabs-website-web-1`; Compose projeto `nexlabs-website`; container saudável; Node `v22.23.3`, npm `10.9.9`, usuário não-root `node` (UID/GID 1000).
 - Bind: `127.0.0.1:3000 -> 3000/tcp`. Healthcheck PASS; a origem Compose no container é o worktree M06A.
 - Comandos executados: `docker compose config`, `docker compose build`, `docker compose up -d`, `docker compose ps`, `docker compose logs --tail=100`, `docker inspect`, `docker exec ... node --version/npm --version/id`.
@@ -82,7 +82,8 @@ Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-perform
 - Não foram alterados workflows, gates, permissões de GitHub ou proteções. A PR #12 já estava OPEN e não draft; nenhum merge foi executado.
 - `agent-browser` não estava instalado globalmente; a verificação foi executada sem persistir dependência de projeto via `npx`, versão 0.38.2. Também foi usada a suíte Chromium/Playwright do repositório.
 - A execução de LCP foi laboratorial e o perfil FULL usou SwiftShader; confirmar desempenho em GPU/dispositivo físico continua fora da qualificação local.
-- Antes da conclusão do Work Order, checks GitHub (CI Quality, Browser Smoke, Socket, SonarCloud, CodeRabbit) precisam ser verificados no SHA final da PR após o push. A revisão independente exata e o merge permanecem gates externos; não são alegados aqui como aprovados.
+- O log de desenvolvimento do Home registrou o aviso preexistente `THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.`; as rotas M06A continuam sem erros/overlays, e o componente Home fora do escopo não foi alterado.
+- A análise SonarCloud do HEAD intermediário `417d1807e5ae50792bd3de51fb2f01c6a9ba8ba5` falhou pelos achados descritos acima; reanálise exata do candidato corrigido ainda depende do push. Checks GitHub (CI Quality, Browser Smoke, Socket, SonarCloud, CodeRabbit) devem ser lidos no SHA final. A revisão independente exata e o merge permanecem gates externos; não são alegados aqui como aprovados.
 
 ## Checkpoint Delta
 

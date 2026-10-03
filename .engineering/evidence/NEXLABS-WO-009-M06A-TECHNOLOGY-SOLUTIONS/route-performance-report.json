@@ -6,7 +6,7 @@
       "path": "/technology",
       "title": "Technology | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 184,
+        "lcpMs": 220,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",
@@ -15,18 +15,18 @@
       },
       "scriptGzipBytes": 133659,
       "scripts": [
-        "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js",
         "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js",
         "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
-        "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js",
-        "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js"
+        "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js",
+        "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js",
+        "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js"
       ]
     },
     {
       "path": "/solutions",
       "title": "Solutions | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 168,
+        "lcpMs": 176,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",

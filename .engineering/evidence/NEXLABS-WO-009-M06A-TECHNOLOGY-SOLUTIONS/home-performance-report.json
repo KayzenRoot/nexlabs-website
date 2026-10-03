@@ -6,17 +6,17 @@
   },
   "static": {
     "tier": "STATIC",
-    "loadMs": 351,
-    "lcpMs": 312,
+    "loadMs": 402,
+    "lcpMs": 348,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 37.59999999962747,
-    "loadEventMs": 227.30000000074506,
+    "domContentLoadedMs": 132.69999999925494,
+    "loadEventMs": 288.30000000074506,
     "scriptGzipBytes": 136828,
     "scripts": {
       "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js": 7245,
-      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
+      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
       "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293,
       "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628
@@ -33,17 +33,17 @@
       "webgl2Ready": true,
       "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
     },
-    "loadMs": 5201,
-    "lcpMs": 324,
+    "loadMs": 5206,
+    "lcpMs": 456,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 37.59999999962747,
-    "loadEventMs": 301.80000000074506,
+    "domContentLoadedMs": 45.400000002235174,
+    "loadEventMs": 377.70000000298023,
     "scriptGzipBytes": 389810,
     "chunks": {
       "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js": 7245,
-      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
+      "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3101/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
       "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js": 47293,
       "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
@@ -86,7 +86,7 @@
     "frameTimes": {
       "sampleCount": 119,
       "medianFrameMs": 16.7,
-      "p95FrameMs": 33.3,
+      "p95FrameMs": 16.7,
       "medianFps": 59.9
     }
   },
@@ -100,13 +100,13 @@
       "uploadBytesPerSecond": 96000
     },
     "cpuThrottlingRate": 4,
-    "loadMs": 2893,
+    "loadMs": 3131,
     "lcpMs": 2404,
     "cls": 0,
-    "inpMs": 72,
+    "inpMs": 136,
     "inpSampleCount": 3,
-    "domContentLoadedMs": 1064.5999999996275,
-    "loadEventMs": 2351.199999999255,
+    "domContentLoadedMs": 1211.199999999255,
+    "loadEventMs": 2371.60000000149,
     "scriptGzipBytes": 136828,
     "scripts": {
       "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js": 3832,
@@ -119,7 +119,7 @@
     "interactionLatency": {
       "type": "single laboratory CTA activation; proxy only, not field INP",
       "eventSampleCount": 3,
-      "maximumEventDurationMs": 72,
+      "maximumEventDurationMs": 136,
       "budgetMs": 200
     }
   }

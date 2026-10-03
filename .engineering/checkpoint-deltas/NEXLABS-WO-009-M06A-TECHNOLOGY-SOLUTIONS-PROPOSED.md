@@ -7,7 +7,7 @@ State: PROPOSED — awaiting exact-head checks and independent review; not promo
 - Work Order: `NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS`.
 - Base SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - Context Lock entry head: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
-- Validated implementation source/test SHA: `114c842bb62af3c6a720f570dc36aedc3ed49a7f`.
+- Validated implementation source/test SHA: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`.
 - Final PR head is supplied by PR #12 metadata after the evidence commit; that follow-up changes only evidence/checkpoint-delta documents. Exact-head GitHub status must be checked before reporting the candidate ready.
 - PR #12 stays OPEN/READY FOR REVIEW and targets `main`.
 
