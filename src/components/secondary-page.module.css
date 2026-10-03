@@ -85,15 +85,15 @@
 .primaryAction {
   padding: 0.72rem 1.3rem;
   border: 1px solid rgb(112 224 255 / 78%);
-  background: linear-gradient(110deg, rgb(29 133 255 / 36%), rgb(16 221 255 / 14%));
+  background: linear-gradient(110deg, #0757a6, #086a7c);
   box-shadow: 0 0 1.35rem rgb(26 147 255 / 23%), inset 0 0 1rem rgb(35 178 255 / 12%);
-  color: #e9fbff;
+  color: #fff;
 }
 
 .primaryAction:hover {
   transform: translateY(-1px);
   border-color: #b8f3ff;
-  background-color: rgb(27 118 219 / 38%);
+  background: linear-gradient(110deg, #0a65b5, #087c90);
   box-shadow: 0 0 1.7rem rgb(43 165 255 / 39%);
   color: #fff;
 }

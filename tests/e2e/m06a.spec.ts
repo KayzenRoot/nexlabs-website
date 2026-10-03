@@ -42,6 +42,13 @@ const routeCases = [
   },
 ] as const;
 
+const primaryNavigationLinks = [
+  { name: "Solutions", href: "/solutions" },
+  { name: "Technology", href: "/technology" },
+  { name: "Research", href: "/#research" },
+  { name: "Company", href: "/#vision" },
+] as const;
+
 function observeScriptResponses(page: Page) {
   const scriptBodies: Promise<number>[] = [];
   const scriptUrls: string[] = [];
@@ -225,46 +232,20 @@ test("global navigation and route CTAs resolve only to admitted destinations", a
       "href",
       "/",
     );
-    await expect(headerNavigation.getByRole("link", { name: "Solutions" })).toHaveAttribute(
-      "href",
-      "/solutions",
-    );
-    await expect(headerNavigation.getByRole("link", { name: "Technology" })).toHaveAttribute(
-      "href",
-      "/technology",
-    );
-    await expect(headerNavigation.getByRole("link", { name: "Research" })).toHaveAttribute(
-      "href",
-      "/#research",
-    );
-    await expect(headerNavigation.getByRole("link", { name: "Company" })).toHaveAttribute(
-      "href",
-      "/#vision",
-    );
-    await expect(header.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
-      "href",
-      "/#contact",
-    );
-    await expect(footerNavigation.getByRole("link", { name: "Solutions" })).toHaveAttribute(
-      "href",
-      "/solutions",
-    );
-    await expect(footerNavigation.getByRole("link", { name: "Technology" })).toHaveAttribute(
-      "href",
-      "/technology",
-    );
-    await expect(footerNavigation.getByRole("link", { name: "Research" })).toHaveAttribute(
-      "href",
-      "/#research",
-    );
-    await expect(footerNavigation.getByRole("link", { name: "Company" })).toHaveAttribute(
-      "href",
-      "/#vision",
-    );
-    await expect(footerNavigation.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
-      "href",
-      "/#contact",
-    );
+    for (const navigation of [headerNavigation, footerNavigation]) {
+      for (const link of primaryNavigationLinks) {
+        await expect(navigation.getByRole("link", { name: link.name })).toHaveAttribute(
+          "href",
+          link.href,
+        );
+      }
+    }
+    for (const ctaContainer of [header, footerNavigation]) {
+      await expect(ctaContainer.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
+        "href",
+        "/#contact",
+      );
+    }
 
     const paths = await page.locator("a[href]").evaluateAll((links) =>
       links.map((link) => new URL((link as HTMLAnchorElement).href).pathname),
