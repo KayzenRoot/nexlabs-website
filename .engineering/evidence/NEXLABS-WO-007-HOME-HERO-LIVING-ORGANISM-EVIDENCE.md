@@ -1,6 +1,6 @@
 # Evidence Bundle — NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM
 
-**Executor state:** implementation and latest review corrections are locally validated on top of PR head `8b35242`; the final correction head is pending commit/push and exact-head GitHub proof. The PR remains open and unmerged.
+**Executor state:** application and review corrections were pushed as `0be8883`; its exact-head CI, Browser Smoke, Socket and Sonar checks passed. CodeRabbit requested an explicit independent-audit-before-merge sentence in the proposed Checkpoint Delta; the clarification is in this documentation update. PR #9 remains open and unmerged.
 
 ## Candidate identity and authority
 
@@ -11,7 +11,7 @@
 - Branch tip before this implementation: `df7f2aed6aed503b0a5f771d23819174725d0ba4`.
 - Implementation and full application-check candidate: `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` (parent `df7f2aed6aed503b0a5f771d23819174725d0ba4`).
 - Two valid CodeRabbit review findings on the next candidate were corrected: runtime WebGL failure now remains in poster fallback across resize, and particle-field oscillation uses fixed elapsed-time amplitude scaled by tier. Post-correction local checks and E2E evidence are included below.
-- Latest remote PR HEAD at the start of this correction was `8b35242c7a285a3ae64118dd143e31f0b389a4ec`; the correction patch fixes the new review findings and is validated locally. The final pushed HEAD and its exact-head GitHub checks are recorded in the PR description. The native hardware sample below is retained from implementation SHA `6fc2efa`; current post-correction performance was rerun with the Playwright lab profiles.
+- The latest application correction commit is `0be8883f6e0b106f9cfd43d6b37fe33ecb4aef43`, following `8b35242c7a285a3ae64118dd143e31f0b389a4ec`. Its exact-head CI, Browser Smoke, Socket and Sonar checks passed; CodeRabbit requested a documentation clarification, now recorded in the proposed Checkpoint Delta. The PR description records the current final pushed HEAD and exact-head checks. The native hardware sample below is retained from implementation SHA `6fc2efa`; current performance was rerun with the Playwright lab profiles.
 - Approved visual master: `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`; 1600×900. It matches the supplied Downloads image and the required Context Lock hash.
 
 ## Runtime and dependencies
@@ -76,9 +76,9 @@ The E2E server used port 3101 because another local service already occupies por
 - FULL frame timing in headless software rendering is slow; the active NVIDIA hardware measurement is BALANCED, matching detected host capabilities. FULL hardware performance remains unmeasured on a machine that selects FULL naturally.
 - Mobile LCP and interaction figures are laboratory samples only; field LCP/INP percentiles are not available in this local run.
 - Remaining M05 content below the hero is intentionally not implemented in WO-007. No final research/infrastructure sections or card content were added.
-- CodeRabbit's latest comments on `8b35242` identified mobile navigation being hidden, failed script-response measurement being masked as zero bytes, and manually created R3F resources needing disposal. All three areas are corrected and local lint/type/unit/build/E2E checks pass; exact-head GitHub checks and a fresh CodeRabbit result remain to be confirmed after push. The PR must remain OPEN and unmerged.
+- CodeRabbit's review on `0be8883` confirmed the code corrections and requested that the proposed Delta explicitly require recording an `APPROVED` result from the independent exact-head audit before merge. That wording is now present; exact-head checks must be revalidated after this documentation update. The PR must remain OPEN and unmerged.
 - The proposed Checkpoint Delta remains `PROPOSED`; independent exact-head review/approval and merge are outside this execution stop condition.
-- CodeRabbit identified two defects on the earlier PR candidate. Both were confirmed and fixed; exact post-correction GitHub checks/review must be inspected at the final pushed HEAD.
+- CodeRabbit identified and the executor fixed the code findings. Its final status must be checked on the final pushed HEAD; independent human review and approval remain outstanding before merge.
 
 ## Checkpoint Delta
 
