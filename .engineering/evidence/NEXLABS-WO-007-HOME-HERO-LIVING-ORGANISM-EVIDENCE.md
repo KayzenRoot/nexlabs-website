@@ -65,7 +65,7 @@ The E2E server used port 3101 because another local service already occupies por
 ## Docker continuity
 
 - Docker Engine client/server `29.8.1`; Compose `v5.5.1`.
-- Container `nexlabs-website-web-1`, ID `adc0080157eb49d58a49ef8fb083b1631d7270b981e57765cd689854a43ffe8d`, image ID `sha256:48f8c496a35bd1cdbd53c47bcf74973597a1df8d58fa7d425943d2572736fcc2`.
+- Container `nexlabs-website-web-1`, ID `f6426f31ad2057da04251ce81abcdb92d7d4e72d508c649ba4345fe83bbb43b2`, image ID `sha256:3f005395499289867bfc720ed4a5fa80f5241e43293902893bcbf89a879ca41e`, built from the current application correction worktree.
 - State `running`; health `healthy`, failing streak `0`; published `127.0.0.1:3000 -> 3000/tcp`; Home returned HTTP 200.
 - Docker Compose config/build/up and `ps`/logs were validated during this increment. Final read-only health and HTTP checks also passed. The service remains UP; `docker compose down` was not run.
 - Owner commands: `docker compose up -d`, `docker compose logs -f`, `docker compose ps`, `docker compose down`.
