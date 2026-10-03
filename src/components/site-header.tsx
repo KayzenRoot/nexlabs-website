@@ -4,14 +4,12 @@ import { BrandMark } from "./brand-mark";
 const navigation = [
   { href: "#capabilities", label: "Solutions" },
   { href: "#infrastructure", label: "Technology" },
-  { href: "#products", label: "Products" },
   { href: "#research", label: "Research" },
   { href: "#vision", label: "Company" },
 ];
 
 /**
- * Renders the selected identity and the in-page navigation shell. The destination
- * anchors remain placeholders until their separately governed content increment.
+ * Renders the selected identity and links only to implemented Home sections.
  */
 export function SiteHeader() {
   return (
@@ -36,7 +34,7 @@ export function SiteHeader() {
         </nav>
 
         <a className={styles.contactAction} href="#contact">
-          Contact <span aria-hidden="true">→</span>
+          Explore the next chapter <span aria-hidden="true">→</span>
         </a>
 
         <p className={styles.headerNote} aria-label="Innovation, intelligence, real-world impact">

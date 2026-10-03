@@ -89,11 +89,11 @@ export function StaticHero() {
         </p>
 
         <div className={styles.actions} role="group" aria-label="Next steps">
-          <a className={styles.primaryAction} href="#project">
-            Explore the project <span aria-hidden="true">→</span>
+          <a className={styles.primaryAction} href="#capabilities">
+            Explore our capabilities <span aria-hidden="true">→</span>
           </a>
           <a className={styles.secondaryAction} href="#contact">
-            Contact Nex Labs
+            Explore the next chapter
           </a>
         </div>
       </div>
