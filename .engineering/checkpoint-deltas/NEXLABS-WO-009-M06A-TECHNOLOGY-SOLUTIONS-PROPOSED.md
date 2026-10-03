@@ -1,0 +1,27 @@
+# Checkpoint Delta — NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS
+
+State: PROPOSED — awaiting exact-head checks and independent review; not promoted.
+
+## Candidate
+
+- Work Order: `NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS`.
+- Base SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
+- Context Lock entry head: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
+- Validated implementation source/test SHA: `114c842bb62af3c6a720f570dc36aedc3ed49a7f`.
+- Final PR head is supplied by PR #12 metadata after the evidence commit; that follow-up changes only evidence/checkpoint-delta documents. Exact-head GitHub status must be checked before reporting the candidate ready.
+- PR #12 stays OPEN/READY FOR REVIEW and targets `main`.
+
+## Proposed checkpoint facts
+
+- M06A implements `/technology` and `/solutions` with canonical copy, route metadata, responsive CSS Modules, shared server-rendered page primitives and CSS/SVG motifs.
+- Global navigation now links Solutions and Technology to their admitted routes; Research, Company and the next-chapter CTA return to explicit Home anchors.
+- Home remains the default English route. Localization, Careers and future `/research`, `/company` and `/contact` routes are outside WO-009 and are not introduced by this delta.
+- Package manifests and lockfile remain unchanged; GEF stays pinned at `@gef-bootstrap/cli@1.1.2`. No new Three/R3F/WebGL scene or client-wide state was added.
+- Local lint, typecheck, 21 unit tests, production build, 16 browser E2E tests, moderate npm audit, route bundle/a11y/responsiveness/reduced-motion checks all passed. Evidence is retained in `.engineering/evidence/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS-EVIDENCE.md` and its companion directory.
+- Docker Compose is UP/healthy with Node 22.23.3 at `127.0.0.1:3000`; `/`, `/technology` and `/solutions` each returned HTTP 200.
+
+## Gate and boundary
+
+- Do not edit/promote `CHECKPOINT.md` or `CHECKPOINT.json` through this proposal.
+- Require exact-final-head CI/Security/Browser/Sonar/CodeRabbit signals and an independent exact-head audit before any authorized merge.
+- Keep PR #12 open. Do not merge, begin M06B, rewrite history, weaken checks or use force-push.
