@@ -1,13 +1,14 @@
 .footer {
+  position: relative;
   display: flex;
-  width: min(100%, var(--breakpoint-lg));
+  width: min(100%, 110rem);
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-4);
+  gap: clamp(1rem, 2vw, 2rem);
   margin-inline: auto;
-  padding: var(--space-8) clamp(var(--space-4), 4.6vw, var(--space-12))
-    var(--space-12);
-  border-top: 1px solid var(--color-line-soft);
+  padding: 1.35rem clamp(var(--space-4), 5.1vw, 5.5rem) 1.7rem;
+  border-top: 1px solid rgb(71 167 239 / 42%);
+  background: linear-gradient(180deg, rgb(5 10 17 / 80%), #04070b);
   color: var(--color-text-muted);
   font-size: var(--text-xs);
 }
@@ -49,13 +50,57 @@
 }
 
 .note {
+  max-width: 14rem;
   margin: 0;
+  color: #aebed1;
+  font-family: var(--font-mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.1em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.navigation {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.7rem, 2.2vw, 2rem);
+}
+
+.navigation a {
+  color: #d5e1ef;
+  font-size: 0.72rem;
+  text-decoration: none;
+  text-underline-offset: 0.35em;
+  transition: color var(--motion-fast) var(--ease-standard);
+}
+
+.navigation a:hover {
+  color: #fff;
+  text-decoration: underline;
 }
 
 @media (max-width: 40rem) {
   .footer {
     align-items: flex-start;
     flex-direction: column;
-    padding-inline: var(--space-4);
+    gap: 1rem;
+    padding: 1.2rem 1rem 1.5rem;
+  }
+
+  .navigation {
+    justify-content: flex-start;
+    gap: 0.55rem 1.2rem;
+  }
+
+  .note {
+    max-width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .navigation a {
+    transition: none;
   }
 }

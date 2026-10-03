@@ -1,0 +1,956 @@
+.sections {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  overflow: clip;
+  background:
+    radial-gradient(ellipse at 18% 13%, rgb(24 89 164 / 12%), transparent 34rem),
+    radial-gradient(ellipse at 88% 54%, rgb(14 88 183 / 11%), transparent 38rem),
+    linear-gradient(180deg, #05080d, #060a11 48%, #04070c);
+}
+
+.sections::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(112deg, transparent 18%, rgb(44 134 255 / 6%) 18.1%, transparent 18.3%),
+    linear-gradient(166deg, transparent 71%, rgb(63 184 255 / 5%) 71.1%, transparent 71.3%);
+  content: "";
+  pointer-events: none;
+}
+
+.capabilities,
+.principles,
+.vision,
+.narrativeBand,
+.finalCta {
+  width: min(calc(100% - clamp(2rem, 8vw, 8rem)), 96rem);
+  margin-inline: auto;
+  scroll-margin-top: 5.5rem;
+}
+
+.capabilities {
+  position: relative;
+  padding-block: clamp(2rem, 3.5vw, 3.25rem) clamp(2.25rem, 4vw, 3.75rem);
+}
+
+.sectionRule {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  overflow: hidden;
+  background: linear-gradient(90deg, rgb(73 160 255 / 9%), rgb(97 208 255 / 44%), rgb(73 160 255 / 9%));
+}
+
+.sectionRule span {
+  position: absolute;
+  top: -1px;
+  left: -18%;
+  width: 18%;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #9cecff, transparent);
+  filter: drop-shadow(0 0 6px #249bff);
+  animation: energy-travel 16s linear infinite;
+}
+
+.capabilitiesInner {
+  display: grid;
+  grid-template-columns: minmax(14rem, 0.88fr) minmax(0, 3.2fr);
+  align-items: stretch;
+  gap: clamp(1.25rem, 2.5vw, 2.75rem);
+}
+
+.capabilitiesIntro {
+  align-self: center;
+  max-width: 23rem;
+  padding-block: 0.5rem;
+}
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 0.85rem;
+  color: var(--color-accent-cyan);
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 0.72vw, 0.73rem);
+  letter-spacing: 0.2em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+.eyebrow::before {
+  width: 1.1rem;
+  height: 2px;
+  flex: 0 0 auto;
+  background: linear-gradient(90deg, #4ee3ff, #328bff);
+  box-shadow: 0 0 0.7rem rgb(52 166 255 / 72%);
+  content: "";
+}
+
+.sectionTitle {
+  max-width: 17ch;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-size: clamp(1.8rem, 3vw, 2.9rem);
+  font-weight: 620;
+  letter-spacing: -0.045em;
+  line-height: 1.02;
+  text-wrap: balance;
+  text-shadow: 0 0 1.6rem rgb(124 186 255 / 12%);
+}
+
+.introCopy,
+.visionCopy p,
+.narrativeCopy > p:not(.eyebrow),
+.technologyIntro,
+.ctaDescription {
+  color: var(--color-text-secondary);
+  font-size: clamp(0.9rem, 1vw, 1rem);
+  line-height: 1.58;
+  text-wrap: pretty;
+}
+
+.introCopy {
+  max-width: 33rem;
+  margin: 1rem 0 0;
+}
+
+.textLink {
+  display: inline-flex;
+  min-height: 2.5rem;
+  align-items: center;
+  gap: 0.55rem;
+  margin-top: 1.1rem;
+  padding: 0.5rem 1rem;
+  border: 1px solid rgb(70 194 255 / 64%);
+  border-radius: var(--radius-pill);
+  background: linear-gradient(110deg, rgb(7 26 48 / 92%), rgb(5 15 29 / 74%));
+  box-shadow: inset 0 0 1rem rgb(34 132 231 / 9%), 0 0 1.25rem rgb(15 105 223 / 12%);
+  color: #90e8ff;
+  font-size: 0.78rem;
+  font-weight: 620;
+  text-decoration: none;
+  transition:
+    transform var(--motion-medium) var(--ease-standard),
+    border-color var(--motion-medium) var(--ease-standard),
+    box-shadow var(--motion-medium) var(--ease-standard),
+    color var(--motion-medium) var(--ease-standard);
+}
+
+.textLink:hover {
+  transform: translateY(-2px);
+  border-color: #b7f2ff;
+  box-shadow: 0 0 1.25rem rgb(41 171 255 / 26%), inset 0 0 1rem rgb(58 172 255 / 12%);
+  color: #fff;
+}
+
+.textLink span {
+  font-size: 1rem;
+  transition: transform var(--motion-fast) var(--ease-standard);
+}
+
+.textLink:hover span {
+  transform: translateX(3px);
+}
+
+.capabilityGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: clamp(0.55rem, 0.85vw, 0.9rem);
+}
+
+.capabilityCard {
+  position: relative;
+  display: flex;
+  min-width: 0;
+  min-height: 17.5rem;
+  flex-direction: column;
+  overflow: hidden;
+  padding: clamp(0.85rem, 1.15vw, 1.15rem);
+  border: 1px solid rgb(71 161 239 / 45%);
+  border-radius: 1rem;
+  background:
+    linear-gradient(155deg, rgb(12 25 43 / 88%), rgb(6 13 23 / 88%) 68%),
+    var(--color-surface-glass);
+  box-shadow: inset 0 1px rgb(217 240 255 / 7%), 0 14px 36px rgb(0 0 0 / 22%);
+  transition:
+    transform var(--motion-medium) var(--ease-standard),
+    border-color var(--motion-medium) var(--ease-standard),
+    box-shadow var(--motion-medium) var(--ease-standard),
+    background-color var(--motion-medium) var(--ease-standard);
+}
+
+.capabilityCard::before {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(130deg, rgb(95 190 255 / 8%), transparent 44%);
+  content: "";
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+.capabilityCard:hover,
+.capabilityCard:focus-within {
+  transform: translateY(-3px);
+  border-color: rgb(108 221 255 / 88%);
+  box-shadow:
+    inset 0 1px rgb(227 248 255 / 12%),
+    0 0 1.35rem rgb(28 139 255 / 23%),
+    0 18px 42px rgb(0 0 0 / 32%);
+}
+
+.cardVisual {
+  position: relative;
+  display: grid;
+  min-height: 6.6rem;
+  flex: 0 0 auto;
+  place-items: center;
+  margin: -0.25rem -0.15rem 0.65rem;
+  color: #9be6ff;
+}
+
+.cardHalo {
+  position: absolute;
+  width: 5rem;
+  aspect-ratio: 1;
+  border: 1px solid rgb(68 167 255 / 17%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(28 128 255 / 18%), transparent 68%);
+  box-shadow: 0 0 1.6rem rgb(31 135 255 / 14%);
+}
+
+.cardHalo::before,
+.cardHalo::after {
+  position: absolute;
+  inset: 0.6rem;
+  border: 1px solid rgb(117 216 255 / 15%);
+  border-radius: inherit;
+  content: "";
+}
+
+.cardHalo::after {
+  inset: -0.35rem;
+  border-style: dashed;
+  opacity: 0.5;
+}
+
+.capabilityGlyph {
+  position: relative;
+  width: clamp(3.5rem, 4.5vw, 4.4rem);
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 0.55rem rgb(55 167 255 / 52%));
+}
+
+.cardCopy {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  flex: 1 1 auto;
+  align-content: start;
+  gap: 0.45rem;
+}
+
+.cardCopy h3 {
+  max-width: 15ch;
+  margin: 0;
+  color: #f2f7ff;
+  font-size: clamp(0.82rem, 0.91vw, 0.98rem);
+  font-weight: 650;
+  letter-spacing: -0.015em;
+  line-height: 1.16;
+  text-wrap: balance;
+}
+
+.cardCopy p {
+  margin: 0;
+  color: #b7c5d6;
+  font-size: clamp(0.73rem, 0.78vw, 0.82rem);
+  line-height: 1.44;
+  text-wrap: pretty;
+}
+
+.cardLink {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 1.75rem;
+  height: 1.75rem;
+  flex: 0 0 auto;
+  place-items: center;
+  align-self: flex-end;
+  margin-top: 0.75rem;
+  border: 1px solid rgb(131 201 255 / 65%);
+  border-radius: 50%;
+  color: #c5f2ff;
+  font-size: 0.9rem;
+  text-decoration: none;
+  transition:
+    background-color var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    transform var(--motion-fast) var(--ease-standard);
+}
+
+.cardLink:hover {
+  transform: translateX(2px);
+  background: rgb(48 154 255 / 22%);
+  box-shadow: 0 0 0.8rem rgb(53 170 255 / 42%);
+}
+
+.principles {
+  display: grid;
+  grid-template-columns: minmax(12rem, 0.78fr) minmax(0, 3fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 4.5rem);
+  padding-block: clamp(2.1rem, 4vw, 3.5rem);
+  border-top: 1px solid rgb(139 191 240 / 19%);
+  border-bottom: 1px solid rgb(139 191 240 / 14%);
+  background: linear-gradient(90deg, rgb(7 17 30 / 38%), transparent 82%);
+}
+
+.principlesIntro .sectionTitle {
+  max-width: 10ch;
+  font-size: clamp(1.75rem, 2.7vw, 2.55rem);
+}
+
+.principleRail {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.5rem);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.principleRail::before {
+  position: absolute;
+  top: 0.25rem;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(90deg, rgb(89 204 255 / 10%), rgb(103 196 255 / 58%), rgb(89 204 255 / 10%));
+  content: "";
+}
+
+.principle {
+  position: relative;
+  min-width: 0;
+  padding-top: 1.15rem;
+}
+
+.principleNode,
+.pillarNode {
+  display: block;
+  width: 0.55rem;
+  height: 0.55rem;
+  border: 1px solid #86dcff;
+  border-radius: 50%;
+  background: #071425;
+  box-shadow: 0 0 0.75rem rgb(57 173 255 / 72%);
+}
+
+.principleNode {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translateY(-0.05rem);
+}
+
+.principle h3 {
+  margin: 0;
+  color: #ecf5ff;
+  font-size: clamp(0.84rem, 1vw, 1rem);
+  font-weight: 640;
+  line-height: 1.25;
+}
+
+.principle p {
+  margin: 0.45rem 0 0;
+  color: var(--color-text-secondary);
+  font-size: clamp(0.77rem, 0.84vw, 0.86rem);
+  line-height: 1.48;
+  text-wrap: pretty;
+}
+
+.vision {
+  position: relative;
+  padding-block: clamp(3.25rem, 6vw, 5.5rem);
+  border-bottom: 1px solid rgb(139 191 240 / 15%);
+}
+
+.visionGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: clamp(2rem, 7vw, 7rem);
+}
+
+.visionGrid .sectionTitle {
+  max-width: 12ch;
+  font-size: clamp(2.2rem, 4vw, 4rem);
+  line-height: 1;
+}
+
+.visionCopy {
+  display: grid;
+  gap: 0.65rem;
+  max-width: 47rem;
+  padding-top: 0.2rem;
+}
+
+.visionCopy p {
+  margin: 0;
+  font-size: clamp(0.98rem, 1.2vw, 1.15rem);
+}
+
+.visionOrbit {
+  position: absolute;
+  z-index: 0;
+  top: 18%;
+  right: -1.5rem;
+  width: clamp(8rem, 15vw, 15rem);
+  aspect-ratio: 1;
+  opacity: 0.27;
+  pointer-events: none;
+}
+
+.visionOrbit span {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgb(88 179 255 / 38%);
+  border-radius: 50%;
+  box-shadow: inset 0 0 1.7rem rgb(33 115 223 / 9%), 0 0 1.2rem rgb(33 115 223 / 8%);
+}
+
+.visionOrbit span:nth-child(2) {
+  inset: 14%;
+}
+
+.visionOrbit span:nth-child(3) {
+  inset: 29%;
+}
+
+.narrativeBand {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  margin-block: clamp(2.25rem, 4vw, 3.75rem);
+  border: 1px solid rgb(111 170 227 / 25%);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(100deg, rgb(8 20 35 / 94%), rgb(5 13 24 / 93%)),
+    var(--color-surface-glass);
+  box-shadow: inset 0 1px rgb(214 238 255 / 5%), 0 26px 74px rgb(0 0 0 / 28%);
+}
+
+.research,
+.technology {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  padding: clamp(1.35rem, 2.7vw, 2.7rem);
+}
+
+.research {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(10rem, 0.92fr);
+  align-items: center;
+  gap: 0.7rem;
+  border-right: 1px solid rgb(110 182 240 / 25%);
+}
+
+.narrativeCopy {
+  position: relative;
+  z-index: 1;
+}
+
+.narrativeCopy .sectionTitle,
+.technology .sectionTitle {
+  font-size: clamp(1.8rem, 2.8vw, 2.75rem);
+}
+
+.researchDetails > p:not(.microcopy) {
+  margin: 0.9rem 0 0;
+}
+
+.microcopy {
+  margin: 0.8rem 0 0;
+  color: #d2e9fa;
+  font-family: var(--font-mono);
+  font-size: clamp(0.62rem, 0.72vw, 0.73rem);
+  letter-spacing: 0.11em;
+  line-height: 1.6;
+  text-transform: uppercase;
+}
+
+.researchVisual {
+  position: relative;
+  display: grid;
+  min-height: 17rem;
+  place-items: center;
+  color: #7dc9ff;
+}
+
+.visualGlow,
+.cubeGlow {
+  position: absolute;
+  inset: 18%;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(35 137 255 / 23%), transparent 68%);
+  filter: blur(0.4rem);
+}
+
+.researchGlyph {
+  position: relative;
+  width: min(125%, 25rem);
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 0.8rem rgb(48 154 255 / 38%));
+}
+
+.visualCaption {
+  position: absolute;
+  right: 0;
+  bottom: 0.6rem;
+  left: 0;
+  color: #99b6d5;
+  font-family: var(--font-mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.17em;
+  text-align: center;
+}
+
+.technology {
+  background:
+    radial-gradient(ellipse at 94% 36%, rgb(30 111 222 / 14%), transparent 55%),
+    transparent;
+}
+
+.technologyIntro {
+  max-width: 40rem;
+  margin: 0.8rem 0 0;
+}
+
+.technologyDetails {
+  display: grid;
+  grid-template-columns: minmax(9rem, 0.9fr) minmax(11rem, 1.1fr);
+  align-items: center;
+  gap: clamp(0.6rem, 1.4vw, 1.4rem);
+  margin-top: 0.85rem;
+}
+
+.cubeVisual {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  min-height: 10.5rem;
+  place-items: center;
+  color: #9be8ff;
+}
+
+.cubeGlow {
+  inset: 16%;
+  background: radial-gradient(ellipse, rgb(32 132 255 / 30%), transparent 70%);
+}
+
+.technologyGlyph {
+  position: relative;
+  width: 124%;
+  max-width: 22rem;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 0 0.75rem rgb(41 148 255 / 35%));
+}
+
+.technologyPillars {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.technologyPillars li {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  color: #d9e9fa;
+  font-size: clamp(0.7rem, 0.77vw, 0.82rem);
+  letter-spacing: 0.06em;
+  line-height: 1.35;
+}
+
+.pillarNode {
+  width: 0.46rem;
+  height: 0.46rem;
+  flex: 0 0 auto;
+  background: #44caff;
+  box-shadow: 0 0 0.8rem rgb(48 183 255 / 88%);
+}
+
+.technology .textLink {
+  margin-top: 0.6rem;
+}
+
+.finalCta {
+  position: relative;
+  min-height: 19rem;
+  padding-block: clamp(3rem, 5vw, 4.7rem) clamp(3.5rem, 6vw, 5.5rem);
+  border-top: 1px solid rgb(115 184 241 / 22%);
+}
+
+.ctaCopy {
+  position: relative;
+  z-index: 1;
+  max-width: 55rem;
+}
+
+.ctaCopy .sectionTitle {
+  max-width: 15ch;
+  font-size: clamp(2.4rem, 5vw, 5rem);
+  line-height: 0.99;
+}
+
+.ctaDescription {
+  max-width: 43rem;
+  margin: 1rem 0 0;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  margin-top: 1.45rem;
+}
+
+.primaryAction,
+.secondaryAction {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.65rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-size: 0.82rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition:
+    transform var(--motion-medium) var(--ease-standard),
+    border-color var(--motion-medium) var(--ease-standard),
+    box-shadow var(--motion-medium) var(--ease-standard),
+    background-color var(--motion-medium) var(--ease-standard);
+}
+
+.primaryAction {
+  border-color: rgb(178 245 255 / 92%);
+  background: linear-gradient(115deg, #a2f5ff, #42b9ff 70%, #3478ff);
+  box-shadow: 0 0 1.25rem rgb(38 152 255 / 42%), inset 0 1px rgb(255 255 255 / 74%);
+  color: #04101f;
+}
+
+.secondaryAction {
+  border-color: rgb(169 201 235 / 48%);
+  background: rgb(5 13 24 / 72%);
+  color: #eaf4ff;
+}
+
+.primaryAction:hover,
+.secondaryAction:hover {
+  transform: translateY(-2px);
+}
+
+.primaryAction:hover {
+  box-shadow: 0 0 1.75rem rgb(43 178 255 / 58%), inset 0 1px rgb(255 255 255 / 82%);
+}
+
+.secondaryAction:hover {
+  border-color: #75dfff;
+}
+
+.ctaEnergy {
+  position: absolute;
+  top: 24%;
+  right: -5%;
+  width: 45%;
+  height: 58%;
+  overflow: hidden;
+  opacity: 0.34;
+  pointer-events: none;
+}
+
+.ctaEnergy span {
+  position: absolute;
+  inset: 13% -3%;
+  border: 1px solid rgb(73 165 255 / 56%);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+  box-shadow: 0 0 1.5rem rgb(30 135 255 / 18%);
+}
+
+.ctaEnergy span:nth-child(2) {
+  inset: 30% -8%;
+  border-color: rgb(97 214 255 / 38%);
+  transform: rotate(8deg);
+}
+
+@keyframes energy-travel {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(660%);
+  }
+}
+
+@media (max-width: 70rem) {
+  .capabilitiesInner {
+    grid-template-columns: 1fr;
+  }
+
+  .capabilitiesIntro {
+    max-width: 42rem;
+  }
+
+  .capabilityGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .capabilityCard {
+    min-height: 16rem;
+  }
+
+  .principles {
+    grid-template-columns: 1fr;
+    gap: 1.7rem;
+  }
+
+  .principlesIntro .sectionTitle {
+    max-width: none;
+  }
+
+  .research {
+    grid-template-columns: minmax(0, 1fr) minmax(8rem, 0.8fr);
+  }
+
+  .technologyDetails {
+    grid-template-columns: minmax(7rem, 0.8fr) minmax(0, 1.2fr);
+  }
+}
+
+@media (max-width: 56rem) {
+  .capabilities,
+  .principles,
+  .vision,
+  .narrativeBand,
+  .finalCta {
+    width: min(calc(100% - 2.5rem), 48rem);
+  }
+
+  .narrativeBand {
+    grid-template-columns: 1fr;
+  }
+
+  .research {
+    border-right: 0;
+    border-bottom: 1px solid rgb(110 182 240 / 25%);
+  }
+
+  .researchVisual {
+    min-height: 14rem;
+  }
+
+  .technologyDetails {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+
+  .technologyGlyph {
+    width: 115%;
+  }
+}
+
+@media (max-width: 40rem) {
+  .capabilities,
+  .principles,
+  .vision,
+  .narrativeBand,
+  .finalCta {
+    width: calc(100% - 2rem);
+    scroll-margin-top: 6.5rem;
+  }
+
+  .capabilities {
+    padding-block: 1.75rem 2.25rem;
+  }
+
+  .capabilityGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.65rem;
+  }
+
+  .capabilityCard {
+    min-height: 16rem;
+    padding: 0.85rem;
+  }
+
+  .cardVisual {
+    min-height: 5.5rem;
+  }
+
+  .cardCopy h3 {
+    font-size: 0.9rem;
+  }
+
+  .cardCopy p {
+    font-size: 0.76rem;
+  }
+
+  .principles {
+    padding-block: 2rem;
+  }
+
+  .principleRail {
+    grid-template-columns: 1fr;
+    gap: 1.1rem;
+    padding-left: 0.1rem;
+  }
+
+  .principleRail::before {
+    top: 0.2rem;
+    bottom: 0.5rem;
+    left: 0.25rem;
+    width: 1px;
+    height: auto;
+    background: linear-gradient(180deg, rgb(89 204 255 / 10%), rgb(103 196 255 / 58%), rgb(89 204 255 / 10%));
+  }
+
+  .principle {
+    padding: 0 0 0 1.1rem;
+  }
+
+  .principleNode {
+    top: 0.1rem;
+  }
+
+  .vision {
+    padding-block: 2.7rem;
+  }
+
+  .visionGrid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+
+  .visionGrid .sectionTitle {
+    font-size: clamp(2.15rem, 10.5vw, 3.4rem);
+  }
+
+  .visionOrbit {
+    top: 17%;
+    right: -3rem;
+    width: 8rem;
+  }
+
+  .narrativeBand {
+    margin-block: 1.65rem;
+    border-radius: var(--radius-md);
+  }
+
+  .research,
+  .technology {
+    padding: 1.3rem;
+  }
+
+  .research {
+    grid-template-columns: 1fr;
+    gap: 0.2rem;
+  }
+
+  .narrativeCopy .sectionTitle,
+  .technology .sectionTitle {
+    font-size: clamp(1.85rem, 8.5vw, 2.55rem);
+  }
+
+  .researchVisual {
+    min-height: 12rem;
+  }
+
+  .researchGlyph {
+    width: min(116%, 20rem);
+  }
+
+  .technologyDetails {
+    grid-template-columns: 1fr;
+    gap: 0.3rem;
+  }
+
+  .cubeVisual {
+    min-height: 12.5rem;
+  }
+
+  .technologyGlyph {
+    width: min(112%, 20rem);
+  }
+
+  .technologyPillars {
+    gap: 0.62rem;
+  }
+
+  .technologyPillars li {
+    font-size: 0.79rem;
+  }
+
+  .finalCta {
+    min-height: 0;
+    padding-block: 2.7rem 3.5rem;
+  }
+
+  .ctaCopy .sectionTitle {
+    font-size: clamp(2.25rem, 10vw, 3.6rem);
+  }
+
+  .ctaEnergy {
+    top: 32%;
+    right: -33%;
+    width: 70%;
+    opacity: 0.2;
+  }
+}
+
+@media (max-width: 24rem) {
+  .capabilityGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .capabilityCard {
+    min-height: 0;
+    padding: 1rem;
+  }
+
+  .cardVisual {
+    min-height: 4.6rem;
+    justify-content: start;
+    padding-left: 0.2rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectionRule span {
+    animation: none;
+  }
+
+  .capabilityCard,
+  .textLink,
+  .textLink span,
+  .cardLink,
+  .primaryAction,
+  .secondaryAction {
+    transition: none;
+  }
+}

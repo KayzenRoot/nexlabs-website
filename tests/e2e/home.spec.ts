@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const screenshotDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM",
+  ".engineering/evidence/NEXLABS-WO-008-HOME-CONTENT-SECTIONS",
 );
 const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
 
@@ -168,19 +168,93 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
       animations: "disabled",
     });
 
-    if (viewport.width === 1440) {
-      await page.locator("header").screenshot({
-        path: resolve(screenshotDirectory, "header-desktop-1440x900.png"),
-        animations: "disabled",
-      });
-      await page.locator("footer").screenshot({
-        path: resolve(screenshotDirectory, "footer-desktop-1440x900.png"),
-        animations: "disabled",
-      });
-    }
   }
 
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-full-page-1600x900.png"),
+    fullPage: true,
+    animations: "disabled",
+  });
+
+  await page.setViewportSize({ width: 1440, height: 900 });
+  await page.getByRole("banner").screenshot({
+    path: resolve(screenshotDirectory, "header-desktop-1440x900.png"),
+    animations: "disabled",
+  });
+  await page.locator("footer").screenshot({
+    path: resolve(screenshotDirectory, "footer-desktop-1440x900.png"),
+    animations: "disabled",
+  });
+
   expect(browserErrors).toEqual([]);
+});
+
+test("M05 sections preserve canonical copy, live anchors, and visual continuity", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const expectedHeadings = [
+    "Intelligence in action.",
+    "Principles in practice.",
+    "Technology with a reason to exist.",
+    "Ideas that become reality.",
+    "Built to transform.",
+    "Building the next chapter of intelligent systems.",
+  ];
+  for (const heading of expectedHeadings) {
+    await expect(page.getByRole("heading", { level: 2, name: heading })).toBeVisible();
+  }
+
+  for (const capability of [
+    "Artificial Intelligence",
+    "Intelligent Infrastructure",
+    "Advanced Interfaces",
+    "Sustainable Technologies",
+    "Research Platforms",
+  ]) {
+    await expect(page.getByRole("heading", { level: 3, name: capability })).toBeVisible();
+  }
+
+  await expect(page.getByText("Built for real-world systems")).toBeVisible();
+  await expect(page.getByText("Ideas become valuable when they survive the constraints of actual users, hardware and operations.")).toBeVisible();
+  await expect(page.getByText("Interoperable Architecture")).toBeVisible();
+
+  const unresolvedAnchors = await page.locator('a[href^="#"]').evaluateAll((links) =>
+    links
+      .map((link) => (link as HTMLAnchorElement).hash.slice(1))
+      .filter((id) => !document.getElementById(id)),
+  );
+  expect(unresolvedAnchors).toEqual([]);
+  await expect(page.getByText("More information is coming soon.")).toHaveCount(0);
+
+  await page.locator("#capabilities").evaluate((section) => {
+    const scrollTop = window.scrollY + section.getBoundingClientRect().top - 260;
+    document.documentElement.style.scrollBehavior = "auto";
+    window.scrollTo(0, Math.max(0, scrollTop));
+    document.documentElement.style.scrollBehavior = "";
+  });
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-hero-capabilities-continuity-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+
+  await page.locator("#research").scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-research-technology-continuity-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+
+  const technologyLink = page
+    .getByRole("navigation", { name: "Main navigation" })
+    .getByRole("link", { name: "Technology" });
+  await technologyLink.click();
+  await expect(page).toHaveURL(/#infrastructure$/);
+  await expect(page.getByRole("heading", { level: 2, name: "Built to transform." })).toBeInViewport();
 });
 
 test("skip link and keyboard focus are visible and usable", async ({ page }) => {
@@ -191,10 +265,15 @@ test("skip link and keyboard focus are visible and usable", async ({ page }) => 
   await expect(skipLink).toBeFocused();
   const focusRing = await skipLink.evaluate((link) => getComputedStyle(link).boxShadow);
   expect(focusRing).not.toBe("none");
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-keyboard-focus-1600x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
 
   await page.keyboard.press("Enter");
   await expect(page.locator("#main")).toBeFocused();
-  await expect(page.getByRole("link", { name: /explore the project/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: /explore our capabilities/i })).toBeVisible();
 });
 
 test("mobile navigation keeps every section link reachable by keyboard", async ({ page }) => {
@@ -206,7 +285,6 @@ test("mobile navigation keeps every section link reachable by keyboard", async (
   const expectedDestinations = [
     "#capabilities",
     "#infrastructure",
-    "#products",
     "#research",
     "#vision",
   ];
@@ -429,7 +507,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     animations: "disabled",
   });
   await mobilePage
-    .getByRole("link", { name: /explore the project/i })
+    .getByRole("link", { name: /explore our capabilities/i })
     .click();
   await mobilePage.evaluate(
     () =>
@@ -690,6 +768,12 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
   mkdirSync(screenshotDirectory, { recursive: true });
   await page.screenshot({
     path: resolve(screenshotDirectory, "home-reduced-motion-desktop-1440x900.png"),
+    fullPage: false,
+    animations: "disabled",
+  });
+  await page.locator("#capabilities").scrollIntoViewIfNeeded();
+  await page.screenshot({
+    path: resolve(screenshotDirectory, "home-reduced-motion-capabilities-1440x900.png"),
     fullPage: false,
     animations: "disabled",
   });
