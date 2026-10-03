@@ -2,7 +2,7 @@
 
 ## Current state
 
-Deployment is NOT_ADMITTED for M01. No hosting provider, production URL, environment model, build/release pipeline or production credential has been selected.
+Production deployment remains NOT_ADMITTED through M05. No hosting provider, production URL, environment model, build/release pipeline or production credential has been selected.
 
 ## V1 deployment requirements
 
