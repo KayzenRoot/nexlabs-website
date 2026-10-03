@@ -59,8 +59,8 @@ The Home is built around server-rendered semantic sections with CSS Modules and 
 
 Full machine-readable measurements are in `home-performance-report.json`.
 
-- Mobile profile: 390×844, cellular 4G (150 ms latency), 4× CPU throttle; LCP 2,384 ms, CLS 0, initial JavaScript 136,828 bytes gzip, CTA laboratory interaction proxy 88 ms (3 Event Timing samples). The interaction figure is not field INP.
-- Desktop profile: 1600×900, BALANCED ready; LCP 280 ms, CLS 0; lazy M04 3D chunk 252,982 bytes gzip; 119 frame samples, median 16.7 ms, p95 33.4 ms, median 59.9 FPS.
+- Mobile profile, rerun after the valid label correction: 390×844, cellular 4G (150 ms latency), 4× CPU throttle; LCP 2,392 ms, CLS 0, initial JavaScript 136,828 bytes gzip, CTA laboratory interaction proxy 56 ms (3 Event Timing samples). The interaction figure is not field INP.
+- Desktop profile, same rerun: 1600×900, BALANCED ready; LCP 312 ms, CLS 0; lazy M04 3D chunk 252,982 bytes gzip; 119 frame samples, median 16.7 ms, p95 33.4 ms, median 59.9 FPS.
 - Poster assets: desktop 227,644 bytes; mobile 137,561 bytes.
 - The FULL profile was exercised using headless SwiftShader capability overrides; it is a code-path validation, not qualification on high-end hardware. Its sampled median was 20 FPS.
 
@@ -68,7 +68,7 @@ Full machine-readable measurements are in `home-performance-report.json`.
 
 `npm ci` followed by `npm ls braces fast-glob micromatch @next/eslint-plugin-next --all` showed no installed instances of the previously reported `braces@3.0.3` dependency chain; `npm audit --audit-level=moderate` found zero vulnerabilities. The earlier WO-007 remediation removed the unused source dependency; this WO did not change package manifests or suppress/override advisories. The GitHub Dependabot alerts endpoint returned HTTP 403, so alert-list verification is a documented capability gap; it is not represented as a zero-alert result.
 
-CodeRabbit admission review at `591e879d33919f83ad6fc3f87b52f8cce35159b2` completed without actionable comments. That predates this implementation. Exact-head external checks/review for the final pushed candidate are recorded in the PR body; independent APPROVED review remains an external gate and is not self-asserted here.
+CodeRabbit admission review at `591e879d33919f83ad6fc3f87b52f8cce35159b2` completed without actionable comments. That predates this implementation. Its exact-head review of `b5f6a2c4da0a647eb9aecc1a324bd947af4fe7e5` found one valid minor copy-label issue: the header, hero and footer used “Contact” for an editorial CTA. The labels now consistently say “Explore the next chapter,” preserving `#contact`; the unit and browser tests were updated and rerun. Exact-head review/checks for the correction commit are recorded in the PR body; independent APPROVED review remains an external gate and is not self-asserted here.
 
 ## Docker continuity
 

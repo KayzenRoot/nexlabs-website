@@ -365,7 +365,11 @@ test("WebGL failure selects the static hero without blocking semantic content", 
   await expect(stage).toHaveAttribute("data-quality-tier", "STATIC");
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.getByRole("heading", { level: 1, name: /human potential multiplied/i })).toBeVisible();
-  await expect(page.getByRole("link", { name: /contact nex labs/i })).toBeVisible();
+  await expect(
+    page.getByRole("group", { name: "Next steps" }).getByRole("link", {
+      name: "Explore the next chapter",
+    }),
+  ).toBeVisible();
   await expect(page.locator("canvas")).toHaveCount(0);
   await page.screenshot({
     path: resolve(screenshotDirectory, "home-webgl-fallback-1600x900.png"),
@@ -746,7 +750,10 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
       name: /human potential multiplied/i,
     }),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: /contact nex labs/i })).toBeVisible();
+  const nextChapterLink = page
+    .getByRole("group", { name: "Next steps" })
+    .getByRole("link", { name: "Explore the next chapter" });
+  await expect(nextChapterLink).toBeVisible();
   expect(await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(
     true,
   );
@@ -756,9 +763,9 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
   );
   await expect(page.locator("canvas")).toHaveCount(0);
 
-  const duration = await page
-    .getByRole("link", { name: /contact nex labs/i })
-    .evaluate((link) => getComputedStyle(link).transitionDuration);
+  const duration = await nextChapterLink.evaluate(
+    (link) => getComputedStyle(link).transitionDuration,
+  );
   expect(Number.parseFloat(duration)).toBeLessThanOrEqual(0.0001);
   await expect(page.locator("header svg [data-master-geometry]")).toHaveCSS(
     "animation-name",

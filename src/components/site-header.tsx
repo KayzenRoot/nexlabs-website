@@ -34,7 +34,7 @@ export function SiteHeader() {
         </nav>
 
         <a className={styles.contactAction} href="#contact">
-          Contact <span aria-hidden="true">→</span>
+          Explore the next chapter <span aria-hidden="true">→</span>
         </a>
 
         <p className={styles.headerNote} aria-label="Innovation, intelligence, real-world impact">

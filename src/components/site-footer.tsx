@@ -22,7 +22,7 @@ export function SiteFooter() {
         <a href="#infrastructure">Technology</a>
         <a href="#research">Research</a>
         <a href="#vision">Company</a>
-        <a href="#contact">Contact</a>
+        <a href="#contact">Explore the next chapter</a>
       </nav>
       <p className={styles.note}>Technology, research and engineering with intent.</p>
     </footer>

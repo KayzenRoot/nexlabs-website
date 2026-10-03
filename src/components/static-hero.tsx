@@ -93,7 +93,7 @@ export function StaticHero() {
             Explore our capabilities <span aria-hidden="true">→</span>
           </a>
           <a className={styles.secondaryAction} href="#contact">
-            Contact Nex Labs
+            Explore the next chapter
           </a>
         </div>
       </div>

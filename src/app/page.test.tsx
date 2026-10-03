@@ -165,6 +165,14 @@ describe("HomePage", () => {
       "href",
       "#vision",
     );
+
+    const nextChapterLinks = screen.getAllByRole("link", {
+      name: "Explore the next chapter",
+    });
+    expect(nextChapterLinks).toHaveLength(3);
+    for (const link of nextChapterLinks) {
+      expect(link).toHaveAttribute("href", "#contact");
+    }
   });
 
   it("server-renders the static hero poster without mounting a WebGL canvas", () => {
