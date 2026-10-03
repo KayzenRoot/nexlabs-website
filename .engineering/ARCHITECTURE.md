@@ -54,3 +54,17 @@ M05 completes the Home below the M04 hero with server-rendered semantic sections
 ## Data/backend/deployment boundary
 
 V1 remains content-led through M05. No database, CMS, auth, analytics, contact backend or deployment-provider coupling is introduced by M05.
+
+
+## M06 secondary-page architecture
+
+M06 extends the App Router with real public secondary routes in small increments.
+
+M06A rules:
+- `/technology` and `/solutions` are Server Component routes by default.
+- Shared secondary-page primitives may encapsulate layout/visual repetition but remain small and semantic.
+- Page-specific atmosphere uses CSS/SVG/HTML and existing tokens.
+- The Home Three/R3F scene remains isolated to Home; secondary routes must not mount or eagerly load it.
+- Header/footer become route-aware with real absolute site paths so direct route loads never contain dead local anchors.
+- Until later M06 increments exist, Research, Company and next-chapter navigation returns to the corresponding implemented Home sections.
+- No global client state, UI framework, animation engine, database, CMS, auth or provider coupling is introduced by M06A.
