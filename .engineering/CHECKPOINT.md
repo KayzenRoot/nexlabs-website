@@ -1,22 +1,21 @@
 # Project Checkpoint
 
-Status: M04_HOME_HERO_LIVING_ORGANISM_ADMITTED
+Status: M05_HOME_CONTENT_SECTIONS_ADMITTED
 
 - GEF Bootstrap v1.1.2: APPROVED and merged.
 - M01 Product Foundation & Visual System: APPROVED and merged.
 - M02 Runtime & Repository Foundation: APPROVED and merged.
-- M03 Brand System Planning: APPROVED and merged.
-- M03 Brand Concept Exploration: APPROVED and merged.
-- M03 Vector Master & Brand Integration: APPROVED at exact head `f3534134e38d93649728476a2f199d9c952d812c` and merged in PR #8.
+- M03 Brand System program: APPROVED and merged.
+- M04 Home Hero 3D / Living Organism: APPROVED at exact head `4898c778d5003e8b780031abbf4d3f34e1633e8e` and squash-merged in PR #9.
+- M04 merge SHA on main: `6b0f3fa29f00796a85dbd44ac21010f3337cf5c5`.
 - Production identity: `NEX-N-A-PRECISION-BLADES`.
-- Current main/base SHA: `c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c`.
-- Active Work Order: `NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM`.
-- Active branch: `work/nexlabs-wo-007-home-hero-living-organism`.
-- Exact Home Visual Master: `home_visual_master.jpg`, 1600x900, SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
-- M04 implementation is authorized; merge is not.
-- M05 remains blocked until M04 approval/merge.
+- Home Visual Master remains the approved 1600x900 reference.
+- Active Work Order: `NEXLABS-WO-008-HOME-CONTENT-SECTIONS`.
+- Active branch: `work/nexlabs-wo-008-home-content-sections`.
+- M05 implementation is authorized; merge is not.
+- M06 secondary pages remain blocked until M05 approval/merge.
 - Docker continuity remains mandatory.
 
-Next legal stage: executor implements M04, retains evidence, leaves Docker UP/healthy and requests exact-head review.
+Next legal stage: executor implements the semantic Home content sections, retains evidence, leaves Docker UP/healthy and requests exact-head review.
 
 The machine-readable view is CHECKPOINT.json.
