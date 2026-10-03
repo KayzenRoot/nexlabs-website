@@ -37,8 +37,6 @@ export function HeroSceneClient() {
       if (nextTier === "STATIC") {
         setShouldLoad(false);
         setSceneReady(false);
-      } else {
-        setFailed(false);
       }
     };
 

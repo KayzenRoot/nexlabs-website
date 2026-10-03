@@ -16,10 +16,10 @@ State: PROPOSED — DO NOT PROMOTE BEFORE APPROVAL
 - Base: `c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c`; implementation/test SHA: `6fc2efa67a7e96c30aa220f052d755be0fb7c23f`.
 - Reference image verified at SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647` (1600x900); supplied binary retained in the WO-007 evidence folder.
 - Responsive, side-by-side fidelity, FULL/BALANCED/STATIC, reduced-motion, and WebGL-fallback evidence retained under `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/`.
-- Lint, typecheck, unit tests (3 files / 15 tests), production build, browser/a11y suite (9/9), audit (0 vulnerabilities), and local secret-pattern scan passed on the implementation SHA.
-- Lazy 3D JS is 252,938 bytes gzip (target <=700 KB). Static route JS is 136,829 bytes gzip. Native Chrome/NVIDIA RTX 5050 BALANCED profile sampled 75.2 FPS median; synthetic SwiftShader FULL profile sampled 10 FPS median and is not a hardware qualification.
+- Lint, typecheck, unit tests (3 files / 15 tests), production build, browser/a11y suite (10/10 after review corrections), audit (0 vulnerabilities), and local secret-pattern scan passed on the implementation/correction patch.
+- Lazy 3D JS is 252,938 bytes gzip (target <=700 KB). Static route JS is 136,829 bytes gzip. Native Chrome/NVIDIA RTX 5050 BALANCED profile on implementation SHA `6fc2efa` (before the two review fixes) sampled 75.2 FPS median; synthetic SwiftShader FULL profile sampled 10 FPS median and is not hardware qualification.
 - Docker Engine 29.8.1 / Compose v5.5.1; container `nexlabs-website-web-1` is running and healthy at `http://localhost:3000` (HTTP 200). Docker remains UP; no `docker compose down` was run.
-- Current local GitHub check snapshot was for prior head `df7f2aed6aed503b0a5f771d23819174725d0ba4`; it does not transfer to the new candidate. Exact-final-HEAD CI/check results, independent reviewer verdict, and approval remain required before promotion.
+- CodeRabbit's two actionable findings were validated and corrected: preserve runtime failure after resize and use tier-scaled elapsed-time particle oscillation. Exact-final-HEAD CI/check results are required after push; independent reviewer verdict and approval remain required before promotion.
 - Full metrics, changed-file summary, Docker details, and limitations: `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM-EVIDENCE.md`.
 
 ## Boundary
@@ -28,6 +28,6 @@ Executor may update this proposal with factual evidence but may not self-promote
 
 ## Current execution state
 
-- Implementation SHA `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` is locally validated; Evidence Bundle records measurements and limitations.
-- Evidence/checkpoint documentation is being committed separately. The final PR candidate SHA is recorded in the PR description after push, and required checks must be inspected at that exact SHA.
+- Initial implementation SHA `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` was locally validated; two verified review corrections and the 10/10 post-correction E2E are recorded in the Evidence Bundle.
+- The final post-correction PR SHA is recorded in the PR description after push; required checks must be inspected at that exact SHA.
 - PR #9 must remain OPEN and unmerged at the stop condition. This delta remains PROPOSED pending exact-head checks and independent approval.

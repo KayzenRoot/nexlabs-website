@@ -256,6 +256,46 @@ test("WebGL failure selects the static hero without blocking semantic content", 
   });
 });
 
+test("runtime WebGL failure keeps the poster fallback after resize", async ({
+  page,
+}) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      configurable: true,
+      value: function getContext(type: string, ...args: unknown[]) {
+        if (type === "webgl2" && this.isConnected) return null;
+        return Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+      },
+    });
+  });
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED)$/);
+  await expect(stage).toHaveAttribute("data-scene-state", "fallback", {
+    timeout: 30_000,
+  });
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+
+  await page.setViewportSize({ width: 1500, height: 900 });
+  await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED)$/);
+  await expect(stage).toHaveAttribute("data-scene-state", "fallback");
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+  mkdirSync(screenshotDirectory, { recursive: true });
+  await page.screenshot({
+    path: resolve(
+      screenshotDirectory,
+      "home-webgl-runtime-fallback-after-resize-1600x900.png",
+    ),
+    fullPage: false,
+    animations: "disabled",
+  });
+});
+
 test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles", async ({
   browser,
   page,

@@ -302,10 +302,12 @@ function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
     return buffer;
   }, [tier]);
   const field = useRef<Group>(null);
+  const motionScale = getMotionScale(tier);
 
-  useFrame(({ clock }, delta) => {
+  useFrame(({ clock }) => {
     if (field.current) {
-      field.current.position.y = Math.sin(clock.elapsedTime * 0.16) * delta * 0.35;
+      field.current.position.y =
+        Math.sin(clock.elapsedTime * 0.16) * 0.35 * motionScale;
     }
   });
 
