@@ -24,21 +24,24 @@ Delivered:
 - WebGL/reduced-motion fallbacks;
 - exact visual-master and performance evidence.
 
-## Active
-
 ### M05 — Home Content Sections
-ADMITTED under `NEXLABS-WO-008-HOME-CONTENT-SECTIONS`.
+APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and squash-merged in PR #10 as product merge `9f6aab7004fe10ccd5120cefd666df2a1efe9060`.
 
-- five capability cards;
+Delivered:
+- five capability cards with canonical factual-safe copy;
 - non-numeric principles/trust rail;
-- vision/mission;
+- vision/mission narrative;
 - research narrative;
-- technology-platform preview;
+- technology-platform preview with stacked-layer/cube vocabulary;
 - final Home CTA;
-- anchor/navigation integrity;
+- real anchor/navigation integrity;
 - living-organism continuity below the hero;
 - responsive/accessibility/performance evidence;
-- Docker left UP/healthy.
+- Docker continuity evidence.
+
+## Current planning state
+
+No product implementation Work Order is active. M06 planning may proceed only after this checkpoint promotion is merged.
 
 ## Next
 

@@ -1,8 +1,16 @@
 # NEXLABS-WO-008 — M05 Home Content Sections
 
-Status: ADMITTED — READY FOR EXECUTOR
+Status: APPROVED — MERGED
 
 Risk class: STANDARD
+
+## COMPLETION RECORD
+
+- Independent audit: APPROVED.
+- Exact approved head: `22b3012551cce8f8a585605cf0f7a246ecd2a2a0`.
+- PR: #10.
+- Squash product merge on main: `9f6aab7004fe10ccd5120cefd666df2a1efe9060`.
+- M05 checkpoint promotion is performed only after that merge.
 
 ## OBJECTIVE
 
@@ -300,4 +308,4 @@ Brazilian Portuguese:
 
 ## STOP CONDITION
 
-Stop with M05 implemented, evidence retained, Docker UP/healthy and PR OPEN/READY FOR REVIEW. Do not merge. Do not begin M06 until M05 is independently approved and merged.
+Historical executor stop condition was satisfied before independent review. M05 is now independently APPROVED and merged. M06 implementation remains blocked until a separately admitted M06 Work Order and Context Lock exist.

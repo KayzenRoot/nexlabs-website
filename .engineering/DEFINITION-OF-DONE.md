@@ -7,10 +7,11 @@
 - M02 Runtime & Repository Foundation: APPROVED and merged.
 - M03 Brand System program: APPROVED and merged.
 - M04 Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
+- M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and merged in PR #10.
 
-## M05 — Home Content Sections
+## Completed gate — M05 Home Content Sections
 
-M05 is complete only when:
+M05 is complete. The following gate was satisfied:
 
 1. Placeholder Project/Contact content and hidden planned anchors are removed.
 2. Capability, Principles, Vision, Research, Technology and Final CTA sections are implemented from HOME-CONTENT-SPEC.md.
@@ -33,6 +34,10 @@ M05 is complete only when:
 19. Exact-head CodeRabbit, CI, Browser Smoke, Socket and Sonar gates pass.
 20. Independent review reports APPROVED.
 21. Checkpoint promotion occurs only after approval and merge.
+
+## Next Definition of Done
+
+M06 Secondary Pages has not yet been admitted. Its exact completion criteria must be defined by the M06 Work Order before implementation begins.
 
 ## Global implementation rule
 

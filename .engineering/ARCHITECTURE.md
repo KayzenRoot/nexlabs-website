@@ -4,7 +4,7 @@
 
 The repository has a merged GEF governance baseline, Next.js App Router runtime, strict TypeScript, CSS Modules/design tokens, automated CI/browser/a11y checks, Docker development environment, professional main ruleset and the production Precision Blades brand identity.
 
-## M04 product architecture
+## Home architecture through M05
 
 M04 adds the first production 3D client island:
 
@@ -47,6 +47,10 @@ The site never requires FULL mode for content, navigation or conversion.
 - Mesh/texture optimization uses glTF tooling, Meshopt and KTX2/Basis where applicable.
 - Heavy assets and runtime are separately measurable and lazy.
 
+## M05 lower-Home architecture
+
+M05 completes the Home below the M04 hero with server-rendered semantic sections, CSS Modules and decorative SVG/HTML. It adds no second WebGL scene, no animation framework, no global state store and no new dependency. All meaningful copy remains outside canvas and all pre-M06 navigation stays on implemented Home anchors.
+
 ## Data/backend/deployment boundary
 
-V1 remains content-led. No database, CMS, auth or deployment provider is introduced by M04.
+V1 remains content-led through M05. No database, CMS, auth, analytics, contact backend or deployment-provider coupling is introduced by M05.

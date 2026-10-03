@@ -9,28 +9,27 @@
 
 ## Approved foundation
 
-GEF Bootstrap v1.1.2, M01, M02, M03 and M04 are approved and merged.
+GEF Bootstrap v1.1.2 and product modules M01 through M05 are approved and merged.
 
 - Production identity: `NEX-N-A-PRECISION-BLADES`.
-- M04 Home Hero 3D / Living Organism was approved at exact review head `4898c778d5003e8b780031abbf4d3f34e1633e8e` and squash-merged by PR #9.
-- Current main SHA for the M05 admission: `6b0f3fa29f00796a85dbd44ac21010f3337cf5c5`.
+- M04 Home Hero 3D / Living Organism was approved at exact review head `4898c778d5003e8b780031abbf4d3f34e1633e8e` and merged in PR #9.
+- M05 Home Content Sections was independently approved at exact review head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and squash-merged in PR #10 as product merge `9f6aab7004fe10ccd5120cefd666df2a1efe9060`.
 - The approved Home Visual Master remains the primary composition reference.
+- The Home experience is complete through M05.
 
-## Current increment
+## Current state
 
-M05 Home Content Sections is admitted under `NEXLABS-WO-008-HOME-CONTENT-SECTIONS` and its exact Context Lock. The Work Order and `.engineering/HOME-CONTENT-SPEC.md` govern the section order, approved English copy, visuals, navigation, accessibility, performance and evidence.
-
-The M05 admission package is on `work/nexlabs-wo-008-home-content-sections`. This admission diff finalizes the governing sources; product implementation remains bounded by WO-008 and its acceptance criteria. M06 secondary-page work remains blocked until M05 is independently approved and merged.
+No product implementation Work Order is active after M05. M06 Secondary Pages is the next planning increment. Implementation of M06 must not begin until its Work Order and exact Context Lock are separately compiled and admitted against the current main state.
 
 ## Website languages
 
 - English is the default and canonical language for V1 website copy.
 - Portuguese and Spanish are intended localization targets for a future, separately scoped localization increment.
-- WO-008 ships the canonical English copy only; translated pages or language switching are outside its scope.
+- Translated pages or language switching remain outside the current V1 module sequence unless explicitly admitted later.
 
 ## Product architecture
 
-The runtime is Next.js App Router with strict TypeScript, CSS Modules and design tokens. M04 provides the poster-first Home hero, isolated lazy Three.js / React Three Fiber scene, FULL / BALANCED / STATIC quality tiers, WebGL and reduced-motion fallbacks, and the reusable living-organism motion foundation. M05 extends the Home below the hero using semantic content and lightweight CSS/SVG/HTML; it does not add another 3D runtime.
+The runtime is Next.js App Router with strict TypeScript, CSS Modules and design tokens. M04 provides the poster-first Home hero, isolated lazy Three.js / React Three Fiber scene, FULL / BALANCED / STATIC quality tiers, WebGL and reduced-motion fallbacks, and the reusable living-organism motion foundation. M05 completes the Home below the hero using semantic server-rendered content and lightweight CSS/SVG/HTML without adding another 3D runtime.
 
 ## Operating boundaries
 
