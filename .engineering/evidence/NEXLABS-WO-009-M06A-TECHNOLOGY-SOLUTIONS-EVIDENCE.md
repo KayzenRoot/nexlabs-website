@@ -6,9 +6,10 @@
 - Branch/PR: `work/nexlabs-wo-009-m06a-technology-solutions`, PR #12 para `main`.
 - Base aprovada do Work Order: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - HEAD de entrada ligado ao Context Lock: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
-- Context Lock: `.engineering/context-locks/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS.json` (SHA-256 `5eec29c5ba098109afc29f67969a82838876cfaa3c8e898723957f0e9633dbce`).
+- Context Lock: `.engineering/context-locks/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS.json` (SHA-256 `5be08b165543582a179cb60bb2733a63d4ddf36c0229794aa13ef0321ebccae4`).
 - Preflight: 22 fingerprints críticos corresponderam ao snapshot do lock e os 10 caminhos `staleIfChanged` também corresponderam ao Source Pack travado. Nenhuma fonte crítica STALE.
 - HEAD de implementação/código e testes validado localmente: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`. A atualização documental deste bundle e do Checkpoint Delta é posterior e não altera código/configuração executável. O SHA final da PR e seus checks exatos estão registrados nos metadados da PR #12.
+- Correção de governança validada: o Work Order exige regressão da Home e `src/app/page.test.tsx` foi atualizado para as novas rotas globais, mas o Context Lock original não permitia esse arquivo. O allow-list agora admite somente esse teste unitário adicional; a implementação continua limitada ao WO-009.
 - A PR permanece OPEN/READY FOR REVIEW. Este delta não promove o Checkpoint e não admite M06B.
 
 ## Escopo entregue
@@ -22,6 +23,7 @@
 
 - Adicionados: `src/app/technology/page.tsx`, `src/app/technology/technology.module.css`, `src/app/solutions/page.tsx`, `src/app/solutions/solutions.module.css`, `src/components/secondary-page.tsx`, `src/components/secondary-page.module.css`, `src/app/secondary-pages.test.tsx`, `tests/e2e/m06a.spec.ts`.
 - Modificados: `src/components/site-header.tsx`, `src/components/site-footer.tsx`, `src/app/page.test.tsx`, `tests/e2e/home.spec.ts`.
+- Governança/evidência: o Context Lock admite agora o teste de regressão da Home exigido pelo Work Order; Evidence Bundle e Checkpoint Delta registram a correção de escopo/review.
 - `package.json` e `package-lock.json` não mudaram. `@gef-bootstrap/cli@1.1.2` permanece fixado e instalado; nenhuma dependência foi adicionada.
 
 ## Checks e testes locais
@@ -55,7 +57,7 @@ O primeiro E2E completo identificou duas expectativas antigas que ainda esperava
 - `route-performance-report.json`: budget por rota de 225,280 bytes gzip (220 KiB); `/technology` e `/solutions` mediram 133,659 bytes gzip cada, abaixo do limite. Nenhum chunk específico de Three/hero foi carregado pelas páginas secundárias.
 - Medição laboratorial desktop 1600×900: Technology LCP 220 ms / CLS 0; Solutions LCP 176 ms / CLS 0; sem overflow horizontal.
 - Regressão Home, perfil mobile 4G e CPU 4×: LCP 2,404 ms (alvo ≤2,500 ms), CLS 0, proxy de interação 136 ms (alvo ≤200 ms), JS inicial 136,828 bytes gzip. Resultado dentro dos limites por 96 ms para LCP; é uma medição de laboratório local, não dado de usuários reais. Uma execução integral intermediária oscilou para 3,008 ms; a execução isolada seguinte e a execução integral final passaram. O limite permaneceu inalterado.
-- O perfil BALANCED preexistente mediu 59.9 FPS medianos / p95 16.7 ms a 900×768. O perfil FULL, simulado neste host com SwiftShader, mediu 20 FPS medianos / p95 116.6 ms; M06A não alterou a cena ou seu código. O ambiente de GPU virtual não representa uma qualificação de GPU de produção.
+- O perfil BALANCED preexistente mediu 59.9 FPS medianos / p95 16.7 ms a 900×768; em 1600×900, o mesmo tier BALANCED mediu 30 FPS medianos / p95 33.4 ms. São resoluções e cargas distintas; ambos os resultados constam do JSON. O perfil FULL, simulado neste host com SwiftShader, mediu 20 FPS medianos / p95 116.6 ms; M06A não alterou a cena ou seu código. O ambiente de GPU virtual não representa uma qualificação de GPU de produção.
 
 Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-performance-report.json) e [regressão/performance Home](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/home-performance-report.json).
 
@@ -83,7 +85,8 @@ Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-perform
 - `agent-browser` não estava instalado globalmente; a verificação foi executada sem persistir dependência de projeto via `npx`, versão 0.38.2. Também foi usada a suíte Chromium/Playwright do repositório.
 - A execução de LCP foi laboratorial e o perfil FULL usou SwiftShader; confirmar desempenho em GPU/dispositivo físico continua fora da qualificação local.
 - O log de desenvolvimento do Home registrou o aviso preexistente `THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.`; as rotas M06A continuam sem erros/overlays, e o componente Home fora do escopo não foi alterado.
-- A análise SonarCloud do HEAD intermediário `417d1807e5ae50792bd3de51fb2f01c6a9ba8ba5` falhou pelos achados descritos acima; reanálise exata do candidato corrigido ainda depende do push. Checks GitHub (CI Quality, Browser Smoke, Socket, SonarCloud, CodeRabbit) devem ser lidos no SHA final. A revisão independente exata e o merge permanecem gates externos; não são alegados aqui como aprovados.
+- No HEAD remoto `fc375bc69221fe75c3b14934df408b7faea053e8`, CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts e SonarCloud passaram. A métrica Sonar reportou zero bugs, code smells, duplicações, vulnerabilidades e hotspots; o achado MAJOR de contraste da análise intermediária foi encerrado como `FIXED/CLOSED`. CodeRabbit estava `PENDING / Review in progress` no momento desta captura; o review anterior tinha estado `COMMENTED`, não `APPROVED`. A revisão independente exata continua pendente antes de qualquer merge; a PR #12 permanece aberta para review.
+- Esses resultados estão vinculados ao SHA informado; o follow-up documental de revisão abaixo gera novo candidato, cujos checks devem ser lidos no HEAD atual da PR antes de concluir.
 
 ## Checkpoint Delta
 

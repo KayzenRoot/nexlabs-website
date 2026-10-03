@@ -21,6 +21,7 @@
     "src/components/**",
     "src/styles/**",
     "tests/**",
+    "src/app/page.test.tsx",
     "playwright.config.*",
     "vitest.config.*",
     ".engineering/evidence/**",

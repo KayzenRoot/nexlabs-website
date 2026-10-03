@@ -8,7 +8,7 @@ State: PROPOSED — awaiting exact-head checks and independent review; not promo
 - Base SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - Context Lock entry head: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
 - Validated implementation source/test SHA: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`.
-- Final PR head is supplied by PR #12 metadata after the evidence commit; that follow-up changes only evidence/checkpoint-delta documents. Exact-head GitHub status must be checked before reporting the candidate ready.
+- Last full exact-head check before this documentation-only review correction: `fc375bc69221fe75c3b14934df408b7faea053e8`. Its CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts and SonarCloud checks passed; the docs-only follow-up requires a fresh exact-head check before final reporting.
 - PR #12 stays OPEN/READY FOR REVIEW and targets `main`.
 
 ## Proposed checkpoint facts
@@ -23,5 +23,5 @@ State: PROPOSED — awaiting exact-head checks and independent review; not promo
 ## Gate and boundary
 
 - Do not edit/promote `CHECKPOINT.md` or `CHECKPOINT.json` through this proposal.
-- Require exact-final-head CI/Security/Browser/Sonar/CodeRabbit signals and an independent exact-head audit before any authorized merge.
+- Require exact-final-head CI Quality, Browser Smoke, Socket Security Project Report, Socket Security Pull Request Alerts, SonarCloud and CodeRabbit signals, plus an independent exact-head audit, before any separately authorized merge.
 - Keep PR #12 open. Do not merge, begin M06B, rewrite history, weaken checks or use force-push.
