@@ -55,6 +55,10 @@ export function resolveHeroQualityTier(
   return "FULL";
 }
 
+/**
+ * Performs a conservative WebGL2 capability probe and releases the temporary
+ * context immediately so the probe does not compete with the production canvas.
+ */
 export function probeWebGL2(): boolean {
   if (typeof document === "undefined") return false;
   if (typeof WebGL2RenderingContext === "undefined") return false;
@@ -75,6 +79,7 @@ export function probeWebGL2(): boolean {
   }
 }
 
+/** Reads only deterministic browser/device signals used by the quality selector. */
 export function readHeroCapabilities(): HeroCapabilities {
   const browser = navigator as Navigator & {
     connection?: { saveData?: boolean };

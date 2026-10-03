@@ -19,6 +19,7 @@ export const livingOrganismMotion = {
   } satisfies Record<HeroQualityTier, number>,
 } as const;
 
+/** Returns the normalized environmental-motion amplitude for a quality tier. */
 export function getMotionScale(tier: HeroQualityTier): number {
   return livingOrganismMotion.motionScale[tier];
 }

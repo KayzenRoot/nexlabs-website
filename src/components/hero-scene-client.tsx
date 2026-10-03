@@ -15,6 +15,10 @@ const HeroScene = dynamic(
   { ssr: false },
 );
 
+/**
+ * Owns capability detection, lazy scene admission, readiness and durable poster
+ * fallback for the Home hero without blocking semantic content.
+ */
 export function HeroSceneClient() {
   const hostRef = useRef<HTMLDivElement>(null);
   const [tier, setTier] = useState<HeroQualityTier>("STATIC");

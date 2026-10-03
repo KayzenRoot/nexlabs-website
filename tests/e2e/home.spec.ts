@@ -10,6 +10,7 @@ const screenshotDirectory = resolve(
 );
 const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
 
+/** Collects gzip byte sizes for Next.js script chunks observed by a test page. */
 function collectScriptGzipSizes(page: Page) {
   const pending = new Map<string, Promise<number>>();
   const onResponse = (response: Response) => {
@@ -35,6 +36,7 @@ function collectScriptGzipSizes(page: Page) {
   };
 }
 
+/** Installs lightweight lab observers for LCP, CLS and interaction timing evidence. */
 async function installVitalsObserver(page: Page) {
   await page.addInitScript(() => {
     const vitals = { lcpMs: 0, cls: 0, inpSamples: [] as number[] };
@@ -84,6 +86,7 @@ async function installVitalsObserver(page: Page) {
   });
 }
 
+/** Samples requestAnimationFrame intervals and returns median/p95 frame evidence. */
 async function sampleFrameTimes(page: Page) {
   return page.evaluate(async () => {
     const intervals: number[] = [];

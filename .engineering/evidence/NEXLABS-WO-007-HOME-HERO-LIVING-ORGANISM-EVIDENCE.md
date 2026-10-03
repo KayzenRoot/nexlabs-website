@@ -87,3 +87,8 @@ See `.engineering/checkpoint-deltas/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM-PRO
 ## STOP CONDITION
 
 Stop with the M04 implementation documented, final PR #9 OPEN and READY FOR REVIEW, Docker UP/healthy, and no merge. M05 must not begin before independent exact-head approval and merge.
+
+
+## Independent review correction — documentation gate
+
+CodeRabbit pre-merge checks reported 18.18% docstring coverage on touched functions. The independent review added concise JSDoc to the hero controller, error-boundary lifecycle, 3D scene components/helpers, capability probes, motion helper and E2E evidence helpers. This is documentation-only for those functions; functional behavior is unchanged. Exact-head CodeRabbit must prove the required >=80% threshold before merge.

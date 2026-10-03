@@ -27,6 +27,10 @@ interface HeroSceneProps {
   onFailure: (reason: unknown) => void;
 }
 
+/**
+ * Synchronizes the render loop with page visibility and converts WebGL context
+ * loss into the shared scene-failure path.
+ */
 function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
   const { gl, setFrameloop } = useThree();
 
@@ -52,6 +56,10 @@ function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
   return null;
 }
 
+/**
+ * Builds the extruded 3D N directly from the canonical Precision Blades SVG
+ * geometry so flat and spatial brand forms stay structurally aligned.
+ */
 function useHeroGeometry() {
   return useMemo(() => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 335 335"><path d="${precisionBladesGeometry.silhouette}" transform="${precisionBladesTransform}" /></svg>`;
@@ -74,6 +82,7 @@ function useHeroGeometry() {
   }, []);
 }
 
+/** Renders the selected Precision Blades N with tier-scaled living motion. */
 function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
   const geometry = useHeroGeometry();
   const mark = useRef<Mesh>(null);
@@ -113,6 +122,7 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/** Renders the luminous portal chamber and structural energy rails around the N. */
 function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
 
@@ -159,6 +169,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/** Renders the slowly evolving globe/network motif required by the Home master. */
 function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   const globe = useRef<Group>(null);
 
@@ -185,6 +196,7 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/** Renders one circulating energy path and its travelling light node. */
 function EnergyFilament({
   index,
   tier,
@@ -225,6 +237,7 @@ function EnergyFilament({
   );
 }
 
+/** Adds a deliberately simple human silhouette to establish environmental scale. */
 function HumanScaleFigure() {
   return (
     <group position={[0.28, -1.65, 0.7]}>
@@ -252,6 +265,7 @@ function HumanScaleFigure() {
   );
 }
 
+/** Builds the reflective-looking platform rings and restrained holographic panels. */
 function FloorAndPanels() {
   return (
     <group>
@@ -287,6 +301,7 @@ function FloorAndPanels() {
   );
 }
 
+/** Creates the bounded, deterministic depth-particle field for the active tier. */
 function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
   const geometry = useMemo(() => {
     const count = livingOrganismMotion.particles[tier];
@@ -320,6 +335,10 @@ function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/**
+ * Composes the living laboratory world and applies bounded pointer, scroll and
+ * idle motion without moving semantic content into the canvas.
+ */
 function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
   const world = useRef<Group>(null);
   const pointerTarget = useRef({ x: 0, y: 0, scroll: 0 });
@@ -371,6 +390,10 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/**
+ * Hosts the lazy React Three Fiber canvas, tier-specific DPR and two-frame
+ * readiness handshake used by the poster-to-live crossfade.
+ */
 export default function HeroScene({ tier, onReady, onFailure }: HeroSceneProps) {
   const dpr: [number, number] = tier === "FULL" ? [1, 1.75] : [1, 1.25];
   const readinessFrame = useRef<number | null>(null);
