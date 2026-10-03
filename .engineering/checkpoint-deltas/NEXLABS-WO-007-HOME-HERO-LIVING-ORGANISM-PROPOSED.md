@@ -31,3 +31,12 @@ Executor may update this proposal with factual evidence but may not self-promote
 - Initial implementation SHA `6fc2efa67a7e96c30aa220f052d755be0fb7c23f` was locally validated; two verified review corrections and the 10/10 post-correction E2E are recorded in the Evidence Bundle.
 - The final post-correction PR SHA is recorded in the PR description after push; required checks must be inspected at that exact SHA.
 - PR #9 must remain OPEN and unmerged at the stop condition. This delta remains PROPOSED pending exact-head checks and independent approval.
+
+
+## Security / CI correction pending exact-head proof
+
+A newly surfaced HIGH advisory affects the dev-only `@next/eslint-plugin-next -> fast-glob -> micromatch -> braces@3.0.3` chain and has no patched `braces` release available. The remediation removes that lint plugin and its unreachable transitives rather than using downgrade/override/suppression. `CI Quality` now includes `npm audit --audit-level=moderate`.
+
+The Browser Smoke runtime-WebGL-failure scenario was also made deterministic for headless CI by separating the detached capability probe from the deliberately failing connected runtime canvas.
+
+This delta remains PROPOSED until the new exact head proves audit=0 HIGH/CRITICAL and all required checks are green.

@@ -260,12 +260,36 @@ test("runtime WebGL failure keeps the poster fallback after resize", async ({
   page,
 }) => {
   await page.addInitScript(() => {
+    Object.defineProperty(navigator, "hardwareConcurrency", {
+      configurable: true,
+      value: 8,
+    });
+    Object.defineProperty(navigator, "deviceMemory", {
+      configurable: true,
+      value: 8,
+    });
+    if (typeof window.WebGL2RenderingContext === "undefined") {
+      Object.defineProperty(window, "WebGL2RenderingContext", {
+        configurable: true,
+        value: function WebGL2RenderingContext() {},
+      });
+    }
+
     const original = HTMLCanvasElement.prototype.getContext;
     Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
       configurable: true,
       value: function getContext(type: string, ...args: unknown[]) {
         if (type === "webgl2" && this.isConnected) return null;
-        return Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+
+        const context = Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+        if (type === "webgl2" && context === null) {
+          return {
+            getExtension(name: string) {
+              return name === "WEBGL_lose_context" ? { loseContext() {} } : null;
+            },
+          } as unknown as RenderingContext;
+        }
+        return context;
       },
     });
   });

@@ -1,6 +1,6 @@
 # Evidence Bundle — NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM
 
-**Executor state:** implementation, post-review corrections, and local acceptance checks PASS on the candidate patch. The PR description records the exact pushed HEAD and GitHub checks. **Review state:** pending independent exact-head approval. **Merge state:** not merged.
+**Executor state:** implementation complete; security and deterministic-browser remediation applied by independent review and awaiting exact-head GitHub proof. **Review state:** BLOCKED until the new exact head has zero HIGH/CRITICAL audit findings and all required checks pass. **Merge state:** not merged.
 
 ## Candidate identity and authority
 
@@ -19,7 +19,7 @@
 - Node.js `v24.19.0` (satisfies `>=22`); npm `11.17.0`; Git `2.55.0`; GitHub CLI `2.101.0`, authenticated as `KayzenRoot`.
 - `@gef-bootstrap/cli@1.1.2` remains exactly pinned; `npx gef --version` reports `1.1.2`.
 - Added exact dependency pins: `@react-three/fiber@9.8.1`, `three@0.186.1`, `@types/three@0.186.0`. No `@react-three/drei`, GSAP, GLB asset, or WebGPU dependency was added.
-- `npm ci`: PASS; 262 packages added. `npm audit --audit-level=moderate`: PASS, zero vulnerabilities.
+- A newly surfaced HIGH advisory against `braces@3.0.3` affected the dev-only chain `@next/eslint-plugin-next -> fast-glob -> micromatch -> braces`. The current published `braces@3.0.3` line has no patched release for that advisory. The remediation candidate removes `@next/eslint-plugin-next` and its now-unreachable transitive chain instead of downgrading, overriding or suppressing the advisory. TypeScript ESLint, typecheck, Next production build, unit tests, browser/a11y checks and Sonar remain enforced. `CI Quality` now runs `npm audit --audit-level=moderate` so exact-head audit status is a required merge gate.
 
 ## Implementation and changed files
 
@@ -76,7 +76,7 @@ The E2E server used port 3101 because another local service already occupies por
 - FULL frame timing in headless software rendering is slow; the active NVIDIA hardware measurement is BALANCED, matching detected host capabilities. FULL hardware performance remains unmeasured on a machine that selects FULL naturally.
 - Mobile LCP and interaction figures are laboratory samples only; field LCP/INP percentiles are not available in this local run.
 - Remaining M05 content below the hero is intentionally not implemented in WO-007. No final research/infrastructure sections or card content were added.
-- Checks on the prior pushed candidate passed CI, Browser Smoke, Socket, and Sonar; its CodeRabbit review then found the two issues corrected here. Those checks do not transfer to the corrected candidate. Re-evaluate required checks at its exact pushed SHA. The PR must remain OPEN and unmerged.
+- The prior pushed candidate had Browser Smoke red because the runtime-WebGL-failure test assumed CI hardware/WebGL capability. The remediation makes that test deterministic by stubbing only the capability probe while still forcing the connected runtime canvas to fail. Exact-head checks must prove the correction. The PR must remain OPEN and unmerged.
 - The proposed Checkpoint Delta remains `PROPOSED`; independent exact-head review/approval and merge are outside this execution stop condition.
 - CodeRabbit identified two defects on the earlier PR candidate. Both were confirmed and fixed; exact post-correction GitHub checks/review must be inspected at the final pushed HEAD.
 

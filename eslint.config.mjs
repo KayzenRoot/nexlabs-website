@@ -1,17 +1,15 @@
 import { defineConfig, globalIgnores } from "eslint/config";
-import nextPlugin from "@next/eslint-plugin-next";
 import tseslint from "typescript-eslint";
 
+/**
+ * Next-specific lint rules are temporarily excluded because the current
+ * @next/eslint-plugin-next release pulls an unpatched HIGH-severity braces
+ * advisory through fast-glob -> micromatch. TypeScript ESLint, typecheck,
+ * Next production build, unit tests and browser/a11y checks remain enforced.
+ * Restore the Next plugin only after its dependency chain has a patched release.
+ */
 export default defineConfig([
   ...tseslint.configs.recommended,
-  {
-    files: ["**/*.{js,jsx,ts,tsx}"],
-    plugins: { "@next/next": nextPlugin },
-    rules: {
-      ...nextPlugin.configs.recommended.rules,
-      ...nextPlugin.configs["core-web-vitals"].rules,
-    },
-  },
   globalIgnores([
     ".next/**",
     "coverage/**",
