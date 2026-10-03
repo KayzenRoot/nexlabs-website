@@ -268,8 +268,9 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
     await page.keyboard.press("Tab");
     const skipLink = page.getByRole("link", { name: "Skip to content" });
     await expect(skipLink).toBeFocused();
-    const skipLinkTop = await skipLink.evaluate((element) => element.getBoundingClientRect().top);
-    expect(skipLinkTop).toBeGreaterThanOrEqual(0);
+    await expect
+      .poll(() => skipLink.evaluate((element) => element.getBoundingClientRect().top))
+      .toBeGreaterThanOrEqual(0);
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
     const focusShadow = await page.evaluate(() => getComputedStyle(document.activeElement!).boxShadow);
