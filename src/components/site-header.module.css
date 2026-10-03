@@ -1,18 +1,22 @@
 .header {
   position: relative;
   z-index: var(--z-header);
-  width: min(100%, var(--breakpoint-lg));
+  width: 100%;
   margin-inline: auto;
-  border-bottom: 1px solid var(--color-line-soft);
+  border-bottom: 1px solid rgb(155 190 232 / 14%);
+  background: linear-gradient(180deg, rgb(2 5 12 / 48%), rgb(2 5 12 / 8%));
+  backdrop-filter: blur(10px);
 }
 
 .inner {
   display: flex;
-  min-height: 5.75rem;
+  width: min(100%, 110rem);
+  min-height: 4.25rem;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-8);
-  padding-inline: clamp(var(--space-4), 4.6vw, var(--space-12));
+  gap: clamp(0.8rem, 2vw, 2rem);
+  margin-inline: auto;
+  padding-inline: clamp(1.25rem, 5.1vw, 5.5rem);
 }
 
 .brandLink {
@@ -20,89 +24,151 @@
   min-width: 0;
   flex: 0 0 auto;
   align-items: center;
-  gap: var(--space-3);
+  gap: 0.65rem;
   text-decoration: none;
 }
 
 .markFrame {
   display: block;
-  width: 2.625rem;
-  height: 2.625rem;
+  width: 2.6rem;
+  height: 2.6rem;
   flex: 0 0 auto;
   color: var(--color-brand-mark);
+  filter: drop-shadow(0 0 0.65rem rgb(54 153 255 / 42%));
 }
 
 .wordmark {
   display: grid;
-  gap: 0.08rem;
+  gap: 0.04rem;
 }
 
 .name {
   color: var(--color-text-primary);
-  font-size: var(--text-sm);
-  font-weight: 700;
-  letter-spacing: 0.22em;
-  line-height: 1.2;
+  font-size: 0.92rem;
+  font-weight: 720;
+  letter-spacing: 0.19em;
+  line-height: 1.1;
 }
 
 .descriptor {
-  color: var(--color-brand-subtle);
+  color: #a9bad1;
   font-family: var(--font-mono);
-  font-size: 0.56rem;
-  letter-spacing: 0.26em;
-  line-height: 1.4;
+  font-size: 0.52rem;
+  letter-spacing: 0.31em;
+  line-height: 1.35;
 }
 
 .navigation {
   display: flex;
+  flex: 1 1 auto;
   align-items: center;
-  gap: clamp(var(--space-4), 3vw, var(--space-8));
+  justify-content: center;
+  gap: clamp(0.8rem, 2.15vw, 2.2rem);
+  margin-left: clamp(1rem, 4vw, 4rem);
 }
 
 .link {
-  color: var(--color-text-secondary);
-  font-size: var(--text-sm);
+  color: #d6e1ef;
+  font-size: clamp(0.69rem, 0.85vw, 0.82rem);
   text-decoration: none;
   text-underline-offset: 0.35em;
   transition: color var(--motion-fast) var(--ease-standard);
 }
 
 .link:hover {
-  color: var(--color-text-primary);
+  color: #fff;
   text-decoration: underline;
 }
 
-@media (max-width: 40rem) {
+.contactAction {
+  display: inline-flex;
+  min-height: 2.1rem;
+  flex: 0 0 auto;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.4rem 1.05rem;
+  border: 1px solid rgb(55 211 255 / 85%);
+  border-radius: 999px;
+  background: rgb(7 23 48 / 64%);
+  box-shadow: 0 0 1rem rgb(14 125 255 / 22%), inset 0 0 0.8rem rgb(12 115 229 / 9%);
+  color: #8eeaff;
+  font-size: 0.75rem;
+  text-decoration: none;
+  transition:
+    border-color var(--motion-fast) var(--ease-standard),
+    box-shadow var(--motion-fast) var(--ease-standard),
+    color var(--motion-fast) var(--ease-standard);
+}
+
+.contactAction:hover {
+  border-color: #b4f5ff;
+  box-shadow: 0 0 1.3rem rgb(24 151 255 / 49%);
+  color: #fff;
+}
+
+.headerNote {
+  display: grid;
+  flex: 0 0 auto;
+  gap: 0.12rem;
+  margin: 0;
+  color: #9aabc2;
+  font-family: var(--font-mono);
+  font-size: 0.48rem;
+  letter-spacing: 0.15em;
+  line-height: 1.3;
+}
+
+.headerNote span {
+  white-space: nowrap;
+}
+
+@media (max-width: 70rem) {
+  .headerNote {
+    display: none;
+  }
+
   .inner {
-    min-height: 5.25rem;
-    gap: var(--space-4);
-    padding-inline: var(--space-4);
+    gap: clamp(0.65rem, 1.5vw, 1.2rem);
   }
 
   .navigation {
-    gap: clamp(var(--space-3), 4vw, var(--space-5));
+    gap: clamp(0.65rem, 1.6vw, 1.4rem);
   }
+}
 
-  .link {
-    font-size: var(--text-xs);
+@media (max-width: 48rem) {
+  .inner {
+    min-height: 4.1rem;
+    gap: 0.55rem;
+    padding-inline: 1rem;
   }
 
   .markFrame {
-    width: 2.25rem;
-    height: 2.25rem;
+    width: 2.15rem;
+    height: 2.15rem;
   }
 
   .brandLink {
-    gap: var(--space-2);
+    gap: 0.45rem;
   }
 
   .name {
-    font-size: var(--text-xs);
-    letter-spacing: 0.16em;
+    font-size: 0.7rem;
+    letter-spacing: 0.13em;
   }
 
   .descriptor {
-    font-size: 0.48rem;
-    letter-spacing: 0.2em;
+    font-size: 0.43rem;
+    letter-spacing: 0.19em;
+  }
+
+  .navigation {
+    display: none;
+  }
+
+  .contactAction {
+    min-height: 2rem;
+    padding-inline: 0.8rem;
+    font-size: 0.68rem;
   }
 }

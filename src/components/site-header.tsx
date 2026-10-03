@@ -2,14 +2,16 @@ import styles from "./site-header.module.css";
 import { BrandMark } from "./brand-mark";
 
 const navigation = [
-  { href: "#home", label: "Home" },
-  { href: "#project", label: "Project" },
-  { href: "#contact", label: "Contact" },
+  { href: "#capabilities", label: "Solutions" },
+  { href: "#infrastructure", label: "Technology" },
+  { href: "#products", label: "Products" },
+  { href: "#research", label: "Research" },
+  { href: "#vision", label: "Company" },
 ];
 
 /**
- * Renders the accessible global header and the temporary in-page navigation used
- * until governed secondary routes are implemented.
+ * Renders the selected identity and the in-page navigation shell. The destination
+ * anchors remain placeholders until their separately governed content increment.
  */
 export function SiteHeader() {
   return (
@@ -32,6 +34,16 @@ export function SiteHeader() {
             </a>
           ))}
         </nav>
+
+        <a className={styles.contactAction} href="#contact">
+          Contact <span aria-hidden="true">→</span>
+        </a>
+
+        <p className={styles.headerNote} aria-label="Innovation, intelligence, real-world impact">
+          <span>INNOVATION</span>
+          <span>INTELLIGENCE</span>
+          <span>REAL-WORLD IMPACT</span>
+        </p>
       </div>
     </header>
   );

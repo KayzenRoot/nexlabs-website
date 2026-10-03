@@ -3,13 +3,13 @@ import { describe, expect, it } from "vitest";
 import HomePage from "./page";
 
 describe("HomePage", () => {
-  it("renders draft-safe copy with one primary heading and two in-page actions", () => {
+  it("renders the approved hero hierarchy with one heading and two in-page actions", () => {
     render(<HomePage />);
 
     expect(
       screen.getByRole("heading", {
         level: 1,
-        name: /technology for what comes next/i,
+        name: /human potential multiplied/i,
       }),
     ).toBeInTheDocument();
 
@@ -22,7 +22,7 @@ describe("HomePage", () => {
     ).toHaveAttribute("href", "#contact");
   });
 
-  it("keeps every in-page destination present and the hero free of canvas", () => {
+  it("server-renders the static poster and keeps the canvas decorative and client-only", () => {
     const { container } = render(<HomePage />);
     const targetIds = new Set(
       Array.from(container.querySelectorAll<HTMLElement>("[id]"), (element) =>
@@ -37,6 +37,8 @@ describe("HomePage", () => {
     }
 
     expect(container.querySelector("canvas")).not.toBeInTheDocument();
+    expect(container.querySelector('[data-testid="hero-static-poster"]')).toBeInTheDocument();
+    expect(container.querySelector('[data-identity-source="NEX-N-A-PRECISION-BLADES"]')).toBeInTheDocument();
     expect(container.querySelector("#capabilities")).toBeInTheDocument();
     expect(container.querySelector("#research")).toBeInTheDocument();
     expect(container.querySelector("#infrastructure")).toBeInTheDocument();

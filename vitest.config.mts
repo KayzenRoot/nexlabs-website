@@ -8,6 +8,7 @@ export default defineConfig({
     include: ["src/**/*.test.{ts,tsx}"],
     setupFiles: ["./src/test/setup.ts"],
     restoreMocks: true,
-    maxWorkers: 2,
+    pool: "threads",
+    maxWorkers: 1,
   },
 });

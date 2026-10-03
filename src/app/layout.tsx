@@ -4,9 +4,8 @@ import { SiteHeader } from "../components/site-header";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nex Labs Technology — A New Space Taking Shape",
-  description:
-    "The new digital home of Nex Labs Technology is taking shape.",
+  title: "Nex Labs Technology — Human Potential Multiplied",
+  description: "A new digital home for technology, research and engineering.",
   icons: {
     icon: [
       {

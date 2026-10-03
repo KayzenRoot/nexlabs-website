@@ -1,13 +1,12 @@
 .homePage {
-  width: min(100%, var(--breakpoint-lg));
-  margin-inline: auto;
-  padding-inline: clamp(var(--space-4), 4.6vw, var(--space-12));
+  width: 100%;
 }
 
 .project,
 .contact {
   position: relative;
-  margin-block: var(--space-12) var(--space-20);
+  width: min(calc(100% - 2.5rem), var(--breakpoint-lg));
+  margin: var(--space-12) auto var(--space-20);
   padding: clamp(var(--space-6), 5vw, var(--space-12));
   overflow: hidden;
   border: var(--glass-border);
@@ -79,12 +78,13 @@
 
 @media (max-width: 40rem) {
   .homePage {
-    padding-inline: var(--space-4);
+    width: 100%;
   }
 
   .project,
   .contact {
-    margin-block: var(--space-8) var(--space-12);
+    width: calc(100% - 2rem);
+    margin: var(--space-8) auto var(--space-12);
     padding: var(--space-6);
     border-radius: var(--radius-md);
   }
