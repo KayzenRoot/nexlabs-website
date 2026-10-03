@@ -1,23 +1,17 @@
 {
   "schemaVersion": 2,
   "project": "Nex Labs Technology Website",
-  "status": "M04_HOME_HERO_LIVING_ORGANISM_ADMITTED",
-  "phase": "HOME_3D_IMPLEMENTATION",
-  "completedThroughModule": "M03_VECTOR_MASTER_BRAND_INTEGRATION",
-  "activeModule": "M04_HOME_HERO_3D_LIVING_ORGANISM",
+  "status": "M05_HOME_CONTENT_SECTIONS_ADMITTED",
+  "phase": "HOME_CONTENT_IMPLEMENTATION",
+  "completedThroughModule": "M04_HOME_HERO_3D_LIVING_ORGANISM",
+  "activeModule": "M05_HOME_CONTENT_SECTIONS",
   "activeModuleStatus": "ADMITTED_READY_FOR_EXECUTOR",
-  "activeWorkOrder": "NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM",
-  "activeBranch": "work/nexlabs-wo-007-home-hero-living-organism",
+  "activeWorkOrder": "NEXLABS-WO-008-HOME-CONTENT-SECTIONS",
+  "activeBranch": "work/nexlabs-wo-008-home-content-sections",
   "selectedBrandConcept": "NEX-N-A-PRECISION-BLADES",
-  "homeVisualMaster": {
-    "filename": "home_visual_master.jpg",
-    "width": 1600,
-    "height": 900,
-    "sha256": "d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647"
-  },
-  "nextLegalStage": "EXECUTE_WO_007_THEN_EXACT_HEAD_AUDIT",
-  "stopState": "NO_M05_BEFORE_WO_007_APPROVAL_MERGE",
-  "lastApprovedReviewHead": "f3534134e38d93649728476a2f199d9c952d812c",
-  "lastMergedMainSha": "c6b4e69e214ed51f9c2ad338e73ee6f3dc89a65c",
+  "lastApprovedReviewHead": "4898c778d5003e8b780031abbf4d3f34e1633e8e",
+  "lastMergedMainSha": "6b0f3fa29f00796a85dbd44ac21010f3337cf5c5",
+  "nextLegalStage": "EXECUTE_WO_008_THEN_EXACT_HEAD_AUDIT",
+  "stopState": "NO_M06_BEFORE_WO_008_APPROVAL_MERGE",
   "v11": null
 }
