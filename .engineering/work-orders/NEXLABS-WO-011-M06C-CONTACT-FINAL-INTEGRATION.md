@@ -1,8 +1,21 @@
 # NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION — M06C Contact + Final Cross-Route Integration
 
-Status: ADMITTED — READY FOR CODEX EXECUTOR
+Status: APPROVED — MERGED
 
 Risk class: STANDARD
+
+## COMPLETION RECORD
+
+- Independent audit: APPROVED.
+- Exact approved head: `4d92cc9f75c66c92e0991be312da6d1b0afcee88`.
+- PR: #16.
+- Squash product merge on main: `72bf80e5c9b9dbf6518c42085e4f24d925899ea3`.
+- Exact-head CI Quality, Browser Smoke, Sonar, Socket and CodeRabbit signals passed.
+- Context Lock: 22 critical sources, 0 STALE.
+- Unit/component 28/28 and E2E Chromium 22/22 passed.
+- Contact zero-collection boundary was verified by DOM/network evidence.
+- All six V1 routes returned HTTP 200 with Docker UP/healthy.
+- M06 Secondary Pages is complete after checkpoint promotion.
 
 ## OBJECTIVE
 
@@ -169,4 +182,4 @@ Brazilian Portuguese: base/head + Context Lock freshness; files; Contact fidelit
 
 ## STOP CONDITION
 
-Stop with M06C fully implemented, tested and evidenced, Docker UP/healthy and PR OPEN/READY FOR REVIEW. Do not merge. Do not promote checkpoint. Do not begin M07.
+Historical executor STOP CONDITION was satisfied before independent review. M06C is APPROVED and merged. M07 must not begin until this checkpoint promotion is merged and a new Work Order + Context Lock are admitted.

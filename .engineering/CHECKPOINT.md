@@ -1,23 +1,25 @@
 # Project Checkpoint
 
-Status: M06C_CONTACT_FINAL_INTEGRATION_ADMITTED
+Status: M06_SECONDARY_PAGES_COMPLETE_APPROVED_MERGED
 
 - GEF Bootstrap v1.1.2: APPROVED and merged.
 - M01 through M05: APPROVED and merged.
-- M06A Technology + Solutions: APPROVED/merged; checkpoint promoted.
-- M06B Research + Company: APPROVED/merged; checkpoint promoted in PR #15.
-- Admission base main SHA: `2d9262d85f2336a63e4929a5b941f834b08f0141`.
+- M06A Technology + Solutions: APPROVED/MERGED; checkpoint promoted.
+- M06B Research + Company: APPROVED/MERGED; checkpoint promoted.
+- M06C Contact + final integration: independently APPROVED at exact head `4d92cc9f75c66c92e0991be312da6d1b0afcee88` and squash-merged in PR #16.
+- M06C product merge SHA on main: `72bf80e5c9b9dbf6518c42085e4f24d925899ea3`.
+- Independent M06C audit verdict is recorded on PR #16.
+- M06 Secondary Pages is now COMPLETE.
+- Production public routes: `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`.
+- Contact remains read-only/zero-collection in V1.
 - Production identity: `NEX-N-A-PRECISION-BLADES`.
-- Secondary Pages program is complete through M06B.
-- Active sub-increment: M06C Contact + final integration.
-- Active Work Order: `NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION`.
-- Active branch: `work/nexlabs-wo-011-m06c-contact-final-integration`.
-- Active Context Lock: `.engineering/context-locks/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION.json`.
-- M06C implementation is authorized for Codex; merge is not.
-- Contact is explicitly read-only/zero-collection.
-- M07 Production Hardening & Launch remains blocked.
-- Docker continuity remains mandatory.
+- No product implementation Work Order is active.
+- M07 Production Hardening & Launch is the next legal planning program.
+- M07 implementation remains blocked until a new Work Order and exact Context Lock are admitted.
+- Docker continuity remains mandatory for runnable frontend work.
 
-Next legal stage: Codex executes WO-011 against the exact Context Lock, retains evidence, leaves Docker UP/healthy and requests independent exact-head audit.
+`lastMergedMainSha` denotes the most recent merged product increment and intentionally excludes governance-only checkpoint-promotion commits.
+
+Next legal stage: plan and admit the smallest coherent M07 hardening increment against the post-promotion main SHA. Do not begin M07 implementation before its Work Order and Context Lock exist.
 
 The machine-readable view is CHECKPOINT.json.
