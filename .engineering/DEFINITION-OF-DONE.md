@@ -7,68 +7,38 @@
 - M02 Runtime & Repository Foundation: APPROVED and merged.
 - M03 Brand System program: APPROVED and merged.
 - M04 Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
-- M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and merged in PR #10.
-
-## Completed gate — M05 Home Content Sections
-
-M05 is complete. The following gate was satisfied:
-
-1. Placeholder Project/Contact content and hidden planned anchors are removed.
-2. Capability, Principles, Vision, Research, Technology and Final CTA sections are implemented from HOME-CONTENT-SPEC.md.
-3. The five capability cards use factual-safe copy and coherent visual motifs.
-4. The unsupported metric strip is replaced with non-numeric principles.
-5. Research and Technology sections visually continue the approved master.
-6. The cube/stacked-layer vocabulary appears in Technology without a new heavy 3D runtime.
-7. The lower Home visually connects to the M04 living-organism world.
-8. Header/in-page anchors land on visible semantic sections.
-9. No fake customers, partners, statistics, awards, testimonials or outcomes are introduced.
-10. Mobile/tablet/desktop are validated with no unexpected horizontal overflow.
-11. Keyboard/focus/reduced-motion behavior remains correct.
-12. Accessibility/browser smoke passes.
-13. Existing M04 hero/fallback/tier tests continue to pass.
-14. No unjustified heavy dependency is added.
-15. Lint, typecheck, unit and production build pass.
-16. Security/dependency review has no unresolved HIGH/CRITICAL finding.
-17. Performance evidence remains inside targets or records justified variance.
-18. Docker remains UP/healthy.
-19. Exact-head CodeRabbit, CI, Browser Smoke, Socket and Sonar gates pass.
-20. Independent review reports APPROVED.
-21. Checkpoint promotion occurs only after approval and merge.
+- M05 Home Content Sections: APPROVED and merged in PR #10.
+- M06A Technology + Solutions: APPROVED at exact head `0328527eabd6efd6cf763e4f7baf731a93731229` and merged in PR #12.
 
 ## M06 program
 
 M06 Secondary Pages is complete only after all separately admitted sub-increments are independently APPROVED and merged:
-- M06A — Technology + Solutions;
-- M06B — Research + Company;
-- M06C — Contact + final cross-route integration.
+- M06A — Technology + Solutions: COMPLETE.
+- M06B — Research + Company: NOT YET ADMITTED.
+- M06C — Contact + final cross-route integration: NOT YET ADMITTED.
 
-## M06A — Technology + Solutions
+## Completed gate — M06A Technology + Solutions
 
-M06A is complete only when:
+The M06A gate was satisfied, including:
+- real `/technology` and `/solutions` production routes;
+- canonical copy/metadata and one semantic H1 per route;
+- server-rendered semantic content;
+- no second WebGL scene or Home HeroScene on secondary routes;
+- valid route-aware global navigation;
+- no fabricated M06B/M06C route;
+- responsive, reduced-motion and accessibility validation;
+- route JS within the 220 KiB gzip budget;
+- Home regression coverage;
+- lint, typecheck, unit, build, E2E and dependency/security checks;
+- complete Evidence Bundle and proposed Checkpoint Delta;
+- Docker UP/healthy with HTTP 200 for `/`, `/technology`, `/solutions`;
+- exact-head CI Quality, Browser Smoke, Socket, Sonar and CodeRabbit signals;
+- independent exact-head APPROVED verdict;
+- authorized squash merge.
 
-1. `/technology` and `/solutions` are real production routes.
-2. Exact M06A copy comes from SECONDARY-PAGES-SPEC.md.
-3. Both routes use server-rendered semantic content by default.
-4. Technology uses stacked-layer/cube vocabulary without a new WebGL scene.
-5. Solutions uses the approved five capability areas without fabricated proof.
-6. Global navigation works from Home and direct secondary-route loads.
-7. No M06B/M06C placeholder route or broken link is introduced.
-8. Unique metadata and correct heading hierarchy exist on both routes.
-9. Keyboard/focus/skip-link behavior remains correct.
-10. Reduced-motion behavior remains correct.
-11. Automated accessibility has no serious/critical violation.
-12. Mobile/tablet/desktop have no unexpected horizontal overflow.
-13. Secondary pages do not mount Home HeroScene/canvas.
-14. Initial route JS remains <= 220 KB gzip and Home 3D code stays isolated.
-15. Performance evidence stays inside targets or records justified variance.
-16. Existing Home hero/M05 tests remain green.
-17. Lint, typecheck, unit, build and browser checks pass.
-18. Security/dependency review has no unresolved HIGH/CRITICAL finding.
-19. Evidence Bundle is complete and tied to exact candidate head.
-20. Docker remains UP/healthy and all implemented routes return HTTP 200.
-21. Exact-head CI/Browser/Socket/Sonar/CodeRabbit signals are checked.
-22. Independent exact-head audit reports APPROVED.
-23. Checkpoint promotion occurs only after approval and authorized merge.
+## Next Definition of Done
+
+M06B Research + Company has not yet been admitted. Its exact completion criteria must be defined by WO-010 before implementation begins.
 
 ## Global implementation rule
 

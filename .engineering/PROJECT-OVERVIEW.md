@@ -9,41 +9,30 @@
 
 ## Approved foundation
 
-GEF Bootstrap v1.1.2 and product modules M01 through M05 are approved and merged.
+GEF Bootstrap v1.1.2, M01 through M05 and M06A are approved and merged.
 
 - Production identity: `NEX-N-A-PRECISION-BLADES`.
-- M04 Home Hero 3D / Living Organism is approved and merged.
-- M05 Home Content Sections was independently approved at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0`, merged in PR #10, and its checkpoint promoted in PR #11.
 - Home is complete through M05.
-- M06 admission base main SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
+- M06A Technology + Solutions was independently approved at exact review head `0328527eabd6efd6cf763e4f7baf731a93731229` and squash-merged in PR #12 as product merge `60b00c5cf539c1c4edce74207bf63c3b774b03c9`.
+- Production public routes now include Home, Technology and Solutions.
 
-## Current increment
+## Current state
 
-M06A Technology + Solutions is ADMITTED under `NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS` and its exact Context Lock.
-
-M06A owns:
-- reusable lightweight secondary-page foundation;
-- `/technology`;
-- `/solutions`;
-- route-aware global navigation;
-- responsive/accessibility/performance evidence;
-- Home regression protection.
-
-Codex is the implementation executor. M06B and M06C remain blocked until this increment is independently approved and merged.
+No product implementation Work Order is active after M06A. M06B Research + Company is the next planning increment. Implementation of M06B must not begin until its Work Order and exact Context Lock are separately compiled and admitted against the current main state.
 
 ## Website languages
 
 - English is the canonical V1 website language.
 - Portuguese and Spanish remain future localization targets.
-- No language switcher or translated route is admitted by M06A.
+- No language switcher or translated route is currently admitted.
 
 ## Product architecture
 
-The runtime is Next.js App Router with strict TypeScript, CSS Modules and design tokens. Home keeps its isolated lazy Three/R3F scene. M06A adds semantic server-rendered secondary routes and lightweight CSS/SVG/HTML atmosphere only; it does not add a second 3D runtime.
+The runtime is Next.js App Router with strict TypeScript, CSS Modules and design tokens. Home keeps its isolated lazy Three/R3F scene. Technology and Solutions use semantic server-rendered routes plus lightweight CSS/SVG/HTML atmosphere, with no second 3D runtime.
 
 ## Operating boundaries
 
 - No fabricated customers, partners, metrics, awards, testimonials or outcomes.
-- No Research/Company/Contact route implementation in M06A.
-- No contact backend, CMS/CRM, authentication, database, analytics or deployment.
-- Docker remains running and healthy at executor stop.
+- Research, Company and Contact route work requires a separately admitted Work Order.
+- No contact backend, CMS/CRM, authentication, database, analytics or public deployment without explicit admission.
+- Docker remains running and healthy for runnable frontend work unless the owner instructs otherwise.
