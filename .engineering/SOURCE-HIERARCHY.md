@@ -20,8 +20,8 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Execution | Active Work Order plus its exact Context Lock |
 | Security | SECURITY.md and repository settings/evidence |
 | Validation | TEST-BENCHMARK-PLAN.md and exact-head check results |
-| Deployment | DEPLOYMENT.md and an admitted launch Work Order |
+| Deployment | DEPLOYMENT.md, RELEASE-READINESS-SPEC.md and an admitted M07 Work Order |
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-No product implementation Work Order is active after the approved/merged M06C checkpoint. M06 is complete. M07 becomes execution authority only after a new Work Order and exact Context Lock are admitted against the post-promotion main SHA. Existing M06 route/content specifications remain canonical for shipped behavior. The approved Home Visual Master and `NEX-N-A-PRECISION-BLADES` identity remain binding.
+The active implementation authority is `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS` plus its exact Context Lock. `RELEASE-READINESS-SPEC.md` is canonical for M07A production hardening, pre-launch indexing, production-container and rollback obligations. DEPLOYMENT.md is canonical for the M07A/M07B deployment boundary. Existing M01–M06 product/content sources remain regression-protected. M07B is not executable until M07A is APPROVED, merged and checkpoint-promoted.

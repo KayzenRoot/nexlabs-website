@@ -2,17 +2,42 @@
 
 ## Current state
 
-Production deployment remains NOT_ADMITTED through M06C. M07 owns production hardening/launch admission. No hosting provider, production URL, environment model, build/release pipeline or production credential has been selected.
+Production deployment is **NOT_ADMITTED** in M07A. No hosting provider, production URL, domain/DNS target, TLS termination or production credential has been selected.
 
-## V1 deployment requirements
+## M07 program split
 
-Before production launch, a later Work Order must:
-- select the hosting/runtime provider with an ADR;
-- define preview/staging/production environments;
-- define build and release commands;
+### M07A — Release Hardening & Production Readiness
+
+Admitted work may:
+- create/test a production candidate artifact locally;
+- establish production security headers;
+- establish noindex/robots pre-launch posture;
+- establish a minimal production container;
+- add release-readiness CI;
+- rehearse provider-neutral container rollback.
+
+M07A must not publish or deploy the website.
+
+### M07B — Deployment Admission + Production Launch Validation
+
+M07B remains blocked until M07A approval/promotion and must separately:
+- select hosting/runtime provider with an accepted decision/ADR;
+- define preview/staging/production environment contract;
+- define verified production origin;
 - define secrets/environment-variable ownership;
-- define rollback or roll-forward procedure;
-- verify security headers, SEO/canonical configuration and contact-route behavior;
-- retain deployment evidence and post-deploy validation.
+- decide domain/DNS/TLS/HSTS;
+- add canonical URLs/sitemap/index enablement;
+- execute deployment;
+- retain post-deploy smoke/security/a11y/performance evidence;
+- retain provider-specific rollback/roll-forward evidence.
 
-M02 may establish local build and CI foundations, but it must not publish a production website unless a later deployment Work Order explicitly authorizes it.
+## Rollback model before provider selection
+
+M07A rollback proof is container-level only:
+- identify prior approved artifact SHA/digest;
+- identify candidate SHA/digest;
+- verify candidate;
+- restore prior approved artifact;
+- re-run six-route health checks.
+
+This rehearsal does not claim a future provider RTO/RPO or zero-downtime behavior.

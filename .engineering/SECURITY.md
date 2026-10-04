@@ -19,9 +19,9 @@
 - Security headers/CSP strategy must be addressed before production release.
 - Public claims, partner names, metrics and testimonials require factual source verification.
 
-## Current boundary through M06B
+## Current public boundary through M06
 
-The shipped surface through M06A is a public content-led frontend with no authentication, customer data store, analytics tracker, CMS/CRM or contact-submission backend. M06B remains read-only public content and introduces no form, user input, external embed or data collection by design. Research/Company public-proof claims must stay source-verifiable. Contact submission remains blocked for M06C and requires separately explicit server-side validation, abuse controls, rate limiting and failure-safe logging.
+The shipped V1 surface is public read-only content. There is no authentication, customer datastore, analytics tracker, CMS/CRM or contact submission backend. Contact remains zero-collection. M07A hardens production response policy and release artifacts without changing this data boundary.
 
 
 ## M06C zero-collection Contact boundary
@@ -37,3 +37,15 @@ Required:
 - public copy states that the page does not request or transmit personal information.
 
 Any future communication/submission path requires verified channel provenance, server-side validation, abuse/rate controls, privacy/retention rules, secure failure handling and explicit evidence.
+
+
+## M07A release security obligations
+
+- Production-only CSP/header policy must be implemented and evidenced.
+- HSTS is forbidden until an HTTPS production origin/TLS termination is explicitly admitted.
+- Pre-launch builds remain noindex/nofollow.
+- Production candidate runs non-root with reduced Linux privileges.
+- Final runtime image must exclude repository/internal docs/tests/secrets.
+- Release Readiness workflow must not receive production credentials or deploy.
+- Dependency and secret checks remain required.
+- Contact zero-collection remains unchanged.

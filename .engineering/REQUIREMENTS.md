@@ -123,3 +123,18 @@ Home planned sections:
 - Contact reuses M06 architecture and must not mount Home HeroScene.
 - All six routes remain regression-protected.
 - D-0008 remains permanently binding.
+
+
+### M07A release-hardening requirements
+
+- Implement RELEASE-READINESS-SPEC.md exactly within WO-012.
+- Production responses must expose the approved minimum security headers/CSP.
+- Development Docker must remain usable and separate from production runtime.
+- Global pre-launch posture is noindex/nofollow with robots disallow.
+- No sitemap/canonical production URL before M07B.
+- Provide branded 404 and safe error recovery.
+- Add a minimal non-root standalone production container candidate.
+- Add exact-head Release Readiness validation with no deploy/secrets.
+- Preserve six-route content, Contact zero-collection and Home 3D architecture.
+- Retain container rollback rehearsal evidence.
+- Do not deploy publicly in M07A.
