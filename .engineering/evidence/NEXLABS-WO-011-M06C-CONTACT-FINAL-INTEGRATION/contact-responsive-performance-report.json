@@ -1,0 +1,78 @@
+{
+  "source": "Playwright Chromium against local production build",
+  "budgets": {
+    "routeInitialJsGzipBytes": 225280,
+    "lcpMs": 2500,
+    "cls": 0.1,
+    "interactionProxyMs": 200
+  },
+  "scripts": {
+    "urls": [
+      "http://127.0.0.1:3100/_next/static/chunks/09lgyggnhjlha.js",
+      "http://127.0.0.1:3100/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
+      "http://127.0.0.1:3100/_next/static/chunks/3fntmmi971322.js",
+      "http://127.0.0.1:3100/_next/static/chunks/00lbe-vqlafyt.js",
+      "http://127.0.0.1:3100/_next/static/chunks/1rj7ns8rte9vc.js"
+    ],
+    "gzipBytes": 133659
+  },
+  "viewports": [
+    {
+      "viewport": "1600x900",
+      "clientWidth": 1600,
+      "scrollWidth": 1600,
+      "lcpMs": 96,
+      "cls": 0,
+      "horizontalOverflow": false,
+      "headerContactActionVisible": true
+    },
+    {
+      "viewport": "1440x900",
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "lcpMs": 184,
+      "cls": 0,
+      "horizontalOverflow": false,
+      "headerContactActionVisible": true
+    },
+    {
+      "viewport": "900x768",
+      "clientWidth": 900,
+      "scrollWidth": 900,
+      "lcpMs": 88,
+      "cls": 0,
+      "horizontalOverflow": false,
+      "headerContactActionVisible": true
+    },
+    {
+      "viewport": "390x844",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "lcpMs": 96,
+      "cls": 0,
+      "horizontalOverflow": false,
+      "headerContactActionVisible": true
+    },
+    {
+      "viewport": "320x740",
+      "clientWidth": 320,
+      "scrollWidth": 320,
+      "lcpMs": 116,
+      "cls": 0,
+      "horizontalOverflow": false,
+      "headerContactActionVisible": true
+    }
+  ],
+  "reducedMotion": {
+    "enabled": true,
+    "artworkAnimation": "none",
+    "signalAnimation": "none"
+  },
+  "interactionProxy": {
+    "method": "keyboard Tab then Enter on skip-link target; two animation frames",
+    "measuredMs": 53.3,
+    "result": "main received focus",
+    "targetMs": 200,
+    "limitation": "lab proxy rather than real-user INP"
+  }
+}

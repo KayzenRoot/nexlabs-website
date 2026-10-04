@@ -1,0 +1,16 @@
+{
+  "route": "/contact",
+  "result": "PASS",
+  "forms": 0,
+  "inputs": 0,
+  "textareas": 0,
+  "selects": 0,
+  "fileUploads": 0,
+  "submitControls": 0,
+  "mailtoLinks": 0,
+  "telLinks": 0,
+  "nonGetRequests": [],
+  "externalLinks": 0,
+  "canvas": 0,
+  "note": "DOM and browser network observation on the production build; no contact data collection or transmission surface was found."
+}
