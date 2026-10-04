@@ -6,43 +6,35 @@
 - Repository: KayzenRoot/nexlabs-website
 - Default branch: `main`
 - Lifecycle: GREENFIELD PRODUCT DEVELOPMENT
+- Production identity: `NEX-N-A-PRECISION-BLADES`
 
-## Approved product
+## Approved product and runtime baseline
 
-M01 through M06 are APPROVED/MERGED. V1 currently has six public logical routes: Home, Technology, Solutions, Research, Company and Contact. Contact remains read-only/zero-collection.
+- M01 through M06: APPROVED/MERGED.
+- M07A Release Hardening & Production Readiness: APPROVED/MERGED.
+- Six logical routes: Home, Technology, Solutions, Research, Company and Contact.
+- Contact remains read-only/zero-collection.
+- Production security/header/container/readiness baseline is established.
+- No public deployment has been performed.
 
-Production identity: `NEX-N-A-PRECISION-BLADES`.
+## Visual acceptance state
 
-## Current increment
+The owner has explicitly determined that the current implementation is **not yet sufficiently faithful to the approved Home Visual Master**.
 
-M07A Release Hardening & Production Readiness is ADMITTED under `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS`.
+The next NECESSARY increment is `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`.
 
-Admission base main SHA: `d7ec01e94d30a41a64aa683a345e4e5675541ca2`.
-Risk: ELEVATED.
-Executor: Codex.
+It must improve:
+- Home 3D composition and cinematic depth;
+- monumental N/chamber/material/lighting;
+- Earth/network/floor/holographic-panel language;
+- living-organism energy/motion;
+- capability iconography;
+- navigation/menu sophistication;
+- lower Home continuity;
+- secondary-page depth without another WebGL runtime.
 
-M07A owns:
-- production response/security hardening;
-- noindex/robots pre-launch posture;
-- branded failure paths;
-- standalone production container candidate;
-- Release Readiness workflow;
-- broad regression/performance/a11y evidence;
-- provider-neutral rollback rehearsal.
+Approved copy, factual safety, accessibility/fallback tiers, M07A security behavior and performance budgets remain binding.
 
-M07A does not deploy publicly.
+## Launch boundary
 
-## M07B boundary
-
-Provider selection, production origin, DNS/domain/TLS/HSTS, sitemap/canonical launch metadata, actual deployment and post-deploy validation remain blocked for M07B.
-
-## Architecture
-
-Next.js App Router + strict TypeScript + CSS Modules/tokens. Home retains one isolated lazy Three/R3F client island. Development Docker remains separate from the M07A production candidate runtime.
-
-## Permanent boundaries
-
-- D-0008 fabricated-proof prohibition.
-- Contact zero-collection unless separately governed.
-- No analytics/CMS/CRM/auth/database.
-- No invented provider/domain/origin/credential.
+M07B provider/deployment work remains blocked until WO-013 is APPROVED/MERGED/checkpoint-promoted. Provider, domain, DNS, TLS/HSTS, canonical production origin, indexing enablement and analytics remain NOT_ADMITTED.

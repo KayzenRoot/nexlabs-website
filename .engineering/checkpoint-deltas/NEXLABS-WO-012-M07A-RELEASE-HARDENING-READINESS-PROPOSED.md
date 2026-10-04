@@ -1,6 +1,6 @@
 # Checkpoint Delta — NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS
 
-**State: PROPOSED — PR #18 remains OPEN and unmerged. Do not promote this delta yet.**
+**State: PROMOTED AFTER INDEPENDENT APPROVAL AND PRODUCT/RUNTIME MERGE.**
 
 ## Candidate
 
@@ -33,3 +33,14 @@
 ## Stop and next legal action
 
 Stop with PR #18 open and the exact final-head review record. Independent approval, merge, checkpoint promotion and M07B remain separate future gates and are not performed by this delta.
+
+
+## Promotion record
+
+- Independent audit: APPROVED at exact head `69e6796a71c86eda34d2060d6c030b7dc0873bfb`.
+- PR #18 squash merge: `43a1b55f2160013b96f35e291341f42272646375`.
+- PERFORMANCE-001: CLOSED.
+- M07A is now the accepted release-hardening baseline.
+- Owner visual acceptance remains PENDING.
+- WO-013 Visual Fidelity / Master Alignment becomes the next legal implementation increment after this governance promotion.
+- M07B remains blocked until WO-013 approval/merge/promotion.

@@ -12,6 +12,7 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Requirements | REQUIREMENTS.md and the active Work Order |
 | Architecture | ARCHITECTURE.md and accepted architecture decisions |
 | Home visual composition | HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md and the exact approved reference asset |
+| Visual fidelity delta | VISUAL-FIDELITY-DELTA-SPEC.md once WO-013 is admitted |
 | Home content and approved copy | HOME-CONTENT-SPEC.md |
 | M06 secondary routes and approved copy | SECONDARY-PAGES-SPEC.md |
 | UI/UX and brand identity | UI-UX.md, BRAND-SYSTEM.md and accepted owner visual decisions |
@@ -20,8 +21,8 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Execution | Active Work Order plus its exact Context Lock |
 | Security | SECURITY.md and repository settings/evidence |
 | Validation | TEST-BENCHMARK-PLAN.md and exact-head check results |
-| Deployment | DEPLOYMENT.md, RELEASE-READINESS-SPEC.md and an admitted M07 Work Order |
+| Deployment | DEPLOYMENT.md, RELEASE-READINESS-SPEC.md and an admitted M07B Work Order |
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-The active implementation authority is `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS` plus its exact Context Lock. `RELEASE-READINESS-SPEC.md` is canonical for M07A production hardening, pre-launch indexing, production-container and rollback obligations. DEPLOYMENT.md is canonical for the M07A/M07B deployment boundary. Existing M01–M06 product/content sources remain regression-protected. M07B is not executable until M07A is APPROVED, merged and checkpoint-promoted.
+No product implementation Work Order is active during this checkpoint promotion. M07A is complete. The owner has explicitly made Visual Fidelity / Master Alignment a NECESSARY gate before launch. WO-013 becomes execution authority only after its Work Order and exact Context Lock are admitted against the post-promotion main SHA. M07B remains blocked.

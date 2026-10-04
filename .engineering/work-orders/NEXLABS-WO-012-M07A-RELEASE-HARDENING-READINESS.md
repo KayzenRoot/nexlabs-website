@@ -1,8 +1,21 @@
 # NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS — M07A Release Hardening & Production Readiness
 
-Status: ADMITTED — READY FOR CODEX EXECUTOR
+Status: APPROVED — MERGED
 
 Risk class: ELEVATED
+
+## COMPLETION RECORD
+
+- Independent audit: APPROVED.
+- Exact approved head: `69e6796a71c86eda34d2060d6c030b7dc0873bfb`.
+- PR: #18.
+- Squash product/runtime merge on main: `43a1b55f2160013b96f35e291341f42272646375`.
+- PERFORMANCE-001: CLOSED with three consecutive full candidate suites, 26/26 each, LCP 2320 / 2328 / 2352 ms.
+- Exact-head CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals passed.
+- Context Lock: 22 critical sources, 0 STALE.
+- Production headers/CSP, noindex/robots, failure paths, hardened standalone candidate and rollback rehearsal were validated.
+- Public deployment was not performed.
+- Image-layer CVE scan capability gap remains explicitly UNKNOWN because the available scanner required authentication; npm audit/Socket passed.
 
 ## OBJECTIVE
 
@@ -256,4 +269,4 @@ Brazilian Portuguese:
 
 ## STOP CONDITION
 
-Stop with M07A fully implemented, tested and evidenced, development Docker UP/healthy, production candidate validated, rollback rehearsal retained and PR OPEN/READY FOR REVIEW. Do not merge. Do not deploy. Do not begin M07B.
+Historical executor STOP CONDITION was satisfied before independent review. M07A is APPROVED and merged. Public deployment and M07B remain blocked; owner-directed WO-013 visual fidelity work is the next necessary increment after checkpoint promotion.
