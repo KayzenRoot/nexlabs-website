@@ -58,7 +58,7 @@ Body: `Research at Nex Labs is a bridge between possibility and implementation. 
 
 Supporting microcopy: `Bolder questions. Deeper engineering. Real-world learning.`
 
-CTA: `Explore research` → in-page preview only until M06.
+CTA after M06B: `Explore research` → `/research`.
 
 ## Technology
 
@@ -83,11 +83,11 @@ Eyebrow: `NEX LABS TECHNOLOGY`
 
 Heading: `Building the next chapter of intelligent systems.`
 
-Body: `The Home experience is the first layer of the Nex Labs platform story. Technology, Solutions, Research, Company and Contact become dedicated destinations in the next website increment.`
+Body after M06B: `Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home. Contact remains the next dedicated destination.`
 
 Primary CTA: `Explore capabilities` → `#capabilities`
 
-Secondary CTA: `View research` → `#research`
+Secondary CTA after M06B: `View research` → `/research`
 
 ## Visual motifs
 
