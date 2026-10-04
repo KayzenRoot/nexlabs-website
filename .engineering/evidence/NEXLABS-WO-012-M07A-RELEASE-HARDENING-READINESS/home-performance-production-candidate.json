@@ -141,5 +141,20 @@
     "mobileCls": 0,
     "mobileInteractionProxyMs": 56,
     "budgetLcpMs": 2500
+  },
+  "performance001ConsecutiveFullSuiteProof": {
+    "candidateSourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+    "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+    "testConfig": "performance-candidate-playwright.config.ts",
+    "retries": 0,
+    "allRunsSequential": true,
+    "runs": [
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2320, "cls": 0, "interactionProxyMs": 48, "result": "PASS" },
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2328, "cls": 0, "interactionProxyMs": 64, "result": "PASS" },
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2352, "cls": 0, "interactionProxyMs": 56, "result": "PASS" }
+    ],
+    "thresholdMs": 2500,
+    "worstRunMarginMs": 148,
+    "result": "PASS"
   }
 }

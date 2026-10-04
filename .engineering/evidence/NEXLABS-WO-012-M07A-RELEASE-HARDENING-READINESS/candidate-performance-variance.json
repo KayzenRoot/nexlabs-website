@@ -1,67 +1,170 @@
 {
-  "candidateGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
-  "candidateImage": "nexlabs-website-release-candidate:06ec97d",
-  "candidateImageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
-  "target": "http://127.0.0.1:3002",
+  "schemaVersion": 1,
+  "workOrderId": "NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS",
+  "correctionDelta": "PERFORMANCE-001",
+  "candidate": {
+    "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+    "image": "nexlabs-website-release-candidate:06ec97d",
+    "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+    "target": "http://127.0.0.1:3002",
+    "health": "healthy",
+    "sourceCodeMatchesImplementationCommit": true,
+    "prHeadAtExecutionStart": "e920859b8aa3ceaeeea14c4064052c39c209fbe2",
+    "postImplementationChangesBeforeThisCorrectionWereEvidenceOnly": true
+  },
   "performanceBudget": {
     "mobileLcpMs": 2500,
     "cls": 0.1,
     "interactionProxyMs": 200
   },
-  "earlierExactCandidateFullSuite": {
-    "tests": 26,
-    "passed": 26,
-    "failed": 0,
-    "result": "PASS"
+  "auditedHistoricalFindings": {
+    "auditedHead": "e920859b8aa3ceaeeea14c4064052c39c209fbe2",
+    "auditorIssueCommentId": 5982677451,
+    "fullSuiteOverBudgetSamplesRetained": [
+      {
+        "tests": 26,
+        "passed": 25,
+        "failed": 1,
+        "mobileLcpMs": 2864,
+        "budgetMs": 2500,
+        "result": "PERFORMANCE_VARIANCE"
+      },
+      {
+        "tests": 26,
+        "passed": 25,
+        "failed": 1,
+        "mobileLcpMs": 3056,
+        "budgetMs": 2500,
+        "result": "PERFORMANCE_VARIANCE"
+      }
+    ],
+    "isolatedPerformanceRetryRetained": {
+      "tests": 1,
+      "passed": 1,
+      "mobileLcpMs": 2380,
+      "budgetMs": 2500,
+      "result": "PASS"
+    },
+    "historicalFailuresWereNotRemoved": true
   },
-  "latestExactCandidateFullSuiteRepeat": {
-    "tests": 26,
-    "passed": 25,
-    "failed": 1,
-    "failedTest": "measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles",
-    "mobileLcpMs": 2864,
-    "budgetMs": 2500,
-    "otherTestsPassed": true
+  "diagnosis": {
+    "largestContentfulPaintElement": "The mobile Home hero background poster: .referencePoster using /hero/home-hero-poster-mobile.jpg",
+    "posterBytes": 137561,
+    "posterIsAlreadyPreloaded": true,
+    "preloadSource": "Production Link response header; Chromium resource initiatorType=link",
+    "emulation": {
+      "viewport": "390x844",
+      "network": "cellular4g",
+      "configuredDownloadBytesPerSecond": 209715,
+      "latencyMs": 150,
+      "cpuThrottlingRate": 4,
+      "sceneTier": "STATIC"
+    },
+    "directBrowserSamples": [
+      {
+        "mobileLcpMs": 2296,
+        "resourceStartMs": 196.1,
+        "responseStartMs": 204.1,
+        "responseEndMs": 2274.8,
+        "resourceDurationMs": 2078.7,
+        "encodedBodyBytes": 137561,
+        "initiatorType": "link"
+      },
+      {
+        "mobileLcpMs": 2364,
+        "resourceStartMs": 201.7,
+        "responseStartMs": 211.3,
+        "responseEndMs": 2314.7,
+        "resourceDurationMs": 2113,
+        "encodedBodyBytes": 137561,
+        "initiatorType": "link"
+      },
+      {
+        "mobileLcpMs": 2348,
+        "resourceStartMs": 206.1,
+        "responseStartMs": 216.8,
+        "responseEndMs": 2311.1,
+        "resourceDurationMs": 2105,
+        "encodedBodyBytes": 137561,
+        "initiatorType": "link"
+      }
+    ],
+    "finding": "The poster download and paint dominates the measured mobile LCP under the synthetic network/CPU profile. The image request already starts as a preload near navigation start; WebGL is not involved because the mobile scene tier is STATIC. The measured transfer duration is sensitive to the local browser/container path, which explains why isolated and repeated laboratory readings can diverge."
   },
-  "isolatedExactCandidatePerformanceRetry": {
-    "tests": 1,
-    "passed": 1,
-    "mobileLcpMs": 2380,
-    "cls": 0,
-    "interactionProxyMs": 56,
-    "result": "PASS"
+  "correction": {
+    "result": "A reproducible exact-container full-suite harness is retained in this Evidence Bundle. It points the unchanged E2E suite at the running production image, uses one worker and retries=0, and does not start a second host server.",
+    "harnessConfig": ".engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts",
+    "command": "$env:E2E_PORT='3002'; $env:NEXLABS_RELEASE_PORT='3002'; .\\node_modules\\.bin\\playwright.cmd test --config .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts",
+    "testFilesOrAssertionsChanged": false,
+    "budgetChanged": false,
+    "retryCount": 0,
+    "productCodeCopyVisualsAssetsOrDependenciesChanged": false,
+    "reasonNoProductOptimizationWasApplied": "The approved image is already preloaded. The bottleneck evidence points to transfer variance under local throttling, while three consecutive full candidate runs pass with margin; changing the approved asset or appearance is not justified by this correction proof."
   },
-  "hostedSignalsForCodeHead": {
+  "consecutiveFullSuiteProof": {
+    "sequenceResult": "PASS",
+    "runsWereConsecutive": true,
+    "target": "http://127.0.0.1:3002",
+    "container": "nexlabs-m07a-production-candidate-web-1",
+    "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+    "config": ".engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts",
+    "workers": 1,
+    "retries": 0,
+    "runs": [
+      {
+        "sequence": 1,
+        "tests": 26,
+        "passed": 26,
+        "failed": 0,
+        "mobileLcpMs": 2320,
+        "budgetMs": 2500,
+        "marginMs": 180,
+        "cls": 0,
+        "interactionProxyMs": 48,
+        "result": "PASS",
+        "receipt": "performance-full-suite-run-1.log"
+      },
+      {
+        "sequence": 2,
+        "tests": 26,
+        "passed": 26,
+        "failed": 0,
+        "mobileLcpMs": 2328,
+        "budgetMs": 2500,
+        "marginMs": 172,
+        "cls": 0,
+        "interactionProxyMs": 64,
+        "result": "PASS",
+        "receipt": "performance-full-suite-run-2.log"
+      },
+      {
+        "sequence": 3,
+        "tests": 26,
+        "passed": 26,
+        "failed": 0,
+        "mobileLcpMs": 2352,
+        "budgetMs": 2500,
+        "marginMs": 148,
+        "cls": 0,
+        "interactionProxyMs": 56,
+        "result": "PASS",
+        "receipt": "performance-full-suite-run-3.log"
+      }
+    ]
+  },
+  "hostedSignalsForPriorAuditedHead": {
     "CIQuality": "PASS",
     "BrowserSmoke": "PASS",
     "ReleaseReadiness": "PASS",
     "Sonar": "PASS",
     "SocketPullRequestAlerts": "PASS",
     "SocketProjectReport": "PASS",
-    "CodeRabbit": "PASS/no actionable comments"
+    "CodeRabbit": "PASS/no actionable comments",
+    "note": "These signals belong to the previously audited HEAD and must be rechecked on the post-correction PR HEAD."
   },
-  "note": "These are repeat measurements under the same image digest; the single over-budget full-suite sample was not hidden. The isolated retry passed with a 120 ms LCP margin. No product changes were made between samples; interpret local throttled-browser LCP as variable lab evidence rather than field INP/LCP.",
-  "latestFullSuiteRepeat": {
-    "tests": 26,
-    "passed": 25,
-    "failed": 1,
-    "failure": "mobile LCP exceeded the 2500 ms laboratory threshold",
-    "result": "PERFORMANCE_VARIANCE"
-  },
-  "fullSuiteRepeats": [
-    {
-      "tests": 26,
-      "passed": 25,
-      "failed": 1,
-      "mobileLcpMs": 2864,
-      "budgetMs": 2500
-    },
-    {
-      "tests": 26,
-      "passed": 25,
-      "failed": 1,
-      "mobileLcpMs": 3056,
-      "budgetMs": 2500
-    }
+  "limitations": [
+    "These are local Chromium laboratory measurements under synthetic throttling, not field Core Web Vitals.",
+    "The margin in the worst passing run was 148 ms; the two historical over-budget readings remain visible.",
+    "Image-layer vulnerability scan remains UNKNOWN as documented in container-image-scan-status.json; this correction did not change the image or its security posture."
   ]
 }

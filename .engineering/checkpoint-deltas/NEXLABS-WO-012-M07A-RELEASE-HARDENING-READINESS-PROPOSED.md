@@ -28,7 +28,7 @@
 - Bundle: `.engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS-EVIDENCE.md`.
 - Candidate runtime, headers, indexing, CSP, performance, rollback, development Docker and image-scan capability-gap receipts are retained in the same Evidence Bundle directory.
 - Docker Scout image-layer scan remains a capability gap because Docker ID authentication is unavailable; `npm audit --audit-level=moderate` returned 0 findings. Do not represent image-layer severity as scanned or zero.
-- Local throttled-browser Home LCP varied across repeated runs on the same candidate digest; retain the over-budget sample and passing isolated retry in the Evidence Bundle. Do not suppress this variance or treat lab readings as field metrics.
+- PERFORMANCE-001: retain the two historical over-budget Home LCP readings (2,864/3,056 ms) and the isolated retry. The measured LCP element is the already-preloaded 137,561-byte mobile hero poster. A reproducible direct-container, zero-retry Playwright harness then completed three consecutive full suites at 26/26 with LCP 2,320/2,328/2,352 ms (worst margin 148 ms). Treat these as local synthetic-throttle lab results, not field metrics; exact final PR-head hosted signals remain separate.
 
 ## Stop and next legal action
 

@@ -1,0 +1,51 @@
+{
+  "workOrderId": "NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS",
+  "correctionDelta": "PERFORMANCE-001",
+  "candidateImageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "route": "/",
+  "viewport": "390x844",
+  "lcpElement": {
+    "tag": "DIV",
+    "classSuffix": "referencePoster",
+    "imageUrl": "http://127.0.0.1:3002/hero/home-hero-poster-mobile.jpg",
+    "encodedBodyBytes": 137561,
+    "sceneTier": "STATIC"
+  },
+  "networkAndCpuProfile": {
+    "connectionType": "cellular4g",
+    "latencyMs": 150,
+    "downloadBytesPerSecond": 209715,
+    "uploadBytesPerSecond": 96000,
+    "cpuThrottlingRate": 4
+  },
+  "preload": {
+    "present": true,
+    "configuredBy": "production Link response header",
+    "browserInitiatorType": "link"
+  },
+  "samples": [
+    {
+      "lcpMs": 2296,
+      "resourceStartMs": 196.1,
+      "responseStartMs": 204.1,
+      "responseEndMs": 2274.8,
+      "transferDurationMs": 2078.7
+    },
+    {
+      "lcpMs": 2364,
+      "resourceStartMs": 201.7,
+      "responseStartMs": 211.3,
+      "responseEndMs": 2314.7,
+      "transferDurationMs": 2113
+    },
+    {
+      "lcpMs": 2348,
+      "resourceStartMs": 206.1,
+      "responseStartMs": 216.8,
+      "responseEndMs": 2311.1,
+      "transferDurationMs": 2105
+    }
+  ],
+  "interpretation": "LCP variance tracks the transfer-and-paint of the preloaded mobile background image over the locally throttled container path. The Home WebGL scene is STATIC during this mobile run and is not the LCP element."
+}
