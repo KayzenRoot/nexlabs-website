@@ -2,7 +2,7 @@ import styles from "./site-footer.module.css";
 import { BrandMark } from "./brand-mark";
 
 /**
- * Renders the global footer with links to admitted routes and the reserved Home contact section.
+ * Renders the global footer with links to all admitted routes.
  */
 export function SiteFooter() {
   return (
@@ -21,7 +21,7 @@ export function SiteFooter() {
         <a href="/technology">Technology</a>
         <a href="/research">Research</a>
         <a href="/company">Company</a>
-        <a href="/#contact">Explore the next chapter</a>
+        <a href="/contact">Contact Nex Labs</a>
       </nav>
       <p className={styles.note}>Technology, research and engineering with intent.</p>
     </footer>

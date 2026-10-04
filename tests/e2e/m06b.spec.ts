@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-010-M06B-RESEARCH-COMPANY",
+  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06b-regressions",
 );
 
 const routeCases = [
@@ -380,14 +380,14 @@ test("Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and respon
   );
 });
 
-test("M06B navigation and all admitted Research transitions resolve; Contact stays reserved", async ({
+test("M06B navigation and all admitted Research transitions resolve with Contact integrated", async ({
   page,
 }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
-  const expectedPaths = ["/", "/technology", "/solutions", "/research", "/company"];
+  const expectedPaths = ["/", "/technology", "/solutions", "/research", "/company", "/contact"];
   const navigationReports = [];
 
-  for (const path of ["/", "/technology", "/solutions", "/research", "/company"]) {
+  for (const path of expectedPaths) {
     await page.goto(path);
     const header = page.getByRole("banner");
     const footer = page.getByRole("contentinfo");
@@ -402,19 +402,19 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
         );
       }
     }
-    await expect(header.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
+    await expect(header.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
       "href",
-      "/#contact",
+      "/contact",
     );
-    await expect(footer.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
+    await expect(footer.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
       "href",
-      "/#contact",
+      "/contact",
     );
     navigationReports.push({
       page: path,
       headerLinks: globalNavigation,
       footerLinks: globalNavigation,
-      nextChapterHref: "/#contact",
+      contactActionHref: "/contact",
     });
 
     if (path === "/research" || path === "/company") {
@@ -431,7 +431,7 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
     const linkedPaths = await page.locator("a[href]").evaluateAll((links) =>
       links.map((link) => new URL((link as HTMLAnchorElement).href).pathname),
     );
-    expect(linkedPaths).not.toContain("/contact");
+    expect(linkedPaths).toContain("/contact");
     for (const target of expectedPaths) {
       expect(linkedPaths, `${path} includes the intended ${target} route when linked`).toContain(
         target,
@@ -451,18 +451,23 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
     fullPage: false,
     animations: "disabled",
   });
-  await page.locator("#contact").scrollIntoViewIfNeeded();
+  const finalCta = page.locator("#contact");
+  await finalCta.scrollIntoViewIfNeeded();
   await expect(
     page.getByText(
-      "Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home. Contact remains the next dedicated destination.",
+      "Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.",
     ),
   ).toBeVisible();
-  await expect(page.getByRole("link", { name: "View research" })).toHaveAttribute(
+  await expect(page.getByRole("link", { name: "Explore capabilities" })).toHaveAttribute(
     "href",
-    "/research",
+    "#capabilities",
+  );
+  await expect(finalCta.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
+    "href",
+    "/contact",
   );
   await page.screenshot({
-    path: resolve(evidenceDirectory, "home-final-research-cta-transition-1600x900.png"),
+    path: resolve(evidenceDirectory, "home-final-contact-cta-transition-1600x900.png"),
     fullPage: false,
     animations: "disabled",
   });
@@ -481,7 +486,7 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
   }
 
   const contactResponse = await page.goto("/contact");
-  expect(contactResponse?.status(), "/contact stays reserved for M06C").toBe(404);
+  expect(contactResponse?.status(), "/contact is integrated by M06C").toBe(200);
   writeFileSync(
     resolve(evidenceDirectory, "navigation-report.json"),
     `${JSON.stringify(
@@ -490,12 +495,12 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
         verifiedPages: navigationReports,
         homeResearchActions: [
           { label: "Explore research", href: "/research" },
-          { label: "View research", href: "/research" },
         ],
+        homeContactAction: { label: "Contact Nex Labs", href: "/contact" },
         technologyAndSolutionsResearchActions: [
           { label: "Explore research", href: "/research" },
         ],
-        contactRouteStatus: 404,
+        contactRouteStatus: 200,
       },
       null,
       2,

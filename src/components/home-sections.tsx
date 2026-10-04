@@ -354,15 +354,14 @@ export function HomeSections() {
             Building the next chapter of intelligent systems.
           </h2>
           <p className={styles.ctaDescription}>
-            Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home.
-            Contact remains the next dedicated destination.
+            Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.
           </p>
           <div className={styles.ctaActions}>
             <a className={styles.primaryAction} href="#capabilities">
               Explore capabilities <span aria-hidden="true">→</span>
             </a>
-            <a className={styles.secondaryAction} href="/research">
-              View research
+            <a className={styles.secondaryAction} href="/contact">
+              Contact Nex Labs
             </a>
           </div>
         </div>

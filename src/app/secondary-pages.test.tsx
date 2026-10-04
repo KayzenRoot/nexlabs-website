@@ -3,6 +3,7 @@ import type { ComponentType } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import CompanyPage, { metadata as companyMetadata } from "./company/page";
+import ContactPage, { metadata as contactMetadata } from "./contact/page";
 import ResearchPage, { metadata as researchMetadata } from "./research/page";
 import TechnologyPage, { metadata as technologyMetadata } from "./technology/page";
 import SolutionsPage, { metadata as solutionsMetadata } from "./solutions/page";
@@ -20,6 +21,40 @@ type SecondaryPageCase = {
 };
 
 const pageCases: readonly SecondaryPageCase[] = [
+  {
+    name: "ContactPage",
+    Page: ContactPage,
+    metadata: contactMetadata,
+    expectedMetadata: {
+      title: "Contact | Nex Labs Technology",
+      description:
+        "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.",
+    },
+    h1: "Start with the right context.",
+    h2s: [
+      "Bring the signal, not the noise.",
+      "Channels stay verified.",
+      "Your information stays with you.",
+    ],
+    sectionCopy: `Problem & decision
+What needs to change, and what decision depends on it?
+Operating context
+Users, workflows, systems, hardware or environments that shape the problem.
+Constraints & risks
+Security, privacy, reliability, timing, integration and resource boundaries.
+Evidence & success signals
+What is already known, what remains uncertain and what would count as useful progress.`,
+    paragraphs: `Useful conversations begin with a clear problem, the constraints around it and the decision that needs to move. This V1 page helps structure that context without collecting or transmitting information.
+A concise brief makes it easier to understand whether research, engineering or product work may be relevant. Keep confidential, regulated or credential material out of any future message unless a verified secure channel is explicitly provided.
+Nex Labs publishes contact channels only after they are verified and governed. No direct contact channel is published in this V1 build, and this page contains no contact form, upload field, submission endpoint or analytics tracker.
+A future governed increment may add a verified channel without changing the information architecture of this page.
+This page does not request or transmit personal information. Do not send sensitive information through unofficial channels that claim to represent Nex Labs.`,
+    links: [
+      { name: "Prepare the brief", href: "#brief" },
+      { name: "Explore solutions", href: "/solutions" },
+      { name: "Explore company principles", href: "/company" },
+    ],
+  },
   {
     name: "TechnologyPage",
     Page: TechnologyPage,
@@ -217,5 +252,15 @@ describe.each(pageCases)("$name", ({ Page, metadata, expectedMetadata, h1, h2s, 
 
   it("publishes the canonical unique route metadata", () => {
     expect(metadata).toEqual(expectedMetadata);
+  });
+
+});
+
+describe("ContactPage privacy boundary", () => {
+  it("stays read-only and free of collection or direct-contact controls", () => {
+    const { container } = render(<ContactPage />);
+    expect(container.querySelector("form, input, textarea, select, button, [type='file']")).toBeNull();
+    expect(container.querySelector("a[href^='mailto:'], a[href^='tel:']")).toBeNull();
+    expect(container.querySelectorAll("canvas")).toHaveLength(0);
   });
 });

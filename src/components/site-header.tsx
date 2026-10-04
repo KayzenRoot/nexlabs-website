@@ -33,8 +33,8 @@ export function SiteHeader() {
           ))}
         </nav>
 
-        <a className={styles.contactAction} href="/#contact">
-          Explore the next chapter <span aria-hidden="true">→</span>
+        <a className={styles.contactAction} href="/contact">
+          Contact Nex Labs <span aria-hidden="true">→</span>
         </a>
 
         <p className={styles.headerNote}>

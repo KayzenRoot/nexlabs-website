@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS",
+  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06a-regressions",
 );
 
 const routeCases = [
@@ -247,16 +247,16 @@ test("global navigation and route CTAs resolve only to admitted destinations", a
       }
     }
     for (const ctaContainer of [header, footerNavigation]) {
-      await expect(ctaContainer.getByRole("link", { name: "Explore the next chapter" })).toHaveAttribute(
+      await expect(ctaContainer.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
         "href",
-        "/#contact",
+        "/contact",
       );
     }
 
     const paths = await page.locator("a[href]").evaluateAll((links) =>
       links.map((link) => new URL((link as HTMLAnchorElement).href).pathname),
     );
-    expect(paths).not.toContain("/contact");
+    expect(paths).toContain("/contact");
     await page.getByRole("link", { name: route.primaryNavigation.name }).click();
     await expect(page).toHaveURL(new RegExp(`${route.primaryNavigation.href}$`));
   }
@@ -316,7 +316,7 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
   }
 });
 
-test("M06A routes meet WCAG 2.2 AA and no M06C route is fabricated", async ({
+test("M06A routes meet WCAG 2.2 AA and Contact is integrated", async ({
   page,
 }) => {
   for (const route of routeCases) {
@@ -328,5 +328,5 @@ test("M06A routes meet WCAG 2.2 AA and no M06C route is fabricated", async ({
   }
 
   const contactResponse = await page.goto("/contact");
-  expect(contactResponse?.status(), "/contact remains reserved for M06C").toBe(404);
+  expect(contactResponse?.status(), "/contact is integrated by M06C").toBe(200);
 });
