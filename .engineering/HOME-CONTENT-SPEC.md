@@ -83,11 +83,11 @@ Eyebrow: `NEX LABS TECHNOLOGY`
 
 Heading: `Building the next chapter of intelligent systems.`
 
-Body after M06B: `Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home. Contact remains the next dedicated destination.`
+Body after M06C: `Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.`
 
 Primary CTA: `Explore capabilities` → `#capabilities`
 
-Secondary CTA after M06B: `View research` → `/research`
+Secondary CTA after M06C: `Contact Nex Labs` → `/contact`
 
 ## Visual motifs
 

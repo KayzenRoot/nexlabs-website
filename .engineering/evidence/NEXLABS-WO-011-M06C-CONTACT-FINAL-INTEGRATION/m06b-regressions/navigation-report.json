@@ -1,0 +1,262 @@
+{
+  "source": "Playwright Chromium navigation assertions",
+  "verifiedPages": [
+    {
+      "page": "/",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    },
+    {
+      "page": "/technology",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    },
+    {
+      "page": "/solutions",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    },
+    {
+      "page": "/research",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    },
+    {
+      "page": "/company",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    },
+    {
+      "page": "/contact",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "contactActionHref": "/contact"
+    }
+  ],
+  "homeResearchActions": [
+    {
+      "label": "Explore research",
+      "href": "/research"
+    }
+  ],
+  "homeContactAction": {
+    "label": "Contact Nex Labs",
+    "href": "/contact"
+  },
+  "technologyAndSolutionsResearchActions": [
+    {
+      "label": "Explore research",
+      "href": "/research"
+    }
+  ],
+  "contactRouteStatus": 200
+}

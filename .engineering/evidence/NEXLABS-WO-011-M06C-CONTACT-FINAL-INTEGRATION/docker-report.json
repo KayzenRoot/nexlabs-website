@@ -1,0 +1,57 @@
+{
+  "engineVersion": "Docker version 29.8.1, build 4a63305",
+  "composeVersion": "Docker Compose version v5.5.1",
+  "composeCommands": [
+    "docker compose config --quiet",
+    "docker compose build",
+    "docker compose up -d",
+    "docker compose ps",
+    "docker compose logs --tail=100"
+  ],
+  "image": {
+    "id": "sha256:19d8828728c97b3fb017487f1c9768e44fd31ce3accdc30ef204a672d3c4b199",
+    "name": "nexlabs-website-web:latest"
+  },
+  "container": {
+    "id": "a90d85b30e57ae188d413120188807687cc2a185ef074f8498571480d06db9ec",
+    "user": "1000",
+    "name": "nexlabs-website-web-1",
+    "node": "v22.23.3",
+    "status": "running",
+    "health": "healthy"
+  },
+  "publishedPorts": "3000/tcp -> 127.0.0.1:3000",
+  "url": "http://127.0.0.1:3000",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "title": "Nex Labs Technology — Human Potential Multiplied"
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "title": null
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "title": null
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "title": null
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "title": null
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "title": null
+    }
+  ]
+}

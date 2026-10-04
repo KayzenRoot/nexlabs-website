@@ -111,7 +111,7 @@ describe("HomePage", () => {
     ).toBeInTheDocument();
     expect(
       screen.getByText(
-        "Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home. Contact remains the next dedicated destination.",
+        "Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.",
       ),
     ).toBeInTheDocument();
     expect(screen.getByText("AI Models & Analytics")).toBeInTheDocument();
@@ -154,6 +154,7 @@ describe("HomePage", () => {
     expect(container.querySelector(".plannedAnchors")).not.toBeInTheDocument();
 
     const navigation = screen.getByRole("navigation", { name: "Main navigation" });
+    expect(within(navigation).getAllByRole("link")).toHaveLength(4);
     expect(within(navigation).getByRole("link", { name: "Solutions" })).toHaveAttribute(
       "href",
       "/solutions",
@@ -175,25 +176,31 @@ describe("HomePage", () => {
     expect(globalHeader).not.toBeNull();
     expect(
       within(globalHeader as HTMLElement).getByRole("link", {
-        name: "Explore the next chapter",
+        name: "Contact Nex Labs",
       }),
-    ).toHaveAttribute("href", "/#contact");
+    ).toHaveAttribute("href", "/contact");
     expect(
       within(screen.getByRole("contentinfo")).getByRole("link", {
-        name: "Explore the next chapter",
+        name: "Contact Nex Labs",
       }),
-    ).toHaveAttribute("href", "/#contact");
-    const nextChapterLinks = screen.getAllByRole("link", {
-      name: "Explore the next chapter",
-    });
-    expect(nextChapterLinks).toHaveLength(3);
-    const nextChapterTargets = nextChapterLinks.map((link) => link.getAttribute("href"));
-    expect(nextChapterTargets.filter((href) => href === "/#contact")).toHaveLength(2);
-    expect(nextChapterTargets.filter((href) => href === "#contact")).toHaveLength(1);
+    ).toHaveAttribute("href", "/contact");
+    const contactLinks = screen.getAllByRole("link", { name: "Contact Nex Labs" });
+    expect(contactLinks).toHaveLength(3);
+    expect(contactLinks.every((link) => link.getAttribute("href") === "/contact")).toBe(true);
+    expect(container.querySelector("#contact")).toBeInTheDocument();
+    expect(screen.getByRole("link", { name: "Explore capabilities" })).toHaveAttribute(
+      "href",
+      "#capabilities",
+    );
 
     const footerNavigation = screen.getByRole("navigation", {
       name: "Footer navigation",
     });
+    expect(within(footerNavigation).getAllByRole("link")).toHaveLength(5);
+    expect(within(footerNavigation).getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
+      "href",
+      "/contact",
+    );
     expect(within(footerNavigation).getByRole("link", { name: "Solutions" })).toHaveAttribute(
       "href",
       "/solutions",
@@ -214,10 +221,7 @@ describe("HomePage", () => {
       "href",
       "/research",
     );
-    expect(screen.getByRole("link", { name: "View research" })).toHaveAttribute(
-      "href",
-      "/research",
-    );
+    expect(contactLinks[1]).toHaveAttribute("href", "/contact");
   });
 
   it("server-renders the static hero poster without mounting a WebGL canvas", () => {

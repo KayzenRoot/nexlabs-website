@@ -1,0 +1,74 @@
+{
+  "source": "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+  "routeJsBudgetGzipBytes": 225280,
+  "routes": [
+    {
+      "path": "/research",
+      "title": "Research | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 220,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "mobile": {
+        "lcpMs": 136,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "390x844",
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "interactionProxy": {
+        "interaction": "Skip-link keyboard activation to the second animation frame",
+        "measuredMs": 35.6,
+        "targetMs": 200,
+        "note": "Lab proxy; not real-user INP."
+      },
+      "scriptGzipBytes": 133659,
+      "scripts": [
+        "http://127.0.0.1:3100/_next/static/chunks/09lgyggnhjlha.js",
+        "http://127.0.0.1:3100/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
+        "http://127.0.0.1:3100/_next/static/chunks/3fntmmi971322.js",
+        "http://127.0.0.1:3100/_next/static/chunks/00lbe-vqlafyt.js",
+        "http://127.0.0.1:3100/_next/static/chunks/1rj7ns8rte9vc.js"
+      ]
+    },
+    {
+      "path": "/company",
+      "title": "Company | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 180,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "mobile": {
+        "lcpMs": 76,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "390x844",
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "interactionProxy": {
+        "interaction": "Skip-link keyboard activation to the second animation frame",
+        "measuredMs": 49.9,
+        "targetMs": 200,
+        "note": "Lab proxy; not real-user INP."
+      },
+      "scriptGzipBytes": 133659,
+      "scripts": [
+        "http://127.0.0.1:3100/_next/static/chunks/09lgyggnhjlha.js",
+        "http://127.0.0.1:3100/_next/static/chunks/00lbe-vqlafyt.js",
+        "http://127.0.0.1:3100/_next/static/chunks/1rj7ns8rte9vc.js",
+        "http://127.0.0.1:3100/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
+        "http://127.0.0.1:3100/_next/static/chunks/3fntmmi971322.js"
+      ]
+    }
+  ]
+}

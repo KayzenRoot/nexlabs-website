@@ -1,0 +1,58 @@
+{
+  "source": "Playwright Chromium navigation assertions",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "headerContact": "/contact",
+      "footerContact": "/contact",
+      "primaryNavigationCount": 4
+    }
+  ],
+  "homeFinalCta": {
+    "sectionIdPreserved": "#contact",
+    "primary": {
+      "label": "Explore capabilities",
+      "href": "#capabilities"
+    },
+    "secondary": {
+      "label": "Contact Nex Labs",
+      "href": "/contact"
+    }
+  }
+}

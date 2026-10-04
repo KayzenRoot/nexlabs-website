@@ -106,9 +106,28 @@ M06B is complete. The following gate was satisfied:
 28. Independent exact-head audit reports APPROVED.
 29. Checkpoint promotion occurs only after approval and authorized merge.
 
-## Next Definition of Done
+## M06C — Contact + final cross-route integration
 
-M06C Contact + final cross-route integration has not yet been admitted. Its exact completion criteria, including any contact data-handling boundary, must be defined by WO-011 before implementation begins.
+M06C is complete only when:
+1. `/contact` is a real route with canonical content/metadata.
+2. Contact is read-only and zero-collection.
+3. No form/input/upload/submit/API/mailto/tel/invented channel exists.
+4. Project Brief, Contact Availability and Data Boundary are complete.
+5. Contact reuses M06 architecture without WebGL.
+6. Header/footer Contact action resolves to `/contact` on all six routes.
+7. Home `#contact` remains and final CTA matches canonical M06C copy.
+8. Prior Home/M06A/M06B regressions remain green.
+9. Accessibility/responsive/reduced-motion checks pass.
+10. Contact JS <= 220 KiB gzip and Home 3D remains isolated.
+11. Performance targets pass or variance is justified.
+12. lint/typecheck/unit/build/browser/security checks pass.
+13. Evidence proves zero-collection and six-route navigation.
+14. Docker stays UP/healthy; all six routes return 200.
+15. Exact-head CI/Browser/Socket/Sonar/CodeRabbit gates are checked.
+16. Independent exact-head audit reports APPROVED.
+17. Promotion occurs only after approval and authorized merge.
+
+After M06C approval/merge/promotion, the M06 Secondary Pages program is complete.
 
 ## Global implementation rule
 

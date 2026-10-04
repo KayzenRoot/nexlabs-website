@@ -1,0 +1,46 @@
+{
+  "source": "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+  "routeJsBudgetGzipBytes": 225280,
+  "routes": [
+    {
+      "path": "/technology",
+      "title": "Technology | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 168,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "scriptGzipBytes": 133659,
+      "scripts": [
+        "http://127.0.0.1:3100/_next/static/chunks/09lgyggnhjlha.js",
+        "http://127.0.0.1:3100/_next/static/chunks/3fntmmi971322.js",
+        "http://127.0.0.1:3100/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
+        "http://127.0.0.1:3100/_next/static/chunks/00lbe-vqlafyt.js",
+        "http://127.0.0.1:3100/_next/static/chunks/1rj7ns8rte9vc.js"
+      ]
+    },
+    {
+      "path": "/solutions",
+      "title": "Solutions | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 204,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "scriptGzipBytes": 133659,
+      "scripts": [
+        "http://127.0.0.1:3100/_next/static/chunks/09lgyggnhjlha.js",
+        "http://127.0.0.1:3100/_next/static/chunks/00lbe-vqlafyt.js",
+        "http://127.0.0.1:3100/_next/static/chunks/1rj7ns8rte9vc.js",
+        "http://127.0.0.1:3100/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
+        "http://127.0.0.1:3100/_next/static/chunks/3fntmmi971322.js"
+      ]
+    }
+  ]
+}

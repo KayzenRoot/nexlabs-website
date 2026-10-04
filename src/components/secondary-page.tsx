@@ -254,3 +254,41 @@ export function CompanyAlignmentArtwork() {
     </div>
   );
 }
+
+/** Static signal fields converge at a clear gateway without implying an inbox or feed. */
+export function ContactGatewayArtwork() {
+  return (
+    <svg
+      className={styles.contactArtwork}
+      focusable="false"
+      viewBox="0 0 620 520"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <radialGradient id="contact-gateway-halo">
+          <stop stopColor="#64d9ff" stopOpacity="0.24" />
+          <stop offset="1" stopColor="#2376c5" stopOpacity="0" />
+        </radialGradient>
+        <linearGradient id="contact-gateway-core" x1="0" x2="1" y1="0" y2="1">
+          <stop stopColor="#eafaff" stopOpacity="0.72" />
+          <stop offset="0.46" stopColor="#73cfff" stopOpacity="0.28" />
+          <stop offset="1" stopColor="#12263c" stopOpacity="0.16" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="310" cy="260" fill="url(#contact-gateway-halo)" rx="286" ry="224" />
+      <path className={styles.contactOuterRail} d="M34 96h132l78 52m-210 276h132l78-52m342-276H454l-78 52m210 276H454l-78-52M310 30v110m0 300v50" />
+      <path className={styles.contactInnerRail} d="M52 176h112l102 54m-214 114h112l102-54m304-114H464l-102 54m214 114H464l-102-54M310 56v82m0 244v82" />
+      <path className={styles.contactSignal} data-contact-signal="" d="M34 96h132l78 52 66 80m-276 196h132l78-52 66-80m276-196H454l-78 52-66 80m276 196H454l-78-52-66-80M310 30v110m0 300v50" />
+      <path className={styles.contactGate} d="M254 194v132m112-132v132M254 194h112m-112 132h112" />
+      <path className={styles.contactGateAccent} d="M284 216v88m52-88v88" />
+      <circle className={styles.contactNode} cx="34" cy="96" r="5" />
+      <circle className={styles.contactNode} cx="34" cy="424" r="5" />
+      <circle className={styles.contactNode} cx="586" cy="96" r="5" />
+      <circle className={styles.contactNode} cx="586" cy="424" r="5" />
+      <circle className={styles.contactNode} cx="310" cy="30" r="5" />
+      <circle className={styles.contactNode} cx="310" cy="490" r="5" />
+      <circle className={styles.contactGateCore} cx="310" cy="260" r="44" />
+      <circle className={styles.contactCoreLight} cx="310" cy="260" r="4" />
+    </svg>
+  );
+}

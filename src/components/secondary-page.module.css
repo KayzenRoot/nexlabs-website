@@ -345,6 +345,68 @@
   filter: drop-shadow(0 0 1.2rem rgb(67 174 255 / 35%));
 }
 
+.contactArtwork {
+  position: relative;
+  z-index: var(--z-content);
+  display: block;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.contactOuterRail,
+.contactInnerRail,
+.contactGate,
+.contactGateAccent {
+  fill: none;
+  stroke: rgb(119 215 255 / 37%);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.contactInnerRail {
+  stroke: rgb(144 225 255 / 25%);
+  stroke-dasharray: 2 8;
+}
+
+.contactSignal {
+  fill: none;
+  stroke: #9cecff;
+  stroke-dasharray: 12 760;
+  stroke-linecap: round;
+  stroke-width: 1.8;
+  animation: signal-travel 9s linear infinite;
+  filter: drop-shadow(0 0 5px rgb(63 194 255 / 78%));
+  vector-effect: non-scaling-stroke;
+}
+
+.contactGate {
+  stroke: rgb(145 226 255 / 60%);
+  stroke-width: 1.35;
+}
+
+.contactGateAccent {
+  stroke: rgb(229 249 255 / 62%);
+  stroke-width: 1;
+}
+
+.contactNode {
+  fill: #d8f8ff;
+  filter: drop-shadow(0 0 5px rgb(71 210 255 / 88%));
+}
+
+.contactGateCore {
+  fill: url("#contact-gateway-core");
+  stroke: rgb(191 239 255 / 72%);
+  stroke-width: 1.2;
+  vector-effect: non-scaling-stroke;
+}
+
+.contactCoreLight {
+  fill: #e4fbff;
+  filter: drop-shadow(0 0 9px rgb(91 204 255 / 90%));
+}
+
 .brandEcho {
   width: 100%;
   height: 100%;
@@ -453,6 +515,10 @@
   }
 
   .signalTrail {
+    animation: none;
+  }
+
+  .contactSignal {
     animation: none;
   }
 
