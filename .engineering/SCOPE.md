@@ -45,7 +45,8 @@ Until WO-011 is admitted, do not implement:
 - analytics/trackers;
 - localization;
 - public deployment;
-- new WebGL/Three scene;
-- fabricated business proof.
+- new WebGL/Three scene.
+
+Fabricated business proof remains prohibited permanently under D-0008, including after WO-011 admission.
 
 Any M06C implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.
