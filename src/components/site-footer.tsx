@@ -2,8 +2,7 @@ import styles from "./site-footer.module.css";
 import { BrandMark } from "./brand-mark";
 
 /**
- * Renders the minimal M02 global footer without introducing unverified business
- * claims or links that belong to later website increments.
+ * Renders the global footer with links to admitted routes and the reserved Home contact section.
  */
 export function SiteFooter() {
   return (
@@ -20,8 +19,8 @@ export function SiteFooter() {
       <nav className={styles.navigation} aria-label="Footer navigation">
         <a href="/solutions">Solutions</a>
         <a href="/technology">Technology</a>
-        <a href="/#research">Research</a>
-        <a href="/#vision">Company</a>
+        <a href="/research">Research</a>
+        <a href="/company">Company</a>
         <a href="/#contact">Explore the next chapter</a>
       </nav>
       <p className={styles.note}>Technology, research and engineering with intent.</p>

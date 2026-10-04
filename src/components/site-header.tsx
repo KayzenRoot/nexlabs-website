@@ -4,12 +4,12 @@ import { BrandMark } from "./brand-mark";
 const navigation = [
   { href: "/solutions", label: "Solutions" },
   { href: "/technology", label: "Technology" },
-  { href: "/#research", label: "Research" },
-  { href: "/#vision", label: "Company" },
+  { href: "/research", label: "Research" },
+  { href: "/company", label: "Company" },
 ];
 
 /**
- * Renders the selected identity and links only to implemented Home sections.
+ * Renders the selected identity and route-aware global navigation.
  */
 export function SiteHeader() {
   return (
@@ -37,7 +37,7 @@ export function SiteHeader() {
           Explore the next chapter <span aria-hidden="true">→</span>
         </a>
 
-        <p className={styles.headerNote} aria-label="Innovation, intelligence, real-world impact">
+        <p className={styles.headerNote}>
           <span>INNOVATION</span>
           <span>INTELLIGENCE</span>
           <span>REAL-WORLD IMPACT</span>

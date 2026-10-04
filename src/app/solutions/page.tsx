@@ -76,7 +76,7 @@ export default function SolutionsPage() {
           eyebrow="SOLUTIONS"
           idPrefix="solutions"
           primaryAction={{ href: "/technology", label: "Explore technology" }}
-          secondaryAction={{ href: "/#research", label: "Research on the Home" }}
+          secondaryAction={{ href: "/research", label: "Explore research" }}
           title="Intelligence applied with intent."
           visual={<SolutionsOrbitArtwork />}
         />

@@ -296,7 +296,7 @@ export function HomeSections() {
                 Bolder questions. Deeper engineering. Real-world learning.
               </p>
             </div>
-            <a className={styles.textLink} href="#research-details">
+            <a className={styles.textLink} href="/research">
               Explore research <span aria-hidden="true">→</span>
             </a>
           </div>
@@ -354,15 +354,14 @@ export function HomeSections() {
             Building the next chapter of intelligent systems.
           </h2>
           <p className={styles.ctaDescription}>
-            The Home experience is the first layer of the Nex Labs platform
-            story. Technology, Solutions, Research, Company and Contact become
-            dedicated destinations in the next website increment.
+            Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home.
+            Contact remains the next dedicated destination.
           </p>
           <div className={styles.ctaActions}>
             <a className={styles.primaryAction} href="#capabilities">
               Explore capabilities <span aria-hidden="true">→</span>
             </a>
-            <a className={styles.secondaryAction} href="#research">
+            <a className={styles.secondaryAction} href="/research">
               View research
             </a>
           </div>

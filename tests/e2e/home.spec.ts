@@ -286,8 +286,8 @@ test("mobile navigation keeps every section link reachable by keyboard", async (
   const expectedDestinations = [
     "/solutions",
     "/technology",
-    "/#research",
-    "/#vision",
+    "/research",
+    "/company",
   ];
 
   await expect(navigation).toBeVisible();
