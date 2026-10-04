@@ -1,0 +1,16 @@
+{
+  "image": "nexlabs-website-release-candidate:872e032a5a20",
+  "imageDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
+  "scanner": "Docker Scout",
+  "scannerVersion": "v1.24.0",
+  "scanCommand": "docker scout cves --only-severity critical,high local://nexlabs-website-release-candidate:872e032a5a20",
+  "exitCode": 1,
+  "status": "CAPABILITY_GAP",
+  "reason": "Docker Scout requires Docker ID authentication in this environment; command stopped before returning vulnerability findings",
+  "criticalFindings": "UNKNOWN",
+  "highFindings": "UNKNOWN",
+  "trivyAvailable": false,
+  "grypeAvailable": false,
+  "npmAudit": "PASS: 0 vulnerabilities at --audit-level=moderate",
+  "rawOutput": "i New version 1.26.0 available (installed version is 1.24.0) at https://github.com/docker/scout-cli\r\nLog in with your Docker ID or email address to use docker scout.\r\n\r\nIf you don't have a Docker ID, head over to https://hub.docker.com to\r\ncreate one. You can log in with your password or a Personal Access Token (PAT)\r\nby running docker login.\r\nUsing a limited-scope PAT grants better security and is required for organizations\r\nusing SSO. Learn more at https://docs.docker.com/go/access-tokens/\r\n\r\nYou can also log in using Docker Desktop."
+}

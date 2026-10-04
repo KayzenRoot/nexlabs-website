@@ -1,0 +1,87 @@
+{
+  "sourceGitSha": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
+  "image": "nexlabs-website-release-candidate:872e032a5a20",
+  "imageConfigDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
+  "imageManifestDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
+  "imageRevision": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
+  "baseImage": "node:22-bookworm-slim",
+  "baseImageResolvedDigest": "sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
+  "container": "nexlabs-m07a-production-candidate-web-1",
+  "containerId": "7275798abe398953026548b5338b3649ad9a893ee064caeef01e5b45f4865cd2",
+  "health": "healthy",
+  "publishedPort": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "3002"
+    }
+  ],
+  "runtimeUser": "1000:1000",
+  "uid": 1000,
+  "readOnlyRoot": true,
+  "tmpfs": {
+    "/app/.next/cache": "rw,noexec,nosuid,size=128m,uid=1000,gid=1000",
+    "/tmp": "rw,noexec,nosuid,size=64m,mode=1777,uid=1000,gid=1000"
+  },
+  "capDrop": [
+    "ALL"
+  ],
+  "securityOptions": [
+    "no-new-privileges:true"
+  ],
+  "routes": [
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/"
+    },
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/technology"
+    },
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/solutions"
+    },
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/research"
+    },
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/company"
+    },
+    {
+      "noindex": true,
+      "status": 200,
+      "hasCsp": true,
+      "path": "/contact"
+    },
+    {
+      "noindex": true,
+      "status": 404,
+      "hasCsp": true,
+      "path": "/m07a-missing-route"
+    }
+  ],
+  "robotsStatus": 200,
+  "robotsBody": "User-Agent: *\nDisallow: /\n\n",
+  "sitemapStatus": 404,
+  "excludedRuntimePaths": {
+    "/app/src": false,
+    "/app/tests": false,
+    "/app/.engineering": false,
+    "/app/.git": false,
+    "/app/.env": false,
+    "/app/package-lock.json": false
+  },
+  "writableTmpfsProbe": "PASS"
+}

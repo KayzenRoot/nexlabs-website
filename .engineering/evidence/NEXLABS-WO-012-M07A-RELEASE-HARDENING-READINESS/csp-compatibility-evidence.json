@@ -1,0 +1,22 @@
+{
+  "source": "Playwright Chromium on exact-implementation production candidate at http://127.0.0.1:3002/",
+  "gitSha": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
+  "runtime": "Node 22.23.3 standalone",
+  "inlineNextRscHydrationScripts": 2,
+  "inlineStyleAttributeCount": 4,
+  "inlineCanvasStyle": "display: block; width: 1600px; height: 452px;",
+  "webglCanvasCount": 1,
+  "policyViolations": [],
+  "policyConsoleMessages": [],
+  "cspExceptions": {
+    "styleUnsafeInline": "The React Three Fiber canvas uses inline layout style attributes in the production DOM.",
+    "scriptUnsafeInline": "Next App Router emits inline RSC/hydration script tags in the production HTML."
+  },
+  "removedUnneededSources": [
+    "img-src data:",
+    "img-src blob:",
+    "worker-src blob:"
+  ],
+  "unsafeEvalAllowed": false,
+  "result": "PASS"
+}

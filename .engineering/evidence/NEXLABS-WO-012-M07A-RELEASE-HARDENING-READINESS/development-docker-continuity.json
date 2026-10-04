@@ -1,0 +1,21 @@
+{
+  "capturedAtUtc": "2026-10-04T15:04:43.1107562Z",
+  "localNode": "v24.19.0",
+  "localNpm": "11.17.0",
+  "git": "git version 2.55.0.windows.3",
+  "docker": "Docker version 29.8.1, build 4a63305",
+  "compose": "Docker Compose version v5.5.1",
+  "developmentContainer": "nexlabs-website-web-1",
+  "image": "nexlabs-website-web",
+  "status": "running",
+  "health": "healthy",
+  "port": [
+    {
+      "HostIp": "127.0.0.1",
+      "HostPort": "3000"
+    }
+  ],
+  "homeStatus": 200,
+  "productionCspAppliedInDevelopment": false,
+  "result": "PASS"
+}

@@ -1,0 +1,90 @@
+{
+  "source": "Playwright HTTP response headers against production Next.js runtime",
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    },
+    {
+      "path": "/__m07a_missing_route__",
+      "status": 404,
+      "contentType": "text/html; charset=utf-8",
+      "contentSecurityPolicy": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'none'; connect-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self'; font-src 'self'; worker-src 'self'; manifest-src 'self'",
+      "xContentTypeOptions": "nosniff",
+      "referrerPolicy": "strict-origin-when-cross-origin",
+      "xFrameOptions": "DENY",
+      "permissionsPolicy": "camera=(), microphone=(), geolocation=(), payment=()",
+      "hstsPresent": false,
+      "result": "PASS"
+    }
+  ],
+  "staticScriptCspPresent": false
+}
