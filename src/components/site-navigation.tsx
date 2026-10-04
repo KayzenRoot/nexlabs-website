@@ -57,6 +57,7 @@ export function SiteNavigation() {
 
       const focusedElement = document.activeElement;
       const focusWillBeHidden =
+        triggerRef.current?.getAttribute("aria-expanded") === "true" ||
         focusedElement === triggerRef.current ||
         (focusedElement instanceof Node && mobileNavigationRef.current?.contains(focusedElement));
       if (focusWillBeHidden) {
