@@ -33,6 +33,8 @@ export function SiteNavigation() {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const triggerRef = useRef<HTMLButtonElement>(null);
+  const desktopNavigationRef = useRef<HTMLElement>(null);
+  const mobileNavigationRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (!open) return;
@@ -46,10 +48,36 @@ export function SiteNavigation() {
     return () => document.removeEventListener("keydown", closeOnEscape);
   }, [open]);
 
+  useEffect(() => {
+    if (typeof window.matchMedia !== "function") return;
+
+    const mobileViewport = window.matchMedia("(max-width: 48rem)");
+    const closeMenuOnDesktop = (event: MediaQueryListEvent) => {
+      if (event.matches) return;
+
+      const focusedElement = document.activeElement;
+      const focusWillBeHidden =
+        focusedElement === triggerRef.current ||
+        (focusedElement instanceof Node && mobileNavigationRef.current?.contains(focusedElement));
+      if (focusWillBeHidden) {
+        const desktopLinks = desktopNavigationRef.current;
+        const focusTarget =
+          desktopLinks?.querySelector<HTMLAnchorElement>('a[aria-current="page"]') ??
+          desktopLinks?.querySelector<HTMLAnchorElement>("a");
+        focusTarget?.focus();
+      }
+
+      setOpen(false);
+    };
+
+    mobileViewport.addEventListener("change", closeMenuOnDesktop);
+    return () => mobileViewport.removeEventListener("change", closeMenuOnDesktop);
+  }, []);
+
   useEffect(() => setOpen(false), [pathname]);
 
   return <div className={styles.navigationShell}>
-    <nav className={styles.desktopNavigation} aria-label="Main navigation">
+    <nav className={styles.desktopNavigation} aria-label="Main navigation" ref={desktopNavigationRef}>
       <RouteLinks />
     </nav>
     <button
@@ -70,6 +98,7 @@ export function SiteNavigation() {
       className={`${styles.mobileNavigation} ${open ? styles.mobileNavigationOpen : ""}`}
       id="mobile-primary-navigation"
       inert={!open}
+      ref={mobileNavigationRef}
     >
       <p className={styles.menuEyebrow}>NEX LABS / NAVIGATION</p>
       <RouteLinks onNavigate={() => setOpen(false)} />

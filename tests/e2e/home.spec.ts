@@ -325,6 +325,24 @@ test("mobile menu exposes every route and closes on Escape with focus restored",
   expect(hasHorizontalOverflow).toBe(false);
 });
 
+test("mobile menu closes and transfers focus when the viewport enters desktop navigation", async ({ page }) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/company");
+
+  const trigger = page.locator("button[data-site-menu-trigger]");
+  const mobileNavigation = page.getByRole("navigation", { name: "Mobile navigation" });
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
+  await expect(mobileNavigation).toBeVisible();
+
+  await page.setViewportSize({ width: 1024, height: 844 });
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  await expect(mobileNavigation).toBeHidden();
+  await expect(
+    page.getByRole("navigation", { name: "Main navigation" }).getByRole("link", { name: "Company" }),
+  ).toBeFocused();
+});
+
 test("lazy scene reaches ready on capable WebGL and retains the poster otherwise", async ({
   page,
 }) => {

@@ -262,7 +262,7 @@ test("Research and Company render canonical content, metadata and isolated route
     resolve(evidenceDirectory, "route-performance-report.json"),
     `${JSON.stringify(
       {
-        source: "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+        source: "Playwright Chromium; local production build; desktop performance metrics 1600x900; mobile layout checks 390x844",
         routeJsBudgetGzipBytes: 220 * 1024,
         routes: reports,
       },
