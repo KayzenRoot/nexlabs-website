@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06b-regressions",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m06b-regressions",
 );
 
 const routeCases = [

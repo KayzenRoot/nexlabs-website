@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m06c-regressions",
 );
 const sixRoutes = ["/", "/technology", "/solutions", "/research", "/company", "/contact"] as const;
 const primaryNavigation = [
@@ -125,7 +125,7 @@ test("Contact renders exact canonical copy, metadata and a zero-collection surfa
   await expect(page.getByRole("link", { name: "Explore solutions" })).toHaveAttribute("href", "/solutions");
   await expect(page.getByRole("link", { name: "Explore company principles" })).toHaveAttribute("href", "/company");
 
-  await expect(page.locator("form, input, textarea, select, button, [type='file'], [type='submit']")).toHaveCount(0);
+  await expect(page.locator("form, input, textarea, select, button:not([data-site-menu-trigger]), [type='file'], [type='submit']")).toHaveCount(0);
   await expect(page.locator("a[href^='mailto:'], a[href^='tel:']")).toHaveCount(0);
   await expect(page.locator("canvas")).toHaveCount(0);
   await expect(page.locator("[data-secondary-page='contact'] canvas, [data-secondary-page='contact'] [data-hero-scene-stage]")).toHaveCount(0);

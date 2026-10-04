@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06a-regressions",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m06a-regressions",
 );
 
 const routeCases = [
@@ -296,6 +296,12 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
       { width: 320, height: 740 },
     ]) {
       await page.setViewportSize(viewport);
+      await page.evaluate(
+        () =>
+          new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+          ),
+      );
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
       );

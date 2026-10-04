@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   width: 100%;
-  height: min(24rem, calc(100svh - 4.25rem));
-  min-height: 22rem;
+  height: min(23.5rem, calc(100svh - 4rem));
+  min-height: 23.5rem;
   align-items: flex-start;
   isolation: isolate;
   overflow: clip;
@@ -22,19 +22,15 @@
 
 .world {
   isolation: isolate;
-  background:
-    radial-gradient(ellipse at 62% 46%, rgb(9 59 138 / 28%), transparent 38%),
-    radial-gradient(ellipse at 83% 57%, rgb(5 43 115 / 28%), transparent 37%),
-    linear-gradient(110deg, #03060d 0%, #050b17 43%, #020610 100%);
+  background: #03060d;
 }
 
 .worldGlow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 61% 48%, rgb(43 132 255 / 23%), transparent 25%),
-    radial-gradient(ellipse at 62% 71%, rgb(21 104 228 / 18%), transparent 17%),
-    linear-gradient(90deg, #03060d 0%, #03060d 33%, rgb(3 6 13 / 97%) 38%, transparent 48%);
+    radial-gradient(ellipse at 64% 50%, rgb(47 132 255 / 10%), transparent 30%),
+    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 92%) 20%, rgb(3 6 13 / 46%) 36%, transparent 50%);
 }
 
 .posterDisplayMask {
@@ -66,7 +62,7 @@
   background-image: url("/hero/home-hero-poster.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: 100% 100%;
+  background-size: cover;
   opacity: 1;
   transition: opacity 760ms ease;
 }
@@ -357,8 +353,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 83%) 25%, transparent 52%),
-    linear-gradient(0deg, #03060d 0%, transparent 14%, transparent 86%, rgb(3 6 13 / 62%) 100%);
+    linear-gradient(90deg, rgb(3 6 13 / 44%), transparent 42%),
+    linear-gradient(0deg, #03060d 0%, transparent 15%, transparent 89%, rgb(3 6 13 / 28%) 100%);
 }
 
 .sceneLayer {
@@ -576,7 +572,8 @@
     inset: 4.1rem 0 0;
     background-image: url("/hero/home-hero-poster-mobile.jpg");
     background-position: left bottom;
-    background-size: 125% auto;
+    background-size: min(100%, 28rem) auto;
+    opacity: 0.92;
   }
 
   .posterDisplayMask,
@@ -603,7 +600,7 @@
   }
 
   .title span {
-    transform: scaleX(1.2);
+    transform: scaleX(1);
   }
 
   .description {
@@ -664,11 +661,11 @@
   }
 
   .title {
-    font-size: 2.4rem;
+    font-size: clamp(2rem, 9vw, 2.4rem);
   }
 
   .title span {
-    transform: scaleX(1.1);
+    transform: scaleX(1);
   }
 
   .actions {

@@ -81,3 +81,23 @@ main:focus {
     transition-duration: 0.01ms !important;
   }
 }
+
+.visual-reveal-ready [data-world-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 0.8rem, 0);
+  transition: opacity 760ms cubic-bezier(0.2, 0.7, 0.2, 1), transform 760ms cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.visual-reveal-ready [data-world-reveal].world-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .visual-reveal-ready [data-world-reveal],
+  .visual-reveal-ready [data-world-reveal].world-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

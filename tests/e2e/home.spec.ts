@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const screenshotDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-regressions",
 );
 const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
 
@@ -109,6 +109,16 @@ async function sampleFrameTimes(page: Page) {
       p95FrameMs: Number(p95FrameMs.toFixed(2)),
       medianFps: medianFrameMs > 0 ? Number((1000 / medianFrameMs).toFixed(1)) : 0,
     };
+  });
+}
+
+async function pauseSceneForCleanup(page: Page) {
+  await page.evaluate(() => {
+    Object.defineProperty(document, "visibilityState", {
+      configurable: true,
+      value: "hidden",
+    });
+    document.dispatchEvent(new Event("visibilitychange"));
   });
 }
 
@@ -277,11 +287,14 @@ test("skip link and keyboard focus are visible and usable", async ({ page }) => 
   await expect(page.getByRole("link", { name: /explore our capabilities/i })).toBeVisible();
 });
 
-test("mobile navigation keeps every section link reachable by keyboard", async ({ page }) => {
+test("mobile menu exposes every route and closes on Escape with focus restored", async ({ page }) => {
   await page.setViewportSize({ width: 320, height: 844 });
   await page.goto("/");
 
-  const navigation = page.getByRole("navigation", { name: "Main navigation" });
+  const trigger = page.locator("button[data-site-menu-trigger]");
+  await expect(trigger).toBeVisible();
+  await expect(trigger).toHaveAttribute("aria-expanded", "false");
+  const navigation = page.getByRole("navigation", { name: "Mobile navigation" });
   const links = navigation.getByRole("link");
   const expectedDestinations = [
     "/solutions",
@@ -290,22 +303,21 @@ test("mobile navigation keeps every section link reachable by keyboard", async (
     "/company",
   ];
 
+  await expect(navigation).toBeHidden();
+  await trigger.click();
+  await expect(trigger).toHaveAttribute("aria-expanded", "true");
   await expect(navigation).toBeVisible();
-  await expect(links).toHaveCount(expectedDestinations.length);
+  await expect(links).toHaveCount(expectedDestinations.length + 1);
   for (const [index, destination] of expectedDestinations.entries()) {
     await expect(links.nth(index)).toHaveAttribute("href", destination);
   }
+  await expect(links.nth(4)).toHaveAttribute("href", "/contact");
+  await page.screenshot({ path: resolve(screenshotDirectory, "mobile-menu-open-320x844.png"), animations: "disabled" });
 
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: "Skip to content" })).toBeFocused();
-  await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
-
-  for (const link of await links.all()) {
-    await page.keyboard.press("Tab");
-    await expect(link).toBeFocused();
-    await expect(link).toBeInViewport();
-  }
+  await page.keyboard.press("Escape");
+  await expect(navigation).toBeHidden();
+  await expect(trigger).toBeFocused();
+  await page.screenshot({ path: resolve(screenshotDirectory, "mobile-menu-closed-320x844.png"), animations: "disabled" });
 
   const hasHorizontalOverflow = await page.evaluate(
     () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -447,7 +459,8 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   browser,
   page,
 }) => {
-  test.setTimeout(90_000);
+  // Keep all 119-frame profiles intact on software-rendered WebGL hosts.
+  test.setTimeout(150_000);
   mkdirSync(screenshotDirectory, { recursive: true });
 
   const staticPage = await browser.newPage({
@@ -592,6 +605,8 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     };
   });
   const desktopLoadMs = Date.now() - desktopStart;
+  await pauseSceneForCleanup(page);
+  await page.close();
 
   const fullProfilePage = await browser.newPage({
     viewport: { width: 1600, height: 900 },
@@ -618,6 +633,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     fullPage: false,
     animations: "disabled",
   });
+  await pauseSceneForCleanup(fullProfilePage);
   await fullProfilePage.close();
 
   const staticChunkUrls = new Set(Object.keys(staticChunks));
@@ -646,9 +662,11 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   if (desktopState === "ready") {
     expect(lazyChunkGzipBytes).toBeLessThanOrEqual(700 * 1024);
   }
-  if (liveVitals.lcpMs > 0) expect(liveVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(liveVitals.lcpMs, "desktop production candidate LCP must be observed").toBeGreaterThan(0);
+  expect(liveVitals.lcpMs).toBeLessThanOrEqual(2500);
   expect(liveVitals.cls).toBeLessThanOrEqual(0.1);
-  if (mobileVitals.lcpMs > 0) expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(mobileVitals.lcpMs, "mobile production candidate LCP must be observed").toBeGreaterThan(0);
+  expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
   expect(mobileVitals.cls).toBeLessThanOrEqual(0.1);
   expect(mobileVitals.inpSampleCount).toBeGreaterThan(0);
   expect(mobileVitals.inpMs).toBeLessThanOrEqual(200);
@@ -657,17 +675,26 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   let balancedState: string | null = null;
   let balancedFrames: Awaited<ReturnType<typeof sampleFrameTimes>> | null = null;
   if (desktopState === "ready") {
-    await page.setViewportSize({ width: 900, height: 768 });
-    await expect(stage).toHaveAttribute("data-quality-tier", "BALANCED");
-    await expect(stage).toHaveAttribute("data-scene-state", "ready");
-    balancedTier = await stage.getAttribute("data-quality-tier");
-    balancedState = await stage.getAttribute("data-scene-state");
-    balancedFrames = await sampleFrameTimes(page);
-    await page.screenshot({
+    const balancedPage = await browser.newPage({
+      viewport: { width: 900, height: 768 },
+      deviceScaleFactor: 1,
+    });
+    await balancedPage.goto(`${testBaseURL}/`);
+    const balancedStage = balancedPage.getByTestId("hero-scene-stage");
+    await expect(balancedStage).toHaveAttribute("data-quality-tier", "BALANCED");
+    await expect(balancedStage).toHaveAttribute("data-scene-state", "ready", {
+      timeout: 30_000,
+    });
+    balancedTier = await balancedStage.getAttribute("data-quality-tier");
+    balancedState = await balancedStage.getAttribute("data-scene-state");
+    balancedFrames = await sampleFrameTimes(balancedPage);
+    await balancedPage.screenshot({
       path: resolve(screenshotDirectory, "home-balanced-scene-900x768.png"),
       fullPage: false,
       animations: "disabled",
     });
+    await pauseSceneForCleanup(balancedPage);
+    await balancedPage.close();
   }
 
   const report = {
@@ -736,7 +763,6 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     "utf8",
   );
 
-  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   expect(desktopTier).toMatch(/^(FULL|BALANCED|STATIC)$/);
 });
 

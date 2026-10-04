@@ -5,7 +5,7 @@ import { expect, test } from "@playwright/test";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m07a-regressions",
 );
 const sixRoutes = ["/", "/technology", "/solutions", "/research", "/company", "/contact"] as const;
 const requiredCspDirectives = [
