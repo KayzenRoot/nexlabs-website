@@ -44,3 +44,22 @@ Performance:
 - memory/frame-rate sampling on at least one mid-tier profile before release.
 
 No numeric performance claim is considered met without retained evidence.
+
+
+## M07A release-readiness validation
+
+Because M07A is ELEVATED, require STANDARD checks plus:
+- production header/CSP assertions;
+- robots/noindex/sitemap-absence assertions;
+- branded 404 and safe error-boundary tests;
+- production standalone image build and inspect;
+- non-root / reduced-capability / read-only-filesystem validation;
+- production candidate health and six-route smoke;
+- broad Home + M06 regressions;
+- Contact zero-collection regression;
+- Home 3D STATIC/failure/reduced-motion regression;
+- exact-head Release Readiness workflow;
+- admission-base and candidate image digest capture;
+- container rollback rehearsal and restored-route verification.
+
+Do not convert a missing provider/TLS/origin into simulated production evidence. Those remain M07B.

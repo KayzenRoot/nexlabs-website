@@ -1,0 +1,28 @@
+name: nexlabs-m07a-production-candidate
+
+services:
+  web:
+    image: nexlabs-website-release-candidate:${NEXLABS_RELEASE_TAG:-local}
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+      args:
+        GIT_SHA: ${NEXLABS_GIT_SHA:-unknown}
+    init: true
+    user: "1000:1000"
+    environment:
+      NODE_ENV: production
+      NEXT_TELEMETRY_DISABLED: "1"
+      HOSTNAME: 0.0.0.0
+      PORT: "3000"
+    ports:
+      - "127.0.0.1:${NEXLABS_RELEASE_PORT:-3001}:3000"
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m,mode=1777,uid=1000,gid=1000
+      - /app/.next/cache:rw,noexec,nosuid,size=128m,uid=1000,gid=1000
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    restart: "no"

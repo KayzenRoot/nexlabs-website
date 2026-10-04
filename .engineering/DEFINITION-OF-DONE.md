@@ -131,9 +131,27 @@ M06C is complete. The following gate was satisfied:
 
 After M06C approval/merge/promotion, the M06 Secondary Pages program is complete.
 
-## Next Definition of Done
+## M07A — Release Hardening & Production Readiness
 
-M07 Production Hardening & Launch is not yet admitted. The next Work Order must define the smallest coherent hardening increment before any deployment is attempted.
+M07A is complete only when:
+1. production security headers/CSP pass on all six routes and 404;
+2. HSTS remains intentionally deferred to M07B/TLS;
+3. pre-launch noindex/nofollow and robots disallow are enforced;
+4. no sitemap/canonical production origin is fabricated;
+5. branded 404 + safe error recovery exist;
+6. production standalone/minimal non-root container passes hardening checks;
+7. production candidate six-route/404 health checks pass;
+8. Release Readiness exact-head workflow passes without deploying;
+9. Contact zero-collection and Home 3D fallback/lazy behavior remain regression-green;
+10. a11y/responsive/reduced-motion/performance budgets remain green;
+11. lint/typecheck/unit/build/E2E/audit/secret checks pass;
+12. admission-base and candidate image digests are retained;
+13. container-level rollback rehearsal succeeds and evidence is retained;
+14. development Docker remains UP/healthy;
+15. independent exact-head audit reports APPROVED;
+16. checkpoint promotion occurs only after approved merge.
+
+M07B remains blocked until M07A is APPROVED, merged and checkpoint-promoted.
 
 ## Global implementation rule
 

@@ -1,0 +1,18 @@
+{
+  "route": "/contact",
+  "result": "PASS",
+  "forms": 0,
+  "inputs": 0,
+  "textareas": 0,
+  "selects": 0,
+  "fileUploads": 0,
+  "submitControls": 0,
+  "mailtoLinks": 0,
+  "telLinks": 0,
+  "nonGetRequests": [],
+  "externalLinks": 0,
+  "canvas": 0,
+  "note": "DOM and browser network observation against the exact SHA-labeled production candidate at 127.0.0.1:3002; no contact data collection or transmission surface was found.",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
+}

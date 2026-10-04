@@ -1,58 +1,53 @@
 # Scope
 
-## Completed product scope
+## Completed
 
-- GEF Bootstrap and M01 through M05: APPROVED/MERGED.
-- M06 Secondary Pages: COMPLETE after M06A, M06B and M06C.
-- Production routes: `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`.
-- Contact is intentionally read-only/zero-collection in V1.
+- M01 through M06 are APPROVED/MERGED.
+- Six V1 routes are complete.
+- Contact is read-only/zero-collection.
 
-## Current state
+## Active — M07A Release Hardening & Production Readiness
 
-No product implementation Work Order is active.
+Work Order: `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS`
+Risk: ELEVATED
 
-M07 Production Hardening & Launch is the next legal program, but implementation is not admitted yet.
+### NECESSARY
 
-### NECESSARY planning direction
-
-M07 should be split rather than executed as one large launch increment.
-
-#### M07A — Release hardening & production readiness
-Candidate NECESSARY scope:
-- repository/config/runtime hardening for production;
-- security headers and browser policy review;
-- robots/sitemap/metadata consistency;
-- 404/error/loading behavior where applicable;
-- final route/accessibility/performance regression matrix;
-- dependency/runtime/container hardening;
-- production Docker/readiness validation;
-- launch checklist, rollback/roll-forward and recovery evidence;
-- no provider deployment unless separately admitted.
-
-#### M07B — Deployment admission + launch validation
-Candidate scope only after M07A APPROVED:
-- explicit deployment provider/target selection;
-- environment/config contract;
-- deployment execution;
-- DNS/domain/TLS only if factual inputs are available and separately approved;
-- post-deploy smoke, security, accessibility/performance and rollback evidence.
+- production-only security headers/CSP;
+- pre-launch noindex/nofollow + robots disallow;
+- no sitemap/canonical origin until M07B;
+- branded 404 and error recovery UI;
+- standalone/minimal production container candidate;
+- release-readiness validation workflow;
+- broad six-route regression;
+- security/dependency/secret checks;
+- provider-neutral rollback rehearsal;
+- development Docker remains UP/healthy.
 
 ### IMPORTANT
 
-- Do not invent domain, DNS, production URL, provider credentials or analytics.
-- Do not add a Contact submission path as part of launch hardening.
-- Keep D-0008 permanent.
-- Prefer evidence-driven hardening before deployment.
+- keep development and production Docker paths separate;
+- preserve all public copy/visual behavior;
+- do not add dependencies unless STOP/re-admission proves necessity;
+- retain exact image digests and rollback commands;
+- keep D-0008 and Contact zero-collection permanent.
 
-## OUT OF SCOPE UNTIL ADMITTED
+### FUTURE / M07B
 
-- any production deployment;
-- DNS/domain changes;
+- provider selection/ADR;
+- production URL/domain/DNS/TLS/HSTS;
+- canonical URLs/sitemap/index enablement;
+- actual deployment;
+- post-deploy validation and provider-specific rollback.
+
+## OUT OF SCOPE FOR WO-012
+
+- public deployment;
 - provider credentials;
-- analytics/tracking;
-- Contact data collection;
-- localization;
-- CMS/CRM/auth/database;
-- unrelated product expansion.
+- DNS/domain/TLS/HSTS;
+- analytics;
+- Contact collection;
+- product redesign/content expansion;
+- M07B execution.
 
-Do not execute M07 before its Work Order and exact Context Lock are admitted.
+Do not advance to M07B before M07A APPROVED/MERGED/checkpoint-promoted.

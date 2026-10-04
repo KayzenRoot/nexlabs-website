@@ -1,0 +1,16 @@
+{
+  "image": "nexlabs-website-release-candidate:06ec97d",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "scanner": "Docker Scout",
+  "scannerVersion": "v1.24.0",
+  "scanCommand": "docker scout cves --only-severity critical,high local://nexlabs-website-release-candidate:06ec97d",
+  "exitCode": 1,
+  "status": "CAPABILITY_GAP",
+  "reason": "Docker Scout requires Docker ID authentication in this environment; the scan exited before returning findings",
+  "criticalFindings": "UNKNOWN",
+  "highFindings": "UNKNOWN",
+  "trivyAvailable": false,
+  "grypeAvailable": false,
+  "npmAudit": "PASS: 0 vulnerabilities at --audit-level=moderate",
+  "rawOutput": "Docker Scout v1.24.0 requested Docker ID authentication and exited 1 before producing vulnerability findings. Trivy and Grype are unavailable. HIGH/CRITICAL image-layer findings remain UNKNOWN."
+}

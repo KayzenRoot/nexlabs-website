@@ -1,0 +1,77 @@
+{
+  "source": "Playwright Chromium against the exact SHA-labeled hardened production candidate at 127.0.0.1:3002",
+  "viewports": [
+    {
+      "path": "/research",
+      "viewport": "1600x900",
+      "scrollWidth": 1600,
+      "clientWidth": 1600,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/research",
+      "viewport": "1440x900",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/research",
+      "viewport": "900x768",
+      "scrollWidth": 900,
+      "clientWidth": 900,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/research",
+      "viewport": "390x844",
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/research",
+      "viewport": "320x740",
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/company",
+      "viewport": "1600x900",
+      "scrollWidth": 1600,
+      "clientWidth": 1600,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/company",
+      "viewport": "1440x900",
+      "scrollWidth": 1440,
+      "clientWidth": 1440,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/company",
+      "viewport": "900x768",
+      "scrollWidth": 900,
+      "clientWidth": 900,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/company",
+      "viewport": "390x844",
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "horizontalOverflow": false
+    },
+    {
+      "path": "/company",
+      "viewport": "320x740",
+      "scrollWidth": 320,
+      "clientWidth": 320,
+      "horizontalOverflow": false
+    }
+  ],
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
+}

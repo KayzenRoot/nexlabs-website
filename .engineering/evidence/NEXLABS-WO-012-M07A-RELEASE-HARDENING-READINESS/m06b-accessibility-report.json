@@ -1,0 +1,45 @@
+{
+  "tool": "@axe-core/playwright",
+  "routes": [
+    {
+      "path": "/research",
+      "standard": "WCAG 2.2 AA; axe-core tags wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa",
+      "passes": 21,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodeCount": 63,
+          "manualReviewReasons": [
+            "Element's background color could not be determined due to a background gradient",
+            "Element content contains only non-text characters",
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        }
+      ],
+      "violations": []
+    },
+    {
+      "path": "/company",
+      "standard": "WCAG 2.2 AA; axe-core tags wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa",
+      "passes": 21,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodeCount": 61,
+          "manualReviewReasons": [
+            "Element's background color could not be determined due to a background gradient",
+            "Element content contains only non-text characters"
+          ]
+        }
+      ],
+      "violations": []
+    }
+  ],
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "source": "Playwright Chromium/@axe-core against the exact SHA-labeled hardened production candidate at 127.0.0.1:3002"
+}

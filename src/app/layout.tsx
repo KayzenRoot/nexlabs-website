@@ -6,6 +6,10 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Nex Labs Technology — Human Potential Multiplied",
   description: "A new digital home for technology, research and engineering.",
+  robots: {
+    index: false,
+    follow: false,
+  },
   icons: {
     icon: [
       {

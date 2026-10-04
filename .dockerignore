@@ -12,7 +12,9 @@ tests
 .gef-private
 .dockerignore
 Dockerfile
+Dockerfile.production
 compose.yaml
+compose.production.yaml
 docker-compose.yml
 .env
 .env.*

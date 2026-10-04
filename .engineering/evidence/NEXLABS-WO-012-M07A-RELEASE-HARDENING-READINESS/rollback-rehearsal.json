@@ -1,0 +1,81 @@
+{
+  "result": "PASS",
+  "admissionBaseGitSha": "d7ec01e94d30a41a64aa683a345e4e5675541ca2",
+  "admissionBaseImage": "nexlabs-website-admission-base:d7ec01e94d30",
+  "admissionBaseImageDigest": "sha256:1da31bfce26408bd6f26e5089258680458857a6be2e4ee21a522178a7a9a40f9",
+  "admissionBaseRuntime": "temporary exact-base Next.js next start container built from the admission-base worktree using a one-off Dockerfile and Node 22",
+  "admissionBaseHealth": "healthy",
+  "admissionBaseRoutes": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/technology",
+      "status": 200
+    },
+    {
+      "path": "/solutions",
+      "status": 200
+    },
+    {
+      "path": "/research",
+      "status": 200
+    },
+    {
+      "path": "/company",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    }
+  ],
+  "candidateGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "candidateImage": "nexlabs-website-release-candidate:06ec97d",
+  "candidateImageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "candidateContainerId": "f6df55727f836ec571eab9347288b2f4e65427f23310e06940052e9ae9b32634",
+  "candidateHealthAfterRestore": "healthy",
+  "candidateRoutesAfterRestore": [
+    {
+      "path": "/",
+      "status": 200
+    },
+    {
+      "path": "/technology",
+      "status": 200
+    },
+    {
+      "path": "/solutions",
+      "status": 200
+    },
+    {
+      "path": "/research",
+      "status": 200
+    },
+    {
+      "path": "/company",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    }
+  ],
+  "developmentDocker": "running/healthy at 127.0.0.1:3000; Home HTTP 200",
+  "commands": [
+    "docker compose --file compose.production.yaml stop web (candidate only)",
+    "docker run --detach --name nexlabs-m07a-rollback-base --publish 127.0.0.1:3002:3000 --read-only --tmpfs /tmp and /app/.next/cache --security-opt no-new-privileges --cap-drop ALL --user 1000:1000 nexlabs-website-admission-base:d7ec01e94d30",
+    "verify admission-base health and six route HTTP 200; confirm non-root/read-only/cap drop/no-new-privileges",
+    "docker stop nexlabs-m07a-rollback-base",
+    "docker rm nexlabs-m07a-rollback-base",
+    "docker compose --file compose.production.yaml start web (candidate only)",
+    "verify exact candidate health and six route HTTP 200; development Docker remains healthy"
+  ],
+  "limitations": [
+    "Provider-neutral Docker Desktop rehearsal only; it does not test a future hosting provider, external routing, DNS, TLS, HSTS, production secrets, or an RTO.",
+    "No previously published production image existed at admission; the rollback image was built from the exact admission-base source SHA as an equivalent local runtime, tagged and digested.",
+    "Candidate and admission-base images remain local; no registry push or public deployment occurred.",
+    "The temporary admission-base container was removed after the rehearsal; its full container ID was not retained. The immutable admission-base image digest and exact Git SHA are retained."
+  ]
+}

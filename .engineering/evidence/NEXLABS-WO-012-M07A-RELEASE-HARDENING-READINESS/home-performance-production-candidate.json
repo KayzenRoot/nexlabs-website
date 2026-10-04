@@ -1,0 +1,160 @@
+{
+  "source": "Playwright Chromium; desktop and 390x844 mobile emulation with 4G/4x CPU throttling",
+  "posterAssets": {
+    "desktopBytes": 227644,
+    "mobileBytes": 137561
+  },
+  "static": {
+    "tier": "STATIC",
+    "loadMs": 468,
+    "lcpMs": 356,
+    "cls": 0,
+    "inpSamples": [],
+    "domContentLoadedMs": 195.09999999403954,
+    "loadEventMs": 338.19999998807907,
+    "scriptGzipBytes": 144912,
+    "scripts": {
+      "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
+      "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js": 8840,
+      "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
+      "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
+      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
+      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
+      "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
+      "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169
+    }
+  },
+  "desktop": {
+    "viewport": "1600x900",
+    "tier": "BALANCED",
+    "state": "ready",
+    "hostCapabilities": {
+      "hardwareConcurrency": 8,
+      "deviceMemoryGb": 16,
+      "devicePixelRatio": 1,
+      "webgl2Ready": true,
+      "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+    },
+    "loadMs": 5184,
+    "lcpMs": 364,
+    "cls": 0,
+    "inpSamples": [],
+    "domContentLoadedMs": 184.79999999701977,
+    "loadEventMs": 346.5,
+    "scriptGzipBytes": 397894,
+    "chunks": {
+      "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
+      "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js": 8840,
+      "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
+      "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
+      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
+      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
+      "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
+      "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
+      "http://127.0.0.1:3002/_next/static/chunks/0rfvdcdqlumx5.js": 252982
+    },
+    "lazyChunkGzipBytes": 252982,
+    "lazyChunks": [
+      {
+        "url": "http://127.0.0.1:3002/_next/static/chunks/0rfvdcdqlumx5.js",
+        "gzipBytes": 252982
+      }
+    ],
+    "frameTimes": {
+      "sampleCount": 119,
+      "medianFrameMs": 33.3,
+      "p95FrameMs": 33.4,
+      "medianFps": 30
+    }
+  },
+  "fullCapabilityProfile": {
+    "viewport": "1600x900",
+    "tier": "FULL",
+    "state": "ready",
+    "capabilityOverrides": {
+      "hardwareConcurrency": 16,
+      "deviceMemoryGb": 8,
+      "note": "Exercises the FULL scene path on this WebGL-capable host; this is not a separate high-end-hardware qualification."
+    },
+    "frameTimes": {
+      "sampleCount": 119,
+      "medianFrameMs": 66.6,
+      "p95FrameMs": 133.3,
+      "medianFps": 15
+    }
+  },
+  "balanced": {
+    "viewport": "900x768",
+    "tier": "BALANCED",
+    "state": "ready",
+    "frameTimes": {
+      "sampleCount": 119,
+      "medianFrameMs": 16.7,
+      "p95FrameMs": 33.4,
+      "medianFps": 59.9
+    }
+  },
+  "mobile4g": {
+    "viewport": "390x844",
+    "tier": "STATIC",
+    "network": {
+      "type": "cellular4g",
+      "latencyMs": 150,
+      "downloadBytesPerSecond": 209715,
+      "uploadBytesPerSecond": 96000
+    },
+    "cpuThrottlingRate": 4,
+    "loadMs": 2938,
+    "lcpMs": 2380,
+    "cls": 0,
+    "inpMs": 56,
+    "inpSampleCount": 3,
+    "domContentLoadedMs": 955.5,
+    "loadEventMs": 2439.5,
+    "scriptGzipBytes": 144912,
+    "scripts": {
+      "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
+      "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js": 8840,
+      "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
+      "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
+      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
+      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
+      "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
+      "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628
+    },
+    "interactionLatency": {
+      "type": "single laboratory CTA activation; proxy only, not field INP",
+      "eventSampleCount": 3,
+      "maximumEventDurationMs": 56,
+      "budgetMs": 200
+    }
+  },
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "retest": {
+    "target": "http://127.0.0.1:3002",
+    "result": "PASS",
+    "mobileLcpMs": 2380,
+    "mobileCls": 0,
+    "mobileInteractionProxyMs": 56,
+    "budgetLcpMs": 2500
+  },
+  "performance001ConsecutiveFullSuiteProof": {
+    "candidateSourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+    "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+    "testConfig": "performance-candidate-playwright.config.ts",
+    "retries": 0,
+    "allRunsSequential": true,
+    "runs": [
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2320, "cls": 0, "interactionProxyMs": 48, "result": "PASS" },
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2328, "cls": 0, "interactionProxyMs": 64, "result": "PASS" },
+      { "tests": 26, "passed": 26, "failed": 0, "mobileLcpMs": 2352, "cls": 0, "interactionProxyMs": 56, "result": "PASS" }
+    ],
+    "thresholdMs": 2500,
+    "worstRunMarginMs": 148,
+    "result": "PASS"
+  }
+}

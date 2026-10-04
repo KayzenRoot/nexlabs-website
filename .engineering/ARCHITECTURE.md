@@ -91,3 +91,15 @@ M06A rules:
 - Header/footer action becomes `Contact Nex Labs` → `/contact`; primary nav remains four items.
 - Home keeps `#contact` for old deep links while final CTA transitions to `/contact`.
 - M06C closes Secondary Pages; deployment/hardening remains M07.
+
+
+## M07A release-hardening architecture
+
+- Development Docker remains `Dockerfile` + `compose.yaml` and is not repurposed as production runtime.
+- Production readiness uses a separate standalone/minimal container path.
+- Production response headers are configured centrally and tested in production mode.
+- Pre-launch indexing is intentionally disabled until a verified production origin is admitted.
+- Public failure paths are branded and safe; no internal error detail is exposed.
+- Release-readiness CI validates artifacts locally and never deploys.
+- Production provider/origin/DNS/TLS remain M07B concerns.
+- The Home Three/R3F client island architecture remains unchanged.

@@ -1,0 +1,15 @@
+{
+  "status": 404,
+  "heading": "This page is outside our signal.",
+  "recoveryLink": "/",
+  "axeTool": "@axe-core/playwright",
+  "violations": [],
+  "incomplete": [
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds"
+    }
+  ],
+  "result": "PASS"
+}

@@ -1,0 +1,346 @@
+{
+  "result": "PASS",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "route": "/__m07a_missing_route__",
+  "viewport": "1600x900",
+  "screenshot": "branded-404-desktop-1600x900.png",
+  "automatedAxe": {
+    "tool": "@axe-core/playwright",
+    "tags": [
+      "wcag2a",
+      "wcag2aa",
+      "wcag21a",
+      "wcag21aa",
+      "wcag22aa"
+    ],
+    "violations": [],
+    "incomplete": [
+      {
+        "id": "color-contrast",
+        "impact": "serious",
+        "nodeCount": 24
+      }
+    ],
+    "note": "color-contrast is incomplete because Chromium/Axe cannot resolve the page gradients and pseudo-element backgrounds automatically."
+  },
+  "manualReview": {
+    "method": "Inspected the rendered screenshot and computed foreground CSS colors; calculated WCAG relative-luminance ratios using conservative solid composites at the brightest body/panel/button endpoints and the footer gradient endpoint. The page design was not changed.",
+    "normalTextThreshold": "4.5:1",
+    "largeTextThreshold": "3:1",
+    "minimumTextRatio": "7.59:1",
+    "contrasts": [
+      {
+        "element": "header brand name",
+        "foreground": "#f3f6fb",
+        "conservativeBackgroundRgb": [
+          14,
+          20,
+          28
+        ],
+        "contrastRatio": "17.08:1"
+      },
+      {
+        "element": "header brand descriptor",
+        "foreground": "#a9bad1",
+        "conservativeBackgroundRgb": [
+          14,
+          20,
+          28
+        ],
+        "contrastRatio": "9.37:1"
+      },
+      {
+        "element": "header navigation",
+        "foreground": "#d6e1ef",
+        "conservativeBackgroundRgb": [
+          14,
+          20,
+          28
+        ],
+        "contrastRatio": "13.99:1"
+      },
+      {
+        "element": "header contact action",
+        "foreground": "#8eeaff",
+        "conservativeBackgroundRgb": [
+          10,
+          22,
+          41
+        ],
+        "contrastRatio": "13.27:1"
+      },
+      {
+        "element": "header microcopy",
+        "foreground": "#9aabc2",
+        "conservativeBackgroundRgb": [
+          14,
+          20,
+          28
+        ],
+        "contrastRatio": "7.91:1"
+      },
+      {
+        "element": "404 eyebrow",
+        "foreground": "#a5e9f2",
+        "conservativeBackgroundRgb": [
+          9,
+          18,
+          31
+        ],
+        "contrastRatio": "13.89:1"
+      },
+      {
+        "element": "404 heading",
+        "foreground": "#f3f6fb",
+        "conservativeBackgroundRgb": [
+          9,
+          18,
+          31
+        ],
+        "contrastRatio": "17.33:1"
+      },
+      {
+        "element": "404 description",
+        "foreground": "#b3bfce",
+        "conservativeBackgroundRgb": [
+          9,
+          18,
+          31
+        ],
+        "contrastRatio": "10.06:1"
+      },
+      {
+        "element": "404 action label",
+        "foreground": "#f3f6fb",
+        "conservativeBackgroundRgb": [
+          19,
+          57,
+          84
+        ],
+        "contrastRatio": "11.15:1"
+      },
+      {
+        "element": "footer microcopy",
+        "foreground": "#91a3b7",
+        "conservativeBackgroundRgb": [
+          7,
+          12,
+          19
+        ],
+        "contrastRatio": "7.59:1"
+      },
+      {
+        "element": "footer navigation",
+        "foreground": "#d5e1ef",
+        "conservativeBackgroundRgb": [
+          7,
+          12,
+          19
+        ],
+        "contrastRatio": "14.8:1"
+      },
+      {
+        "element": "footer note",
+        "foreground": "#aebed1",
+        "conservativeBackgroundRgb": [
+          7,
+          12,
+          19
+        ],
+        "contrastRatio": "10.35:1"
+      }
+    ],
+    "computedRenderedStyles": {
+      "bodyBackground": "rgb(5, 6, 8)",
+      "bodyBackgroundImage": "radial-gradient(at 52% -18%, rgba(57, 83, 118, 0.18), rgba(0, 0, 0, 0) 704px), none",
+      "headerBackgroundImage": "linear-gradient(rgba(2, 5, 12, 0.48), rgba(2, 5, 12, 0.08))",
+      "footerBackgroundImage": "linear-gradient(rgba(5, 10, 17, 0.8), rgb(4, 7, 11))",
+      "panelBackgroundImage": "linear-gradient(145deg, rgba(9, 18, 31, 0.94), rgba(5, 10, 19, 0.86))",
+      "actionBackgroundImage": "linear-gradient(110deg, rgba(49, 173, 245, 0.25), rgba(25, 74, 139, 0.15))",
+      "textStyles": [
+        {
+          "color": "rgb(5, 6, 8)",
+          "elements": [
+            {
+              "text": "Skip to content",
+              "fontSize": "16px",
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "color": "rgb(243, 246, 251)",
+          "elements": [
+            {
+              "text": "NEX LABS",
+              "fontSize": "14.72px",
+              "fontWeight": "720"
+            },
+            {
+              "text": "This page is outside our signal.",
+              "fontSize": "80px",
+              "fontWeight": "600"
+            },
+            {
+              "text": "→",
+              "fontSize": "16px",
+              "fontWeight": "650"
+            },
+            {
+              "text": "NEX LABS",
+              "fontSize": "12px",
+              "fontWeight": "700"
+            },
+            {
+              "text": "(self.__next_f=self.__next_f||[]).push([0])",
+              "fontSize": "16px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "self.__next_f.push([1,\"1:\\\"$Sreact.fragment\\\"\\nb:I[68027,[\\\"/_next/static/chunks/3fntmmi97",
+              "fontSize": "16px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(169, 186, 209)",
+          "elements": [
+            {
+              "text": "TECHNOLOGY",
+              "fontSize": "8.32px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(214, 225, 239)",
+          "elements": [
+            {
+              "text": "Solutions",
+              "fontSize": "13.12px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Technology",
+              "fontSize": "13.12px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Research",
+              "fontSize": "13.12px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Company",
+              "fontSize": "13.12px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(142, 234, 255)",
+          "elements": [
+            {
+              "text": "→",
+              "fontSize": "12px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(154, 171, 194)",
+          "elements": [
+            {
+              "text": "INNOVATION",
+              "fontSize": "7.68px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "INTELLIGENCE",
+              "fontSize": "7.68px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "REAL-WORLD IMPACT",
+              "fontSize": "7.68px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(165, 233, 242)",
+          "elements": [
+            {
+              "text": "NEX LABS TECHNOLOGY · SIGNAL ROUTING",
+              "fontSize": "11.2px",
+              "fontWeight": "700"
+            }
+          ]
+        },
+        {
+          "color": "rgb(179, 191, 206)",
+          "elements": [
+            {
+              "text": "The page you requested is not available in this version of the Nex Labs site.",
+              "fontSize": "18.4px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(145, 163, 183)",
+          "elements": [
+            {
+              "text": "TECHNOLOGY",
+              "fontSize": "8px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(213, 225, 239)",
+          "elements": [
+            {
+              "text": "Solutions",
+              "fontSize": "11.52px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Technology",
+              "fontSize": "11.52px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Research",
+              "fontSize": "11.52px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Company",
+              "fontSize": "11.52px",
+              "fontWeight": "400"
+            },
+            {
+              "text": "Contact Nex Labs",
+              "fontSize": "11.52px",
+              "fontWeight": "400"
+            }
+          ]
+        },
+        {
+          "color": "rgb(174, 190, 209)",
+          "elements": [
+            {
+              "text": "Technology, research and engineering with intent.",
+              "fontSize": "9.44px",
+              "fontWeight": "400"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "limitation": "Axe retains the automated color-contrast incomplete result; the separate rendered-style review is the manual contrast disposition. Brand mark artwork is not text and is excluded from text contrast ratios."
+}

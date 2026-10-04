@@ -2,30 +2,39 @@
 
 ## Completed
 
-- M01 — Product Foundation & Visual System.
-- M02 — Runtime & Repository Foundation.
-- M03 — Brand System.
-- M04 — Home Hero 3D / Living Organism — PR #9.
-- M05 — Home Content Sections — PR #10; checkpoint PR #11.
-- M06A — Technology + Solutions — PR #12; checkpoint PR #13.
-- M06B — Research + Company — PR #14; checkpoint PR #15.
-- M06C — Contact + final integration — APPROVED in PR #16; checkpoint promotion follows this governance increment.
-- M06 Secondary Pages — COMPLETE after M06C promotion.
+- M01 through M05 — APPROVED/MERGED.
+- M06A Technology + Solutions — APPROVED/MERGED.
+- M06B Research + Company — APPROVED/MERGED.
+- M06C Contact + final integration — APPROVED/MERGED.
+- M06 Secondary Pages — COMPLETE.
 
-## Next program
+## Active
 
-### M07 — Production Hardening & Launch
+### M07A — Release Hardening & Production Readiness
 
-M07 must be split into small auditable increments. Candidate sequence:
-1. M07A — Release hardening & production readiness.
-2. M07B — Deployment admission + production launch validation, only after M07A approval and only when a deployment target is explicitly approved.
+ADMITTED under `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS`.
+
+- production-only security headers/CSP;
+- pre-launch noindex/robots posture;
+- branded 404 and controlled error boundary;
+- standalone production container candidate;
+- release-readiness CI;
+- six-route/a11y/performance regression;
+- Contact zero-collection regression;
+- container rollback rehearsal;
+- development Docker continuity.
+
+## Next
+
+### M07B — Deployment Admission + Production Launch Validation
+
+BLOCKED until M07A is APPROVED, merged and checkpoint-promoted, and until provider/origin/domain inputs are explicitly approved.
 
 ## Future
 
-- verified Contact channel/submission path if separately governed;
+- verified Contact channel/submission if separately governed;
 - localization;
 - careers;
-- CMS;
-- CRM/newsletter;
-- advanced analytics/personalization;
-- WebGPU-specific path if benchmarks justify it.
+- CMS/CRM;
+- analytics/personalization;
+- WebGPU if evidence justifies it.

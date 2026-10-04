@@ -1,0 +1,51 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "robotsMeta": "noindex, nofollow",
+      "canonicalAbsent": true
+    }
+  ],
+  "robots": {
+    "status": 200,
+    "body": "User-Agent: *\nDisallow: /\n\n"
+  },
+  "sitemap": {
+    "status": 404,
+    "absent": true
+  },
+  "result": "PASS",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
+}
