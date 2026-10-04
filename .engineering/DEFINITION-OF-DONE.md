@@ -71,9 +71,39 @@ M06A is complete. The following gate was satisfied:
 22. Independent exact-head audit reports APPROVED.
 23. Checkpoint promotion occurs only after approval and authorized merge.
 
-## Next Definition of Done
+## M06B — Research + Company
 
-M06B Research + Company has not yet been admitted. Its exact completion criteria must be defined by WO-010 before implementation begins.
+M06B is complete only when:
+
+1. `/research` and `/company` are real production routes.
+2. Exact M06B copy/metadata comes from SECONDARY-PAGES-SPEC.md.
+3. Exact admitted Home transition copy/destinations come from HOME-CONTENT-SPEC.md.
+4. Both routes use server-rendered semantic content by default.
+5. Research implements the four-stage Research Method and five Exploration Areas.
+6. Research Integrity avoids fabricated publications, patents, breakthroughs, deployments or customer proof.
+7. Company implements Purpose, four approved principles, four Working Model behaviors and Company Integrity.
+8. Company avoids fabricated team, founding, office, headcount, partner, award or timeline proof.
+9. Research/Company visually reuse the approved M06 secondary-page system without another WebGL scene.
+10. Global Research/Company navigation resolves to the real routes.
+11. Technology/Solutions Research CTAs resolve to `/research`.
+12. Home Research CTAs resolve to `/research` and the stale final-CTA transition sentence is replaced with canonical M06B copy.
+13. No `/contact` route exists; Contact remains M06C.
+14. Unique metadata and correct heading hierarchy exist on both new routes.
+15. Keyboard/focus/skip-link behavior remains correct.
+16. Reduced-motion behavior remains correct.
+17. Automated accessibility has no serious/critical violation.
+18. Required mobile/tablet/desktop widths have no unexpected horizontal overflow.
+19. Research/Company do not mount Home HeroScene/canvas.
+20. Initial route JS remains <= 220 KB gzip and Home 3D code stays isolated.
+21. Performance evidence stays inside targets or records justified variance.
+22. Existing Home, Technology and Solutions regressions remain green.
+23. Lint, typecheck, unit, build and browser checks pass.
+24. Security/dependency review has no unresolved HIGH/CRITICAL finding.
+25. Evidence Bundle is complete with immutable implementation/test references plus exact-head audit metadata.
+26. Docker remains UP/healthy; five implemented routes return 200 and `/contact` returns 404.
+27. Exact-head CI/Browser/Socket/Sonar/CodeRabbit signals are checked.
+28. Independent exact-head audit reports APPROVED.
+29. Checkpoint promotion occurs only after approval and authorized merge.
 
 ## Global implementation rule
 

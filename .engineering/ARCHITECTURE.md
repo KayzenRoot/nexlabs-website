@@ -53,7 +53,7 @@ M05 completes the Home below the M04 hero with server-rendered semantic sections
 
 ## Data/backend/deployment boundary
 
-V1 remains content-led through M05. No database, CMS, auth, analytics, contact backend or deployment-provider coupling is introduced by M05.
+V1 remains content-led through M06B. M06A and M06B add public read-only routes only. No database, CMS, auth, analytics, contact backend, user-input pipeline or deployment-provider coupling is introduced by these increments. Contact/data submission remains reserved for a separately admitted M06C boundary.
 
 
 ## M06 secondary-page architecture
@@ -68,3 +68,16 @@ M06A rules:
 - Header/footer become route-aware with real absolute site paths so direct route loads never contain dead local anchors.
 - Until later M06 increments exist, Research, Company and next-chapter navigation returns to the corresponding implemented Home sections.
 - No global client state, UI framework, animation engine, database, CMS, auth or provider coupling is introduced by M06A.
+
+
+## M06B Research + Company architecture
+
+- `/research` and `/company` are Server Component routes by default.
+- Reuse/generalize the M06A secondary-page composition primitives rather than introducing a parallel system.
+- Research/Company decorative atmosphere remains CSS/SVG/HTML; no page-specific canvas or second Three/R3F runtime.
+- Research visual language uses branching signal/evidence topology, not simulated publication dashboards.
+- Company visual language uses measured alignment/principle geometry, not fabricated team/office/timeline media.
+- Global navigation transitions Research and Company to real absolute routes only after both routes exist.
+- Existing Technology/Solutions research CTAs and exact admitted Home Research links may transition to `/research`.
+- The global next-chapter destination remains `/#contact` until M06C.
+- No global client state, UI framework, animation engine, database, CMS, auth, analytics or provider coupling is introduced by M06B.
