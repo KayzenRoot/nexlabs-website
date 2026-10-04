@@ -83,8 +83,11 @@ Não havia scanner dedicado (`gitleaks`, `trufflehog` ou `detect-secrets`) insta
 ## GitHub, riscos e gates
 
 - GitHub CLI autenticado como `KayzenRoot`; PR #16 continua destinada a `main`. O SHA final e os resultados exatos de CI após o último push devem ser lidos dos metadados da PR.
+- CodeRabbit concluiu no HEAD `5fa5eb424ef54a1336111b436cf247d6e3bc46e6`, sem comentários de implementação acionáveis. O diagnóstico de pre-merge exibiu aviso não bloqueante de cobertura de docstrings `55,56%` contra o limiar configurado de `80%`; o status GitHub do CodeRabbit foi PASS. Nenhum código foi alterado apenas para eliminar esse aviso geral, e os checks de lint/typecheck/test permanecem PASS.
+- A inspeção local não encontrou arquivos de middleware/instrumentation nem analytics/tracker aplicáveis. O RootLayout contém o shell, header, main, footer e CSS global; `/contact` é Server Component estático sem fetch, ação de servidor ou ponto de transmissão. Os logs do Docker de desenvolvimento mostram método, rota e status HTTP. Logging, proxy e retenção do provedor de produção não foram configurados nem verificados, pois este Work Order não faz deploy; portanto, essa camada de infraestrutura fica fora da comprovação local.
 - A aprovação independente/auditoria do HEAD exato continua PENDING até revisão externa. O trabalho termina com a PR aberta e pronta para review; não é autorização para merge.
 - Risco/limitação conhecida: 49 nós do axe permanecem como avaliação de contraste incompleta sobre gradientes/elementos decorativos. Nenhuma violação foi reportada; a revisão visual e suas limitações estão documentadas acima.
+- Limite de privacidade da evidência browser: DOM e rede observados comprovam ausência de superfície de coleta/transmissão implementada pela rota; não provam configuração de logs ou processamento pelo host de produção, que requer evidência de infraestrutura fora do WO-011.
 - Limitação de cobertura browser: Chromium automatizado local; outros navegadores e dispositivos físicos não foram testados.
 - Nenhum gate de segurança/review foi enfraquecido. Sem merge, promoção do Checkpoint ou início do M07.
 
