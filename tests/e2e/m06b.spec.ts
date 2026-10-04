@@ -248,7 +248,7 @@ test("Research and Company render canonical content, metadata and isolated route
       mobile: mobileMetrics,
       interactionProxy: {
         interaction: "Skip-link keyboard activation to the second animation frame",
-        measuredMs: interactionProxyMs,
+        measuredMs: Number(interactionProxyMs.toFixed(1)),
         targetMs: 200,
         note: "Lab proxy; not real-user INP.",
       },
@@ -350,9 +350,11 @@ test("Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and respon
     await page.setViewportSize({ width: 1440, height: 900 });
     const motionState = await page.evaluate(() => ({
       preferenceApplied: matchMedia("(prefers-reduced-motion: reduce)").matches,
-      animationDurations: [...document.querySelectorAll("[data-secondary-artwork-motion]")].map(
-        (element) => getComputedStyle(element).animationDuration,
-      ),
+      animationDurations: [
+        ...document.querySelectorAll(
+          "[data-secondary-artwork-motion], [data-secondary-artwork-motion] *",
+        ),
+      ].map((element) => getComputedStyle(element).animationDuration),
     }));
     expect(motionState.preferenceApplied).toBe(true);
     expect(
