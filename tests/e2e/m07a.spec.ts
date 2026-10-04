@@ -121,7 +121,7 @@ test("all routes stay noindex and robots blocks crawling without publishing a si
   );
 });
 
-test("branded 404 is accessible and exposes a safe route back Home", async ({ page }) => {
+test("branded 404 has no Axe violations and exposes a safe route back Home", async ({ page }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
   const response = await page.goto("/__m07a_missing_route__", { waitUntil: "networkidle" });
 
@@ -135,10 +135,7 @@ test("branded 404 is accessible and exposes a safe route back Home", async ({ pa
   const accessibility = await new AxeBuilder({ page })
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
-  const severeViolations = accessibility.violations.filter(
-    ({ impact }) => impact === "serious" || impact === "critical",
-  );
-  expect(severeViolations).toEqual([]);
+  expect(accessibility.violations).toEqual([]);
   await page.screenshot({
     path: resolve(evidenceDirectory, "branded-404-desktop-1600x900.png"),
     fullPage: true,
@@ -146,7 +143,7 @@ test("branded 404 is accessible and exposes a safe route back Home", async ({ pa
   });
   writeFileSync(
     resolve(evidenceDirectory, "branded-404-accessibility-report.json"),
-    `${JSON.stringify({ status: response?.status(), heading: "This page is outside our signal.", recoveryLink: "/", axeTool: "@axe-core/playwright", violations: accessibility.violations.map(({ id, impact, help }) => ({ id, impact, help })), incomplete: accessibility.incomplete.map(({ id, impact, help }) => ({ id, impact, help })), result: "PASS" }, null, 2)}\n`,
+    `${JSON.stringify({ status: response?.status(), heading: "This page is outside our signal.", recoveryLink: "/", axeTool: "@axe-core/playwright", violations: accessibility.violations.map(({ id, impact, help }) => ({ id, impact, help })), incomplete: accessibility.incomplete.map(({ id, impact, help }) => ({ id, impact, help })), result: accessibility.violations.length === 0 ? "PASS" : "FAIL" }, null, 2)}\n`,
     "utf8",
   );
 });

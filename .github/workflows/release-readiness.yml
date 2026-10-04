@@ -73,10 +73,16 @@ jobs:
             grep -qi "^content-security-policy:.*frame-ancestors 'none'" "$headers_file"
             grep -qi "^content-security-policy:.*form-action 'none'" "$headers_file"
             grep -qi "^content-security-policy:.*connect-src 'self'" "$headers_file"
-            ! grep -qi '^strict-transport-security:' "$headers_file"
+            if grep -qi '^strict-transport-security:' "$headers_file"; then
+              echo "Unexpected HSTS header on $path" >&2
+              exit 1
+            fi
             if [[ "$path" != /__m07a_missing_route__ ]]; then
               grep -qi '<meta name="robots" content="noindex, nofollow"' "$body_file"
-              ! grep -qi 'rel="canonical"' "$body_file"
+              if grep -qi 'rel="canonical"' "$body_file"; then
+                echo "Unexpected canonical URL on $path" >&2
+                exit 1
+              fi
             else
               grep -q 'This page is outside our signal\.' "$body_file"
             fi
@@ -86,7 +92,10 @@ jobs:
           robots="$(curl --fail --silent --show-error "$base_url/robots.txt")"
           grep -qi '^User-Agent: \*$' <<< "$robots"
           grep -qi '^Disallow: /$' <<< "$robots"
-          ! grep -qi '^Sitemap:' <<< "$robots"
+          if grep -qi '^Sitemap:' <<< "$robots"; then
+            echo "Unexpected sitemap directive in robots.txt" >&2
+            exit 1
+          fi
           sitemap_status="$(curl --silent --output /dev/null --write-out '%{http_code}' "$base_url/sitemap.xml")"
           [[ "$sitemap_status" == 404 ]]
 

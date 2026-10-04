@@ -9,10 +9,7 @@ type ErrorBoundaryProps = {
 };
 
 /** Recovers from a route failure using safe copy and no technical error details. */
-export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
-  // The framework requires this prop; keep technical details out of the UI and logs.
-  void error;
-
+export default function ErrorBoundary({ reset }: ErrorBoundaryProps) {
   return (
     <section aria-labelledby="error-title" className={styles.page} role="alert">
       <div aria-hidden="true" className={styles.signalField} />

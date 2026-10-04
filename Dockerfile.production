@@ -31,9 +31,9 @@ ARG GIT_SHA=unknown
 LABEL org.opencontainers.image.title="Nex Labs Website release candidate" \
       org.opencontainers.image.revision="$GIT_SHA"
 
-COPY --chown=node:node --from=builder /app/public ./public
-COPY --chown=node:node --from=builder /app/.next/standalone ./
-COPY --chown=node:node --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/.next/standalone ./
+COPY --from=builder /app/.next/static ./.next/static
 
 RUN mkdir -p /app/.next/cache && chown node:node /app/.next/cache
 
