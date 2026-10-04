@@ -133,6 +133,33 @@ async function installPerformanceObservers(page: Page) {
   };
 }
 
+async function measureSkipLinkKeyboardProxy(page: Page) {
+  await page.evaluate(() => {
+    const skipLink = document.querySelector<HTMLAnchorElement>('a[href="#main"]');
+    if (!skipLink) throw new Error("The admitted skip link was not found.");
+
+    skipLink.addEventListener(
+      "click",
+      () => {
+        const startedAt = performance.now();
+        requestAnimationFrame(() =>
+          requestAnimationFrame(() =>
+            Reflect.set(window, "__m06bInteractionProxyMs", performance.now() - startedAt),
+          ),
+        );
+      },
+      { once: true },
+    );
+  });
+  await page.keyboard.press("Tab");
+  await page.keyboard.press("Enter");
+  await expect(page.locator("#main")).toBeFocused();
+  await page.waitForFunction(
+    () => typeof Reflect.get(window, "__m06bInteractionProxyMs") === "number",
+  );
+  return page.evaluate(() => Reflect.get(window, "__m06bInteractionProxyMs") as number);
+}
+
 test("Research and Company render canonical content, metadata and isolated route bundles", async ({
   page,
 }) => {
@@ -193,6 +220,11 @@ test("Research and Company render canonical content, metadata and isolated route
       fullPage: false,
       animations: "disabled",
     });
+    const interactionProxyMs = await measureSkipLinkKeyboardProxy(page);
+    expect(interactionProxyMs, `${route.path} keyboard interaction proxy`).toBeLessThanOrEqual(
+      200,
+    );
+    await page.evaluate(() => window.scrollTo(0, 0));
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "networkidle" });
     await expect(page.getByRole("heading", { level: 1, name: route.heading })).toBeVisible();
@@ -225,6 +257,12 @@ test("Research and Company render canonical content, metadata and isolated route
       title: route.title,
       desktop: metrics,
       mobile: mobileMetrics,
+      interactionProxy: {
+        interaction: "Skip-link keyboard activation to the second animation frame",
+        measuredMs: interactionProxyMs,
+        targetMs: 200,
+        note: "Lab proxy; not real-user INP.",
+      },
       scriptGzipBytes: observedScripts.scriptGzipBytes,
       scripts: observedScripts.scriptUrls,
     });
