@@ -32,7 +32,7 @@
 
 ## Stop and next legal action
 
-Stop with PR #18 open and the exact final-head review record. Independent approval, merge, checkpoint promotion and M07B remain separate future gates and are not performed by this delta.
+Historical executor stop was satisfied with PR #18 OPEN/READY FOR REVIEW. Independent approval and squash merge have now occurred; this governance PR performs the checkpoint promotion. M07B remains blocked until WO-013 is APPROVED, merged and checkpoint-promoted.
 
 
 ## Promotion record
