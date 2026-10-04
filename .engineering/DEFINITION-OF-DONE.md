@@ -12,6 +12,7 @@
 - M06B Research + Company: APPROVED at exact head `ee160d50a4ca8c1edad25d06a295c505eace6993` and merged in PR #14.
 - M06C Contact + final integration: APPROVED at exact head `4d92cc9f75c66c92e0991be312da6d1b0afcee88` and merged in PR #16.
 - M06 Secondary Pages program: COMPLETE.
+- M07A Release Hardening & Production Readiness: APPROVED at exact head `69e6796a71c86eda34d2060d6c030b7dc0873bfb` and merged in PR #18.
 
 ## Completed gate — M05 Home Content Sections
 
@@ -131,9 +132,9 @@ M06C is complete. The following gate was satisfied:
 
 After M06C approval/merge/promotion, the M06 Secondary Pages program is complete.
 
-## M07A — Release Hardening & Production Readiness
+## Completed gate — M07A Release Hardening & Production Readiness
 
-M07A is complete only when:
+M07A is complete. The following gate was satisfied:
 1. production security headers/CSP pass on all six routes and 404;
 2. HSTS remains intentionally deferred to M07B/TLS;
 3. pre-launch noindex/nofollow and robots disallow are enforced;
@@ -151,7 +152,11 @@ M07A is complete only when:
 15. independent exact-head audit reports APPROVED;
 16. checkpoint promotion occurs only after approved merge.
 
-M07B remains blocked until M07A is APPROVED, merged and checkpoint-promoted.
+M07A is complete. Owner visual acceptance remains pending, so M07B remains blocked until WO-013 Visual Fidelity / Master Alignment is APPROVED, merged and checkpoint-promoted.
+
+## Next Definition of Done — WO-013 Visual Fidelity / Master Alignment
+
+WO-013 is not executable until its Work Order and exact Context Lock are admitted. Its completion gate must require objective master-alignment evidence, preservation of M07A hardening/performance, accessibility/fallback tiers and independent exact-head approval.
 
 ## Global implementation rule
 

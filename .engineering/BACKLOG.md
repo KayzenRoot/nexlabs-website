@@ -3,32 +3,30 @@
 ## Completed
 
 - M01 through M05 — APPROVED/MERGED.
-- M06A Technology + Solutions — APPROVED/MERGED.
-- M06B Research + Company — APPROVED/MERGED.
-- M06C Contact + final integration — APPROVED/MERGED.
 - M06 Secondary Pages — COMPLETE.
+- M07A Release Hardening & Production Readiness — APPROVED in PR #18; checkpoint promotion is this governance increment.
 
-## Active
+## Next — NECESSARY
 
-### M07A — Release Hardening & Production Readiness
+### WO-013 — Visual Fidelity Restoration / Master Alignment
 
-ADMITTED under `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS`.
+Owner visual acceptance is still pending. The site must be materially closer to the approved Home Visual Master before launch.
 
-- production-only security headers/CSP;
-- pre-launch noindex/robots posture;
-- branded 404 and controlled error boundary;
-- standalone production container candidate;
-- release-readiness CI;
-- six-route/a11y/performance regression;
-- Contact zero-collection regression;
-- container rollback rehearsal;
-- development Docker continuity.
+Required direction:
+- stronger Home 3D composition, N/chamber/material/lighting/floor/Earth/panels;
+- stronger living-organism energy continuity;
+- proprietary holographic capability iconography;
+- higher-fidelity Research/Technology lower-world composition;
+- more elaborate desktop/mobile navigation and microinteractions;
+- richer depth on secondary pages without a second WebGL runtime;
+- deterministic master-vs-candidate visual evidence;
+- preserve M07A security/performance hardening and all accessibility/fallback tiers.
 
-## Next
+## Blocked
 
 ### M07B — Deployment Admission + Production Launch Validation
 
-BLOCKED until M07A is APPROVED, merged and checkpoint-promoted, and until provider/origin/domain inputs are explicitly approved.
+BLOCKED until WO-013 is APPROVED, merged and checkpoint-promoted, and until provider/origin/domain inputs are explicitly approved.
 
 ## Future
 
@@ -37,4 +35,4 @@ BLOCKED until M07A is APPROVED, merged and checkpoint-promoted, and until provid
 - careers;
 - CMS/CRM;
 - analytics/personalization;
-- WebGPU if evidence justifies it.
+- WebGPU only if evidence justifies it.

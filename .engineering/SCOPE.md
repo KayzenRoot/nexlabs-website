@@ -2,52 +2,48 @@
 
 ## Completed
 
-- M01 through M06 are APPROVED/MERGED.
-- Six V1 routes are complete.
-- Contact is read-only/zero-collection.
+- M01 through M06: APPROVED/MERGED.
+- M07A Release Hardening & Production Readiness: APPROVED/MERGED.
+- Six V1 routes exist.
+- Contact remains read-only/zero-collection.
+- Production hardening baseline is established but no public deployment is admitted.
 
-## Active — M07A Release Hardening & Production Readiness
+## Next NECESSARY increment
 
-Work Order: `NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS`
-Risk: ELEVATED
+### WO-013 — Visual Fidelity Restoration / Master Alignment
 
-### NECESSARY
+The owner has explicitly rejected final visual acceptance of the current implementation because it is not yet sufficiently faithful to the approved Home Visual Master.
 
-- production-only security headers/CSP;
-- pre-launch noindex/nofollow + robots disallow;
-- no sitemap/canonical origin until M07B;
-- branded 404 and error recovery UI;
-- standalone/minimal production container candidate;
-- release-readiness validation workflow;
-- broad six-route regression;
-- security/dependency/secret checks;
-- provider-neutral rollback rehearsal;
-- development Docker remains UP/healthy.
+NECESSARY scope after admission:
+- restore stronger fidelity to the master composition;
+- deepen the Home 3D lab world;
+- improve material/lighting/energy/floor/network/HUD depth;
+- elevate header/menu desktop + mobile;
+- replace flatter motifs with proprietary holographic iconography;
+- strengthen one-world continuity through Home lower sections;
+- elevate secondary-page depth using CSS/SVG/HTML only;
+- preserve approved copy, factual safety, routes, Contact zero-collection and M07A hardening;
+- preserve FULL/BALANCED/STATIC, reduced-motion and fallback;
+- maintain performance budgets, not weaken them;
+- retain deterministic side-by-side visual evidence.
 
-### IMPORTANT
+## IMPORTANT
 
-- keep development and production Docker paths separate;
-- preserve all public copy/visual behavior;
-- do not add dependencies unless STOP/re-admission proves necessity;
-- retain exact image digests and rollback commands;
-- keep D-0008 and Contact zero-collection permanent.
+- The master is a composition/art-direction source, not public factual proof.
+- Do not use the master image as a page background or crop parts of it to fake implementation fidelity.
+- Do not add a second WebGL runtime to secondary pages.
+- Do not add dependencies unless separately justified/re-admitted.
+- D-0008 remains permanent.
+- M07A security/runtime behavior is regression-protected.
 
-### FUTURE / M07B
+## BLOCKED / OUT OF SCOPE
 
-- provider selection/ADR;
-- production URL/domain/DNS/TLS/HSTS;
-- canonical URLs/sitemap/index enablement;
-- actual deployment;
-- post-deploy validation and provider-specific rollback.
-
-## OUT OF SCOPE FOR WO-012
-
-- public deployment;
-- provider credentials;
-- DNS/domain/TLS/HSTS;
+- M07B public deployment;
+- provider/domain/DNS/TLS/HSTS;
+- canonical production origin/index enablement;
 - analytics;
 - Contact collection;
-- product redesign/content expansion;
-- M07B execution.
+- CMS/CRM/auth/database;
+- unrelated product expansion.
 
-Do not advance to M07B before M07A APPROVED/MERGED/checkpoint-promoted.
+Do not advance to M07B until WO-013 is independently APPROVED, merged and checkpoint-promoted.
