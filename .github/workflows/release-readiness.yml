@@ -1,0 +1,122 @@
+name: Release Readiness
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-readiness-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+env:
+  NEXLABS_GIT_SHA: ${{ github.event.pull_request.head.sha || github.sha }}
+  NEXLABS_RELEASE_TAG: ${{ github.event.pull_request.head.sha || github.sha }}
+
+jobs:
+  release-readiness:
+    name: Release Readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+
+      - name: Build the production candidate
+        run: docker compose --file compose.production.yaml build --pull
+
+      - name: Start the local candidate
+        run: docker compose --file compose.production.yaml up --detach
+
+      - name: Verify readiness and retain artifact identity
+        id: validate
+        run: |
+          set -euo pipefail
+          base_url="http://127.0.0.1:${NEXLABS_RELEASE_PORT:-3001}"
+          container="$(docker compose --file compose.production.yaml ps --quiet web)"
+          image="nexlabs-website-release-candidate:${NEXLABS_RELEASE_TAG}"
+          image_id="$(docker image inspect --format '{{.Id}}' "$image")"
+          revision="$(docker image inspect --format '{{index .Config.Labels "org.opencontainers.image.revision"}}' "$image")"
+
+          for attempt in $(seq 1 60); do
+            health="$(docker inspect --format '{{.State.Health.Status}}' "$container")"
+            if [[ "$health" == "healthy" ]]; then break; fi
+            if [[ "$health" == "unhealthy" ]]; then docker compose --file compose.production.yaml logs; exit 1; fi
+            sleep 2
+          done
+          [[ "${health:-}" == "healthy" ]]
+
+          routes=(/ /technology /solutions /research /company /contact)
+          for path in "${routes[@]}" /__m07a_missing_route__; do
+            expected=200
+            [[ "$path" == /__m07a_missing_route__ ]] && expected=404
+            headers_file="$(mktemp)"
+            body_file="$(mktemp)"
+            status="$(curl --silent --show-error --dump-header "$headers_file" --output "$body_file" --write-out '%{http_code}' "$base_url$path")"
+            [[ "$status" == "$expected" ]]
+            grep -qi '^x-content-type-options: nosniff' "$headers_file"
+            grep -qi '^referrer-policy: strict-origin-when-cross-origin' "$headers_file"
+            grep -qi '^x-frame-options: DENY' "$headers_file"
+            grep -qi '^permissions-policy:.*camera=().*microphone=().*geolocation=().*payment=()' "$headers_file"
+            grep -qi "^content-security-policy:.*default-src 'self'" "$headers_file"
+            grep -qi "^content-security-policy:.*base-uri 'self'" "$headers_file"
+            grep -qi "^content-security-policy:.*object-src 'none'" "$headers_file"
+            grep -qi "^content-security-policy:.*frame-ancestors 'none'" "$headers_file"
+            grep -qi "^content-security-policy:.*form-action 'none'" "$headers_file"
+            grep -qi "^content-security-policy:.*connect-src 'self'" "$headers_file"
+            ! grep -qi '^strict-transport-security:' "$headers_file"
+            if [[ "$path" != /__m07a_missing_route__ ]]; then
+              grep -qi '<meta name="robots" content="noindex, nofollow"' "$body_file"
+              ! grep -qi 'rel="canonical"' "$body_file"
+            else
+              grep -q 'This page is outside our signal\.' "$body_file"
+            fi
+            rm -f "$headers_file" "$body_file"
+          done
+
+          robots="$(curl --fail --silent --show-error "$base_url/robots.txt")"
+          grep -qi '^User-Agent: \*$' <<< "$robots"
+          grep -qi '^Disallow: /$' <<< "$robots"
+          ! grep -qi '^Sitemap:' <<< "$robots"
+          sitemap_status="$(curl --silent --output /dev/null --write-out '%{http_code}' "$base_url/sitemap.xml")"
+          [[ "$sitemap_status" == 404 ]]
+
+          uid="$(docker exec "$container" node -p 'process.getuid()')"
+          [[ "$uid" -gt 0 ]]
+          [[ "$(docker inspect --format '{{.HostConfig.ReadonlyRootfs}}' "$container")" == "true" ]]
+          cap_drop="$(docker inspect --format '{{json .HostConfig.CapDrop}}' "$container")"
+          grep -q 'ALL' <<< "$cap_drop"
+          security_opts="$(docker inspect --format '{{json .HostConfig.SecurityOpt}}' "$container")"
+          grep -q 'no-new-privileges:true' <<< "$security_opts"
+          docker exec "$container" node -e 'const fs = require("node:fs"); for (const path of ["/app/src", "/app/tests", "/app/.engineering", "/app/.git", "/app/.env", "/app/package-lock.json"]) { if (fs.existsSync(path)) { console.error(`unexpected runtime path: ${path}`); process.exitCode = 1; } }'
+
+          mkdir -p .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS
+          printf '{"gitSha":"%s","image":"%s","imageId":"%s","revision":"%s","containerId":"%s","health":"%s","routes":["/","/technology","/solutions","/research","/company","/contact"],"unknownRouteStatus":404,"robots":"disallow-all","sitemapStatus":404,"runtimeUid":%s,"readOnlyRoot":true,"capDrop":"ALL","noNewPrivileges":true,"deploymentPerformed":false}\n' \
+            "$NEXLABS_GIT_SHA" "$image" "$image_id" "$revision" "$container" "$health" "$uid" \
+            > .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/ci-release-readiness.json
+
+      - name: Capture candidate logs
+        if: always()
+        run: docker compose --file compose.production.yaml logs --no-color --tail=100 > .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/ci-container-logs.txt || true
+
+      - name: Stop only the temporary candidate
+        if: always()
+        run: docker compose --file compose.production.yaml down --remove-orphans
+
+      - name: Retain release-readiness evidence
+        if: always() && steps.validate.outcome == 'success'
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-readiness-${{ github.event.pull_request.head.sha || github.sha }}
+          path: .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/ci-*
+          if-no-files-found: error
+          retention-days: 30
