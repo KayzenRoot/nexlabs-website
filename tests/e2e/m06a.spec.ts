@@ -17,6 +17,7 @@ const routeCases = [
       "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems.",
     heading: "Systems designed to adapt.",
     primaryNavigation: { name: "Explore solutions", href: "/solutions" },
+    researchNavigation: { name: "Explore research", href: "/research" },
     sections: [
       "A modular foundation.",
       "Architecture follows evidence.",
@@ -32,6 +33,7 @@ const routeCases = [
       "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints.",
     heading: "Intelligence applied with intent.",
     primaryNavigation: { name: "Explore technology", href: "/technology" },
+    researchNavigation: { name: "Explore research", href: "/research" },
     sections: [
       "Different problems need different shapes.",
       "From question to working system.",
@@ -45,8 +47,8 @@ const routeCases = [
 const primaryNavigationLinks = [
   { name: "Solutions", href: "/solutions" },
   { name: "Technology", href: "/technology" },
-  { name: "Research", href: "/#research" },
-  { name: "Company", href: "/#vision" },
+  { name: "Research", href: "/research" },
+  { name: "Company", href: "/company" },
 ] as const;
 
 function observeScriptResponses(page: Page) {
@@ -156,6 +158,10 @@ test("M06A routes retain canonical metadata, semantic content and isolated bundl
       "href",
       route.primaryNavigation.href,
     );
+    await expect(page.getByRole("link", { name: route.researchNavigation.name })).toHaveAttribute(
+      "href",
+      route.researchNavigation.href,
+    );
 
     const observedScripts = await scripts.finish();
     expect(observedScripts.scriptGzipBytes, `${route.path} initial route JS gzip`).toBeLessThanOrEqual(
@@ -250,9 +256,7 @@ test("global navigation and route CTAs resolve only to admitted destinations", a
     const paths = await page.locator("a[href]").evaluateAll((links) =>
       links.map((link) => new URL((link as HTMLAnchorElement).href).pathname),
     );
-    expect(paths.some((path) => ["/research", "/company", "/contact"].includes(path))).toBe(
-      false,
-    );
+    expect(paths).not.toContain("/contact");
     await page.getByRole("link", { name: route.primaryNavigation.name }).click();
     await expect(page).toHaveURL(new RegExp(`${route.primaryNavigation.href}$`));
   }
@@ -312,7 +316,7 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
   }
 });
 
-test("both secondary routes meet WCAG 2.2 AA automated checks and no future route is fabricated", async ({
+test("M06A routes meet WCAG 2.2 AA and no M06C route is fabricated", async ({
   page,
 }) => {
   for (const route of routeCases) {
@@ -323,8 +327,6 @@ test("both secondary routes meet WCAG 2.2 AA automated checks and no future rout
     expect(results.violations).toEqual([]);
   }
 
-  for (const futurePath of ["/research", "/company", "/contact"]) {
-    const response = await page.goto(futurePath);
-    expect(response?.status(), `${futurePath} remains unimplemented`).toBe(404);
-  }
+  const contactResponse = await page.goto("/contact");
+  expect(contactResponse?.status(), "/contact remains reserved for M06C").toBe(404);
 });

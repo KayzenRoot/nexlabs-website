@@ -136,7 +136,9 @@
 }
 
 .stackArtwork,
-.orbitArtwork {
+.orbitArtwork,
+.researchArtwork,
+.companyFrame {
   position: relative;
   z-index: var(--z-content);
   display: block;
@@ -242,6 +244,112 @@
   filter: drop-shadow(0 0 11px rgb(46 167 255 / 92%));
 }
 
+.researchRail,
+.researchRailFine,
+.alignmentFrame,
+.alignmentRail,
+.alignmentRailFine,
+.alignmentAxis {
+  fill: none;
+  stroke: rgb(111 206 255 / 36%);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.researchRailFine,
+.alignmentRailFine {
+  stroke: rgb(141 215 255 / 22%);
+  stroke-dasharray: 2 8;
+}
+
+.signalTrail {
+  fill: none;
+  stroke: #92e7ff;
+  stroke-dasharray: 16 560;
+  stroke-linecap: round;
+  stroke-width: 2;
+  animation: signal-travel 8s linear infinite;
+  filter: drop-shadow(0 0 6px rgb(63 194 255 / 82%));
+  vector-effect: non-scaling-stroke;
+}
+
+.researchNode,
+.evidenceNode,
+.principlePoint {
+  fill: #d8f8ff;
+  filter: drop-shadow(0 0 5px rgb(71 210 255 / 88%));
+}
+
+.evidenceHalo {
+  fill: rgb(64 176 255 / 7%);
+  stroke: rgb(123 223 255 / 42%);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.evidenceCore,
+.alignmentCore {
+  fill: url("#research-evidence-core");
+  stroke: rgb(185 241 255 / 78%);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.evidenceSignal {
+  fill: none;
+  stroke: rgb(239 252 255 / 88%);
+  stroke-linecap: round;
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.companyArtwork {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.alignmentFrame {
+  stroke: rgb(116 204 255 / 42%);
+}
+
+.alignmentRail {
+  stroke: rgb(121 218 255 / 40%);
+}
+
+.alignmentAxis {
+  stroke: rgb(183 241 255 / 28%);
+}
+
+.principleNode {
+  fill: rgb(12 24 40 / 82%);
+  stroke: rgb(120 218 255 / 72%);
+  stroke-width: 1.3;
+  vector-effect: non-scaling-stroke;
+}
+
+.alignmentCore {
+  fill: rgb(21 65 103 / 18%);
+  stroke: rgb(150 231 255 / 45%);
+}
+
+.companyMark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: block;
+  width: 24%;
+  aspect-ratio: 1;
+  opacity: 0.84;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 0 1.2rem rgb(67 174 255 / 35%));
+}
+
+.brandEcho {
+  width: 100%;
+  height: 100%;
+}
+
 .sectionHeading {
   max-width: 50rem;
   margin-bottom: clamp(1.7rem, 3vw, 2.7rem);
@@ -273,6 +381,12 @@
   }
   to {
     transform: translate3d(0, -0.45rem, 0);
+  }
+}
+
+@keyframes signal-travel {
+  to {
+    stroke-dashoffset: -576;
   }
 }
 
@@ -335,6 +449,10 @@
 
 @media (prefers-reduced-motion: reduce) {
   .heroArtwork {
+    animation: none;
+  }
+
+  .signalTrail {
     animation: none;
   }
 

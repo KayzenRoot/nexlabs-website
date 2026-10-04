@@ -94,3 +94,18 @@ Home planned sections:
 - Research, Company and Contact routes remain unimplemented until their own Work Orders.
 - No placeholder secondary routes are allowed.
 - Route JS/performance remains within the existing V1 budgets.
+
+
+### M06B secondary-page requirements
+
+- M06B implements only `/research` and `/company` plus the exact route-transition updates admitted by WO-010.
+- Exact Research/Company public copy and metadata come from `.engineering/SECONDARY-PAGES-SPEC.md`.
+- Exact Home transition copy/destinations come from `.engineering/HOME-CONTENT-SPEC.md`.
+- Research must describe method, exploration directions and evidence discipline without fabricated publications, patents, breakthroughs, customer deployments or research metrics.
+- Company must describe purpose, principles and working model without fabricated team size, history, founding facts, offices, partners, awards, customers or milestones.
+- Global Research and Company navigation moves to real routes only after those routes exist.
+- Technology/Solutions and admitted Home Research CTAs move to `/research`.
+- Contact remains `/#contact`; `/contact` must remain unimplemented until M06C.
+- Research/Company must reuse the M06 secondary-page architecture and must not mount the Home HeroScene.
+- Route JS/performance remains within existing V1 budgets.
+- Home, Technology and Solutions regressions remain required.

@@ -1,0 +1,42 @@
+{
+  "tool": "@axe-core/playwright",
+  "routes": [
+    {
+      "path": "/research",
+      "standard": "WCAG 2.2 AA; axe-core tags wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa",
+      "passes": 21,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodeCount": 63,
+          "manualReviewReasons": [
+            "Element's background color could not be determined due to a background gradient",
+            "Element content contains only non-text characters",
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        }
+      ],
+      "violations": []
+    },
+    {
+      "path": "/company",
+      "standard": "WCAG 2.2 AA; axe-core tags wcag2a, wcag2aa, wcag21a, wcag21aa, wcag22aa",
+      "passes": 21,
+      "incomplete": [
+        {
+          "id": "color-contrast",
+          "impact": "serious",
+          "help": "Elements must meet minimum color contrast ratio thresholds",
+          "nodeCount": 61,
+          "manualReviewReasons": [
+            "Element's background color could not be determined due to a background gradient",
+            "Element content contains only non-text characters"
+          ]
+        }
+      ],
+      "violations": []
+    }
+  ]
+}

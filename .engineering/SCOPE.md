@@ -5,51 +5,48 @@
 - GEF Bootstrap and M01 through M05 are APPROVED and merged.
 - Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES`.
 - M06A Technology + Solutions is APPROVED and merged.
-- Production routes now include `/`, `/technology` and `/solutions`.
+- Current production routes: `/`, `/technology`, `/solutions`.
 
-## Current state
+## Active — M06B Research + Company
 
-No product implementation Work Order is active.
+Work Order: `NEXLABS-WO-010-M06B-RESEARCH-COMPANY`.
 
-M06B Research + Company is the next legal planning increment. Its implementation is **not admitted** until a fresh Work Order and exact Context Lock are compiled against the post-promotion main state.
+### NECESSARY
 
-### NECESSARY candidate scope for M06B planning
-
-- Define canonical factual-safe content for `/research` and `/company`.
-- Implement those two routes only after WO-010 admission.
-- Preserve the approved identity, secondary-page foundation and living-organism visual language.
-- Update global navigation so Research and Company point to real routes only when those routes exist.
+- Implement canonical factual-safe `/research`.
+- Implement canonical factual-safe `/company`.
+- Reuse the approved M06A secondary-page foundation.
+- Update global Research and Company navigation only after the routes exist.
+- Update Technology/Solutions Research CTA to the real Research route.
+- Update the Home Research links to the real Research route.
+- Replace the stale Home final-CTA transition sentence with the M06B canonical copy.
 - Preserve Home, Technology and Solutions regressions.
-- Define route metadata, responsive, accessibility, performance and evidence requirements before execution.
+- Validate metadata, responsive behavior, WCAG 2.2 AA, performance, evidence and Docker continuity.
 
 ### IMPORTANT
 
-- Reuse M06A secondary-page primitives when appropriate rather than creating a parallel design system.
-- Keep content structure friendly to future localization without implementing localization.
+- Keep Research framed around method/evidence, not fabricated publications or breakthroughs.
+- Keep Company framed around purpose/principles/working model, not fabricated team/history/scale.
+- Reuse/generalize shared M06 components only where justified.
+- Keep structure friendly to future localization without implementing localization.
 
 ### FUTURE
 
 - M06C Contact + final integration.
-- Portuguese/Spanish localization.
-- Careers.
-- CMS/editorial workflow.
-- CRM/newsletter.
-- Advanced analytics/personalization.
-- WebGPU path if evidence later justifies it.
+- localization, careers, CMS, CRM/newsletter, advanced analytics/personalization and evidence-justified WebGPU.
 
-## Explicitly not admitted yet
+## OUT OF SCOPE FOR WO-010
 
-Until WO-010 is admitted, do not implement:
-- `/research`;
-- `/company`;
 - `/contact`;
 - contact backend/form submission;
 - CMS/CRM;
-- authentication/database;
+- auth/database;
 - analytics/trackers;
 - localization;
 - public deployment;
-- new WebGL/Three scenes;
-- fabricated proof.
+- new WebGL/Three scene;
+- new animation framework;
+- fabricated research/company proof;
+- unrelated cleanup.
 
-Any M06B implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.
+Do not advance to M06C until WO-010 is independently APPROVED, merged and checkpoint-promoted.

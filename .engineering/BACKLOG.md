@@ -7,17 +7,30 @@
 - M03 — Brand System: APPROVED and merged; production identity `NEX-N-A-PRECISION-BLADES`.
 - M04 — Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
 - M05 — Home Content Sections: APPROVED and merged in PR #10; checkpoint promoted in PR #11.
-- M06A — Technology + Solutions: APPROVED at exact head `0328527eabd6efd6cf763e4f7baf731a93731229` and squash-merged in PR #12 as product merge `60b00c5cf539c1c4edce74207bf63c3b774b03c9`.
+- M06A — Technology + Solutions: APPROVED in PR #12; checkpoint promoted in PR #13.
 
-## Current planning state
+## Active
 
-M06 Secondary Pages remains the active program, but no product implementation Work Order is active after M06A.
+### M06 — Secondary Pages
+
+#### M06B — Research + Company
+ADMITTED under `NEXLABS-WO-010-M06B-RESEARCH-COMPANY`.
+
+- production `/research`;
+- production `/company`;
+- reuse/generalization of M06A secondary-page primitives;
+- Research/Company global navigation transition;
+- Research CTA transition on Technology/Solutions and Home;
+- truthful Home final-CTA transition copy;
+- factual-safe research/company storytelling;
+- responsive/accessibility/performance evidence;
+- Home + M06A regression protection;
+- Docker UP/healthy.
 
 ## Next
 
-1. M06B — Research + Company
-2. M06C — Contact + final cross-route integration
-3. M07 — Production Hardening & Launch
+1. M06C — Contact + final cross-route integration
+2. M07 — Production Hardening & Launch
 
 ## Future
 

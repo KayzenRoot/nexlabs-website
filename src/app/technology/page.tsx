@@ -69,7 +69,7 @@ export default function TechnologyPage() {
           eyebrow="TECHNOLOGY"
           idPrefix="technology"
           primaryAction={{ href: "/solutions", label: "Explore solutions" }}
-          secondaryAction={{ href: "/#research", label: "Research on the Home" }}
+          secondaryAction={{ href: "/research", label: "Explore research" }}
           title="Systems designed to adapt."
           visual={<TechnologyStackArtwork />}
         />

@@ -109,6 +109,11 @@ describe("HomePage", () => {
         "Research at Nex Labs is a bridge between possibility and implementation. We explore emerging methods, prototype aggressively and use evidence to decide what deserves to become a product or platform.",
       ),
     ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "Technology, Solutions, Research and Company extend the Nex Labs story beyond the Home. Contact remains the next dedicated destination.",
+      ),
+    ).toBeInTheDocument();
     expect(screen.getByText("AI Models & Analytics")).toBeInTheDocument();
     expect(screen.getByText("Data Infrastructure")).toBeInTheDocument();
     expect(screen.getByText("Secure & Scalable Systems")).toBeInTheDocument();
@@ -159,11 +164,11 @@ describe("HomePage", () => {
     );
     expect(within(navigation).getByRole("link", { name: "Research" })).toHaveAttribute(
       "href",
-      "/#research",
+      "/research",
     );
     expect(within(navigation).getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
-      "/#vision",
+      "/company",
     );
 
     const globalHeader = container.querySelector(":scope > header");
@@ -196,6 +201,22 @@ describe("HomePage", () => {
     expect(within(footerNavigation).getByRole("link", { name: "Technology" })).toHaveAttribute(
       "href",
       "/technology",
+    );
+    expect(within(footerNavigation).getByRole("link", { name: "Research" })).toHaveAttribute(
+      "href",
+      "/research",
+    );
+    expect(within(footerNavigation).getByRole("link", { name: "Company" })).toHaveAttribute(
+      "href",
+      "/company",
+    );
+    expect(screen.getByRole("link", { name: "Explore research" })).toHaveAttribute(
+      "href",
+      "/research",
+    );
+    expect(screen.getByRole("link", { name: "View research" })).toHaveAttribute(
+      "href",
+      "/research",
     );
   });
 

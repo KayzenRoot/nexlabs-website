@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { BrandMark } from "./brand-mark";
 import styles from "./secondary-page.module.css";
 
 type SecondaryAction = {
@@ -16,7 +17,7 @@ type SecondaryHeroProps = {
   readonly visual: ReactNode;
 };
 
-/** Shared, semantic first-frame for M06A routes. */
+/** Shared, semantic first-frame for the M06 secondary routes. */
 export function SecondaryHero({
   idPrefix,
   eyebrow,
@@ -58,7 +59,7 @@ type SectionHeadingProps = {
   readonly description?: string;
 };
 
-/** Keeps section labels and heading relationships consistent across M06A. */
+/** Keeps section labels and heading relationships consistent across M06. */
 export function SecondarySectionHeading({
   id,
   eyebrow,
@@ -172,5 +173,84 @@ export function SolutionsOrbitArtwork() {
       <circle className={styles.node} cx="132" cy="158" r="4" />
       <circle className={styles.coreLight} cx="310" cy="270" r="10" />
     </svg>
+  );
+}
+
+/** Branching signal field that converges on an evidence core without a scene runtime. */
+export function ResearchSignalArtwork() {
+  return (
+    <svg
+      className={styles.researchArtwork}
+      focusable="false"
+      viewBox="0 0 620 520"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <radialGradient id="research-field-halo">
+          <stop stopColor="#55cfff" stopOpacity="0.28" />
+          <stop offset="1" stopColor="#2478d8" stopOpacity="0" />
+        </radialGradient>
+        <radialGradient id="research-evidence-core">
+          <stop stopColor="#e8fbff" stopOpacity="0.94" />
+          <stop offset="0.24" stopColor="#8deaff" stopOpacity="0.72" />
+          <stop offset="1" stopColor="#1765a4" stopOpacity="0.16" />
+        </radialGradient>
+      </defs>
+      <ellipse cx="310" cy="260" fill="url(#research-field-halo)" rx="286" ry="226" />
+      <path className={styles.researchRail} d="M42 92h105l74 44m-179 292h105l74-44m357-292H473l-74 44m179 292H473l-74-44M310 32v112m0 232v112" />
+      <path className={styles.researchRailFine} d="m62 172 127 26 88 43m281-69-127 26-88 43M62 348l127-26 88-43m281 69-127-26-88-43" />
+      <path className={styles.signalTrail} d="M42 92h105l74 44 89 88m-268 204h105l74-44 89-88m248-204H473l-74 44-89 88m268 204H473l-74-44-89-88M310 32v112m0 232v112" />
+      <circle className={styles.researchNode} cx="42" cy="92" r="5" />
+      <circle className={styles.researchNode} cx="42" cy="428" r="5" />
+      <circle className={styles.researchNode} cx="578" cy="92" r="5" />
+      <circle className={styles.researchNode} cx="578" cy="428" r="5" />
+      <circle className={styles.researchNode} cx="310" cy="32" r="5" />
+      <circle className={styles.researchNode} cx="310" cy="488" r="5" />
+      <circle className={styles.evidenceHalo} cx="310" cy="260" r="89" />
+      <circle className={styles.evidenceCore} cx="310" cy="260" r="48" />
+      <path className={styles.evidenceSignal} d="M286 260h48m-24-24v48m-17-7 34-34" />
+      <circle className={styles.evidenceNode} cx="211" cy="136" r="4" />
+      <circle className={styles.evidenceNode} cx="211" cy="384" r="4" />
+      <circle className={styles.evidenceNode} cx="409" cy="136" r="4" />
+      <circle className={styles.evidenceNode} cx="409" cy="384" r="4" />
+    </svg>
+  );
+}
+
+/** Measured principle field with the approved brand mark as a restrained center echo. */
+export function CompanyAlignmentArtwork() {
+  return (
+    <div className={styles.companyArtwork}>
+      <svg
+        className={styles.companyFrame}
+        focusable="false"
+        viewBox="0 0 620 520"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <defs>
+          <radialGradient id="company-alignment-halo">
+            <stop stopColor="#4ecbff" stopOpacity="0.26" />
+            <stop offset="1" stopColor="#2369c7" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        <ellipse cx="310" cy="260" fill="url(#company-alignment-halo)" rx="274" ry="216" />
+        <path className={styles.alignmentFrame} d="M100 86h420v348H100zM138 124h344v272H138z" />
+        <path className={styles.alignmentRail} d="M310 44v125m0 182v125M58 260h142m220 0h142M190 140l80 80m80 80 80 80m0-240-80 80m-80 80-80 80" />
+        <path className={styles.alignmentRailFine} d="M190 140h240v240H190zM310 86v88m0 172v88M100 260h90m240 0h90" />
+        <circle className={styles.principleNode} cx="190" cy="140" r="18" />
+        <circle className={styles.principleNode} cx="430" cy="140" r="18" />
+        <circle className={styles.principleNode} cx="190" cy="380" r="18" />
+        <circle className={styles.principleNode} cx="430" cy="380" r="18" />
+        <circle className={styles.principlePoint} cx="190" cy="140" r="3" />
+        <circle className={styles.principlePoint} cx="430" cy="140" r="3" />
+        <circle className={styles.principlePoint} cx="190" cy="380" r="3" />
+        <circle className={styles.principlePoint} cx="430" cy="380" r="3" />
+        <circle className={styles.alignmentCore} cx="310" cy="260" r="76" />
+        <path className={styles.alignmentAxis} d="M310 169v182M219 260h182" />
+      </svg>
+      <span className={styles.companyMark}>
+        <BrandMark className={styles.brandEcho} />
+      </span>
+    </div>
   );
 }
