@@ -7,7 +7,7 @@
 - Branch/PR: `work/nexlabs-wo-010-m06b-research-company`, PR #14 → `main`.
 - Base aprovada/admission SHA: `96330a8d50c30fab2a680b27f1c56252a4ac4fb6`.
 - HEAD remoto/local antes da implementação: `fdb10c3a17b0c961972ff79c8992ecc5e9b4aa06`.
-- Referência imutável validada mais recente de implementação e testes: `0dd3e34ee3c9568ec606298f6c3773fadabba608` (implementação em `c4f8d7138961fd8443f73506e90a6a7e0c94264b`; commits de testes/evidência em `92afc944a44af460c3bfb376edb40b2a7b627994`, `7167c2cda720b7de72659fef9bfa3ba8711167c8` e `0dd3e34ee3c9568ec606298f6c3773fadabba608`).
+- Referência imutável validada mais recente de implementação e testes: `806bae704bc148879ce903ac5547ca36390907ea` (implementação em `c4f8d7138961fd8443f73506e90a6a7e0c94264b`; commits de testes/evidência em `92afc944a44af460c3bfb376edb40b2a7b627994`, `7167c2cda720b7de72659fef9bfa3ba8711167c8`, `0dd3e34ee3c9568ec606298f6c3773fadabba608` e `806bae704bc148879ce903ac5547ca36390907ea`).
 - Context Lock: `.engineering/context-locks/NEXLABS-WO-010-M06B-RESEARCH-COMPANY.json`, SHA-256 `0ee80a7414813d881b994f62b6c0c28df1b7fb84a0f36de7bc000fff9877a021`.
 - Preflight na base admitida: 22 fontes críticas e 12 fontes de código-base conferidas; `STALE_COUNT=0`. `startingHead` e `mainSha` do lock são iguais à base acima. Nenhuma fonte crítica foi alterada.
 - O clone principal com alterações locais pré-existentes foi preservado; o trabalho ocorreu no worktree isolado da branch autorizada, inicialmente limpo. Sem reset, rebase, force-push ou reescrita de histórico.
@@ -72,7 +72,7 @@ Os caminhos alterados estão dentro do `writeAllowed` do Context Lock. O Checkpo
 - Skip link e foco por teclado passam; `prefers-reduced-motion: reduce` remove a animação ornamental medida; alterações relevantes continuam em HTML semântico.
 - Sem overflow horizontal em 1600×900, 1440×900, 900×768, 390×844 e 320×740.
 - Evidências de navegação registram destinations verificados no header/footer em `/`, `/technology`, `/solutions`, `/research` e `/company`; `/contact` permanece reservado e retorna 404.
-- O proxy laboratorial do skip link por teclado até o segundo animation frame mediu 40 ms em Research e 43,4 ms em Company (alvo ≤200 ms). Não é medição de INP de usuários reais.
+- O proxy laboratorial do skip link por teclado até o segundo animation frame mediu 42,4 ms em Research e 53,3 ms em Company (alvo ≤200 ms). Não é medição de INP de usuários reais.
 
 ## Performance e isolamento
 
@@ -81,10 +81,10 @@ Fonte: Playwright Chromium contra build de produção local, relatório `.engine
 | Rota | JS inicial gzip (limite 225.280 B) | LCP desktop 1600×900 | LCP mobile 390×844 | CLS desktop/mobile |
 |---|---:|---:|---:|---:|
 | `/research` | 133.659 B | 212 ms | 96 ms | 0 / 0 |
-| `/company` | 133.659 B | 264 ms | 104 ms | 0 / 0 |
+| `/company` | 133.659 B | 168 ms | 120 ms | 0 / 0 |
 
 - Os bundles iniciais ficam abaixo de 220 KiB gzip e não incluem chunks `three`/`hero-scene`; as duas rotas não renderizam canvas ou runtime WebGL.
-- Os valores são medições laboratoriais deste host, não dados de usuários reais. O array Event Timing de carga não recebeu eventos; o proxy de interação por teclado foi medido separadamente em 41,2 ms (Research) e 48,7 ms (Company).
+- Os valores são medições laboratoriais deste host, não dados de usuários reais. O array Event Timing de carga não recebeu eventos; o proxy de interação por teclado foi medido separadamente em 42,4 ms (Research) e 53,3 ms (Company).
 
 ## Evidências retidas
 
@@ -112,7 +112,10 @@ Fonte: Playwright Chromium contra build de produção local, relatório `.engine
 - Limitação de acessibilidade: axe não automatiza a verificação de contraste sobre gradientes; requer confirmação manual do revisor. Nenhuma violação axe foi reportada.
 - Cobertura browser local: Chromium/Playwright; navegadores/dispositivos físicos adicionais não foram testados.
 - Aprovação independente do HEAD exato: PENDING até revisão externa; isso é um gate antes de merge, não altera o estado pedido de PR aberta para review.
+- CodeRabbit pediu que o teste reduced-motion inspecione também descendentes do wrapper SVG; o commit `806bae704bc148879ce903ac5547ca36390907ea` verifica todos os elementos internos, inclusive `.signalTrail`. O relatório arredonda proxies a uma casa decimal e os valores deste Evidence Bundle correspondem ao JSON retido.
+- O nitpick CodeRabbit de baixa prioridade pede alterar `staleIfChanged` no Context Lock. Esse caminho não está no `writeAllowed`; alterá-lo exigiria nova admissão e mudaria o lock validado. Nenhuma fonte crítica mudou, então a sugestão permanece pendente fora deste Work Order.
 - No HEAD anterior `4875eaf154842f111e785d029f1de76fc4306ed4`, SonarCloud reprovou o limite inalterado de duplicação nova: 4,5% (81 linhas, máximo 3%), em quatro blocos repetidos entre `tests/e2e/m06a.spec.ts` e `tests/e2e/m06b.spec.ts`. O commit `0dd3e34ee3c9568ec606298f6c3773fadabba608` reestruturou somente o teste M06B, sem remover assertions nem alterar gates; lint, typecheck, unit e E2E passaram localmente. O resultado Sonar exato do novo HEAD ainda precisa ser conferido na PR após o próximo push.
+- Uma execução integral local teve o teste de performance legado da Home medir LCP mobile em 3.388 ms, acima do limite existente de 2.500 ms. O retry isolado desse teste passou e a suíte integral seguinte passou 19/19; nenhum limite ou gate foi alterado.
 - CI Quality, Browser Smoke, Sonar, Socket e CodeRabbit do HEAD candidato são consultados novamente após o último push e registrados nos metadados da PR. Checks de SHAs anteriores não são reutilizados como resultado do candidato.
 - Nenhuma proteção, check ou gate foi enfraquecido. A PR permanece OPEN; sem merge, promoção do Checkpoint ou início do M06C.
 
