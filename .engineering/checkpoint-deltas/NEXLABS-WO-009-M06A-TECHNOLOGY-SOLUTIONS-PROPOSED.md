@@ -1,6 +1,6 @@
 # Checkpoint Delta — NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS
 
-State: PROPOSED — awaiting exact-head checks and independent review; not promoted.
+State: PROPOSED — final exact-head status is recorded in PR metadata/audit; awaiting independent review; not promoted.
 
 ## Candidate
 
@@ -8,7 +8,7 @@ State: PROPOSED — awaiting exact-head checks and independent review; not promo
 - Base SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - Context Lock entry head: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
 - Validated product source SHA: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`; latest locally validated test fix: `2322200b501ae6240ca8f250910985e9b7ae3148`.
-- Last remote exact-head check before this ratification/evidence follow-up: `eda3df1c365c045d2c8a3efb0a0363721848d093`. CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts and SonarCloud passed; CodeRabbit remained pending. The prior Browser Smoke failure at `418457afe1126a5b25c93e14a7dd51b564b2eaa7` was fixed by waiting for the unchanged skip-link visible-top threshold; full local Chromium suite passed 16/16. Revalidate the final remote head after this follow-up.
+- The product implementation SHA `37fe123b61ead5fd5d83df9bfc12555bf913ce4c` and validated test-fix SHA `2322200b501ae6240ca8f250910985e9b7ae3148` are immutable evidence references. The final PR HEAD and its exact-head gate results are captured in PR metadata/audit after the last push, not duplicated here, avoiding a self-referential evidence SHA. The prior Browser Smoke failure at `418457afe1126a5b25c93e14a7dd51b564b2eaa7` was fixed by waiting for the unchanged skip-link visible-top threshold; full local Chromium suite passed 16/16.
 - PR #12 stays OPEN/READY FOR REVIEW and targets `main`.
 
 ## Proposed checkpoint facts

@@ -89,8 +89,7 @@ Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-perform
 - `agent-browser` não estava instalado globalmente; a verificação foi executada sem persistir dependência de projeto via `npx`, versão 0.38.2. Também foi usada a suíte Chromium/Playwright do repositório.
 - A execução de LCP foi laboratorial e o perfil FULL usou SwiftShader; confirmar desempenho em GPU/dispositivo físico continua fora da qualificação local.
 - O log de desenvolvimento do Home registrou o aviso preexistente `THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.`; as rotas M06A continuam sem erros/overlays, e o componente Home fora do escopo não foi alterado.
-- No HEAD remoto `eda3df1c365c045d2c8a3efb0a0363721848d093`, CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts e SonarCloud passaram; Sonar registrou zero bugs, code smells, duplicações, vulnerabilidades e hotspots. CodeRabbit estava `PENDING / Review in progress`; a decisão de review da PR está vazia, sem aprovação independente. O achado MAJOR de contraste intermediário está `FIXED/CLOSED` no Sonar. O comentário CodeRabbit sobre o teste fora do lock foi atendido pela ratificação explícita acima.
-- O candidato local com a correção `2322200` passou E2E 16/16, lint, typecheck, build, unidade 21/21 e npm audit. Como o registro de ratificação/documentação altera o Context Lock e Evidence Bundle, os checks devem ser revalidados no novo HEAD remoto e lidos na PR #12; resultados de SHA anterior não são reutilizados. A revisão independente exata permanece pendente; a PR segue aberta para review.
+- O HEAD final da PR e os resultados dos gates vinculados a esse HEAD são mutáveis. Eles são capturados na auditoria e nos metadados da PR após o último push, e não duplicados neste arquivo versionado, para evitar ciclo autorreferente de SHA. A revisão independente exata permanece gate externo antes de qualquer merge; a PR segue aberta.
 
 ## Checkpoint Delta
 
