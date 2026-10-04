@@ -1,0 +1,222 @@
+{
+  "source": "Playwright Chromium navigation assertions",
+  "verifiedPages": [
+    {
+      "page": "/",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "nextChapterHref": "/#contact"
+    },
+    {
+      "page": "/technology",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "nextChapterHref": "/#contact"
+    },
+    {
+      "page": "/solutions",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "nextChapterHref": "/#contact"
+    },
+    {
+      "page": "/research",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "nextChapterHref": "/#contact"
+    },
+    {
+      "page": "/company",
+      "headerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "footerLinks": [
+        {
+          "name": "Solutions",
+          "href": "/solutions"
+        },
+        {
+          "name": "Technology",
+          "href": "/technology"
+        },
+        {
+          "name": "Research",
+          "href": "/research"
+        },
+        {
+          "name": "Company",
+          "href": "/company"
+        }
+      ],
+      "nextChapterHref": "/#contact"
+    }
+  ],
+  "homeResearchActions": [
+    {
+      "label": "Explore research",
+      "href": "/research"
+    },
+    {
+      "label": "View research",
+      "href": "/research"
+    }
+  ],
+  "technologyAndSolutionsResearchActions": [
+    {
+      "label": "Explore research",
+      "href": "/research"
+    }
+  ],
+  "contactRouteStatus": 404
+}
