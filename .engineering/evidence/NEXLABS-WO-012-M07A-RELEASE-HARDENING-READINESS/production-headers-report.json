@@ -1,5 +1,5 @@
 {
-  "source": "Playwright HTTP response headers against production Next.js runtime",
+  "source": "Playwright HTTP response headers against the exact SHA-labeled hardened production candidate at 127.0.0.1:3002",
   "routes": [
     {
       "path": "/",
@@ -86,5 +86,7 @@
       "result": "PASS"
     }
   ],
-  "staticScriptCspPresent": false
+  "staticScriptCspPresent": false,
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
 }

@@ -1,13 +1,12 @@
 {
-  "sourceGitSha": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
-  "image": "nexlabs-website-release-candidate:872e032a5a20",
-  "imageConfigDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
-  "imageManifestDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
-  "imageRevision": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "image": "nexlabs-website-release-candidate:06ec97d",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "imageRevision": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
   "baseImage": "node:22-bookworm-slim",
   "baseImageResolvedDigest": "sha256:43ac6c60b8f89723f746e8a92ce91abd5017e627ce1ddfe4238355d3a30b772c",
   "container": "nexlabs-m07a-production-candidate-web-1",
-  "containerId": "7275798abe398953026548b5338b3649ad9a893ee064caeef01e5b45f4865cd2",
+  "containerId": "f6df55727f836ec571eab9347288b2f4e65427f23310e06940052e9ae9b32634",
   "health": "healthy",
   "publishedPort": [
     {
@@ -15,6 +14,7 @@
       "HostPort": "3002"
     }
   ],
+  "nodeVersion": "v22.23.3",
   "runtimeUser": "1000:1000",
   "uid": 1000,
   "readOnlyRoot": true,
@@ -28,48 +28,37 @@
   "securityOptions": [
     "no-new-privileges:true"
   ],
+  "dependencyInstall": "npm ci --ignore-scripts",
   "routes": [
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/"
+      "path": "/",
+      "status": 200
     },
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/technology"
+      "path": "/technology",
+      "status": 200
     },
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/solutions"
+      "path": "/solutions",
+      "status": 200
     },
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/research"
+      "path": "/research",
+      "status": 200
     },
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/company"
+      "path": "/company",
+      "status": 200
     },
     {
-      "noindex": true,
-      "status": 200,
-      "hasCsp": true,
-      "path": "/contact"
+      "path": "/contact",
+      "status": 200
     },
     {
-      "noindex": true,
+      "path": "/m07a-missing-route",
       "status": 404,
-      "hasCsp": true,
-      "path": "/m07a-missing-route"
+      "noindex": true,
+      "hasCsp": true
     }
   ],
   "robotsStatus": 200,
@@ -83,5 +72,36 @@
     "/app/.env": false,
     "/app/package-lock.json": false
   },
-  "writableTmpfsProbe": "PASS"
+  "writableTmpfsProbe": "PASS",
+  "playwright": {
+    "tests": 26,
+    "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+    "target": "http://127.0.0.1:3002",
+    "result": "PASS",
+    "previousExactCandidateFullSuite": {
+      "tests": 26,
+      "passed": 26,
+      "failed": 0,
+      "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+      "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+      "result": "PASS"
+    },
+    "latestFullSuiteRepeat": {
+      "tests": 26,
+      "passed": 25,
+      "failed": 1,
+      "mobileLcpMs": 3056,
+      "thresholdMs": 2500,
+      "result": "PERFORMANCE_VARIANCE"
+    },
+    "isolatedPerformanceRetry": {
+      "tests": 1,
+      "passed": 1,
+      "mobileLcpMs": 2380,
+      "mobileCls": 0,
+      "mobileInteractionProxyMs": 56,
+      "result": "PASS"
+    }
+  },
+  "result": "PASS"
 }

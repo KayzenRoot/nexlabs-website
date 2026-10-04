@@ -1,5 +1,5 @@
 {
-  "source": "Playwright Chromium against local production build",
+  "source": "Playwright Chromium against the exact SHA-labeled hardened production candidate at 127.0.0.1:3002",
   "budgets": {
     "routeInitialJsGzipBytes": 225280,
     "lcpMs": 2500,
@@ -8,13 +8,13 @@
   },
   "scripts": {
     "urls": [
-      "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js",
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js",
+      "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js",
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js",
       "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js",
       "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js",
-      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
       "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
-      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js",
+      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
       "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js"
     ],
     "gzipBytes": 141743
@@ -24,7 +24,7 @@
       "viewport": "1600x900",
       "clientWidth": 1600,
       "scrollWidth": 1600,
-      "lcpMs": 112,
+      "lcpMs": 184,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -33,7 +33,7 @@
       "viewport": "1440x900",
       "clientWidth": 1440,
       "scrollWidth": 1440,
-      "lcpMs": 252,
+      "lcpMs": 272,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -42,7 +42,7 @@
       "viewport": "900x768",
       "clientWidth": 900,
       "scrollWidth": 900,
-      "lcpMs": 116,
+      "lcpMs": 112,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -51,7 +51,7 @@
       "viewport": "390x844",
       "clientWidth": 390,
       "scrollWidth": 390,
-      "lcpMs": 92,
+      "lcpMs": 132,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -60,7 +60,7 @@
       "viewport": "320x740",
       "clientWidth": 320,
       "scrollWidth": 320,
-      "lcpMs": 104,
+      "lcpMs": 152,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -73,9 +73,11 @@
   },
   "interactionProxy": {
     "method": "keyboard Tab then Enter on skip-link target; two animation frames",
-    "measuredMs": 56.8,
+    "measuredMs": 58.6,
     "result": "main received focus",
     "targetMs": 200,
     "limitation": "lab proxy rather than real-user INP"
-  }
+  },
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
 }

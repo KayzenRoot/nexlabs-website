@@ -12,5 +12,7 @@
   "nonGetRequests": [],
   "externalLinks": 0,
   "canvas": 0,
-  "note": "DOM and browser network observation on the production build; no contact data collection or transmission surface was found."
+  "note": "DOM and browser network observation against the exact SHA-labeled production candidate at 127.0.0.1:3002; no contact data collection or transmission surface was found.",
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f"
 }

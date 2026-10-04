@@ -6,22 +6,22 @@
   },
   "static": {
     "tier": "STATIC",
-    "loadMs": 668,
-    "lcpMs": 492,
+    "loadMs": 468,
+    "lcpMs": 356,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 393.79999999701977,
-    "loadEventMs": 394.3999999910593,
+    "domContentLoadedMs": 195.09999999403954,
+    "loadEventMs": 338.19999998807907,
     "scriptGzipBytes": 144912,
     "scripts": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
       "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js": 8840,
       "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
-      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
       "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
-      "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
-      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
       "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
+      "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
+      "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
       "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169
     }
   },
@@ -36,12 +36,12 @@
       "webgl2Ready": true,
       "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
     },
-    "loadMs": 5530,
-    "lcpMs": 368,
+    "loadMs": 5184,
+    "lcpMs": 364,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 189.09999999403954,
-    "loadEventMs": 352,
+    "domContentLoadedMs": 184.79999999701977,
+    "loadEventMs": 346.5,
     "scriptGzipBytes": 397894,
     "chunks": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
@@ -50,8 +50,8 @@
       "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
       "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
       "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
-      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
       "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
+      "http://127.0.0.1:3002/_next/static/chunks/1znhxx2tq_3ei.js": 44100,
       "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
       "http://127.0.0.1:3002/_next/static/chunks/0rfvdcdqlumx5.js": 252982
     },
@@ -65,7 +65,7 @@
     "frameTimes": {
       "sampleCount": 119,
       "medianFrameMs": 33.3,
-      "p95FrameMs": 33.5,
+      "p95FrameMs": 33.4,
       "medianFps": 30
     }
   },
@@ -80,9 +80,9 @@
     },
     "frameTimes": {
       "sampleCount": 119,
-      "medianFrameMs": 50.1,
-      "p95FrameMs": 116.6,
-      "medianFps": 20
+      "medianFrameMs": 66.6,
+      "p95FrameMs": 133.3,
+      "medianFps": 15
     }
   },
   "balanced": {
@@ -106,19 +106,19 @@
       "uploadBytesPerSecond": 96000
     },
     "cpuThrottlingRate": 4,
-    "loadMs": 2902,
-    "lcpMs": 2416,
+    "loadMs": 2938,
+    "lcpMs": 2380,
     "cls": 0,
-    "inpMs": 72,
+    "inpMs": 56,
     "inpSampleCount": 3,
-    "domContentLoadedMs": 1541.5,
-    "loadEventMs": 2501.2000000029802,
+    "domContentLoadedMs": 955.5,
+    "loadEventMs": 2439.5,
     "scriptGzipBytes": 144912,
     "scripts": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
       "http://127.0.0.1:3002/_next/static/chunks/0eo1cde-rr3bs.js": 8840,
-      "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
       "http://127.0.0.1:3002/_next/static/chunks/3fntmmi971322.js": 3661,
+      "http://127.0.0.1:3002/_next/static/chunks/turbopack-1md4n9lw0k6q-.js": 3846,
       "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
       "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
       "http://127.0.0.1:3002/_next/static/chunks/1ntquxc2rpd7b.js": 3169,
@@ -128,8 +128,18 @@
     "interactionLatency": {
       "type": "single laboratory CTA activation; proxy only, not field INP",
       "eventSampleCount": 3,
-      "maximumEventDurationMs": 72,
+      "maximumEventDurationMs": 56,
       "budgetMs": 200
     }
+  },
+  "sourceGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "retest": {
+    "target": "http://127.0.0.1:3002",
+    "result": "PASS",
+    "mobileLcpMs": 2380,
+    "mobileCls": 0,
+    "mobileInteractionProxyMs": 56,
+    "budgetLcpMs": 2500
   }
 }

@@ -1,0 +1,67 @@
+{
+  "candidateGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "candidateImage": "nexlabs-website-release-candidate:06ec97d",
+  "candidateImageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "target": "http://127.0.0.1:3002",
+  "performanceBudget": {
+    "mobileLcpMs": 2500,
+    "cls": 0.1,
+    "interactionProxyMs": 200
+  },
+  "earlierExactCandidateFullSuite": {
+    "tests": 26,
+    "passed": 26,
+    "failed": 0,
+    "result": "PASS"
+  },
+  "latestExactCandidateFullSuiteRepeat": {
+    "tests": 26,
+    "passed": 25,
+    "failed": 1,
+    "failedTest": "measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles",
+    "mobileLcpMs": 2864,
+    "budgetMs": 2500,
+    "otherTestsPassed": true
+  },
+  "isolatedExactCandidatePerformanceRetry": {
+    "tests": 1,
+    "passed": 1,
+    "mobileLcpMs": 2380,
+    "cls": 0,
+    "interactionProxyMs": 56,
+    "result": "PASS"
+  },
+  "hostedSignalsForCodeHead": {
+    "CIQuality": "PASS",
+    "BrowserSmoke": "PASS",
+    "ReleaseReadiness": "PASS",
+    "Sonar": "PASS",
+    "SocketPullRequestAlerts": "PASS",
+    "SocketProjectReport": "PASS",
+    "CodeRabbit": "PASS/no actionable comments"
+  },
+  "note": "These are repeat measurements under the same image digest; the single over-budget full-suite sample was not hidden. The isolated retry passed with a 120 ms LCP margin. No product changes were made between samples; interpret local throttled-browser LCP as variable lab evidence rather than field INP/LCP.",
+  "latestFullSuiteRepeat": {
+    "tests": 26,
+    "passed": 25,
+    "failed": 1,
+    "failure": "mobile LCP exceeded the 2500 ms laboratory threshold",
+    "result": "PERFORMANCE_VARIANCE"
+  },
+  "fullSuiteRepeats": [
+    {
+      "tests": 26,
+      "passed": 25,
+      "failed": 1,
+      "mobileLcpMs": 2864,
+      "budgetMs": 2500
+    },
+    {
+      "tests": 26,
+      "passed": 25,
+      "failed": 1,
+      "mobileLcpMs": 3056,
+      "budgetMs": 2500
+    }
+  ]
+}

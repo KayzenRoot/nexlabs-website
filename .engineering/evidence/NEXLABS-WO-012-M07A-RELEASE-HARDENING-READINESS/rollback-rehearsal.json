@@ -7,73 +7,75 @@
   "admissionBaseHealth": "healthy",
   "admissionBaseRoutes": [
     {
-      "status": 200,
-      "path": "/"
+      "path": "/",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/technology"
+      "path": "/technology",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/solutions"
+      "path": "/solutions",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/research"
+      "path": "/research",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/company"
+      "path": "/company",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/contact"
+      "path": "/contact",
+      "status": 200
     }
   ],
-  "candidateGitSha": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
-  "candidateImage": "nexlabs-website-release-candidate:872e032a5a20",
-  "candidateImageDigest": "sha256:802f7434e8b98573b570ef5a73ff0f30a54794db6124feef47a2d922864bb2f8",
+  "candidateGitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "candidateImage": "nexlabs-website-release-candidate:06ec97d",
+  "candidateImageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
+  "candidateContainerId": "f6df55727f836ec571eab9347288b2f4e65427f23310e06940052e9ae9b32634",
   "candidateHealthAfterRestore": "healthy",
   "candidateRoutesAfterRestore": [
     {
-      "status": 200,
-      "path": "/"
+      "path": "/",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/technology"
+      "path": "/technology",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/solutions"
+      "path": "/solutions",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/research"
+      "path": "/research",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/company"
+      "path": "/company",
+      "status": 200
     },
     {
-      "status": 200,
-      "path": "/contact"
+      "path": "/contact",
+      "status": 200
     }
   ],
-  "developmentDocker": "running/healthy",
+  "developmentDocker": "running/healthy at 127.0.0.1:3000; Home HTTP 200",
   "commands": [
-    "docker compose --file compose.production.yaml stop web",
-    "docker run --detach --name nexlabs-m07a-rollback-base --publish 127.0.0.1:3002:3000 --read-only --tmpfs /tmp and /app/.next/cache --security-opt no-new-privileges --cap-drop ALL nexlabs-website-admission-base:d7ec01e94d30",
-    "verify healthcheck and GET /, /technology, /solutions, /research, /company, /contact return 200",
+    "docker compose --file compose.production.yaml stop web (candidate only)",
+    "docker run --detach --name nexlabs-m07a-rollback-base --publish 127.0.0.1:3002:3000 --read-only --tmpfs /tmp and /app/.next/cache --security-opt no-new-privileges --cap-drop ALL --user 1000:1000 nexlabs-website-admission-base:d7ec01e94d30",
+    "verify admission-base health and six route HTTP 200; confirm non-root/read-only/cap drop/no-new-privileges",
     "docker stop nexlabs-m07a-rollback-base",
     "docker rm nexlabs-m07a-rollback-base",
-    "docker compose --file compose.production.yaml start web",
-    "verify candidate healthcheck and six routes return 200"
+    "docker compose --file compose.production.yaml start web (candidate only)",
+    "verify exact candidate health and six route HTTP 200; development Docker remains healthy"
   ],
   "limitations": [
     "Provider-neutral Docker Desktop rehearsal only; it does not test a future hosting provider, external routing, DNS, TLS, HSTS, production secrets, or an RTO.",
     "No previously published production image existed at admission; the rollback image was built from the exact admission-base source SHA as an equivalent local runtime, tagged and digested.",
-    "Candidate and admission-base images remain local; no registry push or public deployment occurred."
+    "Candidate and admission-base images remain local; no registry push or public deployment occurred.",
+    "The temporary admission-base container was removed after the rehearsal; its full container ID was not retained. The immutable admission-base image digest and exact Git SHA are retained."
   ]
 }

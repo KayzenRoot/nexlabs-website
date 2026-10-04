@@ -1,7 +1,11 @@
 {
-  "source": "Playwright Chromium on exact-implementation production candidate at http://127.0.0.1:3002/",
-  "gitSha": "872e03299aa7d7852c12ec04b5a2f428b8361ab0",
+  "source": "Playwright Chromium on exact SHA-labeled production candidate",
+  "target": "http://127.0.0.1:3002/",
+  "gitSha": "06ec97dfdc4cb38fb2294e9b437ceca94e346c6f",
+  "imageDigest": "sha256:4a4b92db4dfd03a02bfda28ce17aed1bb8eab1f1663097aee1675416dfc6713f",
   "runtime": "Node 22.23.3 standalone",
+  "httpStatus": 200,
+  "cspHeaderPresent": true,
   "inlineNextRscHydrationScripts": 2,
   "inlineStyleAttributeCount": 4,
   "inlineCanvasStyle": "display: block; width: 1600px; height: 452px;",
