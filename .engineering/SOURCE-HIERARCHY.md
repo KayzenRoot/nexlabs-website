@@ -12,15 +12,16 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Requirements | REQUIREMENTS.md and the active Work Order |
 | Architecture | ARCHITECTURE.md and accepted architecture decisions |
 | Home visual composition | HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md and the exact approved reference asset |
-| M05 Home content and approved copy | HOME-CONTENT-SPEC.md |
-| M06 secondary routes and approved copy | SECONDARY-PAGES-SPEC.md plus the active M06 Work Order |
+| Home content and approved copy | HOME-CONTENT-SPEC.md |
+| M06 secondary routes and approved copy | SECONDARY-PAGES-SPEC.md |
 | UI/UX and brand identity | UI-UX.md, BRAND-SYSTEM.md and accepted owner visual decisions |
 | Decisions | DECISIONS-LEDGER.md and accepted ADRs |
 | Completion | DEFINITION-OF-DONE.md and Work Order acceptance criteria |
 | Execution | Active Work Order plus its exact Context Lock |
 | Security | SECURITY.md and repository settings/evidence |
 | Validation | TEST-BENCHMARK-PLAN.md and exact-head check results |
+| Deployment | DEPLOYMENT.md and an admitted launch Work Order |
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-The active implementation authority is `NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION` plus its exact Context Lock. `SECONDARY-PAGES-SPEC.md` is canonical for Contact copy, the read-only boundary and final M06 navigation transition. `HOME-CONTENT-SPEC.md` is canonical for the final Home CTA transition. Approved Home/M06A/M06B routes remain regression-protected. M07 is not executable until M06C is approved, merged and checkpoint-promoted. The approved Home Visual Master and selected `NEX-N-A-PRECISION-BLADES` identity remain binding visual inputs.
+No product implementation Work Order is active after the approved/merged M06C checkpoint. M06 is complete. M07 becomes execution authority only after a new Work Order and exact Context Lock are admitted against the post-promotion main SHA. Existing M06 route/content specifications remain canonical for shipped behavior. The approved Home Visual Master and `NEX-N-A-PRECISION-BLADES` identity remain binding.

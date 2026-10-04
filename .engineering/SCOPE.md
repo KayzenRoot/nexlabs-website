@@ -1,41 +1,58 @@
 # Scope
 
 ## Completed product scope
+
 - GEF Bootstrap and M01 through M05: APPROVED/MERGED.
-- M06A Technology + Solutions: APPROVED/MERGED.
-- M06B Research + Company: APPROVED/MERGED.
-- Production routes at admission: `/`, `/technology`, `/solutions`, `/research`, `/company`.
+- M06 Secondary Pages: COMPLETE after M06A, M06B and M06C.
+- Production routes: `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`.
+- Contact is intentionally read-only/zero-collection in V1.
 
-## Active — M06C Contact + final integration
-Work Order: `NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION`.
+## Current state
 
-### NECESSARY
-- Implement canonical read-only `/contact`.
-- Publish Project Brief, Contact Availability and Data Boundary.
-- Reuse approved M06 secondary-page foundation.
-- Header/footer action → `Contact Nex Labs` → `/contact`.
-- Preserve four primary nav items.
-- Update only admitted Home final CTA.
-- Preserve Home `#contact` id.
-- Validate all six V1 routes, accessibility, responsive, performance and Docker.
+No product implementation Work Order is active.
 
-### SECURITY / PRIVACY BOUNDARY
-Zero collection: no form/input/textarea/upload/submit; no API/server action; no mailto/tel; no invented channel; no CRM/database/auth/newsletter; no analytics/tracker.
+M07 Production Hardening & Launch is the next legal program, but implementation is not admitted yet.
 
-Future submission/channel work requires verified provenance plus separately admitted privacy/security controls.
+### NECESSARY planning direction
+
+M07 should be split rather than executed as one large launch increment.
+
+#### M07A — Release hardening & production readiness
+Candidate NECESSARY scope:
+- repository/config/runtime hardening for production;
+- security headers and browser policy review;
+- robots/sitemap/metadata consistency;
+- 404/error/loading behavior where applicable;
+- final route/accessibility/performance regression matrix;
+- dependency/runtime/container hardening;
+- production Docker/readiness validation;
+- launch checklist, rollback/roll-forward and recovery evidence;
+- no provider deployment unless separately admitted.
+
+#### M07B — Deployment admission + launch validation
+Candidate scope only after M07A APPROVED:
+- explicit deployment provider/target selection;
+- environment/config contract;
+- deployment execution;
+- DNS/domain/TLS only if factual inputs are available and separately approved;
+- post-deploy smoke, security, accessibility/performance and rollback evidence.
 
 ### IMPORTANT
-- Contact must be useful through briefing guidance, not fake communication affordances.
-- D-0008 fabricated-proof prohibition remains permanent.
 
-### FUTURE
-- M07 Production Hardening & Launch.
-- Verified contact channel/submission only if separately governed.
-- Localization, careers, CMS, CRM/newsletter, analytics/personalization, WebGPU if justified.
+- Do not invent domain, DNS, production URL, provider credentials or analytics.
+- Do not add a Contact submission path as part of launch hardening.
+- Keep D-0008 permanent.
+- Prefer evidence-driven hardening before deployment.
 
-## OUT OF SCOPE FOR WO-011
-Contact backend/data collection, email provider, mailto/tel, CRM/newsletter/database/auth, analytics, localization, public deployment, new WebGL/Three, M07 launch, unrelated cleanup.
+## OUT OF SCOPE UNTIL ADMITTED
 
-Fabricated business proof remains prohibited permanently under D-0008.
+- any production deployment;
+- DNS/domain changes;
+- provider credentials;
+- analytics/tracking;
+- Contact data collection;
+- localization;
+- CMS/CRM/auth/database;
+- unrelated product expansion.
 
-Do not advance to M07 until WO-011 is independently APPROVED, merged and checkpoint-promoted.
+Do not execute M07 before its Work Order and exact Context Lock are admitted.

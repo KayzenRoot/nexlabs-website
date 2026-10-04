@@ -10,6 +10,8 @@
 - M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and merged in PR #10.
 - M06A Technology + Solutions: APPROVED at exact head `0328527eabd6efd6cf763e4f7baf731a93731229` and merged in PR #12.
 - M06B Research + Company: APPROVED at exact head `ee160d50a4ca8c1edad25d06a295c505eace6993` and merged in PR #14.
+- M06C Contact + final integration: APPROVED at exact head `4d92cc9f75c66c92e0991be312da6d1b0afcee88` and merged in PR #16.
+- M06 Secondary Pages program: COMPLETE.
 
 ## Completed gate — M05 Home Content Sections
 
@@ -106,9 +108,9 @@ M06B is complete. The following gate was satisfied:
 28. Independent exact-head audit reports APPROVED.
 29. Checkpoint promotion occurs only after approval and authorized merge.
 
-## M06C — Contact + final cross-route integration
+## Completed gate — M06C Contact + final cross-route integration
 
-M06C is complete only when:
+M06C is complete. The following gate was satisfied:
 1. `/contact` is a real route with canonical content/metadata.
 2. Contact is read-only and zero-collection.
 3. No form/input/upload/submit/API/mailto/tel/invented channel exists.
@@ -128,6 +130,10 @@ M06C is complete only when:
 17. Promotion occurs only after approval and authorized merge.
 
 After M06C approval/merge/promotion, the M06 Secondary Pages program is complete.
+
+## Next Definition of Done
+
+M07 Production Hardening & Launch is not yet admitted. The next Work Order must define the smallest coherent hardening increment before any deployment is attempted.
 
 ## Global implementation rule
 

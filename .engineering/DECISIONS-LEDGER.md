@@ -25,4 +25,6 @@
 
 | D-0021 | M06C Contact is admitted as a read-only zero-collection route because no verified public contact channel exists in the repository; the global action moves to /contact while Home #contact remains for legacy deep links. Any future contact channel/submission path requires separate privacy/security admission. | ACCEPTED | NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION / M06C planning |
 
+| D-0022 | M06C Contact + final integration is accepted after independent exact-head audit and squash merge; M06 Secondary Pages is complete. M07 must begin with release hardening before any separately admitted deployment/launch action. | ACCEPTED / MERGED | NEXLABS-WO-011 / PR #16 |
+
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.
