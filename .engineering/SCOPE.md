@@ -5,48 +5,48 @@
 - GEF Bootstrap and M01 through M05 are APPROVED and merged.
 - Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES`.
 - M06A Technology + Solutions is APPROVED and merged.
-- Current production routes: `/`, `/technology`, `/solutions`.
+- M06B Research + Company is APPROVED and merged.
+- Production routes now include `/`, `/technology`, `/solutions`, `/research` and `/company`.
 
-## Active — M06B Research + Company
+## Current state
 
-Work Order: `NEXLABS-WO-010-M06B-RESEARCH-COMPANY`.
+No product implementation Work Order is active.
 
-### NECESSARY
+M06C Contact + final cross-route integration is the next legal planning increment. Its implementation is **not admitted** until a fresh Work Order and exact Context Lock are compiled against the post-promotion main state.
 
-- Implement canonical factual-safe `/research`.
-- Implement canonical factual-safe `/company`.
-- Reuse the approved M06A secondary-page foundation.
-- Update global Research and Company navigation only after the routes exist.
-- Update Technology/Solutions Research CTA to the real Research route.
-- Update the Home Research links to the real Research route.
-- Replace the stale Home final-CTA transition sentence with the M06B canonical copy.
-- Preserve Home, Technology and Solutions regressions.
-- Validate metadata, responsive behavior, WCAG 2.2 AA, performance, evidence and Docker continuity.
+### NECESSARY candidate scope for M06C planning
+
+- Define canonical factual-safe content and interaction model for `/contact`.
+- Implement the dedicated Contact route only after WO-011 admission.
+- Switch global “Explore the next chapter” navigation from `/#contact` to the real Contact route only when it exists.
+- Reconcile any remaining transitional Home copy after Contact becomes a dedicated destination.
+- Preserve Home, Technology, Solutions, Research and Company regressions.
+- Define explicit security/privacy obligations before admitting any form, user input or data submission.
+- Define route metadata, responsive, accessibility, performance and evidence requirements before execution.
 
 ### IMPORTANT
 
-- Keep Research framed around method/evidence, not fabricated publications or breakthroughs.
-- Keep Company framed around purpose/principles/working model, not fabricated team/history/scale.
-- Reuse/generalize shared M06 components only where justified.
+- Prefer an informational Contact destination unless a server-side submission path is explicitly admitted with validation, abuse controls, rate limiting, privacy boundaries and failure-safe logging.
+- Reuse the approved M06 secondary-page foundation rather than creating a parallel design system.
 - Keep structure friendly to future localization without implementing localization.
 
 ### FUTURE
 
-- M06C Contact + final integration.
+- M07 Production Hardening & Launch.
 - localization, careers, CMS, CRM/newsletter, advanced analytics/personalization and evidence-justified WebGPU.
 
-## OUT OF SCOPE FOR WO-010
+## Explicitly not admitted yet
 
+Until WO-011 is admitted, do not implement:
 - `/contact`;
-- contact backend/form submission;
+- contact form/backend/data collection;
 - CMS/CRM;
-- auth/database;
+- authentication/database;
 - analytics/trackers;
 - localization;
 - public deployment;
-- new WebGL/Three scene;
-- new animation framework;
-- fabricated research/company proof;
-- unrelated cleanup.
+- new WebGL/Three scene.
 
-Do not advance to M06C until WO-010 is independently APPROVED, merged and checkpoint-promoted.
+Fabricated business proof remains prohibited permanently under D-0008, including after WO-011 admission.
+
+Any M06C implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.

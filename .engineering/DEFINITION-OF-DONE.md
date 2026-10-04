@@ -9,6 +9,7 @@
 - M04 Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
 - M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and merged in PR #10.
 - M06A Technology + Solutions: APPROVED at exact head `0328527eabd6efd6cf763e4f7baf731a93731229` and merged in PR #12.
+- M06B Research + Company: APPROVED at exact head `ee160d50a4ca8c1edad25d06a295c505eace6993` and merged in PR #14.
 
 ## Completed gate — M05 Home Content Sections
 
@@ -71,9 +72,9 @@ M06A is complete. The following gate was satisfied:
 22. Independent exact-head audit reports APPROVED.
 23. Checkpoint promotion occurs only after approval and authorized merge.
 
-## M06B — Research + Company
+## Completed gate — M06B Research + Company
 
-M06B is complete only when:
+M06B is complete. The following gate was satisfied:
 
 1. `/research` and `/company` are real production routes.
 2. Exact M06B copy/metadata comes from SECONDARY-PAGES-SPEC.md.
@@ -104,6 +105,10 @@ M06B is complete only when:
 27. Exact-head CI/Browser/Socket/Sonar/CodeRabbit signals are checked.
 28. Independent exact-head audit reports APPROVED.
 29. Checkpoint promotion occurs only after approval and authorized merge.
+
+## Next Definition of Done
+
+M06C Contact + final cross-route integration has not yet been admitted. Its exact completion criteria, including any contact data-handling boundary, must be defined by WO-011 before implementation begins.
 
 ## Global implementation rule
 

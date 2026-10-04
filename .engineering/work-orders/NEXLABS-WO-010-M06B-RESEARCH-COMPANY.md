@@ -1,8 +1,20 @@
 # NEXLABS-WO-010-M06B-RESEARCH-COMPANY — M06B Research + Company
 
-Status: ADMITTED — READY FOR CODEX EXECUTOR
+Status: APPROVED — MERGED
 
 Risk class: STANDARD
+
+## COMPLETION RECORD
+
+- Independent audit: APPROVED.
+- Exact approved head: `ee160d50a4ca8c1edad25d06a295c505eace6993`.
+- PR: #14.
+- Squash product merge on main: `f53318d5b9f857d924d41245515206ce59af53e8`.
+- Exact-head CI Quality, Browser Smoke, Sonar, Socket and CodeRabbit signals passed.
+- Two actionable CodeRabbit threads were resolved before merge.
+- Visual/contrast spot review completed for Research/Company desktop and mobile evidence.
+- Context Lock critical sources were verified directly with 0 STALE.
+- M06B checkpoint promotion occurs only after that merge.
 
 ## OBJECTIVE
 
@@ -370,4 +382,4 @@ Brazilian Portuguese:
 
 ## STOP CONDITION
 
-Stop with M06B fully implemented, tested, evidenced, Docker UP/healthy and the PR OPEN/READY FOR REVIEW. Do not merge. Do not promote checkpoint. Do not begin M06C.
+Historical executor STOP CONDITION was satisfied before independent review. M06B is now APPROVED and merged. Do not begin M06C implementation until WO-011 and its exact Context Lock are separately admitted.
