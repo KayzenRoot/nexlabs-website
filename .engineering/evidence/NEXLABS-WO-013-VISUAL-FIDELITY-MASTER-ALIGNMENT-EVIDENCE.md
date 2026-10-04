@@ -5,7 +5,8 @@
 **Branch / PR:** `work/nexlabs-wo-013-visual-fidelity-master-alignment` / [PR #20](https://github.com/KayzenRoot/nexlabs-website/pull/20)
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
 **Branch starting HEAD:** `05a470a5b664afb2e3cc731c0a1f664dd59fa02c`
-**Implementation/test commit:** `c860171d8aa45c04032c2605934e82e1a09079d4`
+**Implementation commit:** `c860171d8aa45c04032c2605934e82e1a09079d4`
+**Deterministic Browser Smoke fixture commit:** `8ac950e`
 **Final PR HEAD:** recorded from PR #20 metadata after the final Evidence Bundle push. The immutable implementation/test SHA is retained above; this avoids a self-referential SHA in the evidence commit. Exact-head hosted check results are checked after that push and documented in the PR update.
 
 ## Authority and master identity
@@ -30,6 +31,8 @@ Files in implementation commit `c860171`:
 - `src/components/secondary-page.tsx`, `secondary-page.module.css`, `src/components/visual/scroll-reveal.tsx`.
 - `tests/e2e/home.spec.ts`, `m06a.spec.ts`, `m06b.spec.ts`, `m06c.spec.ts`, `m07a.spec.ts`, `wo013-visual-fidelity.spec.ts`.
 
+Commit `8ac950e` makes the BALANCED visual proof deterministic by setting 8 CPU/8 GB capabilities only in that Playwright context. It does not alter product tier selection.
+
 No page copy, metadata, route definitions, Contact data boundary, M07A security configuration, Dockerfile, production Compose configuration, workflow, package manifest or lockfile was changed.
 
 ## Checks and results
@@ -49,9 +52,9 @@ No page copy, metadata, route definitions, Contact data boundary, M07A security 
 | `git diff --check` | PASS. |
 | `git diff -- package.json package-lock.json` | Empty; manifests are unchanged. |
 
-Full production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/run-01` through `run-03`. Each valid run used the same immutable candidate image, one worker, retries zero and all 27 tests. The three LCP results are 1068 ms, 1092 ms and 1136 ms; all are below the unchanged 2500 ms limit. See the per-run suite logs and copied performance JSON reports for the complete receipts.
+Final production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/verified-after-browser-smoke-fix/run-01` through `run-03`. Each final run used the same immutable candidate image, one worker, retries zero and all 27 tests. The three LCP results are 1172 ms, 1120 ms and 1140 ms; all are below the unchanged 2500 ms limit. See the per-run suite logs and copied performance JSON reports for the complete receipts. The earlier passing triplet remains archived under `production-candidate-runs/run-01` through `run-03`; it is superseded as the final receipt set by this post-fixture sequence.
 
-One diagnostic attempt before the valid sequence had `E2E_PORT` unset, so the performance test targeted port 3100 while the candidate listened at 3002 and reported connection refused. That attempt is preserved under `production-candidate-runs/harness-misconfigured-attempt/`, excluded from the three-run count. The three consecutive valid runs then set both candidate port variables to 3002 and passed.
+One diagnostic attempt before the valid sequence had `E2E_PORT` unset, so the performance test targeted port 3100 while the candidate listened at 3002 and reported connection refused. That attempt is preserved under `production-candidate-runs/harness-misconfigured-attempt/`, excluded from both three-run counts. A hosted Browser Smoke on prior HEAD `98977dc` also exposed that CI’s four-core runner correctly selected STATIC while the visual test assumed BALANCED. Commit `8ac950e` fixed the test fixture only; the selector and budgets were not altered. The final consecutive sequence sets both candidate port variables to 3002 and runs with the corrected fixture.
 
 ## Visual and interaction evidence
 
@@ -67,7 +70,7 @@ All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000
 
 ## Performance and hardware limits
 
-- Home mobile: LCP 1068 / 1092 / 1136 ms; CLS 0 each; interaction proxy 88 / 48 / 56 ms.
+- Home mobile: LCP 1172 / 1120 / 1140 ms; CLS 0 each; interaction proxy 80 / 64 / 48 ms.
 - Initial Home route JavaScript: 145,791 bytes gzip (142.4 KiB), below 220 KiB.
 - Lazy Home 3D chunk: 253,946 bytes gzip (248.0 KiB), below 700 KiB.
 - The performance report identifies Chromium **ANGLE / SwiftShader software rendering**. Frame samples are retained, but this host does not establish physical-GPU frame-rate qualification.
@@ -95,7 +98,7 @@ The isolated, local production candidate used for proof is also healthy:
 
 Executor score is **PROPOSED 73/100**. The master comparisons show that N, chamber, energy rails, icon objects and global atmosphere are closer, while cinematic scene density, reflective environment, Earth/detail, capability imagery and the expansive lower-world compositions remain materially different. Reasons and criterion scores are recorded in `VISUAL-FIDELITY-REPORT.md`.
 
-Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The proposed 73/100 is below the approval threshold, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final push; no result from an earlier SHA is carried forward.
+Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The proposed 73/100 is below the approval threshold, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final correction/evidence push; no result from an earlier SHA is carried forward.
 
 ## Stop state
 

@@ -6,19 +6,19 @@
   },
   "static": {
     "tier": "STATIC",
-    "loadMs": 352,
-    "lcpMs": 332,
+    "loadMs": 341,
+    "lcpMs": 324,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 56.19999999925494,
-    "loadEventMs": 223.40000000223517,
+    "domContentLoadedMs": 51.600000001490116,
+    "loadEventMs": 215.30000000074506,
     "scriptGzipBytes": 145791,
     "scripts": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
       "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js": 9947,
       "http://127.0.0.1:3002/_next/static/chunks/turbopack-22as_nt9qctt9.js": 3850,
-      "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js": 4479,
       "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
+      "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js": 4479,
       "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
       "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js": 42823,
       "http://127.0.0.1:3002/_next/static/chunks/24yezgrm0p_34.js": 3396,
@@ -36,21 +36,21 @@
       "webgl2Ready": true,
       "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
     },
-    "loadMs": 11481,
+    "loadMs": 11935,
     "lcpMs": 284,
     "cls": 0,
     "inpSamples": [],
-    "domContentLoadedMs": 48.900000002235174,
-    "loadEventMs": 254.10000000149012,
+    "domContentLoadedMs": 150,
+    "loadEventMs": 258,
     "scriptGzipBytes": 399737,
     "chunks": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
       "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js": 9947,
       "http://127.0.0.1:3002/_next/static/chunks/turbopack-22as_nt9qctt9.js": 3850,
       "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js": 4479,
+      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
       "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js": 4090,
       "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js": 42823,
-      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js": 3608,
       "http://127.0.0.1:3002/_next/static/chunks/24yezgrm0p_34.js": 3396,
       "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js": 71628,
       "http://127.0.0.1:3002/_next/static/chunks/3ezrf0qu-qy8m.js": 253946
@@ -106,13 +106,13 @@
       "uploadBytesPerSecond": 96000
     },
     "cpuThrottlingRate": 4,
-    "loadMs": 2288,
-    "lcpMs": 1140,
+    "loadMs": 2280,
+    "lcpMs": 1120,
     "cls": 0,
-    "inpMs": 48,
+    "inpMs": 64,
     "inpSampleCount": 3,
-    "domContentLoadedMs": 1061.5,
-    "loadEventMs": 1999,
+    "domContentLoadedMs": 1055,
+    "loadEventMs": 1967.300000000745,
     "scriptGzipBytes": 145791,
     "scripts": {
       "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js": 1970,
@@ -128,7 +128,7 @@
     "interactionLatency": {
       "type": "single laboratory CTA activation; proxy only, not field INP",
       "eventSampleCount": 3,
-      "maximumEventDurationMs": 48,
+      "maximumEventDurationMs": 64,
       "budgetMs": 200
     }
   }

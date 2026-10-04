@@ -5,16 +5,17 @@
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
 **Branch:** `work/nexlabs-wo-013-visual-fidelity-master-alignment`
 **PR:** #20, to remain OPEN/READY FOR REVIEW
-**Implementation/test anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`.
+**Implementation anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`; **deterministic Browser Smoke fixture:** `8ac950e`.
 
 ## Proposed recorded progress
 
 - Implemented the WO-013 visual fidelity increment within the admitted write boundary.
 - Preserved the approved Precision Blades N source geometry, route copy/metadata, M07A security/readiness configuration, Contact zero-collection boundary, and package manifests.
 - Added deterministic master comparisons and responsive scene, navigation, five-capability-object, motion, accessibility, performance, Docker and production-candidate evidence.
-- Completed lint, typecheck, unit tests, production build, audit and full E2E regressions. Three consecutive production-candidate full E2E suites passed with retries=0 and Home mobile LCP of 1068 ms, 1092 ms and 1136 ms.
+- Completed lint, typecheck, unit tests, production build, audit and full E2E regressions. Three consecutive production-candidate full E2E suites passed with retries=0 and Home mobile LCP of 1172 ms, 1120 ms and 1140 ms.
 - Development Docker remains UP/healthy at `127.0.0.1:3000`; all six product routes return HTTP 200.
 - Executor visual score is PROPOSED at 73/100. The independent visual audit threshold (>=85/100 and required per-criterion floors), owner visual acceptance, and independent exact-head review remain pending.
+- The hosted Browser Smoke on the previous HEAD exposed a test-fixture assumption about runner hardware; the test-only correction was revalidated by three consecutive complete production-candidate suites. No production quality selector or performance budget changed.
 
 ## Proposed state after this increment
 

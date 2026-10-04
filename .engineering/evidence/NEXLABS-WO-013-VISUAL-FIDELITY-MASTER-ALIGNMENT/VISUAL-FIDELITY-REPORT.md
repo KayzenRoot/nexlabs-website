@@ -5,6 +5,7 @@
 **Work Order:** `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
 **Implementation/test anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`
+**Deterministic Browser Smoke fixture:** `8ac950e`
 **Master:** Git blob `52932511adfeb8d372717185fe9a18907625cc0c`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
 
 The score is an executor proposal based on the retained deterministic comparisons. It is not an independent audit or owner acceptance. The independent approval gate remains **PENDING** and requires at least 85/100, with Hero Composition and N/Chamber/Material each at least 15/20.

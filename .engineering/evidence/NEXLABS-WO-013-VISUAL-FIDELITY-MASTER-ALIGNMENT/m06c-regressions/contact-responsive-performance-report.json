@@ -14,8 +14,8 @@
       "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js",
       "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js",
       "http://127.0.0.1:3002/_next/static/chunks/2awzninvgoxwc.js",
-      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
       "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
+      "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
       "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js"
     ],
     "gzipBytes": 142890
@@ -25,7 +25,7 @@
       "viewport": "1600x900",
       "clientWidth": 1600,
       "scrollWidth": 1600,
-      "lcpMs": 156,
+      "lcpMs": 164,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -34,7 +34,7 @@
       "viewport": "1440x900",
       "clientWidth": 1440,
       "scrollWidth": 1440,
-      "lcpMs": 200,
+      "lcpMs": 216,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -43,7 +43,7 @@
       "viewport": "900x768",
       "clientWidth": 900,
       "scrollWidth": 900,
-      "lcpMs": 116,
+      "lcpMs": 144,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -52,7 +52,7 @@
       "viewport": "390x844",
       "clientWidth": 390,
       "scrollWidth": 390,
-      "lcpMs": 96,
+      "lcpMs": 88,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -61,7 +61,7 @@
       "viewport": "320x740",
       "clientWidth": 320,
       "scrollWidth": 320,
-      "lcpMs": 80,
+      "lcpMs": 88,
       "cls": 0,
       "horizontalOverflow": false,
       "headerContactActionVisible": true
@@ -74,7 +74,7 @@
   },
   "interactionProxy": {
     "method": "keyboard Tab then Enter on skip-link target; two animation frames",
-    "measuredMs": 65.2,
+    "measuredMs": 65.1,
     "result": "main received focus",
     "targetMs": 200,
     "limitation": "lab proxy rather than real-user INP"

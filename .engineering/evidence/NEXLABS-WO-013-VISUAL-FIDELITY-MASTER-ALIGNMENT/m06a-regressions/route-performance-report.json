@@ -6,7 +6,7 @@
       "path": "/technology",
       "title": "Technology | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 496,
+        "lcpMs": 500,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",
@@ -16,13 +16,13 @@
       "scriptGzipBytes": 142890,
       "scripts": [
         "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js",
-        "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js",
-        "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js",
         "http://127.0.0.1:3002/_next/static/chunks/turbopack-22as_nt9qctt9.js",
+        "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js",
         "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js",
-        "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
-        "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
+        "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js",
         "http://127.0.0.1:3002/_next/static/chunks/2awzninvgoxwc.js",
+        "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
+        "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
         "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js"
       ]
     },
@@ -30,7 +30,7 @@
       "path": "/solutions",
       "title": "Solutions | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 200,
+        "lcpMs": 232,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",
