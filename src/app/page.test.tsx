@@ -151,28 +151,52 @@ describe("HomePage", () => {
     const navigation = screen.getByRole("navigation", { name: "Main navigation" });
     expect(within(navigation).getByRole("link", { name: "Solutions" })).toHaveAttribute(
       "href",
-      "#capabilities",
+      "/solutions",
     );
     expect(within(navigation).getByRole("link", { name: "Technology" })).toHaveAttribute(
       "href",
-      "#infrastructure",
+      "/technology",
     );
     expect(within(navigation).getByRole("link", { name: "Research" })).toHaveAttribute(
       "href",
-      "#research",
+      "/#research",
     );
     expect(within(navigation).getByRole("link", { name: "Company" })).toHaveAttribute(
       "href",
-      "#vision",
+      "/#vision",
     );
 
+    const globalHeader = container.querySelector(":scope > header");
+    expect(globalHeader).not.toBeNull();
+    expect(
+      within(globalHeader as HTMLElement).getByRole("link", {
+        name: "Explore the next chapter",
+      }),
+    ).toHaveAttribute("href", "/#contact");
+    expect(
+      within(screen.getByRole("contentinfo")).getByRole("link", {
+        name: "Explore the next chapter",
+      }),
+    ).toHaveAttribute("href", "/#contact");
     const nextChapterLinks = screen.getAllByRole("link", {
       name: "Explore the next chapter",
     });
     expect(nextChapterLinks).toHaveLength(3);
-    for (const link of nextChapterLinks) {
-      expect(link).toHaveAttribute("href", "#contact");
-    }
+    const nextChapterTargets = nextChapterLinks.map((link) => link.getAttribute("href"));
+    expect(nextChapterTargets.filter((href) => href === "/#contact")).toHaveLength(2);
+    expect(nextChapterTargets.filter((href) => href === "#contact")).toHaveLength(1);
+
+    const footerNavigation = screen.getByRole("navigation", {
+      name: "Footer navigation",
+    });
+    expect(within(footerNavigation).getByRole("link", { name: "Solutions" })).toHaveAttribute(
+      "href",
+      "/solutions",
+    );
+    expect(within(footerNavigation).getByRole("link", { name: "Technology" })).toHaveAttribute(
+      "href",
+      "/technology",
+    );
   });
 
   it("server-renders the static hero poster without mounting a WebGL canvas", () => {

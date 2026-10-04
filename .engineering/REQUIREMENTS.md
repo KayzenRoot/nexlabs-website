@@ -81,3 +81,16 @@ Home planned sections:
 - Structured Organization data only with factual information.
 - Public copy must not claim customers, partnerships, capabilities, benchmarks or outcomes without approved factual sources.
 - Concept-art numbers are not production facts.
+
+
+### M06A secondary-page requirements
+
+- M06 is executed as independently auditable sub-increments.
+- M06A implements only `/technology` and `/solutions`.
+- Exact route copy and metadata come from `.engineering/SECONDARY-PAGES-SPEC.md`.
+- Direct route loads must have valid global navigation and skip-link/main behavior.
+- Technology and Solutions must visually inherit the approved Home world without requiring another 3D scene.
+- Secondary routes must not mount the Home HeroScene as page content.
+- Research, Company and Contact routes remain unimplemented until their own Work Orders.
+- No placeholder secondary routes are allowed.
+- Route JS/performance remains within the existing V1 budgets.

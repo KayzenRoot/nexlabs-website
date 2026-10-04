@@ -6,7 +6,7 @@ import { expect, test, type Page, type Response } from "@playwright/test";
 
 const screenshotDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-008-HOME-CONTENT-SECTIONS",
+  ".engineering/evidence/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS",
 );
 const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
 
@@ -253,8 +253,9 @@ test("M05 sections preserve canonical copy, live anchors, and visual continuity"
     .getByRole("navigation", { name: "Main navigation" })
     .getByRole("link", { name: "Technology" });
   await technologyLink.click();
-  await expect(page).toHaveURL(/#infrastructure$/);
-  await expect(page.getByRole("heading", { level: 2, name: "Built to transform." })).toBeInViewport();
+  await expect(page).toHaveURL(/\/technology$/);
+  await expect(page.getByRole("heading", { level: 1, name: "Systems designed to adapt." })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "A modular foundation." })).toBeVisible();
 });
 
 test("skip link and keyboard focus are visible and usable", async ({ page }) => {
@@ -283,10 +284,10 @@ test("mobile navigation keeps every section link reachable by keyboard", async (
   const navigation = page.getByRole("navigation", { name: "Main navigation" });
   const links = navigation.getByRole("link");
   const expectedDestinations = [
-    "#capabilities",
-    "#infrastructure",
-    "#research",
-    "#vision",
+    "/solutions",
+    "/technology",
+    "/#research",
+    "/#vision",
   ];
 
   await expect(navigation).toBeVisible();

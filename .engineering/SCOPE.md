@@ -2,53 +2,44 @@
 
 ## Completed product scope
 
-- NEXLABS-WO-001 GEF Bootstrap: APPROVED and merged.
-- M01 Product Foundation & Visual System: APPROVED and merged.
-- M02 Runtime & Repository Foundation: APPROVED and merged.
-- M03 Brand System program: APPROVED and merged.
-- M04 Home Hero 3D / Living Organism: APPROVED and merged.
-- M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and squash-merged in PR #10.
+- GEF Bootstrap and M01 through M05 are APPROVED and merged.
+- Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES`.
 
-The production Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES` identity.
+## Active — M06A Technology + Solutions
 
-## Current state
+Work Order: `NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS`.
 
-No product implementation Work Order is active.
+### NECESSARY
 
-M06 Secondary Pages is the next legal planning increment. Its implementation is **not admitted** until a fresh Work Order and exact Context Lock are compiled against the post-promotion main state.
-
-### NECESSARY candidate scope for M06 planning
-
-- Implement the planned public secondary destinations already present in Requirements: Technology, Solutions, Research, Company and Contact.
-- Preserve the approved brand, dark cinematic/living-organism visual language and factual-safe content rules.
-- Reuse existing runtime, design tokens, global chrome and quality/fallback principles instead of introducing a parallel frontend stack.
-- Keep navigation coherent between Home and implemented routes.
-- Define route-level responsive, accessibility, SEO, performance and evidence requirements before execution.
-- Keep Contact informational unless a separately admitted backend/form scope satisfies the security requirements.
+- Create the reusable secondary-page foundation.
+- Implement `/technology` from canonical M06A content.
+- Implement `/solutions` from canonical M06A content.
+- Make header/footer navigation valid from direct route loads.
+- Keep Research, Company and Contact on implemented Home destinations until their own routes are admitted.
+- Preserve the approved identity/living-organism language using lightweight CSS/SVG/HTML.
+- Preserve Home regression behavior and 3D isolation.
+- Validate metadata, responsive behavior, WCAG 2.2 AA, performance, evidence and Docker continuity.
 
 ### IMPORTANT
 
-- Prepare content structure so future localization can be added without forcing localization into M06.
-- Preserve extension points for future CMS/contact integrations without selecting or implementing vendors.
+- Reusable page primitives only where they materially reduce duplication.
+- Keep structure friendly to future localization without implementing localization.
 
 ### FUTURE
 
-- Portuguese and Spanish localization.
-- Careers/jobs experience when real openings exist.
-- CMS/editorial workflow.
-- CRM/newsletter/marketing automation.
-- Advanced analytics/personalization after privacy review.
-- WebGPU-specific rendering path if later evidence justifies it.
+- M06B Research + Company.
+- M06C Contact + final integration.
+- localization, careers, CMS, CRM/newsletter, advanced analytics/personalization and evidence-justified WebGPU.
 
-## Explicitly not admitted yet
+## OUT OF SCOPE FOR WO-009
 
-Until the M06 Work Order is approved/admitted, do not implement:
-- secondary-page code;
-- contact submission backend;
-- CMS/CRM;
-- authentication or database;
-- analytics/trackers;
-- production deployment;
-- fabricated customers, partners, metrics, awards, testimonials or outcome claims.
+- `/research`, `/company`, `/contact`;
+- contact backend/form submission;
+- CMS/CRM, auth/database, analytics/trackers;
+- localization;
+- public deployment;
+- new WebGL/Three scene or animation framework;
+- fabricated proof;
+- unrelated cleanup.
 
-Any M06 implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.
+Do not advance to M06B until WO-009 is independently approved and merged.
