@@ -1,52 +1,41 @@
 # Scope
 
 ## Completed product scope
+- GEF Bootstrap and M01 through M05: APPROVED/MERGED.
+- M06A Technology + Solutions: APPROVED/MERGED.
+- M06B Research + Company: APPROVED/MERGED.
+- Production routes at admission: `/`, `/technology`, `/solutions`, `/research`, `/company`.
 
-- GEF Bootstrap and M01 through M05 are APPROVED and merged.
-- Home is complete through M05 under the approved Visual Master and `NEX-N-A-PRECISION-BLADES`.
-- M06A Technology + Solutions is APPROVED and merged.
-- M06B Research + Company is APPROVED and merged.
-- Production routes now include `/`, `/technology`, `/solutions`, `/research` and `/company`.
+## Active — M06C Contact + final integration
+Work Order: `NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION`.
 
-## Current state
+### NECESSARY
+- Implement canonical read-only `/contact`.
+- Publish Project Brief, Contact Availability and Data Boundary.
+- Reuse approved M06 secondary-page foundation.
+- Header/footer action → `Contact Nex Labs` → `/contact`.
+- Preserve four primary nav items.
+- Update only admitted Home final CTA.
+- Preserve Home `#contact` id.
+- Validate all six V1 routes, accessibility, responsive, performance and Docker.
 
-No product implementation Work Order is active.
+### SECURITY / PRIVACY BOUNDARY
+Zero collection: no form/input/textarea/upload/submit; no API/server action; no mailto/tel; no invented channel; no CRM/database/auth/newsletter; no analytics/tracker.
 
-M06C Contact + final cross-route integration is the next legal planning increment. Its implementation is **not admitted** until a fresh Work Order and exact Context Lock are compiled against the post-promotion main state.
-
-### NECESSARY candidate scope for M06C planning
-
-- Define canonical factual-safe content and interaction model for `/contact`.
-- Implement the dedicated Contact route only after WO-011 admission.
-- Switch global “Explore the next chapter” navigation from `/#contact` to the real Contact route only when it exists.
-- Reconcile any remaining transitional Home copy after Contact becomes a dedicated destination.
-- Preserve Home, Technology, Solutions, Research and Company regressions.
-- Define explicit security/privacy obligations before admitting any form, user input or data submission.
-- Define route metadata, responsive, accessibility, performance and evidence requirements before execution.
+Future submission/channel work requires verified provenance plus separately admitted privacy/security controls.
 
 ### IMPORTANT
-
-- Prefer an informational Contact destination unless a server-side submission path is explicitly admitted with validation, abuse controls, rate limiting, privacy boundaries and failure-safe logging.
-- Reuse the approved M06 secondary-page foundation rather than creating a parallel design system.
-- Keep structure friendly to future localization without implementing localization.
+- Contact must be useful through briefing guidance, not fake communication affordances.
+- D-0008 fabricated-proof prohibition remains permanent.
 
 ### FUTURE
-
 - M07 Production Hardening & Launch.
-- localization, careers, CMS, CRM/newsletter, advanced analytics/personalization and evidence-justified WebGPU.
+- Verified contact channel/submission only if separately governed.
+- Localization, careers, CMS, CRM/newsletter, analytics/personalization, WebGPU if justified.
 
-## Explicitly not admitted yet
+## OUT OF SCOPE FOR WO-011
+Contact backend/data collection, email provider, mailto/tel, CRM/newsletter/database/auth, analytics, localization, public deployment, new WebGL/Three, M07 launch, unrelated cleanup.
 
-Until WO-011 is admitted, do not implement:
-- `/contact`;
-- contact form/backend/data collection;
-- CMS/CRM;
-- authentication/database;
-- analytics/trackers;
-- localization;
-- public deployment;
-- new WebGL/Three scene.
+Fabricated business proof remains prohibited permanently under D-0008.
 
-Fabricated business proof remains prohibited permanently under D-0008, including after WO-011 admission.
-
-Any M06C implementation requires a new Work Order and fresh Context Lock after this checkpoint promotion is merged.
+Do not advance to M07 until WO-011 is independently APPROVED, merged and checkpoint-promoted.

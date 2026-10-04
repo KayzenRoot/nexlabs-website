@@ -23,4 +23,6 @@
 | D-0019 | M06B Research + Company reuses the M06A secondary-page foundation, describes Research through method/evidence and Company through purpose/principles, upgrades Research/Company navigation only to real routes, corrects stale Home transition copy, and keeps Contact blocked for M06C. | ACCEPTED | NEXLABS-WO-010-M06B-RESEARCH-COMPANY / M06B planning |
 | D-0020 | M06B Research + Company is accepted after independent exact-head audit and squash merge; M06C may enter planning only after checkpoint promotion and requires a separately admitted Work Order and Context Lock. | ACCEPTED / MERGED | NEXLABS-WO-010 / PR #14 |
 
+| D-0021 | M06C Contact is admitted as a read-only zero-collection route because no verified public contact channel exists in the repository; the global action moves to /contact while Home #contact remains for legacy deep links. Any future contact channel/submission path requires separate privacy/security admission. | ACCEPTED | NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION / M06C planning |
+
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.

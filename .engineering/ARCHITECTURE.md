@@ -53,7 +53,7 @@ M05 completes the Home below the M04 hero with server-rendered semantic sections
 
 ## Data/backend/deployment boundary
 
-V1 remains content-led through M06B. M06A and M06B add public read-only routes only. No database, CMS, auth, analytics, contact backend, user-input pipeline or deployment-provider coupling is introduced by these increments. Contact/data submission remains reserved for a separately admitted M06C boundary.
+V1 remains content-led through M06C. M06A, M06B and M06C are public read-only routes. M06C adds no form, input pipeline, contact backend, email provider, database, CMS, auth, analytics or deployment-provider coupling. Any future contact channel/submission path requires a separately admitted privacy/security boundary.
 
 
 ## M06 secondary-page architecture
@@ -81,3 +81,13 @@ M06A rules:
 - Existing Technology/Solutions research CTAs and exact admitted Home Research links may transition to `/research`.
 - The global next-chapter destination remains `/#contact` until M06C.
 - No global client state, UI framework, animation engine, database, CMS, auth, analytics or provider coupling is introduced by M06B.
+
+
+## M06C Contact architecture
+- `/contact` is a Server Component route by default.
+- Reuse M06 secondary-page primitives.
+- CSS/SVG/HTML atmosphere only; no second Three/R3F runtime.
+- No form/data-entry/submission endpoint/mailto/tel/CRM/email provider/database/analytics.
+- Header/footer action becomes `Contact Nex Labs` → `/contact`; primary nav remains four items.
+- Home keeps `#contact` for old deep links while final CTA transitions to `/contact`.
+- M06C closes Secondary Pages; deployment/hardening remains M07.

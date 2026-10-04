@@ -373,31 +373,119 @@ Body:
 
 ---
 
-# Reserved M06C destination
+# Contact — `/contact`
 
-The following route remains planned but **not admitted by WO-010**:
+## Metadata
 
-- `/contact`
+Title: `Contact | Nex Labs Technology`
 
-Its exact public copy, navigation switch, data-handling boundary and evidence obligations must be admitted by its own Work Order. Do not implement a placeholder `/contact` route in M06B.
+Description: `Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.`
 
-## Contact boundary
+## Hero
 
-Until M06C:
-- do not add a contact form;
-- do not invent an email address, phone number, office address or social account;
-- keep the existing editorial `/#contact` destination;
-- any later data submission path requires server-side validation, abuse/rate controls and explicit security scope.
+Eyebrow: `CONTACT`
 
-## Forbidden public-proof language
+Heading: `Start with the right context.`
 
-Do not introduce:
-- customer/client logos or names;
-- partner claims;
-- project/patent/publication counts;
-- team/founding/geographic claims without factual source;
-- awards/certifications without factual source;
-- fake team portraits, office imagery presented as factual or fabricated company timeline;
-- “market leader”, “industry-leading” or similar unsupported superiority claims;
-- guaranteed performance or business outcomes.
+Lead:
+
+`Useful conversations begin with a clear problem, the constraints around it and the decision that needs to move. This V1 page helps structure that context without collecting or transmitting information.`
+
+Primary CTA: `Prepare the brief` → `#brief`
+
+Secondary CTA: `Explore solutions` → `/solutions`
+
+## Project brief
+
+Eyebrow: `PROJECT BRIEF`
+
+Heading: `Bring the signal, not the noise.`
+
+Body:
+
+`A concise brief makes it easier to understand whether research, engineering or product work may be relevant. Keep confidential, regulated or credential material out of any future message unless a verified secure channel is explicitly provided.`
+
+1. **Problem & decision** — `What needs to change, and what decision depends on it?`
+2. **Operating context** — `Users, workflows, systems, hardware or environments that shape the problem.`
+3. **Constraints & risks** — `Security, privacy, reliability, timing, integration and resource boundaries.`
+4. **Evidence & success signals** — `What is already known, what remains uncertain and what would count as useful progress.`
+
+## Contact availability
+
+Eyebrow: `CONTACT AVAILABILITY`
+
+Heading: `Channels stay verified.`
+
+Body:
+
+`Nex Labs publishes contact channels only after they are verified and governed. No direct contact channel is published in this V1 build, and this page contains no contact form, upload field, submission endpoint or analytics tracker.`
+
+Supporting body:
+
+`A future governed increment may add a verified channel without changing the information architecture of this page.`
+
+CTA: `Explore company principles` → `/company`
+
+## Data boundary
+
+Eyebrow: `DATA BOUNDARY`
+
+Heading: `Your information stays with you.`
+
+Body:
+
+`This page does not request or transmit personal information. Do not send sensitive information through unofficial channels that claim to represent Nex Labs.`
+
+## Visual motif
+
+- two measured signal fields converging toward a clean central gateway;
+- aligned rails, nodes and restrained brand-energy glow;
+- deliberate empty center to represent a verified-channel boundary;
+- CSS/SVG/HTML only;
+- no fake inbox, fake office map or fake communication feed;
+- no WebGL scene.
+
+---
+
+# Navigation transition — M06C
+
+Once the Contact route exists:
+
+- Brand/home → `/`.
+- Solutions → `/solutions`.
+- Technology → `/technology`.
+- Research → `/research`.
+- Company → `/company`.
+- Header action becomes `Contact Nex Labs` → `/contact`.
+- Footer final action becomes `Contact Nex Labs` → `/contact`.
+- Home final CTA keeps `Explore capabilities` → `#capabilities`.
+- Home final secondary CTA becomes `Contact Nex Labs` → `/contact`.
+
+The Home `#contact` section id remains for backward-compatible deep links, but global navigation no longer uses it as the Contact destination.
+
+## Home final CTA copy after M06C
+
+`Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.`
+
+## M06C data-handling boundary
+
+WO-011 admits a **read-only Contact route only**.
+
+Forbidden in M06C:
+- contact form;
+- text input, textarea, file upload or submission button;
+- API route/server action for contact;
+- email service/provider integration;
+- CRM/newsletter integration;
+- database persistence;
+- mailto/tel links;
+- invented email, phone, office address or social profile;
+- analytics/tracking pixels;
+- collection of personal or confidential information.
+
+Any future contact channel or submission path requires a separately admitted increment with a verified channel, explicit privacy/security scope, server-side validation, abuse/rate controls, retention policy and failure-safe logging.
+
+## Permanent public-proof boundary
+
+D-0008 remains permanent. Do not introduce fabricated customers, partners, projects, publications, patents, awards, certifications, team size/history, geography, statistics or guaranteed outcomes.
 

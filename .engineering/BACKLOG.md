@@ -1,29 +1,36 @@
 # Backlog
 
 ## Completed
+- M01 — Product Foundation & Visual System.
+- M02 — Runtime & Repository Foundation.
+- M03 — Brand System.
+- M04 — Home Hero 3D / Living Organism — PR #9.
+- M05 — Home Content Sections — PR #10; checkpoint PR #11.
+- M06A — Technology + Solutions — PR #12; checkpoint PR #13.
+- M06B — Research + Company — PR #14; checkpoint PR #15.
 
-- M01 — Product Foundation & Visual System: APPROVED and merged.
-- M02 — Runtime & Repository Foundation: APPROVED and merged.
-- M03 — Brand System: APPROVED and merged; production identity `NEX-N-A-PRECISION-BLADES`.
-- M04 — Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
-- M05 — Home Content Sections: APPROVED and merged in PR #10; checkpoint promoted in PR #11.
-- M06A — Technology + Solutions: APPROVED in PR #12; checkpoint promoted in PR #13.
-- M06B — Research + Company: APPROVED at exact head `ee160d50a4ca8c1edad25d06a295c505eace6993` and squash-merged in PR #14 as product merge `f53318d5b9f857d924d41245515206ce59af53e8`.
+## Active
 
-## Current planning state
+### M06C — Contact + final cross-route integration
+ADMITTED under `NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION`.
 
-M06 Secondary Pages remains the active program, but no product implementation Work Order is active after M06B.
+- production read-only `/contact`;
+- Project Brief / Contact Availability / Data Boundary;
+- zero collection/submission surface;
+- global Contact action → `/contact`;
+- final Home CTA transition;
+- six-route regression/navigation validation;
+- accessibility/responsive/performance evidence;
+- Docker UP/healthy.
 
 ## Next
-
-1. M06C — Contact + final cross-route integration
-2. M07 — Production Hardening & Launch
+1. M07 — Production Hardening & Launch
 
 ## Future
-
+- verified contact channel/submission path if separately governed;
 - localization;
 - careers;
 - CMS;
 - CRM/newsletter;
 - advanced analytics/personalization;
-- WebGPU-specific path if benchmarks justify it.
+- evidence-justified WebGPU.

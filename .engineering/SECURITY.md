@@ -22,3 +22,18 @@
 ## Current boundary through M06B
 
 The shipped surface through M06A is a public content-led frontend with no authentication, customer data store, analytics tracker, CMS/CRM or contact-submission backend. M06B remains read-only public content and introduces no form, user input, external embed or data collection by design. Research/Company public-proof claims must stay source-verifiable. Contact submission remains blocked for M06C and requires separately explicit server-side validation, abuse controls, rate limiting and failure-safe logging.
+
+
+## M06C zero-collection Contact boundary
+M06C adds a dedicated Contact route but deliberately introduces zero data collection.
+
+Required:
+- no form/input/textarea/file upload/submit control;
+- no contact API/server action;
+- no email provider, CRM, newsletter or database;
+- no mailto/tel or unverified contact channel;
+- no analytics/tracker addition;
+- no persistence or contact-specific data logging;
+- public copy states that the page does not request or transmit personal information.
+
+Any future communication/submission path requires verified channel provenance, server-side validation, abuse/rate controls, privacy/retention rules, secure failure handling and explicit evidence.

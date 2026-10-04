@@ -109,3 +109,17 @@ Home planned sections:
 - Research/Company must reuse the M06 secondary-page architecture and must not mount the Home HeroScene.
 - Route JS/performance remains within existing V1 budgets.
 - Home, Technology and Solutions regressions remain required.
+
+
+### M06C Contact + final integration requirements
+- Implement only read-only `/contact` plus exact final navigation/Home transitions admitted by WO-011.
+- Exact Contact copy/metadata comes from SECONDARY-PAGES-SPEC.md.
+- Exact Home final CTA comes from HOME-CONTENT-SPEC.md.
+- Contact must not collect or transmit personal information.
+- No form/input/upload/submit/API/server action/mailto/tel/invented channel.
+- No CRM/newsletter/database/auth/analytics.
+- Header/footer action becomes `Contact Nex Labs` → `/contact` on all six routes.
+- Home `#contact` remains for backward-compatible deep links.
+- Contact reuses M06 architecture and must not mount Home HeroScene.
+- All six routes remain regression-protected.
+- D-0008 remains permanently binding.

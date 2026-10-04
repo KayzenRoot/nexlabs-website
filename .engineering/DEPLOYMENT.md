@@ -2,7 +2,7 @@
 
 ## Current state
 
-Production deployment remains NOT_ADMITTED through M06B. No hosting provider, production URL, environment model, build/release pipeline or production credential has been selected.
+Production deployment remains NOT_ADMITTED through M06C. M07 owns production hardening/launch admission. No hosting provider, production URL, environment model, build/release pipeline or production credential has been selected.
 
 ## V1 deployment requirements
 
