@@ -8,6 +8,7 @@
 - M03 Brand System program: APPROVED and merged.
 - M04 Home Hero 3D / Living Organism: APPROVED and merged in PR #9.
 - M05 Home Content Sections: APPROVED at exact head `22b3012551cce8f8a585605cf0f7a246ecd2a2a0` and merged in PR #10.
+- M06A Technology + Solutions: APPROVED at exact head `0328527eabd6efd6cf763e4f7baf731a93731229` and merged in PR #12.
 
 ## Completed gate — M05 Home Content Sections
 
@@ -42,9 +43,9 @@ M06 Secondary Pages is complete only after all separately admitted sub-increment
 - M06B — Research + Company;
 - M06C — Contact + final cross-route integration.
 
-## M06A — Technology + Solutions
+## Completed gate — M06A Technology + Solutions
 
-M06A is complete only when:
+M06A is complete. The following gate was satisfied:
 
 1. `/technology` and `/solutions` are real production routes.
 2. Exact M06A copy comes from SECONDARY-PAGES-SPEC.md.
@@ -69,6 +70,10 @@ M06A is complete only when:
 21. Exact-head CI/Browser/Socket/Sonar/CodeRabbit signals are checked.
 22. Independent exact-head audit reports APPROVED.
 23. Checkpoint promotion occurs only after approval and authorized merge.
+
+## Next Definition of Done
+
+M06B Research + Company has not yet been admitted. Its exact completion criteria must be defined by WO-010 before implementation begins.
 
 ## Global implementation rule
 

@@ -18,7 +18,7 @@
 | D-0014 | The final Home target is a cinematic living technology-lab world centered on the selected chrome N, with connected energy/light/network behavior across sections; it supersedes D-0003 as the composition master. | ACCEPTED | Owner direction, 2026-10-02; HOME-VISUAL-MASTER-SPEC.md |
 | D-0015 | English is the default and canonical V1 website language; Portuguese and Spanish are planned localization targets for a future increment and are outside WO-008. | ACCEPTED | Owner direction; HOME-CONTENT-SPEC.md; BACKLOG.md |
 | D-0016 | M05 Home Content Sections is accepted after independent exact-head audit and squash merge; M06 may enter planning only after checkpoint promotion, and M06 implementation requires a separately admitted Work Order and Context Lock. | ACCEPTED / MERGED | NEXLABS-WO-008 / PR #10 |
-
-| D-0017 | M06 Secondary Pages is split into independently auditable increments: M06A Technology + Solutions, M06B Research + Company, and M06C Contact + final integration. M06A uses server-rendered semantic routes and CSS/SVG atmosphere without a second WebGL scene. | ACCEPTED | NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS / M06 planning |
+| D-0017 | M06 Secondary Pages is split into independently auditable increments: M06A Technology + Solutions, M06B Research + Company, and M06C Contact + final integration. M06A uses server-rendered semantic routes and CSS/SVG atmosphere without a second WebGL scene. | ACCEPTED | NEXLABS-WO-009 / M06 planning |
+| D-0018 | M06A Technology + Solutions is accepted after independent exact-head audit and squash merge; M06B may enter planning only after checkpoint promotion and requires a separately admitted Work Order and Context Lock. | ACCEPTED / MERGED | NEXLABS-WO-009 / PR #12 |
 
 Source Pack index remains human-curated until an engine-supported conformance mechanism exists.

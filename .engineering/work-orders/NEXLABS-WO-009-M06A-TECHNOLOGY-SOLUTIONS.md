@@ -1,8 +1,18 @@
 # NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS — M06A Technology + Solutions
 
-Status: ADMITTED — READY FOR CODEX EXECUTOR
+Status: APPROVED — MERGED
 
 Risk class: STANDARD
+
+## COMPLETION RECORD
+
+- Independent audit: APPROVED.
+- Exact approved head: `0328527eabd6efd6cf763e4f7baf731a93731229`.
+- PR: #12.
+- Squash product merge on main: `60b00c5cf539c1c4edce74207bf63c3b774b03c9`.
+- Exact-head CI Quality, Browser Smoke, Sonar, Socket and CodeRabbit signals passed.
+- Review threads were resolved before merge.
+- M06A checkpoint promotion occurs only after that merge.
 
 ## OBJECTIVE
 
@@ -201,4 +211,4 @@ Brazilian Portuguese: base/head + Context Lock freshness; files by purpose; Tech
 
 ## STOP CONDITION
 
-Stop with M06A fully implemented, tested and evidenced, Docker UP/healthy and PR OPEN/READY FOR REVIEW. Do not merge, promote checkpoint or begin M06B.
+Historical executor STOP CONDITION was satisfied before independent review. M06A is now APPROVED and merged. Do not begin M06B implementation until WO-010 and its exact Context Lock are separately admitted.
