@@ -6,10 +6,10 @@
 - Branch/PR: `work/nexlabs-wo-009-m06a-technology-solutions`, PR #12 para `main`.
 - Base aprovada do Work Order: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - HEAD de entrada ligado ao Context Lock: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
-- Context Lock: `.engineering/context-locks/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS.json` (SHA-256 `5be08b165543582a179cb60bb2733a63d4ddf36c0229794aa13ef0321ebccae4`).
+- Context Lock: `.engineering/context-locks/NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS.json` (SHA-256 `875a3872b4ce6c4cf9f3a52ebaaf7009ff10bd75354fd05749a42212a85eca45`).
 - Preflight: 22 fingerprints críticos corresponderam ao snapshot do lock e os 10 caminhos `staleIfChanged` também corresponderam ao Source Pack travado. Nenhuma fonte crítica STALE.
 - HEAD de implementação/testes validado localmente: `2322200b501ae6240ca8f250910985e9b7ae3148` (polling do skip link preservando o limite visual existente). O código de produto segue no SHA `37fe123b61ead5fd5d83df9bfc12555bf913ce4`. O follow-up de governança/evidência é documental; SHA final e checks exatos devem ser lidos nos metadados da PR #12.
-- Correção de governança validada: o Work Order exige regressão da Home e `src/app/page.test.tsx` foi atualizado para as novas rotas globais, mas o Context Lock original não permitia esse arquivo. O allow-list agora admite somente esse teste unitário adicional; a implementação continua limitada ao WO-009.
+- Correção de governança ratificada pelo owner: o commit anterior `114c842bb62af3c6a720f570dc36aedc3ed49a7f` atualizou somente expectativas de navegação em `src/app/page.test.tsx`, fora do `writeAllowed` original. O owner ratificou expressamente essa alteração e autorizou registrá-la; o Context Lock agora registra commit, caminho, escopo e timestamp, e admite somente esse teste unitário adicional. A implementação continua limitada ao WO-009.
 - A PR permanece OPEN/READY FOR REVIEW. Este delta não promove o Checkpoint e não admite M06B.
 
 ## Escopo entregue
@@ -89,8 +89,8 @@ Relatórios: [rotas M06A](NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS/route-perform
 - `agent-browser` não estava instalado globalmente; a verificação foi executada sem persistir dependência de projeto via `npx`, versão 0.38.2. Também foi usada a suíte Chromium/Playwright do repositório.
 - A execução de LCP foi laboratorial e o perfil FULL usou SwiftShader; confirmar desempenho em GPU/dispositivo físico continua fora da qualificação local.
 - O log de desenvolvimento do Home registrou o aviso preexistente `THREE.Clock: This module has been deprecated. Please use THREE.Timer instead.`; as rotas M06A continuam sem erros/overlays, e o componente Home fora do escopo não foi alterado.
-- No HEAD remoto `418457afe1126a5b25c93e14a7dd51b564b2eaa7`, CI Quality, Socket Project Report, Socket Pull Request Alerts e SonarCloud passaram; Sonar registrou zero bugs, code smells, duplicações, vulnerabilidades e hotspots. Browser Smoke falhou somente na asserção transitória do skip link descrita acima. CodeRabbit estava `PENDING / Review in progress`; não há aprovação independente. O achado MAJOR de contraste intermediário está `FIXED/CLOSED` no Sonar.
-- O candidato local com a correção `2322200` passou E2E 16/16, lint, typecheck, build, unidade 21/21 e npm audit. CI/Sonar/Socket/CodeRabbit serão revalidados no HEAD remoto final depois do push do follow-up e lidos na PR #12; resultados de SHA anterior não são tratados como aprovação do candidato atual. A revisão independente exata permanece pendente; a PR segue aberta para review.
+- No HEAD remoto `eda3df1c365c045d2c8a3efb0a0363721848d093`, CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts e SonarCloud passaram; Sonar registrou zero bugs, code smells, duplicações, vulnerabilidades e hotspots. CodeRabbit estava `PENDING / Review in progress`; a decisão de review da PR está vazia, sem aprovação independente. O achado MAJOR de contraste intermediário está `FIXED/CLOSED` no Sonar. O comentário CodeRabbit sobre o teste fora do lock foi atendido pela ratificação explícita acima.
+- O candidato local com a correção `2322200` passou E2E 16/16, lint, typecheck, build, unidade 21/21 e npm audit. Como o registro de ratificação/documentação altera o Context Lock e Evidence Bundle, os checks devem ser revalidados no novo HEAD remoto e lidos na PR #12; resultados de SHA anterior não são reutilizados. A revisão independente exata permanece pendente; a PR segue aberta para review.
 
 ## Checkpoint Delta
 

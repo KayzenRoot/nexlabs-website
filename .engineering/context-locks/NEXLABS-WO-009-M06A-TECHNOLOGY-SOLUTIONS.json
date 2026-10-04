@@ -13,7 +13,16 @@
     "sourcePackHeadBeforeLock": "109c7c23b182d221862a4034d0acdb88283e8569",
     "mergeAuthorizedNow": false,
     "implementationAuthorizedNow": true,
-    "executor": "CODEX"
+    "executor": "CODEX",
+    "ownerRatification": {
+      "state": "OWNER_RATIFIED",
+      "workOrderId": "NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS",
+      "priorCommit": "114c842bb62af3c6a720f570dc36aedc3ed49a7f",
+      "path": "src/app/page.test.tsx",
+      "scope": "Home navigation expectation test only; route-aware M06A destinations /solutions and /technology.",
+      "source": "Owner's direct reply in the active execution task: ratifies the test change and authorizes recording it in this Context Lock.",
+      "ratifiedAtUtc": "2026-10-04T00:08:59Z"
+    }
   },
   "writeAllowed": [
     "src/app/technology/**",
