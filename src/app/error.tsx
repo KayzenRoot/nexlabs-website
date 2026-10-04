@@ -4,12 +4,15 @@ import Link from "next/link";
 import styles from "./error.module.css";
 
 type ErrorBoundaryProps = {
-  error: Error & { digest?: string };
-  reset: () => void;
+  readonly error: Error & { readonly digest?: string };
+  readonly reset: () => void;
 };
 
 /** Recovers from a route failure using safe copy and no technical error details. */
-export default function ErrorBoundary({ reset }: ErrorBoundaryProps) {
+export default function ErrorBoundary({ error, reset }: ErrorBoundaryProps) {
+  // The framework requires this prop; keep technical details out of the UI and logs.
+  void error;
+
   return (
     <section aria-labelledby="error-title" className={styles.page} role="alert">
       <div aria-hidden="true" className={styles.signalField} />

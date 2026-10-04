@@ -31,8 +31,8 @@ const nextConfig: NextConfig = {
     : {}),
   ...(process.env.NODE_ENV === "production"
     ? {
-        async headers() {
-          return [
+        headers: () =>
+          Promise.resolve([
             {
               source: "/",
               headers: [
@@ -44,11 +44,10 @@ const nextConfig: NextConfig = {
               ],
             },
             {
-              source: "/:path((?!_next/static|_next/image|robots\\.txt|icon\\.svg).*)",
+              source: String.raw`/:path((?!_next/static|_next/image|robots\.txt|icon\.svg).*)`,
               headers: productionSecurityHeaders,
             },
-          ];
-        },
+          ]),
       }
     : {}),
   ...(process.env.NEXT_DOCKER_DEV === "1"
