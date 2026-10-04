@@ -7,8 +7,8 @@ State: PROPOSED — awaiting exact-head checks and independent review; not promo
 - Work Order: `NEXLABS-WO-009-M06A-TECHNOLOGY-SOLUTIONS`.
 - Base SHA: `3147c1dfa55e2e19fdb8510ac474ef7574961526`.
 - Context Lock entry head: `9cfcdf95232f22e888e407f8bb152d48cf8ae83f`.
-- Validated implementation source/test SHA: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`.
-- Last full exact-head check before this documentation-only review correction: `fc375bc69221fe75c3b14934df408b7faea053e8`. Its CI Quality, Browser Smoke, Socket Project Report, Socket Pull Request Alerts and SonarCloud checks passed; the docs-only follow-up requires a fresh exact-head check before final reporting.
+- Validated product source SHA: `37fe123b61ead5fd5d83df9bfc12555bf913ce4c`; latest locally validated test fix: `2322200b501ae6240ca8f250910985e9b7ae3148`.
+- Last remote exact-head check before the skip-link test correction: `418457afe1126a5b25c93e14a7dd51b564b2eaa7`. CI Quality, Socket Project Report, Socket Pull Request Alerts and SonarCloud passed; Browser Smoke failed on a transient skip-link transition assertion. The test now waits for the unchanged visible-top threshold; its full local Chromium suite passed 16/16. Final remote checks must pass at the latest PR head.
 - PR #12 stays OPEN/READY FOR REVIEW and targets `main`.
 
 ## Proposed checkpoint facts
