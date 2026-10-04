@@ -393,6 +393,7 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
 }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
   const expectedPaths = ["/", "/technology", "/solutions", "/research", "/company"];
+  const navigationReports = [];
 
   for (const path of ["/", "/technology", "/solutions", "/research", "/company"]) {
     await page.goto(path);
@@ -417,6 +418,23 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
       "href",
       "/#contact",
     );
+    navigationReports.push({
+      page: path,
+      headerLinks: globalNavigation,
+      footerLinks: globalNavigation,
+      nextChapterHref: "/#contact",
+    });
+
+    if (path === "/research" || path === "/company") {
+      await page.setViewportSize({ width: 1600, height: 900 });
+      await footer.scrollIntoViewIfNeeded();
+      await expect(footer).toBeVisible();
+      await page.screenshot({
+        path: resolve(evidenceDirectory, `${path.slice(1)}-footer-navigation-1600x900.png`),
+        fullPage: false,
+        animations: "disabled",
+      });
+    }
 
     const linkedPaths = await page.locator("a[href]").evaluateAll((links) =>
       links.map((link) => new URL((link as HTMLAnchorElement).href).pathname),
@@ -472,4 +490,24 @@ test("M06B navigation and all admitted Research transitions resolve; Contact sta
 
   const contactResponse = await page.goto("/contact");
   expect(contactResponse?.status(), "/contact stays reserved for M06C").toBe(404);
+  writeFileSync(
+    resolve(evidenceDirectory, "navigation-report.json"),
+    `${JSON.stringify(
+      {
+        source: "Playwright Chromium navigation assertions",
+        verifiedPages: navigationReports,
+        homeResearchActions: [
+          { label: "Explore research", href: "/research" },
+          { label: "View research", href: "/research" },
+        ],
+        technologyAndSolutionsResearchActions: [
+          { label: "Explore research", href: "/research" },
+        ],
+        contactRouteStatus: 404,
+      },
+      null,
+      2,
+    )}\n`,
+    "utf8",
+  );
 });
