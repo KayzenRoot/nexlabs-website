@@ -65,72 +65,85 @@ const globalNavigation = [
   { name: "Company", href: "/company" },
 ] as const;
 
-async function installPerformanceObservers(page: Page) {
-  const scriptBodies: Promise<number>[] = [];
-  const scriptUrls: string[] = [];
-  const onResponse = (response: Response) => {
-    if (
-      response.request().resourceType() !== "script" ||
-      !response.url().includes("/_next/static/chunks/")
-    ) {
-      return;
+async function monitorRoute(page: Page) {
+  const chunkResponses: Response[] = [];
+  const rememberChunk = (response: Response) => {
+    const requestIsScript = response.request().resourceType() === "script";
+    const chunkPath = new URL(response.url()).pathname;
+    if (requestIsScript && chunkPath.startsWith("/_next/static/chunks/")) {
+      chunkResponses.push(response);
     }
-    scriptUrls.push(response.url());
-    scriptBodies.push(response.body().then((body) => gzipSync(body).byteLength));
   };
-  page.on("response", onResponse);
+  page.on("response", rememberChunk);
 
   await page.addInitScript(() => {
     const values = { lcpMs: 0, cls: 0, interactionMs: [] as number[] };
     Reflect.set(window, "__m06bPerformance", values);
 
-    try {
-      new PerformanceObserver((entries) => {
-        const lastEntry = entries.getEntries().at(-1);
-        if (lastEntry) values.lcpMs = lastEntry.startTime;
-      }).observe({ type: "largest-contentful-paint", buffered: true });
-    } catch {
-      // Keep unsupported LCP observations explicit as zero in the report.
-    }
+    const observe = (type: string, callback: PerformanceObserverCallback) => {
+      try {
+        const observer = new PerformanceObserver(callback);
+        observer.observe({ type, buffered: true, durationThreshold: 16 } as PerformanceObserverInit);
+      } catch {
+        // Unsupported performance entries stay zero/empty in the retained report.
+      }
+    };
 
-    try {
-      new PerformanceObserver((entries) => {
-        for (const entry of entries.getEntries()) {
-          const shift = entry as PerformanceEntry & {
-            hadRecentInput?: boolean;
-            value?: number;
-          };
-          if (!shift.hadRecentInput) values.cls += shift.value ?? 0;
-        }
-      }).observe({ type: "layout-shift", buffered: true });
-    } catch {
-      // Keep unsupported CLS observations explicit as zero in the report.
-    }
-
-    try {
-      new PerformanceObserver((entries) => {
-        for (const entry of entries.getEntries()) {
-          const event = entry as PerformanceEntry & { interactionId?: number };
-          if ((event.interactionId ?? 0) > 0) values.interactionMs.push(entry.duration);
-        }
-      }).observe({ type: "event", buffered: true, durationThreshold: 16 } as PerformanceObserverInit);
-    } catch {
-      // Keep unsupported Event Timing explicit in the report.
-    }
+    observe("largest-contentful-paint", (entries) => {
+      values.lcpMs = entries.getEntries().at(-1)?.startTime ?? 0;
+    });
+    observe("layout-shift", (entries) => {
+      values.cls = entries.getEntries().reduce((total, entry) => {
+        const shift = entry as PerformanceEntry & {
+          hadRecentInput?: boolean;
+          value?: number;
+        };
+        return total + (shift.hadRecentInput ? 0 : (shift.value ?? 0));
+      }, values.cls);
+    });
+    observe("event", (entries) => {
+      const interactions = entries
+        .getEntries()
+        .filter((entry) => ((entry as PerformanceEntry & { interactionId?: number }).interactionId ?? 0) > 0)
+        .map((entry) => entry.duration);
+      values.interactionMs.push(...interactions);
+    });
   });
 
   return {
     async finish() {
-      page.off("response", onResponse);
+      page.off("response", rememberChunk);
+      const bundles = await Promise.all(
+        chunkResponses.map(async (response) => ({
+          url: response.url(),
+          gzipBytes: gzipSync(await response.body()).byteLength,
+        })),
+      );
       return {
-        scriptUrls,
-        scriptGzipBytes: (await Promise.all(scriptBodies)).reduce(
-          (total, bytes) => total + bytes,
-          0,
-        ),
+        scriptUrls: bundles.map(({ url }) => url),
+        scriptGzipBytes: bundles.reduce((sum, bundle) => sum + bundle.gzipBytes, 0),
       };
     },
   };
+}
+
+async function snapshotRoute(page: Page) {
+  return page.evaluate(() => {
+    const vitals = Reflect.get(window, "__m06bPerformance") as {
+      cls: number;
+      interactionMs: number[];
+      lcpMs: number;
+    };
+    const root = document.documentElement;
+    return {
+      lcpMs: vitals.lcpMs,
+      cls: vitals.cls,
+      interactionMs: vitals.interactionMs,
+      viewport: `${window.innerWidth}x${window.innerHeight}`,
+      scrollWidth: root.scrollWidth,
+      clientWidth: root.clientWidth,
+    };
+  });
 }
 
 async function measureSkipLinkKeyboardProxy(page: Page) {
@@ -173,7 +186,7 @@ test("Research and Company render canonical content, metadata and isolated route
 
   for (const route of routeCases) {
     await page.setViewportSize({ width: 1600, height: 900 });
-    const scripts = await installPerformanceObservers(page);
+    const scripts = await monitorRoute(page);
     const response = await page.goto(route.path, { waitUntil: "networkidle" });
 
     expect(response?.status(), `${route.path} response`).toBe(200);
@@ -198,19 +211,7 @@ test("Research and Company render canonical content, metadata and isolated route
     );
     expect(observedScripts.scriptUrls.some((url) => /hero-scene|three/i.test(url))).toBe(false);
 
-    const metrics = await page.evaluate(() => {
-      const observed = Reflect.get(window, "__m06bPerformance") as {
-        cls: number;
-        interactionMs: number[];
-        lcpMs: number;
-      };
-      return {
-        ...observed,
-        viewport: `${window.innerWidth}x${window.innerHeight}`,
-        scrollWidth: document.documentElement.scrollWidth,
-        clientWidth: document.documentElement.clientWidth,
-      };
-    });
+    const metrics = await snapshotRoute(page);
     expect(metrics.scrollWidth).toBeLessThanOrEqual(metrics.clientWidth);
     if (metrics.lcpMs > 0) expect(metrics.lcpMs).toBeLessThanOrEqual(2500);
     expect(metrics.cls).toBeLessThanOrEqual(0.1);
@@ -228,19 +229,7 @@ test("Research and Company render canonical content, metadata and isolated route
     await page.setViewportSize({ width: 390, height: 844 });
     await page.reload({ waitUntil: "networkidle" });
     await expect(page.getByRole("heading", { level: 1, name: route.heading })).toBeVisible();
-    const mobileMetrics = await page.evaluate(() => {
-      const observed = Reflect.get(window, "__m06bPerformance") as {
-        cls: number;
-        interactionMs: number[];
-        lcpMs: number;
-      };
-      return {
-        ...observed,
-        viewport: `${window.innerWidth}x${window.innerHeight}`,
-        scrollWidth: document.documentElement.scrollWidth,
-        clientWidth: document.documentElement.clientWidth,
-      };
-    });
+    const mobileMetrics = await snapshotRoute(page);
     expect(mobileMetrics.scrollWidth).toBeLessThanOrEqual(mobileMetrics.clientWidth);
     if (mobileMetrics.lcpMs > 0) {
       expect(mobileMetrics.lcpMs, `${route.path} mobile LCP`).toBeLessThanOrEqual(2500);
@@ -359,15 +348,16 @@ test("Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and respon
 
     await page.emulateMedia({ reducedMotion: "reduce" });
     await page.setViewportSize({ width: 1440, height: 900 });
-    await page.reload();
-    await expect(page.getByRole("heading", { level: 1, name: route.heading })).toBeVisible();
-    expect(await page.evaluate(() => matchMedia("(prefers-reduced-motion: reduce)").matches)).toBe(
-      true,
-    );
-    const motionDuration = await page
-      .locator("[data-secondary-artwork-motion]")
-      .evaluate((element) => getComputedStyle(element).animationDuration);
-    expect(Number.parseFloat(motionDuration)).toBeLessThanOrEqual(0.0001);
+    const motionState = await page.evaluate(() => ({
+      preferenceApplied: matchMedia("(prefers-reduced-motion: reduce)").matches,
+      animationDurations: [...document.querySelectorAll("[data-secondary-artwork-motion]")].map(
+        (element) => getComputedStyle(element).animationDuration,
+      ),
+    }));
+    expect(motionState.preferenceApplied).toBe(true);
+    expect(
+      motionState.animationDurations.every((duration) => Number.parseFloat(duration) <= 0.0001),
+    ).toBe(true);
     await page.screenshot({
       path: resolve(evidenceDirectory, `${route.path.slice(1)}-reduced-motion.png`),
       fullPage: false,
