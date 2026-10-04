@@ -186,6 +186,10 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   await full.close();
 
   const balanced = await browser.newPage({ viewport: { width: 900, height: 768 }, deviceScaleFactor: 1 });
+  await balanced.addInitScript(() => {
+    Object.defineProperty(navigator, "hardwareConcurrency", { configurable: true, value: 8 });
+    Object.defineProperty(navigator, "deviceMemory", { configurable: true, value: 8 });
+  });
   await balanced.goto("/", { waitUntil: "networkidle" });
   const balancedStage = balanced.getByTestId("hero-scene-stage");
   await expect(balancedStage).toHaveAttribute("data-quality-tier", "BALANCED");
