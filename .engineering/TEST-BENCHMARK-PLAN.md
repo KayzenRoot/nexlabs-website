@@ -63,3 +63,26 @@ Because M07A is ELEVATED, require STANDARD checks plus:
 - container rollback rehearsal and restored-route verification.
 
 Do not convert a missing provider/TLS/origin into simulated production evidence. Those remain M07B.
+
+
+## WO-013 visual-fidelity validation
+
+Because WO-013 is ELEVATED, require baseline + M07A regression checks plus:
+- verify locked master Git blob and canonical SHA-256 identity;
+- negative scan proving master JPG/crops are not referenced by production runtime;
+- deterministic Home screenshots at 1600×900, 1440×900, BALANCED, STATIC, mobile and reduced-motion;
+- deterministic secondary-page screenshots;
+- four master-vs-candidate comparison composites;
+- executor proposed fidelity rubric with evidence links;
+- independent auditor scoring against VISUAL-FIDELITY-DELTA-SPEC.md;
+- desktop active-navigation and hover/focus checks;
+- mobile menu semantics, keyboard, Escape and focus checks;
+- five proprietary capability-object checks;
+- Home one-world continuity visual review;
+- WebGL context-loss/failure and STATIC fallback;
+- route JS/lazy 3D chunk isolation;
+- 3 consecutive production-candidate full browser suites, retries=0, each entirely green with Home mobile LCP <=2500 ms;
+- M07A CSP/security/noindex/robots/404/Release Readiness regression;
+- six-route Contact/content/metadata regressions.
+
+A visual score cannot override a failed performance, accessibility, security or factual-integrity gate.

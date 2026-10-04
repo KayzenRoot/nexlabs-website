@@ -103,3 +103,16 @@ M06A rules:
 - Release-readiness CI validates artifacts locally and never deploys.
 - Production provider/origin/DNS/TLS remain M07B concerns.
 - The Home Three/R3F client island architecture remains unchanged.
+
+
+## WO-013 visual-fidelity architecture
+
+- The approved Home architecture remains one lazy React Three Fiber / Three.js client island.
+- WO-013 enriches that existing scene through procedural geometry/material/light composition rather than adding a second runtime.
+- FULL/BALANCED/STATIC remain mandatory and compositionally aligned.
+- Semantic content and critical interactions remain outside canvas.
+- Header/mobile navigation may use a small isolated client interaction component for current-route/menu state; no global state library.
+- Secondary pages remain server-rendered semantic content and may use CSS perspective, SVG/HTML layers and narrowly scoped client motion only when justified.
+- Precision Blades canonical vector geometry is immutable; only presentation/material may change.
+- The approved master remains evidence-only and cannot be served as production artwork.
+- M07A security headers, indexing posture, standalone candidate and Release Readiness remain architecture constraints.

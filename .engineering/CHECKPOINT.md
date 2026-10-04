@@ -1,24 +1,24 @@
 # Project Checkpoint
 
-Status: M07A_RELEASE_HARDENING_READINESS_COMPLETE_APPROVED_MERGED
+Status: WO_013_VISUAL_FIDELITY_MASTER_ALIGNMENT_ADMITTED
 
 - GEF Bootstrap v1.1.2 and M01 through M06: APPROVED/MERGED.
-- M06 Secondary Pages: COMPLETE.
-- M07A Release Hardening & Production Readiness: independently APPROVED at exact head `69e6796a71c86eda34d2060d6c030b7dc0873bfb` and squash-merged in PR #18.
-- M07A product merge SHA on main: `43a1b55f2160013b96f35e291341f42272646375`.
-- PERFORMANCE-001 was closed with three consecutive 26/26 production-candidate suites at 2320 / 2328 / 2352 ms Home mobile LCP under the retained synthetic profile.
-- Production hardening baseline now includes production security headers/CSP, pre-launch noindex/robots posture, branded failure paths, standalone non-root/read-only production candidate, Release Readiness CI and rollback rehearsal.
-- Production identity remains `NEX-N-A-PRECISION-BLADES`.
-- Public logical routes remain `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`.
-- Contact remains read-only/zero-collection.
-- No product implementation Work Order is active during this checkpoint promotion.
-- Owner visual acceptance remains PENDING: the current site is not yet sufficiently faithful to the approved Home Visual Master.
-- `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT` is the next legal implementation increment after this promotion.
-- M07B Deployment + Production Launch remains BLOCKED until WO-013 is APPROVED/MERGED/checkpoint-promoted.
-- Public deployment remains NOT_ADMITTED.
+- M07A Release Hardening & Production Readiness: APPROVED/MERGED and checkpoint-promoted.
+- Admission base main SHA: `e14cfbe4660b076db85e7e529befffe17a098cd1`.
+- Production identity: `NEX-N-A-PRECISION-BLADES`.
+- Owner visual acceptance: PENDING_MASTER_ALIGNMENT.
+- Active increment: WO-013 Visual Fidelity Restoration / Master Alignment.
+- Active Work Order: `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`.
+- Active branch: `work/nexlabs-wo-013-visual-fidelity-master-alignment`.
+- Active Context Lock: `.engineering/context-locks/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.json`.
+- Risk: ELEVATED.
+- Primary master: `approved-home-visual-master.jpg`, SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`, Git blob `52932511adfeb8d372717185fe9a18907625cc0c`.
+- Implementation is authorized for Codex; merge/deployment is not.
+- Public copy/content facts are regression-protected.
+- M07A security/runtime/readiness behavior is regression-protected.
+- M07B Deployment + Production Launch remains BLOCKED.
+- Development Docker continuity remains mandatory.
 
-`lastMergedMainSha` denotes the most recent merged product/runtime increment and intentionally excludes governance-only checkpoint-promotion commits.
-
-Next legal stage: admit WO-013 Visual Fidelity / Master Alignment against the post-promotion main SHA, compile a fresh Context Lock including the approved master asset fingerprint, and execute with Codex. Do not begin M07B.
+Next legal stage: Codex executes WO-013 against the exact Context Lock, produces deterministic master comparisons and visual-fidelity evidence, preserves performance/security gates and requests independent exact-head audit.
 
 The machine-readable view is CHECKPOINT.json.

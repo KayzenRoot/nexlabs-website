@@ -138,3 +138,20 @@ Home planned sections:
 - Preserve six-route content, Contact zero-collection and Home 3D architecture.
 - Retain container rollback rehearsal evidence.
 - Do not deploy publicly in M07A.
+
+
+### WO-013 Visual Fidelity / Master Alignment requirements
+
+- Treat the approved 1600×900 master and HOME-VISUAL-MASTER-SPEC.md as binding visual composition targets.
+- Materially improve Home 3D depth, N/chamber prominence, lighting, floor/platform, Earth/network, panels and human scale.
+- Materially improve living-organism energy continuity, premium navigation/menu interactions and proprietary capability iconography.
+- Preserve factual copy and do not reproduce unsupported concept metrics/search/social proof.
+- Never use the master JPG/crops as production UI.
+- Keep one Home R3F runtime only; secondary pages remain free of Home 3D runtime.
+- Keep Precision Blades core vector geometry unchanged.
+- Desktop navigation must expose route-active state; mobile navigation must be deliberate, accessible and not horizontal-scroll-only.
+- Preserve FULL/BALANCED/STATIC, poster-first, reduced-motion and WebGL fallback.
+- Preserve M07A hardening, Contact zero-collection and all route semantics.
+- No dependency addition by default.
+- Maintain existing performance budgets; final candidate requires three consecutive retries=0 full-suite passes at Home mobile LCP <=2.5 s.
+- Visual completion requires independent fidelity score >=85/100 using VISUAL-FIDELITY-DELTA-SPEC.md.
