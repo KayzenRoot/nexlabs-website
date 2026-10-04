@@ -8,7 +8,7 @@ State: PROPOSED — NOT PROMOTED
 - Repository: `KayzenRoot/nexlabs-website`.
 - Branch / PR: `work/nexlabs-wo-010-m06b-research-company` / PR #14.
 - Authorized base SHA: `96330a8d50c30fab2a680b27f1c56252a4ac4fb6`.
-- Immutable implementation/test reference: `7167c2cda720b7de72659fef9bfa3ba8711167c8`.
+- Immutable implementation/test reference: `0dd3e34ee3c9568ec606298f6c3773fadabba608`.
 - Context Lock `.engineering/context-locks/NEXLABS-WO-010-M06B-RESEARCH-COMPANY.json` matched the admitted base with zero stale critical sources.
 - Final PR HEAD and exact-head GitHub checks are captured in PR metadata after the final push; this proposed delta does not duplicate a self-referential final SHA.
 
@@ -23,11 +23,12 @@ State: PROPOSED — NOT PROMOTED
 
 ## Evidence and validation
 
-- Implementation/test commits: `c4f8d7138961fd8443f73506e90a6a7e0c94264b`, `92afc944a44af460c3bfb376edb40b2a7b627994`, `7167c2cda720b7de72659fef9bfa3ba8711167c8`.
+- Implementation/test commits: `c4f8d7138961fd8443f73506e90a6a7e0c94264b`, `92afc944a44af460c3bfb376edb40b2a7b627994`, `7167c2cda720b7de72659fef9bfa3ba8711167c8`, `0dd3e34ee3c9568ec606298f6c3773fadabba608`.
 - Local checks: `npm ci`, lint, typecheck, unit (25/25), production build, browser suite (19/19), moderate npm audit (0 vulnerabilities), diff check and secret-pattern scan passed.
 - Docker remains UP/healthy at `127.0.0.1:3000`; five admitted routes are HTTP 200 and `/contact` is HTTP 404.
 - axe reports no violations; automatic contrast evaluation is incomplete on gradient-backed elements and remains documented for manual review.
 - Exact-head CI, security scans and independent review are checked on PR #14 after the final push. The PR remains OPEN for review.
+- SonarCloud's prior 4.5% duplication failure on `4875eaf...` was corrected by restructuring only M06B E2E helpers; no gate was changed. The result for the next exact PR HEAD is pending.
 
 ## Boundary
 

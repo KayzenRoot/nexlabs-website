@@ -7,7 +7,7 @@
 - Branch/PR: `work/nexlabs-wo-010-m06b-research-company`, PR #14 → `main`.
 - Base aprovada/admission SHA: `96330a8d50c30fab2a680b27f1c56252a4ac4fb6`.
 - HEAD remoto/local antes da implementação: `fdb10c3a17b0c961972ff79c8992ecc5e9b4aa06`.
-- Referência imutável validada de implementação e testes: `7167c2cda720b7de72659fef9bfa3ba8711167c8` (inclui commits lógicos de implementação, proxy de interação e evidência de navegação).
+- Referência imutável validada mais recente de implementação e testes: `0dd3e34ee3c9568ec606298f6c3773fadabba608` (implementação em `c4f8d7138961fd8443f73506e90a6a7e0c94264b`; commits de testes/evidência em `92afc944a44af460c3bfb376edb40b2a7b627994`, `7167c2cda720b7de72659fef9bfa3ba8711167c8` e `0dd3e34ee3c9568ec606298f6c3773fadabba608`).
 - Context Lock: `.engineering/context-locks/NEXLABS-WO-010-M06B-RESEARCH-COMPANY.json`, SHA-256 `0ee80a7414813d881b994f62b6c0c28df1b7fb84a0f36de7bc000fff9877a021`.
 - Preflight na base admitida: 22 fontes críticas e 12 fontes de código-base conferidas; `STALE_COUNT=0`. `startingHead` e `mainSha` do lock são iguais à base acima. Nenhuma fonte crítica foi alterada.
 - O clone principal com alterações locais pré-existentes foi preservado; o trabalho ocorreu no worktree isolado da branch autorizada, inicialmente limpo. Sem reset, rebase, force-push ou reescrita de histórico.
@@ -80,11 +80,11 @@ Fonte: Playwright Chromium contra build de produção local, relatório `.engine
 
 | Rota | JS inicial gzip (limite 225.280 B) | LCP desktop 1600×900 | LCP mobile 390×844 | CLS desktop/mobile |
 |---|---:|---:|---:|---:|
-| `/research` | 133.659 B | 212 ms | 84 ms | 0 / 0 |
-| `/company` | 133.659 B | 216 ms | 104 ms | 0 / 0 |
+| `/research` | 133.659 B | 212 ms | 96 ms | 0 / 0 |
+| `/company` | 133.659 B | 264 ms | 104 ms | 0 / 0 |
 
 - Os bundles iniciais ficam abaixo de 220 KiB gzip e não incluem chunks `three`/`hero-scene`; as duas rotas não renderizam canvas ou runtime WebGL.
-- Os valores são medições laboratoriais deste host, não dados de usuários reais. O array Event Timing de carga não recebeu eventos; o proxy de interação por teclado foi medido separadamente conforme acima.
+- Os valores são medições laboratoriais deste host, não dados de usuários reais. O array Event Timing de carga não recebeu eventos; o proxy de interação por teclado foi medido separadamente em 41,2 ms (Research) e 48,7 ms (Company).
 
 ## Evidências retidas
 
@@ -112,6 +112,7 @@ Fonte: Playwright Chromium contra build de produção local, relatório `.engine
 - Limitação de acessibilidade: axe não automatiza a verificação de contraste sobre gradientes; requer confirmação manual do revisor. Nenhuma violação axe foi reportada.
 - Cobertura browser local: Chromium/Playwright; navegadores/dispositivos físicos adicionais não foram testados.
 - Aprovação independente do HEAD exato: PENDING até revisão externa; isso é um gate antes de merge, não altera o estado pedido de PR aberta para review.
+- No HEAD anterior `4875eaf154842f111e785d029f1de76fc4306ed4`, SonarCloud reprovou o limite inalterado de duplicação nova: 4,5% (81 linhas, máximo 3%), em quatro blocos repetidos entre `tests/e2e/m06a.spec.ts` e `tests/e2e/m06b.spec.ts`. O commit `0dd3e34ee3c9568ec606298f6c3773fadabba608` reestruturou somente o teste M06B, sem remover assertions nem alterar gates; lint, typecheck, unit e E2E passaram localmente. O resultado Sonar exato do novo HEAD ainda precisa ser conferido na PR após o próximo push.
 - CI Quality, Browser Smoke, Sonar, Socket e CodeRabbit do HEAD candidato são consultados novamente após o último push e registrados nos metadados da PR. Checks de SHAs anteriores não são reutilizados como resultado do candidato.
 - Nenhuma proteção, check ou gate foi enfraquecido. A PR permanece OPEN; sem merge, promoção do Checkpoint ou início do M06C.
 

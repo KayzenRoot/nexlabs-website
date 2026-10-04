@@ -6,7 +6,7 @@
       "path": "/research",
       "title": "Research | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 260,
+        "lcpMs": 212,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",
@@ -14,7 +14,7 @@
         "clientWidth": 1600
       },
       "mobile": {
-        "lcpMs": 76,
+        "lcpMs": 96,
         "cls": 0,
         "interactionMs": [],
         "viewport": "390x844",
@@ -23,14 +23,14 @@
       },
       "interactionProxy": {
         "interaction": "Skip-link keyboard activation to the second animation frame",
-        "measuredMs": 60,
+        "measuredMs": 41.19999999925494,
         "targetMs": 200,
         "note": "Lab proxy; not real-user INP."
       },
       "scriptGzipBytes": 133659,
       "scripts": [
-        "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js",
         "http://127.0.0.1:3101/_next/static/chunks/3fntmmi971322.js",
+        "http://127.0.0.1:3101/_next/static/chunks/09lgyggnhjlha.js",
         "http://127.0.0.1:3101/_next/static/chunks/turbopack-3zdm2e7s4tp9w.js",
         "http://127.0.0.1:3101/_next/static/chunks/00lbe-vqlafyt.js",
         "http://127.0.0.1:3101/_next/static/chunks/1rj7ns8rte9vc.js"
@@ -40,7 +40,7 @@
       "path": "/company",
       "title": "Company | Nex Labs Technology",
       "desktop": {
-        "lcpMs": 156,
+        "lcpMs": 264,
         "cls": 0,
         "interactionMs": [],
         "viewport": "1600x900",
@@ -48,7 +48,7 @@
         "clientWidth": 1600
       },
       "mobile": {
-        "lcpMs": 88,
+        "lcpMs": 104,
         "cls": 0,
         "interactionMs": [],
         "viewport": "390x844",
@@ -57,7 +57,7 @@
       },
       "interactionProxy": {
         "interaction": "Skip-link keyboard activation to the second animation frame",
-        "measuredMs": 46.80000000074506,
+        "measuredMs": 48.70000000298023,
         "targetMs": 200,
         "note": "Lab proxy; not real-user INP."
       },
