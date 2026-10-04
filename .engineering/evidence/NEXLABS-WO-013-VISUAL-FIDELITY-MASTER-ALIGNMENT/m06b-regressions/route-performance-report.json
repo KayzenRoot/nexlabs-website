@@ -1,0 +1,82 @@
+{
+  "source": "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+  "routeJsBudgetGzipBytes": 225280,
+  "routes": [
+    {
+      "path": "/research",
+      "title": "Research | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 264,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "mobile": {
+        "lcpMs": 100,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "390x844",
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "interactionProxy": {
+        "interaction": "Skip-link keyboard activation to the second animation frame",
+        "measuredMs": 64.5,
+        "targetMs": 200,
+        "note": "Lab proxy; not real-user INP."
+      },
+      "scriptGzipBytes": 142890,
+      "scripts": [
+        "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js",
+        "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js",
+        "http://127.0.0.1:3002/_next/static/chunks/turbopack-22as_nt9qctt9.js",
+        "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
+        "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js",
+        "http://127.0.0.1:3002/_next/static/chunks/2awzninvgoxwc.js",
+        "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js",
+        "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
+        "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js"
+      ]
+    },
+    {
+      "path": "/company",
+      "title": "Company | Nex Labs Technology",
+      "desktop": {
+        "lcpMs": 212,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "1600x900",
+        "scrollWidth": 1600,
+        "clientWidth": 1600
+      },
+      "mobile": {
+        "lcpMs": 100,
+        "cls": 0,
+        "interactionMs": [],
+        "viewport": "390x844",
+        "scrollWidth": 390,
+        "clientWidth": 390
+      },
+      "interactionProxy": {
+        "interaction": "Skip-link keyboard activation to the second animation frame",
+        "measuredMs": 73.2,
+        "targetMs": 200,
+        "note": "Lab proxy; not real-user INP."
+      },
+      "scriptGzipBytes": 142890,
+      "scripts": [
+        "http://127.0.0.1:3002/_next/static/chunks/310vm2bl3xxpt.js",
+        "http://127.0.0.1:3002/_next/static/chunks/41shqbag6wu_r.js",
+        "http://127.0.0.1:3002/_next/static/chunks/1rj7ns8rte9vc.js",
+        "http://127.0.0.1:3002/_next/static/chunks/0h-uhh91ijkha.js",
+        "http://127.0.0.1:3002/_next/static/chunks/turbopack-22as_nt9qctt9.js",
+        "http://127.0.0.1:3002/_next/static/chunks/3qmnrg8uc__y4.js",
+        "http://127.0.0.1:3002/_next/static/chunks/31u7uukepxz5a.js",
+        "http://127.0.0.1:3002/_next/static/chunks/22i43cg4l4-dq.js",
+        "http://127.0.0.1:3002/_next/static/chunks/2awzninvgoxwc.js"
+      ]
+    }
+  ]
+}

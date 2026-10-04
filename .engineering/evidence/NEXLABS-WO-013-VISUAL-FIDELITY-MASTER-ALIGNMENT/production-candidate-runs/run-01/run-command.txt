@@ -1,0 +1,4 @@
+E2E_PORT=3002
+NEXLABS_RELEASE_PORT=3002
+.\node_modules\.bin\playwright.cmd test --config .engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts
+Config: workers=1, retries=0

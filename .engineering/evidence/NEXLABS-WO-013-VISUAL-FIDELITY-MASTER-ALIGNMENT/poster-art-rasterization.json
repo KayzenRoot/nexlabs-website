@@ -1,0 +1,26 @@
+{
+  "result": "PASS",
+  "method": "authored SVG, locally rasterized to JPEG without reading the master asset",
+  "outputs": [
+    {
+      "source": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/poster-art-desktop.svg",
+      "sourceSha256": "dd982fa0a83737cf65b2b91ee133817f541e8e4292143c73df3b764943df9b81",
+      "target": "public/hero/home-hero-poster.jpg",
+      "targetSha256": "31cacb119eeca721824eb130a5102bf29029ab662e06f84d8ee0364895b7d5e9",
+      "bytes": 68660,
+      "viewport": "1600x460",
+      "jpegQuality": 84,
+      "renderer": "Playwright Chromium from the locked package set"
+    },
+    {
+      "source": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/poster-art-mobile.svg",
+      "sourceSha256": "d66e9c70c1f26c481cab1ee162062742ba8cb0990954057eb7633f9ab4de60f5",
+      "target": "public/hero/home-hero-poster-mobile.jpg",
+      "targetSha256": "c83258a4a697e0538156bc6a6ddf799a540c3a229e6fc2ae39d61746bcd05474",
+      "bytes": 39888,
+      "viewport": "780x960",
+      "jpegQuality": 70,
+      "renderer": "Playwright Chromium from the locked package set"
+    }
+  ]
+}
