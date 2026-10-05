@@ -1,6 +1,6 @@
 # NEXLABS-WO-013 Evidence Bundle
 
-**Status:** implementation and local proof complete; independent visual audit and exact final-head hosted checks remain pending.
+**Status:** implementation and local proof complete; exact-head hosted signals are recorded in live PR #20 metadata after the final evidence push; independent visual audit and owner acceptance remain pending.
 **Repository:** `KayzenRoot/nexlabs-website`
 **Branch / PR:** `work/nexlabs-wo-013-visual-fidelity-master-alignment` / [PR #20](https://github.com/KayzenRoot/nexlabs-website/pull/20)
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
