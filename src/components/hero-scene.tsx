@@ -402,10 +402,6 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
         <cylinderGeometry args={[0.06, 0.56, 4.25, 20, 1, true]} />
         <meshBasicMaterial color="#65cfff" transparent opacity={tier === "FULL" ? 0.11 : 0.06} side={DoubleSide} />
       </mesh>
-      <pointLight color="#42cfff" intensity={tier === "FULL" ? 9 : 5} distance={8} position={[0, 0.3, 1.5]} />
-      <pointLight color="#315fff" intensity={tier === "FULL" ? 7 : 3.5} distance={10} position={[-2.8, 1.7, -0.35]} />
-      <pointLight color="#b7f5ff" intensity={tier === "FULL" ? 7 : 3.5} distance={8} position={[1.6, 2.28, 0.5]} />
-      <pointLight color="#2b8cff" intensity={tier === "FULL" ? 8 : 4} distance={8} position={[2.9, -1.5, -0.15]} />
     </group>
   );
 }
@@ -721,7 +717,6 @@ function FloorAndPanels() {
               <meshBasicMaterial color="#55cfff" transparent opacity={0.62} />
             </mesh>
           ))}
-          <pointLight color="#27a7ff" intensity={0.32} distance={3} />
         </group>
       ))}
     </group>
