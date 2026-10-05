@@ -27,6 +27,7 @@ export function HeroSceneClient() {
   const [failed, setFailed] = useState(false);
 
   const failScene = useCallback((reason: unknown) => {
+    hostRef.current?.parentElement?.removeAttribute("data-scene-live");
     setFailed(true);
     setSceneReady(false);
     if (process.env.NODE_ENV !== "production") {
@@ -39,6 +40,7 @@ export function HeroSceneClient() {
       const nextTier = resolveHeroQualityTier(readHeroCapabilities());
       setTier(nextTier);
       if (nextTier === "STATIC") {
+        hostRef.current?.parentElement?.removeAttribute("data-scene-live");
         setShouldLoad(false);
         setSceneReady(false);
       }
@@ -94,6 +96,11 @@ export function HeroSceneClient() {
     };
   }, [failed, tier]);
 
+  const markSceneReady = useCallback(() => {
+    hostRef.current?.parentElement?.setAttribute("data-scene-live", "true");
+    setSceneReady(true);
+  }, []);
+
   return (
     <div
       ref={hostRef}
@@ -110,7 +117,7 @@ export function HeroSceneClient() {
         <HeroSceneErrorBoundary onFailure={failScene}>
           <HeroScene
             tier={tier}
-            onReady={() => setSceneReady(true)}
+            onReady={markSceneReady}
             onFailure={failScene}
           />
         </HeroSceneErrorBoundary>

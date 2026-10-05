@@ -69,7 +69,8 @@
   will-change: opacity;
 }
 
-.hero:has([data-scene-state="ready"]) .referencePoster {
+.hero:has([data-scene-state="ready"]) .referencePoster,
+.hero[data-scene-live="true"] .referencePoster {
   opacity: 0;
   mask-image: none;
 }
