@@ -3,6 +3,7 @@ import { mkdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const screenshotDirectory = resolve(
   process.cwd(),
@@ -172,7 +173,7 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
     );
     expect(hasHorizontalOverflow, `${viewport.name} horizontal overflow`).toBe(false);
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(screenshotDirectory, `home-${viewport.name}.png`),
       fullPage: viewport.fullPage,
       animations: "disabled",
@@ -181,21 +182,17 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
   }
 
   await page.setViewportSize({ width: 1600, height: 900 });
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-full-page-1600x900.png"),
     fullPage: true,
     animations: "disabled",
   });
 
   await page.setViewportSize({ width: 1440, height: 900 });
-  await page.getByRole("banner").screenshot({
-    path: resolve(screenshotDirectory, "header-desktop-1440x900.png"),
-    animations: "disabled",
-  });
-  await page.locator("footer").screenshot({
-    path: resolve(screenshotDirectory, "footer-desktop-1440x900.png"),
-    animations: "disabled",
-  });
+  const headerImage = await page.getByRole("banner").screenshot({ animations: "disabled" });
+  writeFileSync(resolve(screenshotDirectory, "header-desktop-1440x900.png"), headerImage);
+  const footerImage = await page.locator("footer").screenshot({ animations: "disabled" });
+  writeFileSync(resolve(screenshotDirectory, "footer-desktop-1440x900.png"), footerImage);
 
   expect(browserErrors).toEqual([]);
 });
@@ -246,14 +243,14 @@ test("M05 sections preserve canonical copy, live anchors, and visual continuity"
     window.scrollTo(0, Math.max(0, scrollTop));
     document.documentElement.style.scrollBehavior = "";
   });
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-hero-capabilities-continuity-1600x900.png"),
     fullPage: false,
     animations: "disabled",
   });
 
   await page.locator("#research").scrollIntoViewIfNeeded();
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-research-technology-continuity-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -276,7 +273,7 @@ test("skip link and keyboard focus are visible and usable", async ({ page }) => 
   await expect(skipLink).toBeFocused();
   const focusRing = await skipLink.evaluate((link) => getComputedStyle(link).boxShadow);
   expect(focusRing).not.toBe("none");
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-keyboard-focus-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -312,12 +309,12 @@ test("mobile menu exposes every route and closes on Escape with focus restored",
     await expect(links.nth(index)).toHaveAttribute("href", destination);
   }
   await expect(links.nth(4)).toHaveAttribute("href", "/contact");
-  await page.screenshot({ path: resolve(screenshotDirectory, "mobile-menu-open-320x844.png"), animations: "disabled" });
+  await captureScreenshot(page, { path: resolve(screenshotDirectory, "mobile-menu-open-320x844.png"), animations: "disabled" });
 
   await page.keyboard.press("Escape");
   await expect(navigation).toBeHidden();
   await expect(trigger).toBeFocused();
-  await page.screenshot({ path: resolve(screenshotDirectory, "mobile-menu-closed-320x844.png"), animations: "disabled" });
+  await captureScreenshot(page, { path: resolve(screenshotDirectory, "mobile-menu-closed-320x844.png"), animations: "disabled" });
 
   const hasHorizontalOverflow = await page.evaluate(
     () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
@@ -369,7 +366,7 @@ test("lazy scene reaches ready on capable WebGL and retains the poster otherwise
     }
   }
 
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-scene-transition-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -402,7 +399,7 @@ test("WebGL failure selects the static hero without blocking semantic content", 
     }),
   ).toBeVisible();
   await expect(page.locator("canvas")).toHaveCount(0);
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-webgl-fallback-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -463,7 +460,7 @@ test("runtime WebGL failure keeps the poster fallback after resize", async ({
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.locator("canvas")).toHaveCount(0);
   mkdirSync(screenshotDirectory, { recursive: true });
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(
       screenshotDirectory,
       "home-webgl-runtime-fallback-after-resize-1600x900.png",
@@ -537,7 +534,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   );
   await expect(mobilePage.getByTestId("hero-static-poster")).toBeVisible();
   const mobileLoadMs = Date.now() - mobileStart;
-  await mobilePage.screenshot({
+  await captureScreenshot(mobilePage, {
     path: resolve(screenshotDirectory, "home-performance-mobile-390x844.png"),
     fullPage: false,
     animations: "disabled",
@@ -646,7 +643,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     timeout: 30_000,
   });
   const fullFrames = await sampleFrameTimes(fullProfilePage);
-  await fullProfilePage.screenshot({
+  await captureScreenshot(fullProfilePage, {
     path: resolve(screenshotDirectory, "home-full-scene-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -706,7 +703,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     balancedTier = await balancedStage.getAttribute("data-quality-tier");
     balancedState = await balancedStage.getAttribute("data-scene-state");
     balancedFrames = await sampleFrameTimes(balancedPage);
-    await balancedPage.screenshot({
+    await captureScreenshot(balancedPage, {
       path: resolve(screenshotDirectory, "home-balanced-scene-900x768.png"),
       fullPage: false,
       animations: "disabled",
@@ -818,13 +815,13 @@ test("reduced motion keeps the static Home composition usable", async ({ page })
   );
   await expect(page.locator("header svg > path")).toHaveCSS("animation-name", "none");
   mkdirSync(screenshotDirectory, { recursive: true });
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-reduced-motion-desktop-1440x900.png"),
     fullPage: false,
     animations: "disabled",
   });
   await page.locator("#capabilities").scrollIntoViewIfNeeded();
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "home-reduced-motion-capabilities-1440x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -856,7 +853,7 @@ test("16px and 24px monochrome marks load and retain the favicon silhouette", as
     expect(imageState.height).toBe(Number(await mark.getAttribute("height")));
     await expect(mark).toBeVisible();
   }
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "monochrome-marks-16px-24px.png"),
     animations: "disabled",
   });
@@ -891,7 +888,7 @@ test("horizontal lockups and the chrome-blue treatment load as the selected iden
   }, `${origin}/brand/nex-n-precision-blades-chrome-blue.svg`);
   expect(chromeAsset.status).toBe(200);
   expect(chromeAsset.svg).toContain("data:image/webp;base64,");
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(screenshotDirectory, "lockups-and-chrome-blue.png"),
     fullPage: true,
     animations: "disabled",

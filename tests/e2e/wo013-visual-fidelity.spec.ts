@@ -19,7 +19,8 @@ function saveJson(name: string, value: unknown) {
 }
 
 async function capture(page: Page, name: string, fullPage = false) {
-  await page.screenshot({ path: resolve(evidenceDirectory, name), fullPage, animations: "disabled", caret: "hide" });
+  const screenshot = await page.screenshot({ fullPage, animations: "disabled", caret: "hide" });
+  writeFileSync(resolve(evidenceDirectory, name), screenshot);
 }
 
 async function settleResponsiveLayout(page: Page) {
@@ -57,7 +58,8 @@ async function compositeComparison(
   const masterSvg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="${x} ${y} ${width} ${height}" preserveAspectRatio="none"><image href="data:image/jpeg;base64,${masterBase64}" x="0" y="0" width="1600" height="900"/></svg>`;
   await page.setViewportSize({ width: 1600, height: Math.max(220, rowHeight * 2 + 110) });
   await page.setContent(`<!doctype html><html><head><style>*{box-sizing:border-box}html,body{margin:0;background:#030812;color:#dff7ff;font:600 14px Arial,sans-serif}main{width:1600px;padding:12px;display:grid;grid-template-columns:1fr;gap:10px}figure{margin:0;overflow:hidden;border:1px solid #287eb5;background:#061326}figcaption{height:28px;padding:7px 10px;letter-spacing:.12em;text-transform:uppercase;background:#081a30}img,svg{display:block;width:100%;height:${rowHeight}px;object-fit:cover;object-position:top}</style></head><body><main><figure><figcaption>Approved master · evidence only</figcaption>${masterSvg}</figure><figure><figcaption>Current candidate · ${name}</figcaption><img src="data:image/png;base64,${candidateBase64}" alt=""/></figure></main></body></html>`);
-  await page.screenshot({ path: resolve(evidenceDirectory, name), animations: "disabled", fullPage: true });
+  const screenshot = await page.screenshot({ animations: "disabled", fullPage: true });
+  writeFileSync(resolve(evidenceDirectory, name), screenshot);
   await page.close();
 }
 
@@ -74,7 +76,8 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   await expect(page.getByRole("heading", { level: 1, name: /human potential multiplied/i })).toBeVisible();
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.locator("#capabilities article")).toHaveCount(5);
-  await page.screenshot({ path: resolve(evidenceDirectory, "candidate-home-1600x900.png"), animations: "disabled", caret: "hide" });
+  const homeCapture = await page.screenshot({ animations: "disabled", caret: "hide" });
+  writeFileSync(resolve(evidenceDirectory, "candidate-home-1600x900.png"), homeCapture);
 
   const activePage = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 });
   await activePage.goto("/technology", { waitUntil: "networkidle" });

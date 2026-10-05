@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const evidenceDirectory = resolve(
   process.cwd(),
@@ -161,7 +162,7 @@ test("Contact meets accessibility, reduced-motion, responsive and isolated-route
   const desktopScripts = await scripts.finish();
   expect(desktopScripts.gzipBytes).toBeLessThanOrEqual(220 * 1024);
   expect(desktopScripts.urls.some((url) => /hero-scene|three|webgl/i.test(url))).toBe(false);
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(evidenceDirectory, "contact-desktop-1600x900.png"),
     fullPage: true,
     animations: "disabled",
@@ -193,7 +194,7 @@ test("Contact meets accessibility, reduced-motion, responsive and isolated-route
   await page.keyboard.press("Tab");
   const skipLink = page.getByRole("link", { name: "Skip to content" });
   await expect(skipLink).toBeFocused();
-  await page.screenshot({ path: resolve(evidenceDirectory, "contact-keyboard-focus.png"), animations: "disabled" });
+  await captureScreenshot(page, { path: resolve(evidenceDirectory, "contact-keyboard-focus.png"), animations: "disabled" });
   await page.evaluate(() => {
     const skip = document.querySelector<HTMLAnchorElement>('a[href="#main"]');
     if (!skip) throw new Error("Contact skip link is missing.");
@@ -237,7 +238,7 @@ test("Contact meets accessibility, reduced-motion, responsive and isolated-route
     expect(actionBounds!.x + actionBounds!.width).toBeLessThanOrEqual(viewport.width);
     responsiveReports.push({ ...metrics, horizontalOverflow, headerContactActionVisible: true });
     if (viewport.width === 390) {
-      await page.screenshot({
+      await captureScreenshot(page, {
         path: resolve(evidenceDirectory, "contact-mobile-390x844.png"),
         fullPage: true,
         animations: "disabled",
@@ -257,7 +258,7 @@ test("Contact meets accessibility, reduced-motion, responsive and isolated-route
   expect(reducedMotion.enabled).toBe(true);
   expect(reducedMotion.artworkAnimation).toBe("none");
   expect(reducedMotion.signalAnimation).toBe("none");
-  await page.screenshot({ path: resolve(evidenceDirectory, "contact-reduced-motion-1440x900.png"), animations: "disabled" });
+  await captureScreenshot(page, { path: resolve(evidenceDirectory, "contact-reduced-motion-1440x900.png"), animations: "disabled" });
   writeFileSync(
     resolve(evidenceDirectory, "contact-responsive-performance-report.json"),
     `${JSON.stringify({
@@ -289,9 +290,9 @@ test("Contact navigation is final across six V1 routes and Home retains its sect
     await expect(banner.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute("href", "/contact");
     await expect(footerNav.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute("href", "/contact");
     if (path === "/contact") {
-      await page.screenshot({ path: resolve(evidenceDirectory, "contact-header-action-1600x900.png"), animations: "disabled" });
+      await captureScreenshot(page, { path: resolve(evidenceDirectory, "contact-header-action-1600x900.png"), animations: "disabled" });
       await footerNav.scrollIntoViewIfNeeded();
-      await page.screenshot({ path: resolve(evidenceDirectory, "contact-footer-action-1600x900.png"), animations: "disabled" });
+      await captureScreenshot(page, { path: resolve(evidenceDirectory, "contact-footer-action-1600x900.png"), animations: "disabled" });
       await page.getByRole("link", { name: "Contact Nex Labs" }).first().click();
       await expect(page).toHaveURL(/\/contact$/);
     }
@@ -306,7 +307,7 @@ test("Contact navigation is final across six V1 routes and Home retains its sect
   await expect(finalCta.getByText("Explore the systems, research and principles shaping Nex Labs, then use Contact to frame the context for a future conversation.", { exact: true })).toBeVisible();
   await expect(finalCta.getByRole("link", { name: "Explore capabilities" })).toHaveAttribute("href", "#capabilities");
   await expect(finalCta.getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute("href", "/contact");
-  await page.screenshot({ path: resolve(evidenceDirectory, "home-final-contact-transition-1600x900.png"), animations: "disabled" });
+  await captureScreenshot(page, { path: resolve(evidenceDirectory, "home-final-contact-transition-1600x900.png"), animations: "disabled" });
 
   writeFileSync(
     resolve(evidenceDirectory, "six-route-navigation-report.json"),

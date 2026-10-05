@@ -2,6 +2,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const evidenceDirectory = resolve(
   process.cwd(),
@@ -136,7 +137,7 @@ test("branded 404 has no Axe violations and exposes a safe route back Home", asy
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
   expect(accessibility.violations).toEqual([]);
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(evidenceDirectory, "branded-404-desktop-1600x900.png"),
     fullPage: true,
     animations: "disabled",
