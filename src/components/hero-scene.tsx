@@ -351,7 +351,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   return (
     <group position={[3.1, 0.12, -1.1]} scale={[0.94, 1, 0.94]}>
       <mesh position={[0, 0.03, -0.58]}>
-          <cylinderGeometry args={[3.22, 3.22, 5.25, detailSegments, 1, true]} />
+        <cylinderGeometry args={[3.22, 3.22, 5.25, detailSegments, 1, true]} />
         <meshBasicMaterial color="#0a2443" transparent opacity={0.26} side={DoubleSide} />
       </mesh>
       <mesh position={[0, 0.04, -0.54]}>
@@ -534,7 +534,7 @@ function HumanScaleFigure() {
       </mesh>
       <mesh position={[0, 0.3, 0]}>
         <capsuleGeometry args={[0.12, 0.48, 3, 7]} />
-      <meshStandardMaterial color="#102541" metalness={0.54} roughness={0.36} emissive="#123b68" emissiveIntensity={0.7} />
+        <meshStandardMaterial color="#102541" metalness={0.54} roughness={0.36} emissive="#123b68" emissiveIntensity={0.7} />
       </mesh>
       <mesh position={[0, 0.28, -0.11]}>
         <boxGeometry args={[0.22, 0.31, 0.1]} />
