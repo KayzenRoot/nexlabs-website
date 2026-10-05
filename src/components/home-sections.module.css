@@ -770,11 +770,15 @@
 }
 
 .technologyPillars {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 0.7rem;
   margin: 0;
-  padding: 0;
+  padding: 0.45rem 0.55rem;
   list-style: none;
+  background: linear-gradient(90deg, transparent, rgb(4 12 24 / 74%) 26%, rgb(4 12 24 / 42%));
+  box-shadow: 0 0 1.2rem rgb(18 103 195 / 12%);
 }
 
 .technologyPillars li {

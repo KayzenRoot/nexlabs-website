@@ -227,7 +227,7 @@ function TechnologyCube() {
       aria-hidden="true"
       className={styles.technologyGlyph}
       focusable="false"
-      viewBox="32 10 316 270"
+      viewBox="0 0 380 280"
       fill="none"
       stroke="currentColor"
       strokeLinejoin="round"

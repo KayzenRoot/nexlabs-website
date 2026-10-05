@@ -297,13 +297,13 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
 function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
   const detailSegments = tier === "FULL" ? 112 : 64;
-  const ribCount = tier === "FULL" ? 48 : 24;
-  const ribGeometry = useMemo(() => new BoxGeometry(0.064, 5.15, 0.075), []);
+  const ribCount = tier === "FULL" ? 28 : 16;
+  const ribGeometry = useMemo(() => new BoxGeometry(0.04, 5.15, 0.052), []);
   const ribMaterial = useMemo(
     () => new MeshBasicMaterial({
       color: "#ffffff",
       transparent: true,
-      opacity: 0.86,
+      opacity: 0.46,
       vertexColors: true,
     }),
     [],
@@ -322,14 +322,14 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
   const ribInstances = useSceneInstances(ribGeometry, ribMaterial, ribTransforms);
   const outerRibTransforms = useMemo(
-    () => Array.from({ length: tier === "FULL" ? 28 : 14 }, (_, index): SceneInstanceTransform => {
-      const angle = (index / (tier === "FULL" ? 28 : 14)) * Math.PI * 2;
+    () => Array.from({ length: tier === "FULL" ? 18 : 10 }, (_, index): SceneInstanceTransform => {
+      const angle = (index / (tier === "FULL" ? 18 : 10)) * Math.PI * 2;
       const radius = 4.08;
       return {
         position: [Math.cos(angle) * radius, 0.08, Math.sin(angle) * radius - 0.48],
         rotation: [0, -angle, 0],
-        scale: [0.72, 1, 0.72],
-        color: index % 7 === 0 ? "#75dfff" : "#24568a",
+        scale: [0.62, 1, 0.62],
+        color: index % 6 === 0 ? "#72d5ff" : "#3976a9",
       };
     }),
     [tier],
@@ -721,7 +721,7 @@ function FloorGuideLines() {
 }
 
 const holographicPanelPlacements: Array<[number, number, number, number, number]> = [
-  [-4.65, 1.12, -1.45, 2.55, 1.78],
+  [-0.8, 1.38, -2.35, 1.9, 1.42],
   [8.2, 1.12, -2.25, 2.7, 1.82],
   [8.45, -0.42, -0.72, 2.2, 1.46],
   [2.6, 2.28, -2.85, 1.78, 1.16],
@@ -865,12 +865,12 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
       {[1.35, 1.72, 2.12, 2.55, 2.96, 3.35, 3.76, 4.16, 4.56, 4.98, 5.32].map((radius, index) => (
         <mesh key={radius} position={[3.08, -1.858 + index * 0.008, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[radius, index === 2 || index === 6 || index === 9 ? 0.045 : 0.026, 7, 120]} />
-          <meshBasicMaterial color={index % 3 === 0 ? "#c9f7ff" : index % 2 ? "#3585f0" : "#79dfff"} transparent opacity={index % 3 === 0 ? 0.88 : 0.58 - index * 0.018} />
+          <meshBasicMaterial color={index % 3 === 0 ? "#92dfff" : index % 2 ? "#286ac5" : "#51b7eb"} transparent opacity={index % 3 === 0 ? 0.54 : 0.38 - index * 0.012} />
         </mesh>
       ))}
       <mesh position={[3.08, -1.924, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[5.12, 0.095, 7, 120]} />
-        <meshBasicMaterial color="#3e98ee" transparent opacity={0.68} />
+        <meshBasicMaterial color="#3e98ee" transparent opacity={0.48} />
       </mesh>
       {[-5.35, 5.35].map((x, index) => (
         <group key={x}>
