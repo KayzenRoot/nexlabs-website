@@ -309,21 +309,24 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
     [],
   );
   const ribTransforms = useMemo(
-    () => Array.from({ length: ribCount }, (_, index): SceneInstanceTransform => {
+    () => Array.from({ length: ribCount }, (_, index): SceneInstanceTransform | null => {
       const angle = (index / ribCount) * Math.PI * 2;
+      if (Math.sin(angle) > 0.42) return null;
       const radius = 3.52;
       return {
         position: [Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06],
         rotation: [0, -angle, 0],
         color: index % 6 === 0 ? "#b5f1ff" : index % 3 === 0 ? "#5595c7" : "#2d6397",
       };
-    }),
+    }).filter((transform): transform is SceneInstanceTransform => transform !== null),
     [ribCount],
   );
   const ribInstances = useSceneInstances(ribGeometry, ribMaterial, ribTransforms);
   const outerRibTransforms = useMemo(
-    () => Array.from({ length: tier === "FULL" ? 18 : 10 }, (_, index): SceneInstanceTransform => {
-      const angle = (index / (tier === "FULL" ? 18 : 10)) * Math.PI * 2;
+    () => Array.from({ length: tier === "FULL" ? 18 : 10 }, (_, index): SceneInstanceTransform | null => {
+      const count = tier === "FULL" ? 18 : 10;
+      const angle = (index / count) * Math.PI * 2;
+      if (Math.sin(angle) > 0.58) return null;
       const radius = 4.08;
       return {
         position: [Math.cos(angle) * radius, 0.08, Math.sin(angle) * radius - 0.48],
@@ -331,7 +334,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
         scale: [0.62, 1, 0.62],
         color: index % 6 === 0 ? "#72d5ff" : "#3976a9",
       };
-    }),
+    }).filter((transform): transform is SceneInstanceTransform => transform !== null),
     [tier],
   );
   const outerRibs = useSceneInstances(ribGeometry, ribMaterial, outerRibTransforms);
@@ -835,9 +838,9 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
   const environment = useChromeEnvironmentMap();
   const platformMaterials = useMemo(
     () => [
-      new MeshPhysicalMaterial({ color: "#07101d", metalness: 0.96, roughness: 0.21, clearcoat: 0.62, clearcoatRoughness: 0.16, envMap: environment, envMapIntensity: 1.4, emissive: "#07182e", emissiveIntensity: 0.55 }),
-      new MeshPhysicalMaterial({ color: "#0b1a2c", metalness: 0.97, roughness: 0.18, clearcoat: 0.76, clearcoatRoughness: 0.12, envMap: environment, envMapIntensity: 1.65, emissive: "#09264a", emissiveIntensity: 0.5 }),
-      new MeshPhysicalMaterial({ color: "#030913", metalness: 0.98, roughness: 0.16, clearcoat: 0.82, clearcoatRoughness: 0.1, envMap: environment, envMapIntensity: 1.8, emissive: "#0a2b55", emissiveIntensity: 0.65 }),
+      new MeshPhysicalMaterial({ color: "#07101d", metalness: 0.96, roughness: 0.21, clearcoat: 0.62, clearcoatRoughness: 0.16, envMap: environment, envMapIntensity: 0.92, emissive: "#07182e", emissiveIntensity: 0.42 }),
+      new MeshPhysicalMaterial({ color: "#0b1a2c", metalness: 0.97, roughness: 0.18, clearcoat: 0.76, clearcoatRoughness: 0.12, envMap: environment, envMapIntensity: 1.02, emissive: "#09264a", emissiveIntensity: 0.4 }),
+      new MeshPhysicalMaterial({ color: "#030913", metalness: 0.98, roughness: 0.16, clearcoat: 0.82, clearcoatRoughness: 0.1, envMap: environment, envMapIntensity: 1.1, emissive: "#0a2b55", emissiveIntensity: 0.48 }),
     ],
     [environment],
   );
