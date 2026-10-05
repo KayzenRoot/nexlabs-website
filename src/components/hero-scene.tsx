@@ -282,6 +282,7 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
     <group
       ref={mark}
       position={[3.1, 0.42, 0.3]}
+      rotation={[0.02, -0.1, 0]}
       scale={1.15}
     >
       <mesh geometry={geometry} material={materials[0]} castShadow={false} receiveShadow={false} />
