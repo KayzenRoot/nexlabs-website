@@ -15,6 +15,7 @@ import {
   Float32BufferAttribute,
   Group,
   InstancedMesh,
+  Matrix4,
   Material,
   Mesh,
   MeshPhysicalMaterial,
@@ -28,6 +29,7 @@ import {
   Vector3,
 } from "three";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
+import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { precisionBladesGeometry, precisionBladesTransform } from "../brand/precision-blades";
 import { getMotionScale, livingOrganismMotion } from "../experience/living-organism";
@@ -645,14 +647,118 @@ function FloorGuideLines() {
   return <primitive object={lines} />;
 }
 
-function FloorAndPanels() {
-  const panelPlacements: Array<[number, number, number, number, number]> = [
-    [-5.35, 0.8, -1.35, 2.18, 1.5],
-    [6.1, 1.12, -2.15, 2.05, 1.42],
-    [7.42, -0.08, -1.28, 1.54, 1.08],
-    [1.25, 1.92, -2.55, 1.26, 0.84],
-  ];
+const holographicPanelPlacements: Array<[number, number, number, number, number]> = [
+  [-5.35, 0.8, -1.35, 2.18, 1.5],
+  [6.1, 1.12, -2.15, 2.05, 1.42],
+  [7.42, -0.08, -1.28, 1.54, 1.08],
+  [1.25, 1.92, -2.55, 1.26, 0.84],
+];
 
+interface HolographicPanelRect {
+  panel: number;
+  x: number;
+  y: number;
+  z: number;
+  width: number;
+  height: number;
+}
+
+function buildHolographicPanelGeometry(rectangles: HolographicPanelRect[], depth = 0) {
+  const parts = rectangles.map((rectangle) => {
+    const [x, y, z, , ] = holographicPanelPlacements[rectangle.panel];
+    const panelGroup = new Object3D();
+    panelGroup.position.set(x, y, z);
+    panelGroup.rotation.set(0, rectangle.panel === 0 ? 0.2 : -0.16, rectangle.panel === 2 ? -0.05 : 0);
+    panelGroup.updateMatrix();
+
+    const localPlane = new Object3D();
+    localPlane.position.set(rectangle.x, rectangle.y, rectangle.z);
+    localPlane.updateMatrix();
+
+    const geometry = depth > 0
+      ? new BoxGeometry(rectangle.width, rectangle.height, depth)
+      : new PlaneGeometry(rectangle.width, rectangle.height);
+    geometry.applyMatrix4(new Matrix4().multiplyMatrices(panelGroup.matrix, localPlane.matrix));
+    return geometry;
+  });
+  const geometry = mergeGeometries(parts, false);
+  parts.forEach((part) => part.dispose());
+  if (!geometry) throw new Error("Holographic panel geometry could not be merged.");
+  return geometry;
+}
+
+function HolographicPanelBank() {
+  const panelRects = useMemo(
+    () => holographicPanelPlacements.map(([, , , width, height], panel) => ({ panel, width, height })),
+    [],
+  );
+  const geometry = useMemo(() => {
+    const rectsFor = (
+      factory: (panel: number, width: number, height: number) => HolographicPanelRect[],
+    ) => panelRects.flatMap(({ panel, width, height }) => factory(panel, width, height));
+
+    const backplates = buildHolographicPanelGeometry(
+      rectsFor((panel, width, height) => [{ panel, x: 0, y: 0, z: -0.035, width: width + 0.14, height: height + 0.14 }]),
+      0.08,
+    );
+    const glassFaces = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [{ panel, x: 0, y: 0, z: 0, width, height }]));
+    const innerGlass = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [{ panel, x: 0, y: 0, z: -0.02, width: width * 0.94, height: height * 0.92 }]));
+    const wireframes = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [{ panel, x: 0, y: 0, z: 0.015, width: width * 0.94, height: height * 0.9 }]));
+    const horizontalFrames = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [
+      { panel, x: 0, y: height / 2, z: 0.03, width, height: 0.035 },
+      { panel, x: 0, y: -height / 2, z: 0.03, width, height: 0.035 },
+    ]));
+    const verticalFrames = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [
+      { panel, x: -width / 2, y: 0, z: 0.03, width: 0.035, height },
+      { panel, x: width / 2, y: 0, z: 0.03, width: 0.035, height },
+      { panel, x: -width / 2, y: 0, z: 0.022, width: 0.014, height: height * 0.92 },
+      { panel, x: width / 2, y: 0, z: 0.022, width: 0.014, height: height * 0.92 },
+    ]));
+    const highlightLines = buildHolographicPanelGeometry(rectsFor((panel, width, height) => [{
+      panel, x: -width * 0.1, y: -0.34 * height, z: 0.025, width: width * 0.76, height: 0.016,
+    }]));
+    const telemetryLines = buildHolographicPanelGeometry(rectsFor((panel, width, height) =>
+      [-0.2, -0.06, 0.08, 0.22, 0.36].map((lineY, index) => ({
+        panel,
+        x: -width * (index % 2 ? 0.02 : 0.1),
+        y: lineY * height,
+        z: 0.025,
+        width: width * (0.76 - ((index + 1) % 3) * 0.12),
+        height: (index + 1) % 3 === 0 ? 0.016 : 0.009,
+      })),
+    ));
+
+    return { backplates, glassFaces, innerGlass, wireframes, horizontalFrames, verticalFrames, highlightLines, telemetryLines };
+  }, [panelRects]);
+  const materials = useMemo(
+    () => ({
+      backplates: new MeshBasicMaterial({ color: "#1678e9", transparent: true, opacity: 0.12, side: DoubleSide }),
+      glassFaces: new MeshBasicMaterial({ color: "#07234a", transparent: true, opacity: 0.37, side: DoubleSide }),
+      innerGlass: new MeshBasicMaterial({ color: "#03132b", transparent: true, opacity: 0.56, side: DoubleSide }),
+      wireframes: new MeshBasicMaterial({ color: "#4ccfff", wireframe: true, transparent: true, opacity: 0.28, side: DoubleSide }),
+      horizontalFrames: new MeshBasicMaterial({ color: "#9ceeff", transparent: true, opacity: 0.78, side: DoubleSide }),
+      verticalFrames: new MeshBasicMaterial({ color: "#48aaff", transparent: true, opacity: 0.64, side: DoubleSide }),
+      highlightLines: new MeshBasicMaterial({ color: "#bbf5ff", transparent: true, opacity: 0.72, side: DoubleSide }),
+      telemetryLines: new MeshBasicMaterial({ color: "#43a8ff", transparent: true, opacity: 0.48, side: DoubleSide }),
+    }),
+    [],
+  );
+
+  useEffect(() => () => {
+    Object.values(geometry).forEach((item) => item.dispose());
+    Object.values(materials).forEach((item) => item.dispose());
+  }, [geometry, materials]);
+
+  return (
+    <group>
+      {Object.entries(geometry).map(([key, item]) => (
+        <mesh key={key} geometry={item} material={materials[key as keyof typeof materials]} />
+      ))}
+    </group>
+  );
+}
+
+function FloorAndPanels() {
   return (
     <group>
       <mesh position={[0, -2.14, -1.6]} rotation={[-Math.PI / 2, 0, 0]}>
@@ -678,47 +784,7 @@ function FloorAndPanels() {
           <meshBasicMaterial color={index === 2 || index === 5 ? "#54dfff" : index % 2 ? "#1c65d8" : "#a5f1ff"} transparent opacity={index === 2 ? 0.7 : 0.34 - index * 0.018} />
         </mesh>
       ))}
-      {panelPlacements.map(([x, y, z, w, h], index) => (
-        <group key={index} position={[x, y, z]} rotation={[0, index === 0 ? 0.2 : -0.16, index === 2 ? -0.05 : 0]}>
-          <mesh position={[0, 0, -0.035]}>
-            <boxGeometry args={[w + 0.14, h + 0.14, 0.08]} />
-            <meshBasicMaterial color="#1678e9" transparent opacity={0.12} />
-          </mesh>
-          <mesh>
-            <planeGeometry args={[w, h]} />
-            <meshBasicMaterial color="#07234a" transparent opacity={0.37} side={DoubleSide} />
-          </mesh>
-          <mesh position={[0, 0, -0.02]}>
-            <planeGeometry args={[w * 0.94, h * 0.92]} />
-            <meshBasicMaterial color="#03132b" transparent opacity={0.56} side={DoubleSide} />
-          </mesh>
-          {[
-            [0, h / 2, w, 0.035], [0, -h / 2, w, 0.035],
-            [-w / 2, 0, 0.035, h], [w / 2, 0, 0.035, h],
-          ].map(([frameX, frameY, frameW, frameH], frameIndex) => (
-            <mesh key={"glass-rail-" + frameIndex} position={[frameX, frameY, 0.03]}>
-              <planeGeometry args={[frameW, frameH]} />
-              <meshBasicMaterial color={frameIndex < 2 ? "#9ceeff" : "#48aaff"} transparent opacity={0.78} side={DoubleSide} />
-            </mesh>
-          ))}
-          <mesh position={[0, 0, 0.015]}>
-            <planeGeometry args={[w * 0.94, h * 0.9]} />
-            <meshBasicMaterial color="#4ccfff" wireframe transparent opacity={0.28} side={DoubleSide} />
-          </mesh>
-          {[-0.34, -0.2, -0.06, 0.08, 0.22, 0.36].map((lineY, lineIndex) => (
-            <mesh key={lineIndex} position={[-w * (lineIndex % 2 ? 0.02 : 0.1), lineY * h, 0.025]}>
-              <planeGeometry args={[w * (0.76 - (lineIndex % 3) * 0.12), lineIndex % 3 === 0 ? 0.016 : 0.009]} />
-              <meshBasicMaterial color={lineIndex === 0 ? "#bbf5ff" : "#43a8ff"} transparent opacity={lineIndex === 0 ? 0.72 : 0.48} />
-            </mesh>
-          ))}
-          {[-w / 2, w / 2].map((edge) => (
-            <mesh key={edge} position={[edge, 0, 0.022]}>
-              <planeGeometry args={[0.014, h * 0.92]} />
-              <meshBasicMaterial color="#55cfff" transparent opacity={0.62} />
-            </mesh>
-          ))}
-        </group>
-      ))}
+      <HolographicPanelBank />
     </group>
   );
 }
