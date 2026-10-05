@@ -20,7 +20,6 @@ import {
   Mesh,
   MeshPhysicalMaterial,
   MeshBasicMaterial,
-  MeshStandardMaterial,
   Object3D,
   PlaneGeometry,
   ShapeGeometry,
@@ -297,14 +296,10 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const ribCount = tier === "FULL" ? 36 : 20;
   const ribGeometry = useMemo(() => new BoxGeometry(0.052, 4.9, 0.06), []);
   const ribMaterial = useMemo(
-    () => new MeshStandardMaterial({
+    () => new MeshBasicMaterial({
       color: "#ffffff",
-      metalness: 0.86,
-      roughness: 0.19,
-      emissive: "#03152d",
-      emissiveIntensity: 0.92,
       transparent: true,
-      opacity: 0.84,
+      opacity: 0.82,
       vertexColors: true,
     }),
     [],
@@ -316,7 +311,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
       return {
         position: [Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06],
         rotation: [0, -angle, 0],
-        color: index % 4 === 0 ? "#93dcff" : "#143c70",
+        color: index % 4 === 0 ? "#b1efff" : "#25558c",
       };
     }),
     [ribCount],
@@ -328,7 +323,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
     () => new MeshBasicMaterial({
       color: "#ffffff",
       transparent: true,
-      opacity: 0.72,
+      opacity: 0.8,
       vertexColors: true,
     }),
     [],
@@ -356,12 +351,12 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   return (
     <group position={[3.1, 0.12, -1.1]} scale={[0.94, 1, 0.94]}>
       <mesh position={[0, 0.03, -0.58]}>
-        <cylinderGeometry args={[3.22, 3.22, 5.25, detailSegments, 1, true]} />
-        <meshPhysicalMaterial color="#07172d" metalness={0.76} roughness={0.3} emissive="#071b36" emissiveIntensity={0.26} transparent opacity={0.34} side={DoubleSide} envMapIntensity={1.25} />
+          <cylinderGeometry args={[3.22, 3.22, 5.25, detailSegments, 1, true]} />
+        <meshBasicMaterial color="#0a2443" transparent opacity={0.26} side={DoubleSide} />
       </mesh>
       <mesh position={[0, 0.04, -0.54]}>
         <cylinderGeometry args={[2.42, 2.42, 4.72, detailSegments, 1, true]} />
-        <meshPhysicalMaterial color="#0b2c58" metalness={0.66} roughness={0.22} emissive="#05214b" emissiveIntensity={0.22} transparent opacity={0.2} side={DoubleSide} envMapIntensity={1.35} />
+        <meshBasicMaterial color="#0d3a72" transparent opacity={0.14} side={DoubleSide} />
       </mesh>
       <group ref={rails}>
         {[
@@ -369,8 +364,8 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
           [3.02, -1.84], [3.22, -2.38], [3.42, -2.56],
         ].map(([radius, y], index) => (
           <mesh key={radius} position={[0, y, -0.06]} rotation={[Math.PI / 2 + 0.035, 0, 0]}>
-            <torusGeometry args={[radius, index % 3 === 1 ? 0.032 : 0.052, 8, detailSegments]} />
-            <meshBasicMaterial color={index % 3 === 1 ? "#a4f3ff" : index % 2 ? "#328dff" : "#1a55c7"} transparent opacity={index % 3 === 1 ? 0.78 : 0.47} />
+            <torusGeometry args={[radius, index % 3 === 1 ? 0.038 : 0.058, 8, detailSegments]} />
+            <meshBasicMaterial color={index % 3 === 1 ? "#c6f7ff" : index % 2 ? "#49a5ff" : "#286ce0"} transparent opacity={index % 3 === 1 ? 0.86 : 0.62} />
           </mesh>
         ))}
         <primitive object={ribInstances} />
@@ -402,7 +397,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
       </group>
       <mesh position={[0, 0.18, -1.02]}>
         <cylinderGeometry args={[0.06, 0.56, 4.25, 20, 1, true]} />
-        <meshBasicMaterial color="#65cfff" transparent opacity={tier === "FULL" ? 0.11 : 0.06} side={DoubleSide} />
+        <meshBasicMaterial color="#65cfff" transparent opacity={tier === "FULL" ? 0.16 : 0.09} side={DoubleSide} />
       </mesh>
     </group>
   );
@@ -539,7 +534,7 @@ function HumanScaleFigure() {
       </mesh>
       <mesh position={[0, 0.3, 0]}>
         <capsuleGeometry args={[0.12, 0.48, 3, 7]} />
-        <meshStandardMaterial color="#07111e" metalness={0.54} roughness={0.36} emissive="#071b33" emissiveIntensity={0.4} />
+      <meshStandardMaterial color="#102541" metalness={0.54} roughness={0.36} emissive="#123b68" emissiveIntensity={0.7} />
       </mesh>
       <mesh position={[0, 0.28, -0.11]}>
         <boxGeometry args={[0.22, 0.31, 0.1]} />
@@ -559,11 +554,11 @@ function HumanScaleFigure() {
       </mesh>
       <mesh position={[0, 0.23, 0.11]}>
         <boxGeometry args={[0.02, 0.34, 0.012]} />
-        <meshBasicMaterial color="#56cfff" transparent opacity={0.48} />
+        <meshBasicMaterial color="#8feaff" transparent opacity={0.82} />
       </mesh>
       <mesh position={[0, -0.31, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.31, 0.012, 4, 32]} />
-        <meshBasicMaterial color="#56cfff" transparent opacity={0.48} />
+        <meshBasicMaterial color="#65dcff" transparent opacity={0.78} />
       </mesh>
     </group>
   );
@@ -732,8 +727,8 @@ function HolographicPanelBank() {
   }, [panelRects]);
   const materials = useMemo(
     () => ({
-      backplates: new MeshBasicMaterial({ color: "#1678e9", transparent: true, opacity: 0.12, side: DoubleSide }),
-      glassFaces: new MeshBasicMaterial({ color: "#07234a", transparent: true, opacity: 0.37, side: DoubleSide }),
+      backplates: new MeshBasicMaterial({ color: "#1678e9", transparent: true, opacity: 0.2, side: DoubleSide }),
+      glassFaces: new MeshBasicMaterial({ color: "#0a2c54", transparent: true, opacity: 0.46, side: DoubleSide }),
       innerGlass: new MeshBasicMaterial({ color: "#03132b", transparent: true, opacity: 0.56, side: DoubleSide }),
       wireframes: new MeshBasicMaterial({ color: "#4ccfff", wireframe: true, transparent: true, opacity: 0.28, side: DoubleSide }),
       horizontalFrames: new MeshBasicMaterial({ color: "#9ceeff", transparent: true, opacity: 0.78, side: DoubleSide }),
@@ -780,8 +775,8 @@ function FloorAndPanels() {
       <FloorGuideLines />
       {[1.28, 1.72, 2.18, 2.62, 3.05, 3.48, 3.98, 4.42].map((radius, index) => (
         <mesh key={radius} position={[3.08, -1.93 + index * 0.009, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[radius, index === 2 ? 0.028 : 0.016, 6, 112]} />
-          <meshBasicMaterial color={index === 2 || index === 5 ? "#54dfff" : index % 2 ? "#1c65d8" : "#a5f1ff"} transparent opacity={index === 2 ? 0.7 : 0.34 - index * 0.018} />
+          <torusGeometry args={[radius, index === 2 || index === 5 ? 0.04 : 0.022, 6, 112]} />
+          <meshBasicMaterial color={index === 2 || index === 5 ? "#8eeeff" : index % 2 ? "#3585f0" : "#b4f3ff"} transparent opacity={index === 2 || index === 5 ? 0.82 : 0.5 - index * 0.018} />
         </mesh>
       ))}
       <HolographicPanelBank />
