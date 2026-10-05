@@ -9,6 +9,9 @@
   isolation: isolate;
   overflow: hidden;
   background:
+    radial-gradient(ellipse at 84% 52%, rgb(49 147 255 / 16%), transparent 30%),
+    linear-gradient(90deg, transparent 53%, rgb(73 163 255 / 5%) 53.08%, transparent 53.18%, transparent 90%, rgb(77 191 255 / 7%) 90.08%, transparent 90.18%),
+    repeating-linear-gradient(0deg, transparent 0 4.7rem, rgb(91 157 225 / 3%) 4.76rem 4.8rem, transparent 4.86rem 7.5rem),
     radial-gradient(ellipse at 75% 44%, rgb(26 111 211 / 21%), transparent 37%),
     radial-gradient(ellipse at 82% 86%, rgb(12 62 124 / 13%), transparent 39%),
     linear-gradient(112deg, rgb(3 8 16 / 39%), rgb(9 22 39 / 39%) 56%, rgb(3 8 16 / 22%));
@@ -22,9 +25,10 @@
   border: 1px solid rgb(81 172 245 / 21%);
   border-radius: 50%;
   background:
-    linear-gradient(90deg, transparent 48.8%, rgb(105 205 255 / 14%) 49%, transparent 49.25%),
-    radial-gradient(ellipse at center, rgb(21 91 171 / 12%), transparent 62%);
-  box-shadow: inset 0 0 4.5rem rgb(32 114 206 / 11%), 0 0 3rem rgb(22 108 207 / 12%);
+    linear-gradient(90deg, transparent 48.8%, rgb(105 205 255 / 17%) 49%, transparent 49.25%),
+    linear-gradient(0deg, transparent 47.8%, rgb(105 205 255 / 13%) 48%, transparent 48.25%),
+    radial-gradient(ellipse at center, rgb(21 91 171 / 17%), transparent 62%);
+  box-shadow: inset 0 0 5rem rgb(32 114 206 / 17%), 0 0 3.6rem rgb(22 108 207 / 17%), 0 1rem 2.5rem rgb(0 0 0 / 22%);
   transform: perspective(62rem) rotateX(61deg) rotateZ(-8deg);
   content: "";
   pointer-events: none;
@@ -146,7 +150,7 @@
 .heroArtwork {
   position: relative;
   display: grid;
-  width: min(100%, 40rem);
+  width: min(100%, 44rem);
   aspect-ratio: 1.18;
   justify-self: end;
   place-items: center;
@@ -154,32 +158,34 @@
   perspective: 48rem;
   transform-style: preserve-3d;
   animation: artwork-breathe 11s ease-in-out infinite alternate;
-  filter: drop-shadow(0 1.3rem 1.6rem rgb(0 0 0 / 44%));
+  filter: drop-shadow(0 1.6rem 1.9rem rgb(0 0 0 / 52%)) drop-shadow(0 0 1.3rem rgb(27 114 220 / 14%));
 }
 
 .heroArtwork::before,
 .heroArtwork::after {
   position: absolute;
-  inset: 7%;
-  border: 1px solid rgb(94 179 255 / 23%);
-  border-radius: 48% 52% 46% 54%;
+  inset: 4% 3% 7%;
+  border: 1px solid rgb(94 179 255 / 29%);
+  border-radius: 46% 54% 43% 57%;
   background:
-    linear-gradient(135deg, rgb(48 136 236 / 8%), transparent 42%),
-    radial-gradient(ellipse at 52% 48%, rgb(42 136 239 / 13%), transparent 62%);
-  box-shadow: inset 0 0 3rem rgb(54 153 255 / 11%), 0 0 2.4rem rgb(26 120 241 / 12%);
+    linear-gradient(135deg, rgb(48 136 236 / 12%), transparent 42%),
+    repeating-linear-gradient(90deg, transparent 0 18%, rgb(104 196 255 / 5%) 18.1% 18.25%, transparent 18.4% 31%),
+    radial-gradient(ellipse at 52% 48%, rgb(42 136 239 / 18%), transparent 62%);
+  box-shadow: inset 0 0 3.7rem rgb(54 153 255 / 16%), 0 0 2.9rem rgb(26 120 241 / 18%);
   transform: translateZ(-1.5rem) rotateY(-13deg);
   content: "";
   pointer-events: none;
 }
 
 .heroArtwork::after {
-  inset: 17%;
-  border-color: rgb(119 220 255 / 24%);
+  inset: 16% 12% 19%;
+  border-color: rgb(119 220 255 / 31%);
   border-radius: 50%;
   background:
-    repeating-linear-gradient(0deg, transparent 0 18px, rgb(80 177 255 / 10%) 19px 20px, transparent 21px 35px);
-  box-shadow: inset 0 0 2rem rgb(39 133 241 / 10%), 0 0 1.5rem rgb(20 98 216 / 12%);
-  transform: translateZ(-0.75rem) rotateX(69deg) rotate(-18deg);
+    repeating-linear-gradient(0deg, transparent 0 18px, rgb(80 177 255 / 11%) 19px 20px, transparent 21px 35px),
+    linear-gradient(135deg, rgb(62 156 255 / 10%), transparent 55%);
+  box-shadow: inset 0 0 2.6rem rgb(39 133 241 / 14%), 0 0 1.8rem rgb(20 98 216 / 17%);
+  transform: translateZ(-0.75rem) rotateX(66deg) rotate(-18deg);
 }
 
 .stackArtwork,

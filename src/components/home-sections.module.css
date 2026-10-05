@@ -174,6 +174,7 @@
   border: 1px solid rgb(71 161 239 / 45%);
   border-radius: 1rem;
   background:
+    radial-gradient(ellipse at 50% 26%, rgb(47 148 255 / 14%), transparent 42%),
     linear-gradient(155deg, rgb(13 32 54 / 91%), rgb(5 13 25 / 94%) 68%),
     var(--color-surface-glass);
   box-shadow: inset 0 1px rgb(217 240 255 / 7%), 0 14px 36px rgb(0 0 0 / 22%);
@@ -228,19 +229,54 @@
 .cardVisual {
   position: relative;
   display: grid;
-  min-height: 7.05rem;
+  min-height: 8.1rem;
   flex: 0 0 auto;
   place-items: center;
+  perspective: 22rem;
+  transform-style: preserve-3d;
   margin: -0.45rem -0.15rem 0.2rem;
   color: #9be6ff;
 }
 
+.cardVisual::before,
+.cardVisual::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.cardVisual::before {
+  top: 0.4rem;
+  left: 50%;
+  width: 6.7rem;
+  height: 6.7rem;
+  transform: translateX(-50%) translateZ(-1rem);
+  border: 1px solid rgb(94 194 255 / 13%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 36% 28%, rgb(119 221 255 / 20%), transparent 34%),
+    radial-gradient(circle, rgb(36 117 227 / 22%), rgb(7 24 45 / 4%) 72%);
+  box-shadow: inset 0 0 1.2rem rgb(46 148 255 / 14%), 0 0 1.8rem rgb(29 113 227 / 13%);
+}
+
+.cardVisual::after {
+  right: 8%;
+  bottom: 0.35rem;
+  left: 8%;
+  height: 1rem;
+  transform: perspective(7rem) rotateX(63deg) translateZ(-0.5rem);
+  border: 1px solid rgb(83 195 255 / 26%);
+  border-radius: 50%;
+  background: repeating-radial-gradient(ellipse, transparent 0 0.55rem, rgb(48 145 244 / 20%) 0.58rem 0.62rem, transparent 0.67rem 0.9rem);
+  box-shadow: 0 0.55rem 1rem rgb(0 0 0 / 50%);
+}
+
 .cardHalo {
   position: absolute;
-  top: 4.15rem;
+  top: 4.8rem;
   left: 50%;
-  width: 6.8rem;
-  height: 1.55rem;
+  width: 7.4rem;
+  height: 1.7rem;
   border: 1px solid rgb(85 194 255 / 28%);
   border-radius: 50%;
   background:
@@ -268,13 +304,20 @@
 
 .capabilityGlyph {
   position: relative;
-  width: clamp(5.25rem, 6.8vw, 6.45rem);
+  z-index: 1;
+  width: clamp(6.1rem, 7.4vw, 7.25rem);
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 0.8rem 0.7rem rgb(0 0 0 / 64%)) drop-shadow(0 0 1rem rgb(55 167 255 / 86%));
-  transform: perspective(12rem) rotateX(16deg) rotateY(-12deg) translateY(-0.3rem);
+  filter: drop-shadow(0 0.9rem 0.8rem rgb(0 0 0 / 70%)) drop-shadow(0 0 0.35rem rgb(181 241 255 / 74%)) drop-shadow(0 0 1.3rem rgb(55 167 255 / 92%));
+  transform: perspective(16rem) rotateX(19deg) rotateY(-15deg) translate3d(0, -0.55rem, 1.2rem);
   transition: filter var(--motion-medium) var(--ease-standard), transform var(--motion-medium) var(--ease-standard);
 }
+
+.capabilityCard:nth-child(1) .capabilityGlyph { filter: drop-shadow(0 0 0.4rem #91eaff) drop-shadow(0 0 1.3rem rgb(43 147 255 / 78%)); }
+.capabilityCard:nth-child(2) .capabilityGlyph { filter: drop-shadow(0 0.8rem 0.7rem rgb(0 0 0 / 64%)) drop-shadow(0 0 1.2rem rgb(58 190 255 / 78%)); }
+.capabilityCard:nth-child(3) .capabilityGlyph { filter: drop-shadow(0 0 0.5rem rgb(182 246 255 / 80%)) drop-shadow(0 0 1.3rem rgb(41 145 255 / 86%)); }
+.capabilityCard:nth-child(4) .capabilityGlyph { filter: drop-shadow(0 0 0.45rem rgb(149 238 255 / 88%)) drop-shadow(0 0 1.25rem rgb(25 125 255 / 88%)); }
+.capabilityCard:nth-child(5) .capabilityGlyph { filter: drop-shadow(0 0 0.42rem rgb(219 248 255 / 82%)) drop-shadow(0 0 1.3rem rgb(58 149 255 / 82%)); }
 
 .capabilityCard:hover .capabilityGlyph,
 .capabilityCard:focus-within .capabilityGlyph {
@@ -497,6 +540,19 @@
   pointer-events: none;
 }
 
+.narrativeBand::after {
+  position: absolute;
+  z-index: 1;
+  top: 7%;
+  bottom: 7%;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgb(90 197 255 / 42%) 16%, rgb(101 222 255 / 66%) 50%, rgb(90 197 255 / 42%) 84%, transparent);
+  box-shadow: 0 0 0.85rem rgb(44 157 255 / 42%);
+  content: "";
+  pointer-events: none;
+}
+
 .research,
 .technology {
   position: relative;
@@ -569,6 +625,45 @@
   color: #94e4ff;
   perspective: 34rem;
   transform-style: preserve-3d;
+  isolation: isolate;
+  z-index: 1;
+}
+
+.researchVisual::before,
+.researchVisual::after,
+.cubeVisual::before,
+.cubeVisual::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.researchVisual::before {
+  z-index: -1;
+  right: -5%;
+  bottom: 7%;
+  left: -5%;
+  height: 34%;
+  transform: perspective(28rem) rotateX(64deg) translateZ(-1.8rem);
+  border: 1px solid rgb(72 164 255 / 35%);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 2.2rem, rgb(69 161 255 / 18%) 2.24rem 2.28rem, transparent 2.34rem 3.7rem),
+    repeating-linear-gradient(0deg, transparent 0 1.15rem, rgb(92 181 255 / 12%) 1.19rem 1.23rem, transparent 1.28rem 2rem),
+    radial-gradient(ellipse, rgb(37 127 229 / 27%), transparent 70%);
+  box-shadow: inset 0 0 1.5rem rgb(40 134 237 / 15%), 0 0 1.2rem rgb(32 124 237 / 12%);
+}
+
+.researchVisual::after {
+  z-index: -2;
+  inset: 4% 8% 10%;
+  transform: translateZ(-2rem) rotateY(-14deg);
+  border: 1px solid rgb(90 181 255 / 22%);
+  border-radius: 50%;
+  background:
+    linear-gradient(90deg, transparent 24%, rgb(82 193 255 / 16%) 24.2%, transparent 24.5%, transparent 76%, rgb(61 147 255 / 16%) 76.2%, transparent 76.5%),
+    radial-gradient(ellipse at 50% 55%, rgb(25 101 192 / 20%), transparent 68%);
+  box-shadow: inset 0 0 2rem rgb(49 140 235 / 12%), 0 0 1.8rem rgb(28 106 215 / 15%);
 }
 
 .visualGlow,
@@ -582,11 +677,12 @@
 
 .researchGlyph {
   position: relative;
-  width: min(136%, 28rem);
+  z-index: 1;
+  width: min(151%, 33rem);
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 62%)) drop-shadow(0 0 1.3rem rgb(48 154 255 / 58%));
-  transform: perspective(30rem) rotateY(-12deg) rotateX(7deg) translateZ(1.1rem);
+  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 68%)) drop-shadow(0 0 0.45rem rgb(167 237 255 / 52%)) drop-shadow(0 0 1.55rem rgb(48 154 255 / 68%));
+  transform: perspective(30rem) rotateY(-10deg) rotateX(6deg) translateZ(1.5rem);
 }
 
 .visualCaption {
@@ -628,7 +724,33 @@
   place-items: center;
   perspective: 32rem;
   transform-style: preserve-3d;
+  isolation: isolate;
+  z-index: 1;
   color: #9be8ff;
+}
+
+.cubeVisual::before {
+  z-index: -1;
+  right: -8%;
+  bottom: 6%;
+  left: -8%;
+  height: 35%;
+  transform: perspective(30rem) rotateX(64deg) translateZ(-1.6rem);
+  border: 1px solid rgb(73 177 255 / 35%);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 2rem, rgb(64 161 255 / 17%) 2.03rem 2.08rem, transparent 2.12rem 3.8rem),
+    radial-gradient(ellipse, rgb(31 132 255 / 34%), transparent 72%);
+  box-shadow: inset 0 0 1.2rem rgb(37 140 255 / 18%), 0 0 1.4rem rgb(38 134 246 / 16%);
+}
+
+.cubeVisual::after {
+  z-index: -2;
+  inset: 7% 7% 15%;
+  transform: translateZ(-1.8rem) rotateY(-12deg);
+  border: 1px solid rgb(83 182 255 / 20%);
+  background: linear-gradient(115deg, transparent 45%, rgb(78 200 255 / 12%) 45.2%, transparent 45.6%);
+  box-shadow: inset 0 0 2rem rgb(31 130 246 / 15%), 0 0 1.8rem rgb(25 103 211 / 14%);
 }
 
 .cubeGlow {
@@ -638,12 +760,13 @@
 
 .technologyGlyph {
   position: relative;
-  width: 148%;
-  max-width: 31rem;
+  z-index: 1;
+  width: 160%;
+  max-width: 35rem;
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 1rem 0.8rem rgb(0 0 0 / 55%)) drop-shadow(0 0 1.1rem rgb(41 148 255 / 53%));
-  transform: perspective(34rem) rotateY(-11deg) rotateX(5deg) translateZ(1rem);
+  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 64%)) drop-shadow(0 0 0.5rem rgb(191 245 255 / 58%)) drop-shadow(0 0 1.7rem rgb(41 148 255 / 68%));
+  transform: perspective(34rem) rotateY(-13deg) rotateX(7deg) translateZ(1.6rem);
 }
 
 .technologyPillars {
@@ -838,6 +961,10 @@
     grid-template-columns: 1fr;
   }
 
+  .narrativeBand::after {
+    display: none;
+  }
+
   .research {
     border-right: 0;
     border-bottom: 1px solid rgb(110 182 240 / 25%);
@@ -852,7 +979,8 @@
   }
 
   .technologyGlyph {
-    width: 115%;
+    width: 132%;
+    max-width: 32rem;
   }
 }
 
@@ -881,7 +1009,18 @@
   }
 
   .cardVisual {
-    min-height: 4.8rem;
+    min-height: 6.4rem;
+  }
+
+  .capabilityGlyph {
+    width: clamp(5.2rem, 20vw, 6.2rem);
+    transform: perspective(14rem) rotateX(16deg) rotateY(-12deg) translate3d(0, -0.35rem, 0.9rem);
+  }
+
+  .cardHalo {
+    top: 3.85rem;
+    width: 6.1rem;
+    height: 1.35rem;
   }
 
   .cardCopy h3 {
@@ -959,11 +1098,11 @@
   }
 
   .researchVisual {
-    min-height: 12rem;
+    min-height: 15rem;
   }
 
   .researchGlyph {
-    width: min(116%, 20rem);
+    width: min(128%, 23rem);
   }
 
   .technologyDetails {
@@ -972,11 +1111,11 @@
   }
 
   .cubeVisual {
-    min-height: 12.5rem;
+    min-height: 15rem;
   }
 
   .technologyGlyph {
-    width: min(112%, 20rem);
+    width: min(126%, 23rem);
   }
 
   .technologyPillars {
@@ -1015,9 +1154,9 @@
   }
 
   .cardVisual {
-    min-height: 4.6rem;
-    justify-content: start;
-    padding-left: 0.2rem;
+    min-height: 6.4rem;
+    justify-content: center;
+    padding-left: 0;
   }
 }
 

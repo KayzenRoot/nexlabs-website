@@ -193,17 +193,20 @@ function ResearchHorizon() {
       <path d="M321 62h71v84h-71zM330 74h52v1H330zm0 8h42v1H330zm0 8h48v1H330zm0 8h32v1H330z" fill="url(#research-glass)" stroke="#53baff" strokeOpacity="0.45" />
       <path d="M42 48v230m28-201v175M399 42v226m-28-195v165" stroke="#54aaff" strokeOpacity="0.28" />
       <path d="M109 61v172m226-162v170M126 80v121m191-114v127" stroke="#9beaff" strokeOpacity="0.17" />
-      <ellipse cx="220" cy="159" rx="145" ry="139" fill="url(#research-world-core)" stroke="#73dfff" strokeOpacity="0.56" strokeWidth="1.6" />
+        <ellipse cx="220" cy="159" rx="157" ry="149" fill="url(#research-world-core)" fillOpacity="0.34" stroke="#3f9df5" strokeOpacity="0.26" strokeWidth="1.1" />
+        <ellipse cx="220" cy="159" rx="145" ry="139" fill="url(#research-world-core)" stroke="#9aeaff" strokeOpacity="0.74" strokeWidth="1.8" />
       <path d="M147 129 171 96l24 5 17 22-10 25-27 8-24-13Zm91-24 28-13 26 21 12 30-21 13-22-11-17-20Zm-79 88 23-21 30 6 14 25-22 20-31-8Zm86 9 26-19 31 16-8 23-28 11-24-14Z" fill="url(#research-platform)" fillOpacity="0.86" stroke="none" />
       <ellipse cx="220" cy="159" rx="145" ry="139" strokeWidth="1.25" />
       <ellipse cx="220" cy="159" rx="62" ry="139" stroke="#9feaff" strokeOpacity="0.6" strokeWidth="1.1" />
       <ellipse cx="220" cy="159" rx="111" ry="139" stroke="#68c9ff" strokeOpacity="0.48" strokeWidth="0.9" />
-      <path d="M76 159h288M94 113c38 20 80 30 126 30s88-10 126-30M94 205c38-20 80-30 126-30s88 10 126 30M115 76c29 24 64 36 105 36s76-12 105-36M115 243c29-24 64-36 105-36s76 12 105 36" stroke="#8ee4ff" strokeOpacity="0.45" strokeWidth="1" />
+        <path d="M76 159h288M94 113c38 20 80 30 126 30s88-10 126-30M94 205c38-20 80-30 126-30s88 10 126 30M115 76c29 24 64 36 105 36s76-12 105-36M115 243c29-24 64-36 105-36s76 12 105 36M153 37c18 39 41 72 67 98 27 27 50 62 67 107M287 37c-18 39-41 72-67 98-27 27-50 62-67 107" stroke="#a5edff" strokeOpacity="0.54" strokeWidth="1" />
+        <path d="m115 99 62 42 43 18 56 52m-153-99 69 6 43 51 59-70m-180 122 64-42 57-11 50-44m-98 116 40-77 43-33 48 56" stroke="#c6f6ff" strokeOpacity="0.38" strokeWidth="1.2" />
       <path d="M79 287h282M48 307c55-32 112-49 172-49s117 17 172 49M28 328c64-26 128-39 192-39s128 13 192 39M60 344h320" stroke="url(#research-platform)" strokeWidth="1.35" />
       <path d="M68 293h304m-276 20h248M101 335h216" stroke="#61bfff" strokeOpacity="0.27" />
       <path d="M220 18v40m0 242v47M58 159h32m260 0h32M106 45l27 31m174 165 27 31M334 45l-27 31M133 242l-27 31" stroke="#9feaff" strokeOpacity="0.48" strokeWidth="1" />
       <path d="M265 44 317 22m-33 40 71-30M128 269l-46 24m229-16 53 26" stroke="#54b7ff" strokeOpacity="0.68" />
-      <circle cx="220" cy="159" r="7" fill="#d7fbff" stroke="none" />
+        <circle cx="220" cy="159" r="12" fill="url(#research-platform)" stroke="none" />
+        <circle cx="220" cy="159" r="4.5" fill="#f0fdff" stroke="none" />
       <circle cx="331" cy="112" r="4" fill="#c3f6ff" stroke="none" />
       <circle cx="122" cy="202" r="3.5" fill="#68dcff" stroke="none" />
       <circle cx="277" cy="47" r="3" fill="#d6faff" stroke="none" />
@@ -224,7 +227,7 @@ function TechnologyCube() {
       aria-hidden="true"
       className={styles.technologyGlyph}
       focusable="false"
-      viewBox="0 0 380 280"
+      viewBox="32 10 316 270"
       fill="none"
       stroke="currentColor"
       strokeLinejoin="round"
