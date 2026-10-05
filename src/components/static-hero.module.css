@@ -66,6 +66,7 @@
   background-size: cover;
   opacity: 1;
   transition: opacity 760ms ease;
+  will-change: opacity;
 }
 
 .hero:has([data-scene-state="ready"]) .referencePoster {
@@ -695,5 +696,6 @@
 
   .referencePoster {
     transition: none;
+    will-change: auto;
   }
 }
