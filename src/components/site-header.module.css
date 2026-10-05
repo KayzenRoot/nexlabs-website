@@ -4,12 +4,38 @@
   width: 100%;
   margin-inline: auto;
   border-bottom: 1px solid rgb(104 179 244 / 24%);
-  background: linear-gradient(180deg, rgb(2 7 16 / 92%), rgb(3 8 17 / 73%));
+  background:
+    radial-gradient(ellipse at 50% -90%, rgb(27 113 213 / 17%), transparent 62%),
+    linear-gradient(180deg, rgb(2 7 16 / 88%), rgb(3 8 17 / 68%));
   box-shadow: 0 0.55rem 1.8rem rgb(0 0 0 / 22%), inset 0 1px rgb(211 239 255 / 4%);
-  backdrop-filter: blur(16px);
+  backdrop-filter: blur(18px);
+}
+
+.header::before,
+.header::after {
+  position: absolute;
+  right: 5.2%;
+  left: 5.2%;
+  height: 1px;
+  content: "";
+  pointer-events: none;
+}
+
+.header::before {
+  top: 0;
+  background: linear-gradient(90deg, transparent, rgb(181 227 255 / 34%), transparent);
+  box-shadow: 0 0 0.7rem rgb(59 154 255 / 22%);
+}
+
+.header::after {
+  bottom: -1px;
+  background: linear-gradient(90deg, transparent, rgb(77 198 255 / 84%) 48%, rgb(81 131 255 / 56%) 58%, transparent);
+  box-shadow: 0 0 0.9rem rgb(41 152 255 / 36%);
 }
 
 .inner {
+  position: relative;
+  z-index: 1;
   display: flex;
   width: min(100%, 110rem);
   min-height: 4rem;
@@ -61,6 +87,8 @@
 
 .contactAction {
   display: inline-flex;
+  position: relative;
+  overflow: hidden;
   min-height: 2.1rem;
   flex: 0 0 auto;
   align-items: center;
@@ -68,8 +96,9 @@
   padding: 0.4rem 1.05rem;
   border: 1px solid rgb(55 211 255 / 85%);
   border-radius: 999px;
-  background: rgb(7 23 48 / 64%);
-  box-shadow: 0 0 1rem rgb(14 125 255 / 22%), inset 0 0 0.8rem rgb(12 115 229 / 9%);
+  background:
+    linear-gradient(110deg, rgb(5 43 75 / 78%), rgb(7 23 48 / 72%) 54%, rgb(5 16 34 / 78%));
+  box-shadow: 0 0 1rem rgb(14 125 255 / 27%), inset 0 0 0.8rem rgb(12 115 229 / 15%), inset 0 1px rgb(224 248 255 / 14%);
   color: #8eeaff;
   font-size: 0.75rem;
   text-decoration: none;
@@ -84,7 +113,7 @@
 
 .contactAction:hover {
   border-color: #b4f5ff;
-  box-shadow: 0 0 1.3rem rgb(24 151 255 / 49%);
+  box-shadow: 0 0 1.45rem rgb(24 151 255 / 56%), inset 0 0 0.8rem rgb(98 224 255 / 12%);
   color: #fff;
 }
 

@@ -67,9 +67,9 @@
   transition: opacity 760ms ease;
 }
 
-.hero:has(.sceneReady) .referencePoster {
-  opacity: 0.4;
-  mask-image: radial-gradient(ellipse 7% 24% at 62% 43%, transparent 0 72%, #000 100%);
+.hero:has([data-scene-state="ready"]) .referencePoster {
+  opacity: 0;
+  mask-image: none;
 }
 
 .starField,

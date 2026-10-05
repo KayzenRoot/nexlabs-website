@@ -6,12 +6,15 @@ import {
   CatmullRomCurve3,
   Color,
   DoubleSide,
+  EquirectangularReflectionMapping,
   ExtrudeGeometry,
+  DataTexture,
+  RGBAFormat,
+  SRGBColorSpace,
   Float32BufferAttribute,
   Group,
   Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
+  MeshPhysicalMaterial,
   ShapeGeometry,
   TubeGeometry,
   Vector3,
@@ -69,11 +72,11 @@ function useHeroGeometry() {
     const shapes = paths.flatMap((path) => path.toShapes());
     const geometry = new ExtrudeGeometry(shapes, {
       bevelEnabled: true,
-      bevelSegments: 2,
-      bevelSize: 2.4,
-      bevelThickness: 2,
-      curveSegments: 2,
-      depth: 18,
+      bevelSegments: 3,
+      bevelSize: 3,
+      bevelThickness: 3,
+      curveSegments: 3,
+      depth: 38,
       steps: 1,
     });
 
@@ -102,13 +105,15 @@ function useHeroFaceGeometry() {
       const width = Math.max(bounds.max.x - bounds.min.x, 0.001);
       const height = Math.max(bounds.max.y - bounds.min.y, 0.001);
       const stops = [
-        [0, new Color("#f6fbff")],
-        [0.16, new Color("#5b779f")],
-        [0.31, new Color("#eef8ff")],
-        [0.47, new Color("#435777")],
-        [0.61, new Color("#fbfdff")],
-        [0.79, new Color("#799ccb")],
-        [1, new Color("#f5faff")],
+        [0, new Color("#547da9")],
+        [0.13, new Color("#e3f5ff")],
+        [0.24, new Color("#24476f")],
+        [0.37, new Color("#b7e6ff")],
+        [0.49, new Color("#102644")],
+        [0.61, new Color("#f4fbff")],
+        [0.72, new Color("#2b5480")],
+        [0.86, new Color("#c1e7ff")],
+        [1, new Color("#476b91")],
       ] as const;
       const colors = new Float32Array(positions.count * 3);
       const color = new Color();
@@ -131,26 +136,89 @@ function useHeroFaceGeometry() {
   return geometry;
 }
 
+
+/** Builds a tiny studio-strip environment map so chrome reflects authored chamber lights. */
+function useChromeEnvironmentMap() {
+  const environment = useMemo(() => {
+    const width = 256;
+    const height = 128;
+    const data = new Uint8Array(width * height * 4);
+    const softboxes = [
+      { center: 0.09, width: 0.035, color: [43, 122, 255], power: 0.75 },
+      { center: 0.27, width: 0.055, color: [194, 235, 255], power: 0.95 },
+      { center: 0.5, width: 0.08, color: [29, 69, 121], power: 0.84 },
+      { center: 0.71, width: 0.052, color: [215, 248, 255], power: 0.98 },
+      { center: 0.91, width: 0.03, color: [52, 151, 255], power: 0.85 },
+    ];
+    for (let y = 0; y < height; y += 1) {
+      const v = y / height;
+      for (let x = 0; x < width; x += 1) {
+        const u = x / width;
+        let red = 3 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 7;
+        let green = 7 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 13;
+        let blue = 17 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 30;
+        for (const strip of softboxes) {
+          const falloff = Math.exp(-(((u - strip.center) / strip.width) ** 2)) * strip.power;
+          const verticalMask = 0.42 + 0.58 * Math.sin(Math.PI * Math.min(1, Math.max(0, (v - 0.04) / 0.92)));
+          red += strip.color[0] * falloff * verticalMask;
+          green += strip.color[1] * falloff * verticalMask;
+          blue += strip.color[2] * falloff * verticalMask;
+        }
+        const rim = Math.exp(-(((v - 0.11) / 0.035) ** 2)) + Math.exp(-(((v - 0.89) / 0.04) ** 2));
+        red += 35 * rim;
+        green += 125 * rim;
+        blue += 190 * rim;
+        const offset = (y * width + x) * 4;
+        data[offset] = Math.min(255, red);
+        data[offset + 1] = Math.min(255, green);
+        data[offset + 2] = Math.min(255, blue);
+        data[offset + 3] = 255;
+      }
+    }
+    const texture = new DataTexture(data, width, height, RGBAFormat);
+    texture.mapping = EquirectangularReflectionMapping;
+    texture.colorSpace = SRGBColorSpace;
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
+  useEffect(() => () => environment.dispose(), [environment]);
+  return environment;
+}
+
 /** Renders the selected Precision Blades N with tier-scaled living motion. */
 function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
   const geometry = useHeroGeometry();
   const faceGeometry = useHeroFaceGeometry();
+  const environment = useChromeEnvironmentMap();
   const mark = useRef<Group>(null);
   const materials = useMemo(
     () => [
-      new MeshStandardMaterial({
-        color: new Color("#526b88"),
-        metalness: 0.9,
-        roughness: 0.19,
+      new MeshPhysicalMaterial({
+        color: new Color("#8fa6bb"),
+        metalness: 0.98,
+        roughness: 0.12,
+        clearcoat: 0.68,
+        clearcoatRoughness: 0.08,
+        emissive: new Color("#12345d"),
+        emissiveIntensity: 0.36,
+        envMap: environment,
+        envMapIntensity: 2.15,
         side: DoubleSide,
       }),
-      new MeshBasicMaterial({
+      new MeshPhysicalMaterial({
+        color: "#c5d7e8",
+        metalness: 0.98,
+        roughness: 0.11,
+        clearcoat: 0.7,
+        clearcoatRoughness: 0.07,
+        envMap: environment,
+        envMapIntensity: 2.05,
         vertexColors: true,
-        toneMapped: false,
         side: DoubleSide,
       }),
     ],
-    [],
+    [environment],
   );
   useEffect(() => () => materials.forEach((material) => material.dispose()), [materials]);
 
@@ -168,6 +236,9 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
     >
       <mesh geometry={geometry} material={materials[0]} castShadow={false} receiveShadow={false} />
       <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, 0.129]} castShadow={false} receiveShadow={false} />
+      <pointLight color="#d8f5ff" intensity={5.5} distance={3.8} position={[-0.72, 0.76, 1.45]} />
+      <pointLight color="#46aaff" intensity={7} distance={4.2} position={[0.88, -0.2, 1.25]} />
+      <pointLight color="#effcff" intensity={3.5} distance={3.5} position={[0.12, 1.35, 0.9]} />
     </group>
   );
 }
@@ -175,62 +246,94 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
 /** Renders the luminous portal chamber and structural energy rails around the N. */
 function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
-  const segments = tier === "FULL" ? 24 : 12;
+  const detailSegments = tier === "FULL" ? 112 : 64;
+  const ribCount = tier === "FULL" ? 36 : 20;
 
   useFrame(({ clock }) => {
-    if (rails.current) {
-      rails.current.rotation.z = Math.sin(clock.elapsedTime * 0.21) * 0.008;
-    }
+    if (rails.current) rails.current.rotation.y = Math.sin(clock.elapsedTime * 0.12) * 0.006;
   });
 
   return (
-    <group position={[3.1, 0.12, -1.1]} scale={[0.8, 1, 0.9]}>
-      {/* A translucent outer shell gives the portal a true cylindrical read. */}
-      <mesh position={[0, 0.03, -0.58]} rotation={[0, 0, 0]}>
-        <cylinderGeometry args={[2.78, 2.78, 4.25, segments, 1, true]} />
-        <meshPhysicalMaterial color="#0a2450" metalness={0.48} roughness={0.27} transparent opacity={0.19} side={DoubleSide} envMapIntensity={0.7} />
+    <group position={[3.1, 0.12, -1.1]} scale={[0.94, 1, 0.94]}>
+      <mesh position={[0, 0.03, -0.58]}>
+        <cylinderGeometry args={[3.22, 3.22, 5.25, detailSegments, 1, true]} />
+        <meshPhysicalMaterial color="#07172d" metalness={0.76} roughness={0.3} emissive="#071b36" emissiveIntensity={0.26} transparent opacity={0.34} side={DoubleSide} envMapIntensity={1.25} />
       </mesh>
-      <mesh position={[0, 0.04, -0.56]} rotation={[0, 0, Math.PI / 2]}>
-        <torusGeometry args={[2.79, 0.018, 6, tier === "FULL" ? 112 : 56]} />
-        <meshBasicMaterial color="#76dfff" transparent opacity={0.42} />
+      <mesh position={[0, 0.04, -0.54]}>
+        <cylinderGeometry args={[2.42, 2.42, 4.72, detailSegments, 1, true]} />
+        <meshPhysicalMaterial color="#0b2c58" metalness={0.66} roughness={0.22} emissive="#05214b" emissiveIntensity={0.22} transparent opacity={0.2} side={DoubleSide} envMapIntensity={1.35} />
       </mesh>
       <group ref={rails}>
-        {[2.28, 2.5, 2.76].map((radius, index) => (
-          <mesh
-            key={radius}
-            position={[0, index === 2 ? 2.1 : index === 0 ? -2.02 : 1.72, 0]}
-            rotation={[Math.PI / 2 + 0.035, 0, 0]}
-          >
-            <torusGeometry args={[radius, index === 1 ? 0.025 : 0.04, 8, tier === "FULL" ? 128 : 64]} />
-            <meshBasicMaterial
-              color={index === 1 ? "#54dfff" : "#287cff"}
-              transparent
-              opacity={index === 1 ? 0.8 : 0.55}
-            />
+        {[
+          [2.2, 2.38], [2.38, 2.26], [2.55, 2.12], [2.78, 1.74],
+          [3.02, -1.84], [3.22, -2.38], [3.42, -2.56],
+        ].map(([radius, y], index) => (
+          <mesh key={radius} position={[0, y, -0.06]} rotation={[Math.PI / 2 + 0.035, 0, 0]}>
+            <torusGeometry args={[radius, index % 3 === 1 ? 0.032 : 0.052, 8, detailSegments]} />
+            <meshBasicMaterial color={index % 3 === 1 ? "#a4f3ff" : index % 2 ? "#328dff" : "#1a55c7"} transparent opacity={index % 3 === 1 ? 0.78 : 0.47} />
           </mesh>
         ))}
-        {Array.from({ length: tier === "FULL" ? 24 : 12 }, (_, index) => {
-          const angle = (index / (tier === "FULL" ? 24 : 12)) * Math.PI * 2;
-          const radius = 2.57;
+        {Array.from({ length: ribCount }, (_, index) => {
+          const angle = (index / ribCount) * Math.PI * 2;
+          const radius = 3.02;
           return (
-            <mesh
-              key={index}
-              position={[Math.cos(angle) * radius, 0.1, Math.sin(angle) * 0.68]}
-              rotation={[0, -angle, 0]}
-            >
-              <boxGeometry args={[0.018, 4.05, 0.018]} />
-              <meshBasicMaterial color={index % 3 === 0 ? "#b6f4ff" : "#4e9bff"} transparent opacity={index % 3 === 0 ? 0.52 : 0.26} />
+            <mesh key={"rib-" + index} position={[Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06]} rotation={[0, -angle, 0]}>
+              <boxGeometry args={[0.052, 4.9, 0.06]} />
+              <meshStandardMaterial
+                color={index % 4 === 0 ? "#93dcff" : "#143c70"}
+                metalness={0.86}
+                roughness={0.19}
+                emissive={index % 4 === 0 ? "#0a3f8b" : "#03152d"}
+                emissiveIntensity={index % 3 === 0 ? 1.55 : 0.68}
+                transparent
+                opacity={index % 3 === 0 ? 0.9 : 0.76}
+              />
             </mesh>
           );
         })}
+        {Array.from({ length: tier === "FULL" ? 13 : 7 }, (_, index) => {
+          const count = tier === "FULL" ? 13 : 7;
+          const x = -3.5 + index * (7 / (count - 1));
+          return (
+            <mesh key={"axial-" + index} position={[x, 0.12, -0.08]}>
+              <boxGeometry args={[0.026, 5.16, 0.034]} />
+              <meshBasicMaterial color={index % 2 ? "#3f9bff" : "#a7efff"} transparent opacity={index % 2 ? 0.46 : 0.72} />
+            </mesh>
+          );
+        })}
+        {[ -4.35, 4.35 ].map((x, index) => (
+          <group key={"gantry-" + index} position={[x, 0.02, -1.75]}>
+            <mesh>
+              <boxGeometry args={[0.16, 5.05, 0.2]} />
+              <meshStandardMaterial color="#071321" metalness={0.94} roughness={0.28} emissive="#061b37" emissiveIntensity={0.38} />
+            </mesh>
+            <mesh position={[index === 0 ? 0.1 : -0.1, 0, 0.12]}>
+              <boxGeometry args={[0.025, 4.82, 0.025]} />
+              <meshBasicMaterial color="#4bbcff" transparent opacity={0.72} />
+            </mesh>
+          </group>
+        ))}
+        {[-2.38, 2.48].map((y, index) => (
+          <mesh key={"gantry-cross-" + index} position={[0, y, -1.78]}>
+            <boxGeometry args={[8.85, 0.12, 0.18]} />
+            <meshStandardMaterial color="#08182b" metalness={0.92} roughness={0.32} emissive="#06234a" emissiveIntensity={0.34} />
+          </mesh>
+        ))}
+        {[2.88, 3.2, 3.48].map((radius, index) => (
+          <mesh key={"crown-ring-" + index} position={[0, 2.18, -0.1]} rotation={[Math.PI / 2, 0, 0]}>
+            <torusGeometry args={[radius, index === 1 ? 0.065 : 0.035, 8, detailSegments]} />
+            <meshBasicMaterial color={index === 1 ? "#9defff" : "#347cff"} transparent opacity={index === 1 ? 0.82 : 0.54} />
+          </mesh>
+        ))}
       </group>
-      <mesh position={[0, 0.16, -0.95]}>
-        <cylinderGeometry args={[0.045, 0.42, 3.6, 16, 1, true]} />
-        <meshBasicMaterial color="#8deaff" transparent opacity={tier === "FULL" ? 0.14 : 0.08} side={DoubleSide} />
+      <mesh position={[0, 0.18, -1.02]}>
+        <cylinderGeometry args={[0.06, 0.56, 4.25, 20, 1, true]} />
+        <meshBasicMaterial color="#65cfff" transparent opacity={tier === "FULL" ? 0.11 : 0.06} side={DoubleSide} />
       </mesh>
-      <pointLight color="#42cfff" intensity={tier === "FULL" ? 13 : 7} distance={9} position={[0, 0.4, 1.4]} />
-      <pointLight color="#315fff" intensity={tier === "FULL" ? 9 : 4.5} distance={10} position={[-2.7, 1.6, -0.3]} />
-      <pointLight color="#b7f5ff" intensity={tier === "FULL" ? 5 : 2.5} distance={7} position={[1.8, 2.15, 0.6]} />
+      <pointLight color="#42cfff" intensity={tier === "FULL" ? 9 : 5} distance={8} position={[0, 0.3, 1.5]} />
+      <pointLight color="#315fff" intensity={tier === "FULL" ? 7 : 3.5} distance={10} position={[-2.8, 1.7, -0.35]} />
+      <pointLight color="#b7f5ff" intensity={tier === "FULL" ? 7 : 3.5} distance={8} position={[1.6, 2.28, 0.5]} />
+      <pointLight color="#2b8cff" intensity={tier === "FULL" ? 8 : 4} distance={8} position={[2.9, -1.5, -0.15]} />
     </group>
   );
 }
@@ -244,28 +347,41 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   });
 
   return (
-    <group ref={globe} position={[5.95, 0.34, -1.85]} scale={1.16}>
+    <group ref={globe} position={[5.9, 0.48, -1.18]} scale={1.96}>
       <mesh>
-        <sphereGeometry args={[1.04, tier === "FULL" ? 32 : 20, tier === "FULL" ? 24 : 14]} />
-        <meshPhysicalMaterial color="#0b3978" metalness={0.45} roughness={0.32} transparent opacity={0.56} emissive="#052357" emissiveIntensity={0.32} envMapIntensity={0.8} />
+        <sphereGeometry args={[1.06, tier === "FULL" ? 36 : 22, tier === "FULL" ? 28 : 16]} />
+        <meshPhysicalMaterial color="#0b3978" metalness={0.58} roughness={0.25} transparent opacity={0.68} emissive="#052357" emissiveIntensity={0.48} envMapIntensity={1.15} />
       </mesh>
       <mesh>
-        <sphereGeometry args={[1.055, tier === "FULL" ? 24 : 14, tier === "FULL" ? 16 : 10]} />
-        <meshBasicMaterial color="#42aaff" wireframe transparent opacity={0.34} />
+        <sphereGeometry args={[1.075, tier === "FULL" ? 28 : 16, tier === "FULL" ? 20 : 12]} />
+        <meshBasicMaterial color="#42aaff" wireframe transparent opacity={0.46} />
       </mesh>
-      {Array.from({ length: tier === "FULL" ? 28 : 14 }, (_, index) => {
-        const latitude = -1.05 + (index % 7) * 0.34;
-        const longitude = Math.floor(index / 7) * Math.PI / 2 + (index % 3) * 0.2;
-        const radius = 1.06;
+      {[
+        { position: [-0.45, 0.34, 0.91] as [number, number, number], scale: [0.78, 0.48, 0.14] as [number, number, number], rotation: [0.12, -0.24, 0.1] as [number, number, number] },
+        { position: [0.08, 0.55, 0.82] as [number, number, number], scale: [0.54, 0.35, 0.13] as [number, number, number], rotation: [-0.18, 0.12, -0.22] as [number, number, number] },
+        { position: [0.46, -0.12, 0.91] as [number, number, number], scale: [0.68, 0.44, 0.13] as [number, number, number], rotation: [0.1, 0.36, 0.2] as [number, number, number] },
+        { position: [-0.25, -0.5, 0.82] as [number, number, number], scale: [0.64, 0.34, 0.12] as [number, number, number], rotation: [-0.16, -0.18, 0.28] as [number, number, number] },
+      ].map((mass, index) => (
+        <mesh key={"continent-" + index} position={mass.position} rotation={mass.rotation} scale={mass.scale}>
+          <icosahedronGeometry args={[0.34, 0]} />
+          <meshBasicMaterial color={index % 2 ? "#2584db" : "#46a7ec"} transparent opacity={0.46} />
+        </mesh>
+      ))}
+      {Array.from({ length: tier === "FULL" ? 42 : 21 }, (_, index) => {
+        const latitude = -1.16 + (index % 7) * 0.38;
+        const longitude = Math.floor(index / 7) * Math.PI / 3 + (index % 3) * 0.2;
+        const radius = 1.09;
         const point = new Vector3(
           radius * Math.cos(latitude) * Math.cos(longitude),
           radius * Math.sin(latitude),
           radius * Math.cos(latitude) * Math.sin(longitude),
         );
-        return <mesh key={index} position={point}>
-          <sphereGeometry args={[0.025 + (index % 3) * 0.006, 6, 4]} />
-          <meshBasicMaterial color={index % 4 === 0 ? "#dcfaff" : "#6de2ff"} />
-        </mesh>;
+        return (
+          <mesh key={index} position={point}>
+            <sphereGeometry args={[0.023 + (index % 3) * 0.008, 6, 4]} />
+            <meshBasicMaterial color={index % 4 === 0 ? "#dcfaff" : "#6de2ff"} />
+          </mesh>
+        );
       })}
       <mesh rotation={[Math.PI / 2, 0.35, 0]}>
         <torusGeometry args={[0.84, 0.009, 4, 72]} />
@@ -275,7 +391,15 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
         <torusGeometry args={[0.88, 0.008, 4, 72]} />
         <meshBasicMaterial color="#3989ff" transparent opacity={0.44} />
       </mesh>
-      <pointLight color="#299bff" intensity={tier === "FULL" ? 1.5 : 0.7} distance={3} />
+      <mesh rotation={[0.7, 0.52, -0.22]}>
+        <torusGeometry args={[1.16, 0.012, 5, tier === "FULL" ? 96 : 48]} />
+        <meshBasicMaterial color="#a3efff" transparent opacity={0.56} />
+      </mesh>
+      <mesh rotation={[0.1, -0.55, 0.86]}>
+        <torusGeometry args={[1.19, 0.009, 4, tier === "FULL" ? 88 : 44]} />
+        <meshBasicMaterial color="#236eff" transparent opacity={0.48} />
+      </mesh>
+      <pointLight color="#299bff" intensity={tier === "FULL" ? 2.2 : 1} distance={4} />
     </group>
   );
 }
@@ -292,14 +416,14 @@ function EnergyFilament({
   const curve = useMemo(() => {
     const sign = index % 2 === 0 ? 1 : -1;
     return new CatmullRomCurve3([
-      new Vector3(-8, -1.4 + index * 0.28, -1.8),
-      new Vector3(-4.5, 1.4 * sign, -0.6),
-      new Vector3(-0.6, -1.1 * sign, 1.4),
-      new Vector3(3.1, 1.4 + index * 0.2, -0.7),
+      new Vector3(2.35, -1.4 + index * 0.28, -1.8),
+      new Vector3(4.1, 1.4 * sign, -0.6),
+      new Vector3(2.15, -1.1 * sign, 1.4),
+      new Vector3(5.4, 1.4 + index * 0.2, -0.7),
       new Vector3(8.2, -0.3 + index * 0.38, 0.8),
     ]);
   }, [index]);
-  const geometry = useMemo(() => new TubeGeometry(curve, 96, 0.011, 5, false), [curve]);
+  const geometry = useMemo(() => new TubeGeometry(curve, 96, 0.022, 6, false), [curve]);
   useEffect(() => () => geometry.dispose(), [geometry]);
   const speed = livingOrganismMotion.energyFlowPerSecond * (1 + index * 0.11);
 
@@ -312,7 +436,7 @@ function EnergyFilament({
   return (
     <group>
       <mesh geometry={geometry}>
-        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.48 : 0.28} />
+        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.62 : 0.38} />
       </mesh>
       <mesh ref={node}>
         <sphereGeometry args={[tier === "FULL" ? 0.045 : 0.03, 8, 6]} />
@@ -322,17 +446,25 @@ function EnergyFilament({
   );
 }
 
-/** Adds a deliberately simple human silhouette to establish environmental scale. */
+/** Adds a human-scale visitor silhouette grounded in the chamber platform. */
 function HumanScaleFigure() {
   return (
-    <group position={[-0.85, -1.65, 0.7]}>
+    <group position={[-0.42, -1.7, 1.18]} scale={1.18}>
       <mesh position={[0, 0.65, 0]}>
         <sphereGeometry args={[0.105, 8, 6]} />
         <meshBasicMaterial color="#02050a" />
       </mesh>
       <mesh position={[0, 0.3, 0]}>
         <capsuleGeometry args={[0.12, 0.48, 3, 7]} />
-        <meshStandardMaterial color="#050a13" metalness={0.28} roughness={0.62} />
+        <meshStandardMaterial color="#07111e" metalness={0.54} roughness={0.36} emissive="#071b33" emissiveIntensity={0.4} />
+      </mesh>
+      <mesh position={[0, 0.28, -0.11]}>
+        <boxGeometry args={[0.22, 0.31, 0.1]} />
+        <meshStandardMaterial color="#07111e" metalness={0.68} roughness={0.28} />
+      </mesh>
+      <mesh position={[0, 0.48, 0]} rotation={[0, 0, Math.PI / 2]}>
+        <capsuleGeometry args={[0.055, 0.29, 3, 6]} />
+        <meshStandardMaterial color="#091421" metalness={0.42} roughness={0.38} />
       </mesh>
       <mesh position={[0, -0.13, 0.015]} rotation={[0, 0, 0.04]}>
         <boxGeometry args={[0.075, 0.34, 0.095]} />
@@ -346,63 +478,140 @@ function HumanScaleFigure() {
         <boxGeometry args={[0.02, 0.34, 0.012]} />
         <meshBasicMaterial color="#56cfff" transparent opacity={0.48} />
       </mesh>
+      <mesh position={[0, -0.31, 0]} rotation={[Math.PI / 2, 0, 0]}>
+        <torusGeometry args={[0.31, 0.012, 4, 32]} />
+        <meshBasicMaterial color="#56cfff" transparent opacity={0.48} />
+      </mesh>
+    </group>
+  );
+}
+
+/** Adds restrained console banks to establish the scale of the surrounding lab. */
+function LaboratoryConsoleBay({ side }: { side: -1 | 1 }) {
+  const screenOffsets = [-0.72, 0, 0.72];
+
+  return (
+    <group position={[side * 6.05, -1.3, 0.35]} rotation={[0, side * -0.12, 0]}>
+      <mesh position={[0, 0.26, 0]}>
+        <boxGeometry args={[2.72, 0.48, 1.02]} />
+        <meshPhysicalMaterial color="#071321" metalness={0.9} roughness={0.3} emissive="#06182f" emissiveIntensity={0.28} />
+      </mesh>
+      <mesh position={[0, 0.52, -0.02]}>
+        <boxGeometry args={[2.82, 0.07, 1.08]} />
+        <meshStandardMaterial color="#102944" metalness={0.96} roughness={0.21} emissive="#0a3765" emissiveIntensity={0.52} />
+      </mesh>
+      <mesh position={[0, 0.04, 0.49]}>
+        <boxGeometry args={[2.58, 0.026, 0.026]} />
+        <meshBasicMaterial color="#44bfff" transparent opacity={0.82} />
+      </mesh>
+      {screenOffsets.map((x, index) => (
+        <group key={index} position={[x, 0.79, -0.14]} rotation={[-0.2, 0, side * 0.035]}>
+          <mesh position={[0, 0, -0.045]}>
+            <boxGeometry args={[0.68, 0.48, 0.09]} />
+            <meshStandardMaterial color="#102d4d" metalness={0.84} roughness={0.24} emissive="#0a3266" emissiveIntensity={0.48} />
+          </mesh>
+          <mesh position={[0, 0, 0.005]}>
+            <planeGeometry args={[0.6, 0.4]} />
+            <meshBasicMaterial color="#0b3e79" transparent opacity={0.86} />
+          </mesh>
+          {[-0.105, -0.025, 0.055, 0.135].map((y, lineIndex) => (
+            <mesh key={lineIndex} position={[-0.04, y, 0.012]}>
+              <planeGeometry args={[0.4 + (lineIndex % 2) * 0.12, 0.012]} />
+              <meshBasicMaterial color={lineIndex === 0 ? "#a3efff" : "#48aaff"} transparent opacity={lineIndex === 0 ? 0.85 : 0.62} />
+            </mesh>
+          ))}
+        </group>
+      ))}
     </group>
   );
 }
 
 /** Builds the reflective-looking platform rings and restrained holographic panels. */
+
 function FloorAndPanels() {
   const panelPlacements: Array<[number, number, number, number, number]> = [
-    [-4.6, 0.72, -1.15, 1.36, 0.94],
-    [4.72, 1.2, -2.6, 1.28, 0.88],
-    [5.45, -0.2, -1.5, 1.02, 0.7],
+    [-5.35, 0.8, -1.35, 2.18, 1.5],
+    [6.1, 1.12, -2.15, 2.05, 1.42],
+    [7.42, -0.08, -1.28, 1.54, 1.08],
+    [1.25, 1.92, -2.55, 1.26, 0.84],
   ];
 
   return (
     <group>
       <mesh position={[0, -2.14, -1.6]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[28, 26]} />
-        <meshPhysicalMaterial color="#071326" metalness={0.28} roughness={0.36} transparent opacity={0.82} side={DoubleSide} envMapIntensity={0.12} />
+      <meshBasicMaterial color="#01030a" side={DoubleSide} />
+      </mesh>
+      <mesh position={[3.08, -2.075, -0.2]}>
+        <cylinderGeometry args={[3.64, 3.72, 0.12, 96, 1]} />
+        <meshStandardMaterial color="#050b16" metalness={0.84} roughness={0.28} emissive="#071831" emissiveIntensity={0.42} />
+      </mesh>
+      <mesh position={[3.08, -2.005, -0.2]}>
+        <cylinderGeometry args={[2.94, 3.12, 0.08, 96, 1]} />
+        <meshStandardMaterial color="#07101e" metalness={0.9} roughness={0.22} emissive="#062147" emissiveIntensity={0.34} />
+      </mesh>
+      <mesh position={[3.08, -1.957, -0.2]}>
+        <cylinderGeometry args={[2.12, 2.28, 0.035, 96, 1]} />
+        <meshStandardMaterial color="#030812" metalness={0.92} roughness={0.2} emissive="#0a2a52" emissiveIntensity={0.48} />
       </mesh>
       {Array.from({ length: 13 }, (_, index) => (
-        <mesh key={`floor-long-${index}`} position={[-9 + index * 1.5, -2.125, -1.2]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh key={"floor-long-" + index} position={[-9 + index * 1.5, -2.125, -1.2]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[0.012, 24]} />
-          <meshBasicMaterial color="#3183d8" transparent opacity={0.2} side={DoubleSide} />
+          <meshBasicMaterial color="#2266b5" transparent opacity={0.12} side={DoubleSide} />
         </mesh>
       ))}
       {Array.from({ length: 8 }, (_, index) => (
-        <mesh key={`floor-cross-${index}`} position={[0, -2.122, -10 + index * 2.3]} rotation={[-Math.PI / 2, 0, 0]}>
+        <mesh key={"floor-cross-" + index} position={[0, -2.122, -10 + index * 2.3]} rotation={[-Math.PI / 2, 0, 0]}>
           <planeGeometry args={[28, 0.012]} />
-          <meshBasicMaterial color="#4c9be8" transparent opacity={0.16} side={DoubleSide} />
+          <meshBasicMaterial color="#2b74bd" transparent opacity={0.11} side={DoubleSide} />
         </mesh>
       ))}
-      {[2.15, 2.55, 3.2, 4.05].map((radius, index) => (
-        <mesh
-          key={radius}
-          position={[3.1, -2.04 + index * 0.012, -0.2]}
-          rotation={[Math.PI / 2, 0, 0]}
-        >
-          <torusGeometry args={[radius, 0.014, 5, 84]} />
-          <meshBasicMaterial color={index === 1 ? "#48d9ff" : "#1c65d8"} transparent opacity={0.43 - index * 0.08} />
+      {[1.28, 1.72, 2.18, 2.62, 3.05, 3.48, 3.98, 4.42].map((radius, index) => (
+        <mesh key={radius} position={[3.08, -1.93 + index * 0.009, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
+          <torusGeometry args={[radius, index === 2 ? 0.028 : 0.016, 6, 112]} />
+          <meshBasicMaterial color={index === 2 || index === 5 ? "#54dfff" : index % 2 ? "#1c65d8" : "#a5f1ff"} transparent opacity={index === 2 ? 0.7 : 0.34 - index * 0.018} />
         </mesh>
       ))}
       {panelPlacements.map(([x, y, z, w, h], index) => (
         <group key={index} position={[x, y, z]} rotation={[0, index === 0 ? 0.2 : -0.16, index === 2 ? -0.05 : 0]}>
+          <mesh position={[0, 0, -0.035]}>
+            <boxGeometry args={[w + 0.14, h + 0.14, 0.08]} />
+            <meshBasicMaterial color="#1678e9" transparent opacity={0.12} />
+          </mesh>
           <mesh>
             <planeGeometry args={[w, h]} />
-            <meshPhysicalMaterial color="#083472" metalness={0.24} roughness={0.32} transparent opacity={0.2} side={DoubleSide} />
+            <meshBasicMaterial color="#07234a" transparent opacity={0.37} side={DoubleSide} />
           </mesh>
-          <mesh position={[0, 0, 0.015]}>
-            <planeGeometry args={[w * 0.94, h * 0.9]} />
-            <meshBasicMaterial color="#4ccfff" wireframe transparent opacity={0.2} side={DoubleSide} />
+          <mesh position={[0, 0, -0.02]}>
+            <planeGeometry args={[w * 0.94, h * 0.92]} />
+            <meshBasicMaterial color="#03132b" transparent opacity={0.56} side={DoubleSide} />
           </mesh>
-          {[-0.22, -0.04, 0.14, 0.3].map((lineY, lineIndex) => (
-            <mesh key={lineIndex} position={[-w * (lineIndex % 2 ? 0.02 : 0.1), lineY * h, 0.025]}>
-              <planeGeometry args={[w * (0.72 - lineIndex * 0.09), 0.009]} />
-              <meshBasicMaterial color={lineIndex === 0 ? "#bbf5ff" : "#43a8ff"} transparent opacity={0.44} />
+          {[
+            [0, h / 2, w, 0.035], [0, -h / 2, w, 0.035],
+            [-w / 2, 0, 0.035, h], [w / 2, 0, 0.035, h],
+          ].map(([frameX, frameY, frameW, frameH], frameIndex) => (
+            <mesh key={"glass-rail-" + frameIndex} position={[frameX, frameY, 0.03]}>
+              <planeGeometry args={[frameW, frameH]} />
+              <meshBasicMaterial color={frameIndex < 2 ? "#9ceeff" : "#48aaff"} transparent opacity={0.78} side={DoubleSide} />
             </mesh>
           ))}
-          <pointLight color="#27a7ff" intensity={0.42} distance={3} />
+          <mesh position={[0, 0, 0.015]}>
+            <planeGeometry args={[w * 0.94, h * 0.9]} />
+            <meshBasicMaterial color="#4ccfff" wireframe transparent opacity={0.28} side={DoubleSide} />
+          </mesh>
+          {[-0.34, -0.2, -0.06, 0.08, 0.22, 0.36].map((lineY, lineIndex) => (
+            <mesh key={lineIndex} position={[-w * (lineIndex % 2 ? 0.02 : 0.1), lineY * h, 0.025]}>
+              <planeGeometry args={[w * (0.76 - (lineIndex % 3) * 0.12), lineIndex % 3 === 0 ? 0.016 : 0.009]} />
+              <meshBasicMaterial color={lineIndex === 0 ? "#bbf5ff" : "#43a8ff"} transparent opacity={lineIndex === 0 ? 0.72 : 0.48} />
+            </mesh>
+          ))}
+          {[-w / 2, w / 2].map((edge) => (
+            <mesh key={edge} position={[edge, 0, 0.022]}>
+              <planeGeometry args={[0.014, h * 0.92]} />
+              <meshBasicMaterial color="#55cfff" transparent opacity={0.62} />
+            </mesh>
+          ))}
+          <pointLight color="#27a7ff" intensity={0.32} distance={3} />
         </group>
       ))}
     </group>
@@ -482,20 +691,23 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
 
   return (
     <group ref={world}>
-      <ambientLight intensity={tier === "FULL" ? 0.84 : 0.72} color="#88a9d3" />
-      <hemisphereLight args={["#b5e5ff", "#061020", 1.15]} />
-      <directionalLight position={[1, 5, 8]} intensity={tier === "FULL" ? 3.2 : 2.2} color="#e7f5ff" />
-      <directionalLight position={[-5, 1, 1]} intensity={tier === "FULL" ? 3.4 : 2.1} color="#387cff" />
-      <directionalLight position={[5, 3, -4]} intensity={tier === "FULL" ? 2 : 1.1} color="#55cfff" />
-      <pointLight position={[2.6, 3.4, 7.5]} intensity={tier === "FULL" ? 38 : 22} distance={18} decay={2} color="#f5fdff" />
-      <pointLight position={[4.2, -0.2, 6.5]} intensity={tier === "FULL" ? 24 : 14} distance={15} decay={2} color="#68cfff" />
+      <ambientLight intensity={tier === "FULL" ? 0.48 : 0.4} color="#7899c3" />
+      <hemisphereLight args={["#a8dcff", "#020710", 0.82]} />
+      <directionalLight position={[1, 5, 8]} intensity={tier === "FULL" ? 2.2 : 1.55} color="#d9efff" />
+      <directionalLight position={[-5, 1, 1]} intensity={tier === "FULL" ? 3.2 : 1.9} color="#287aff" />
+      <directionalLight position={[5, 3, -4]} intensity={tier === "FULL" ? 2.7 : 1.5} color="#55cfff" />
+      <directionalLight position={[-1, 4, -6]} intensity={tier === "FULL" ? 1.9 : 1} color="#6daaff" />
+      <pointLight position={[2.6, 3.4, 7.5]} intensity={tier === "FULL" ? 22 : 13} distance={18} decay={2} color="#e7f7ff" />
+      <pointLight position={[4.2, -0.2, 6.5]} intensity={tier === "FULL" ? 12 : 7} distance={15} decay={2} color="#3ebdff" />
       <Chamber tier={tier} />
       <PrecisionBladesN tier={tier} />
       <GlobalNetwork tier={tier} />
       <HumanScaleFigure />
+      <LaboratoryConsoleBay side={-1} />
+      <LaboratoryConsoleBay side={1} />
       <FloorAndPanels />
       <SceneParticles tier={tier} />
-      {Array.from({ length: tier === "FULL" ? 4 : 2 }, (_, index) => (
+      {Array.from({ length: tier === "FULL" ? 6 : 3 }, (_, index) => (
         <EnergyFilament key={index} index={index} tier={tier} />
       ))}
     </group>

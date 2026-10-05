@@ -28,6 +28,14 @@ async function settleResponsiveLayout(page: Page) {
   }));
 }
 
+async function waitForLivePosterFade(page: Page) {
+  const poster = page.locator('[data-testid="hero-static-poster"] > div').first();
+  await expect.poll(
+    () => poster.evaluate((element) => getComputedStyle(element).opacity),
+    { timeout: 3_000 },
+  ).toBe("0");
+}
+
 async function hasHorizontalOverflow(page: Page) {
   return page.evaluate(() => {
     document.documentElement.getBoundingClientRect();
@@ -180,6 +188,7 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   const fullStage = full.getByTestId("hero-scene-stage");
   await expect(fullStage).toHaveAttribute("data-quality-tier", "FULL");
   await expect(fullStage).toHaveAttribute("data-scene-state", "ready", { timeout: 30_000 });
+  await waitForLivePosterFade(full);
   await capture(full, "home-full-3d-1600x900.png");
   const fullHeroCapture = await full.screenshot({ clip: { x: 0, y: 0, width: 1600, height: 440 }, animations: "disabled", caret: "hide" });
   await compositeComparison(browser, "master-vs-candidate-hero.png", fullHeroCapture, { x: 0, y: 0, width: 1600, height: 440 });
@@ -194,6 +203,7 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   const balancedStage = balanced.getByTestId("hero-scene-stage");
   await expect(balancedStage).toHaveAttribute("data-quality-tier", "BALANCED");
   await expect(balancedStage).toHaveAttribute("data-scene-state", "ready", { timeout: 30_000 });
+  await waitForLivePosterFade(balanced);
   await capture(balanced, "home-balanced-3d-900x768.png");
   await balanced.close();
 
