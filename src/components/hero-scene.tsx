@@ -152,18 +152,18 @@ function useHeroFaceGeometry() {
       const height = Math.max(bounds.max.y - bounds.min.y, 0.001);
       const stops = [
         [0, new Color("#17395f")],
-        [0.08, new Color("#9fc9e8")],
-        [0.17, new Color("#eefaff")],
-        [0.25, new Color("#315b82")],
-        [0.34, new Color("#102641")],
-        [0.43, new Color("#a8ddfa")],
-        [0.51, new Color("#f7fdff")],
-        [0.59, new Color("#1d3857")],
-        [0.68, new Color("#d3f1ff")],
-        [0.77, new Color("#326792")],
-        [0.86, new Color("#e9f8ff")],
-        [0.94, new Color("#18385d")],
-        [1, new Color("#8db6d5")],
+        [0.08, new Color("#82a9c9")],
+        [0.17, new Color("#e1f2ff")],
+        [0.25, new Color("#203f61")],
+        [0.34, new Color("#0b1e34")],
+        [0.43, new Color("#86b9d9")],
+        [0.51, new Color("#eaf7ff")],
+        [0.59, new Color("#183554")],
+        [0.68, new Color("#a5d1ec")],
+        [0.77, new Color("#254d70")],
+        [0.86, new Color("#dceeff")],
+        [0.94, new Color("#183653")],
+        [1, new Color("#7b9fba")],
       ] as const;
       const colors = new Float32Array(positions.count * 3);
       const color = new Color();
@@ -257,13 +257,13 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
         side: DoubleSide,
       }),
       new MeshPhysicalMaterial({
-        color: "#d0e5f3",
+        color: "#a6bacb",
         metalness: 0.98,
         roughness: 0.16,
         clearcoat: 0.92,
         clearcoatRoughness: 0.08,
         envMap: environment,
-        envMapIntensity: 2.8,
+        envMapIntensity: 2.45,
         vertexColors: true,
         side: DoubleSide,
       }),
@@ -286,9 +286,9 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
     >
       <mesh geometry={geometry} material={materials[0]} castShadow={false} receiveShadow={false} />
       <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, 0.129]} castShadow={false} receiveShadow={false} />
-      <pointLight color="#d8f5ff" intensity={5.5} distance={3.8} position={[-0.72, 0.76, 1.45]} />
-      <pointLight color="#46aaff" intensity={7} distance={4.2} position={[0.88, -0.2, 1.25]} />
-      <pointLight color="#effcff" intensity={3.5} distance={3.5} position={[0.12, 1.35, 0.9]} />
+      <pointLight color="#d8f5ff" intensity={2.8} distance={3.2} position={[-0.72, 0.76, 1.45]} />
+      <pointLight color="#46aaff" intensity={4.5} distance={3.8} position={[0.88, -0.2, 1.25]} />
+      <pointLight color="#effcff" intensity={2.1} distance={3.2} position={[0.12, 1.35, 0.9]} />
     </group>
   );
 }
@@ -663,7 +663,13 @@ function LaboratoryBackplanes({ tier }: { tier: HeroSceneProps["tier"] }) {
         { position: [0, -halfHeight, z], scale: [halfWidth * 2, 0.12, 0.18], color: frameColor },
         { position: [-halfWidth * 0.52, 0, z], scale: [0.046, postHeight * 0.88, 0.075], color: frameColor },
         { position: [halfWidth * 0.52, 0, z], scale: [0.046, postHeight * 0.88, 0.075], color: frameColor },
+        { position: [-halfWidth * 0.26, 0, z], scale: [0.035, postHeight * 0.82, 0.065], color: accentColor },
+        { position: [halfWidth * 0.26, 0, z], scale: [0.035, postHeight * 0.82, 0.065], color: frameColor },
+        { position: [-halfWidth * 0.78, 0, z], scale: [0.035, postHeight * 0.82, 0.065], color: frameColor },
+        { position: [halfWidth * 0.78, 0, z], scale: [0.035, postHeight * 0.82, 0.065], color: accentColor },
         { position: [0, halfHeight * 0.44, z], scale: [halfWidth * 1.72, 0.028, 0.08], color: accentColor },
+        { position: [0, halfHeight * 0.12, z], scale: [halfWidth * 1.82, 0.022, 0.065], color: frameColor },
+        { position: [0, -halfHeight * 0.12, z], scale: [halfWidth * 1.82, 0.022, 0.065], color: accentColor },
         { position: [0, -halfHeight * 0.42, z], scale: [halfWidth * 1.62, 0.024, 0.08], color: frameColor },
       ];
       return frame;
@@ -838,9 +844,9 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
   const environment = useChromeEnvironmentMap();
   const platformMaterials = useMemo(
     () => [
-      new MeshPhysicalMaterial({ color: "#07101d", metalness: 0.96, roughness: 0.21, clearcoat: 0.62, clearcoatRoughness: 0.16, envMap: environment, envMapIntensity: 0.92, emissive: "#07182e", emissiveIntensity: 0.42 }),
-      new MeshPhysicalMaterial({ color: "#0b1a2c", metalness: 0.97, roughness: 0.18, clearcoat: 0.76, clearcoatRoughness: 0.12, envMap: environment, envMapIntensity: 1.02, emissive: "#09264a", emissiveIntensity: 0.4 }),
-      new MeshPhysicalMaterial({ color: "#030913", metalness: 0.98, roughness: 0.16, clearcoat: 0.82, clearcoatRoughness: 0.1, envMap: environment, envMapIntensity: 1.1, emissive: "#0a2b55", emissiveIntensity: 0.48 }),
+      new MeshPhysicalMaterial({ color: "#07101d", metalness: 0.96, roughness: 0.21, clearcoat: 0.62, clearcoatRoughness: 0.16, envMap: environment, envMapIntensity: 0.55, emissive: "#07182e", emissiveIntensity: 0.3 }),
+      new MeshPhysicalMaterial({ color: "#0b1a2c", metalness: 0.97, roughness: 0.18, clearcoat: 0.76, clearcoatRoughness: 0.12, envMap: environment, envMapIntensity: 0.62, emissive: "#09264a", emissiveIntensity: 0.28 }),
+      new MeshPhysicalMaterial({ color: "#030913", metalness: 0.98, roughness: 0.16, clearcoat: 0.82, clearcoatRoughness: 0.1, envMap: environment, envMapIntensity: 0.7, emissive: "#0a2b55", emissiveIntensity: 0.34 }),
     ],
     [environment],
   );
