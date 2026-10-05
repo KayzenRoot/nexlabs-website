@@ -7,6 +7,7 @@
 **Branch starting HEAD:** `05a470a5b664afb2e3cc731c0a1f664dd59fa02c`
 **Implementation commit:** `c860171d8aa45c04032c2605934e82e1a09079d4`
 **Deterministic Browser Smoke fixture commit:** `8ac950e`
+**Navigation/report correction commits:** `86505817683af00cdecf312d6ca73b2ed1a7fb52`, `a665a7dd74992d4109a19ef4bb88de3a7761309a`, `d16a6f53fba6b98dff9d9004e11196056493038f`
 **Final PR HEAD:** recorded from PR #20 metadata after the final Evidence Bundle push. The immutable implementation/test SHA is retained above; this avoids a self-referential SHA in the evidence commit. Exact-head hosted check results are checked after that push and documented in the PR update.
 
 ## Authority and master identity
@@ -31,7 +32,7 @@ Files in implementation commit `c860171`:
 - `src/components/secondary-page.tsx`, `secondary-page.module.css`, `src/components/visual/scroll-reveal.tsx`.
 - `tests/e2e/home.spec.ts`, `m06a.spec.ts`, `m06b.spec.ts`, `m06c.spec.ts`, `m07a.spec.ts`, `wo013-visual-fidelity.spec.ts`.
 
-Commit `8ac950e` makes the BALANCED visual proof deterministic by setting 8 CPU/8 GB capabilities only in that Playwright context. It does not alter product tier selection.
+Commit `8ac950e` makes the BALANCED visual proof deterministic by setting 8 CPU/8 GB capabilities only in that Playwright context. It does not alter product tier selection. Commits `8650581` and `a665a7d` close the mobile menu on desktop breakpoint changes and preserve focus at the active desktop route. Commit `d16a6f5` labels M06A as desktop performance plus mobile layout-only checks, and M06B as performance and layout checks at both desktop and mobile sizes.
 
 No page copy, metadata, route definitions, Contact data boundary, M07A security configuration, Dockerfile, production Compose configuration, workflow, package manifest or lockfile was changed.
 
@@ -45,16 +46,17 @@ No page copy, metadata, route definitions, Contact data boundary, M07A security 
 | `npm test` | PASS; 5 files / 32 tests. |
 | `npm audit --audit-level=moderate` | PASS; 0 reported vulnerabilities. |
 | `npm run build` | PASS; static output includes `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`, and `/robots.txt`. |
-| `npm run test:e2e -- --retries=0 --workers=1` | PASS; 27/27 full E2E tests. |
+| Production-candidate Playwright full suite | PASS; 28/28 tests in each of three consecutive runs, retries=0. |
+| Mobile menu breakpoint regression | PASS; 10/10 targeted local repetitions; also passed in all three final candidate suites. |
 | Secondary-page responsive test, 10 repeats | PASS; 10/10 after waiting for the resized viewport’s layout frames; overflow threshold unchanged. |
 | Secret-pattern scan | PASS; no matching credential patterns in changed source, tests, public assets or this WO evidence. |
 | Master runtime-reference negative scan | PASS; no reference in production `src/` or `public/`. |
 | `git diff --check` | PASS. |
 | `git diff -- package.json package-lock.json` | Empty; manifests are unchanged. |
 
-Final production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/verified-after-browser-smoke-fix/run-01` through `run-03`. Each final run used the same immutable candidate image, one worker, retries zero and all 27 tests. The three LCP results are 1172 ms, 1120 ms and 1140 ms; all are below the unchanged 2500 ms limit. See the per-run suite logs and copied performance JSON reports for the complete receipts. The earlier passing triplet remains archived under `production-candidate-runs/run-01` through `run-03`; it is superseded as the final receipt set by this post-fixture sequence.
+Final production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/verified-after-final-review-corrections/run-01` through `run-03`. Each final run used the same immutable candidate image, one worker, retries zero and all 28 tests. Home mobile LCP was 1124 ms, 1104 ms and 1128 ms; each is below the unchanged 2500 ms limit. CLS was 0 in each run; interaction proxies were 88 / 48 / 64 ms. See the per-run suite logs and performance JSON reports for complete receipts. Earlier passing triplets remain archived under `production-candidate-runs/run-01` through `run-03`, `production-candidate-runs/verified-after-browser-smoke-fix/run-01` through `run-03`, and `production-candidate-runs/verified-after-review-corrections/run-01` through `run-03`; each is superseded by the final proof on the corrected metadata harness.
 
-One diagnostic attempt before the valid sequence had `E2E_PORT` unset, so the performance test targeted port 3100 while the candidate listened at 3002 and reported connection refused. That attempt is preserved under `production-candidate-runs/harness-misconfigured-attempt/`, excluded from both three-run counts. A hosted Browser Smoke on prior HEAD `98977dc` also exposed that CI’s four-core runner correctly selected STATIC while the visual test assumed BALANCED. Commit `8ac950e` fixed the test fixture only; the selector and budgets were not altered. The final consecutive sequence sets both candidate port variables to 3002 and runs with the corrected fixture.
+One diagnostic attempt before the first valid sequence had `E2E_PORT` unset, so the performance test targeted port 3100 while the candidate listened at 3002 and reported connection refused; it remains archived under `production-candidate-runs/harness-misconfigured-attempt/`. A subsequent nonqualifying sequence on candidate source `8650581` had a focus-transfer assertion race and one transient Chromium `net::ERR_NO_BUFFER_SPACE` while navigating to `/technology`; its logs remain under `production-candidate-runs/after-coderabbit-corrections/` and it is excluded. The focus behavior was corrected in `a665a7d`, passed 10 targeted local repetitions and all three final full suites; the buffer error did not recur. A hosted Browser Smoke on prior HEAD `98977dc` had also exposed that CI’s four-core runner correctly selected STATIC while the visual test assumed BALANCED. Commit `8ac950e` fixed the test fixture only; the selector and budgets were not altered. The final consecutive sequence uses the same candidate image, port 3002, retries zero and corrected fixtures.
 
 ## Visual and interaction evidence
 
@@ -70,8 +72,8 @@ All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000
 
 ## Performance and hardware limits
 
-- Home mobile: LCP 1172 / 1120 / 1140 ms; CLS 0 each; interaction proxy 80 / 64 / 48 ms.
-- Initial Home route JavaScript: 145,791 bytes gzip (142.4 KiB), below 220 KiB.
+- Home mobile: LCP 1124 / 1104 / 1128 ms; CLS 0 each; interaction proxy 88 / 48 / 64 ms.
+- Initial Home route JavaScript: 145,977 bytes gzip (142.6 KiB), below 220 KiB.
 - Lazy Home 3D chunk: 253,946 bytes gzip (248.0 KiB), below 700 KiB.
 - The performance report identifies Chromium **ANGLE / SwiftShader software rendering**. Frame samples are retained, but this host does not establish physical-GPU frame-rate qualification.
 
@@ -88,17 +90,17 @@ Development Docker remains **UP/healthy** at `http://127.0.0.1:3000`:
 
 The isolated, local production candidate used for proof is also healthy:
 
-- Image: `nexlabs-website-release-candidate:c860171d8aa45c04032c2605934e82e1a09079d4`.
-- Image digest: `sha256:538d80545a2179ae8e8032963bb619fdcf6dcec18e786fea016a8fabb55fc352`.
-- Container ID: `b5d1ec25f8d508298c94eda05f738e76c9e748e72e3c8130e8130ee789e80fc8`; health `healthy`; runtime user `1000:1000`.
+- Image: `nexlabs-website-release-candidate:a665a7dd74992d4109a19ef4bb88de3a7761309a`.
+- Image digest: `sha256:41672afc50ad5543fb28614c3bd2390458deb025fde66aeff0e9a2ba819943e8`.
+- Container ID: `8bc2fd99827cbbc5c9808c7ad7551504110db4c108ba7bfc1bbbcb48c6b7cea5`; health `healthy`; runtime user `1000:1000`.
 - Published only on loopback at `127.0.0.1:3002`; Node `v22.23.3`, npm `10.9.9`.
 - Candidate command: `docker compose -f compose.production.yaml up -d`; it is a local validation image, not a deployment.
 
 ## Proposed visual score and gaps
 
-Executor score is **PROPOSED 73/100**. The master comparisons show that N, chamber, energy rails, icon objects and global atmosphere are closer, while cinematic scene density, reflective environment, Earth/detail, capability imagery and the expansive lower-world compositions remain materially different. Reasons and criterion scores are recorded in `VISUAL-FIDELITY-REPORT.md`.
+Executor score is **PROPOSED 77/100**, the sum of the criterion scores in `VISUAL-FIDELITY-REPORT.md`. The master comparisons show that N, chamber, energy rails, icon objects and global atmosphere are closer, while cinematic scene density, reflective environment, Earth/detail, capability imagery and the expansive lower-world compositions remain materially different.
 
-Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The proposed 73/100 is below the approval threshold, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final correction/evidence push; no result from an earlier SHA is carried forward.
+Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The proposed 77/100 is below the approval threshold, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final correction/evidence push; no result from an earlier SHA is carried forward. The three CodeRabbit findings on the preceding PR head were corrected: breakpoint closure/focus, accurate M06A desktop-performance/mobile-layout-only and M06B desktop/mobile performance-and-layout labels, and the visual-score total.
 
 ## Stop state
 

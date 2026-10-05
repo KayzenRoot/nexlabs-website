@@ -1,7 +1,7 @@
 # WO-013 Visual Fidelity Report
 
 **Status:** Executor proposal — review required
-**Proposed score:** **73/100**
+**Proposed score:** **77/100**
 **Work Order:** `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
 **Implementation/test anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`
@@ -17,19 +17,19 @@ The score is an executor proposal based on the retained deterministic comparison
 | Hero composition & hierarchy | 16/20 | Text-led left column, centered monumental N, layered chamber, floor plane and right-side information panels move the composition toward the master. Candidate still has substantially less scene density and photographic depth. See `master-vs-candidate-hero.png`. |
 | N / chamber / material / lighting | 15/20 | Uses the unchanged approved Precision Blades N geometry with a brighter chrome face, blue edge light, cylinder rails and concentric platform. Reflections and cylindrical enclosure remain simpler and darker than the master. |
 | Earth / network / floor / panels / human scale | 12/15 | Adds an Earth/network globe, holographic panels, floor grid, energy paths, particles and a scale silhouette. Their form and placement are original authored geometry, with less detail and scale than the master. |
-| Header / navigation / mobile menu | 8/10 | Route-aware active state, illuminated hover/focus, compact mobile panel, Escape close and focus restore. The selected routes do not include the master’s unverified Products/Search/social destinations. See `master-vs-candidate-header.png` and the mobile menu captures. |
+| Header / navigation / mobile menu | 8/10 | Route-aware active state, illuminated hover/focus, compact mobile panel, Escape close, focus restore and breakpoint-change closure/focus transfer. The selected routes do not include the master’s unverified Products/Search/social destinations. See `master-vs-candidate-header.png` and the mobile menu captures. |
 | Capability iconography & card objects | 7/10 | Five custom geometric capability objects replace generic icons. They remain more schematic than the detailed luminous objects in the master. See `master-vs-candidate-capabilities.png`. |
 | Lower Home one-world continuity | 7/10 | Research and Technology sections now share blue rails, atmospheric SVG layers and depth cues. The master’s expansive lab/world imagery and large technology stack are not reproduced. See `master-vs-candidate-lower-home.png`. |
 | Secondary-page depth / consistency | 4/5 | CSS/SVG atmosphere and material treatments are shared across all five internal routes; no second WebGL runtime was added. |
 | Motion / living-organism behavior | 4/5 | Controlled pointer parallax, scroll-linked reveals and subtle signal movement are reduced-motion aware; STATIC and failure fallback remain available. |
 | Responsive / accessibility / STATIC fidelity | 4/5 | 320–1600px layouts, accessible mobile menu, keyboard focus, reduced motion and poster-first STATIC behavior pass the retained checks. |
-| **Total** | **73/100** | **Proposed; independent auditor owns the final score.** |
+| **Total** | **77/100** | **Proposed; independent auditor owns the final score.** |
 
 ## What moved closer to the master
 
 - The Home now places the approved N inside a dimensional cylindrical chamber with concentric rings, an illuminated floor/platform, network globe, side panels, human-scale cue, energy filaments and particles.
 - Hand-authored responsive posters preserve the same scene concept before WebGL loads and for STATIC/reduced-motion paths.
-- The header exposes actual route state; the mobile navigation has keyboard-operable open/close behavior and visible active state.
+- The header exposes actual route state; the mobile navigation has keyboard-operable open/close behavior, visible active state and closes with focus transferred when the viewport returns to desktop navigation.
 - Five capability cards have distinct authored holographic objects. Research and Technology add lower-Home world continuity, and secondary pages share restrained atmospheric depth.
 
 ## Remaining differences and reasons
