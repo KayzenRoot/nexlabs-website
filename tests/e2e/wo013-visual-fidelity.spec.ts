@@ -2,11 +2,11 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type Browser, type Page } from "@playwright/test";
+import { writeEvidenceBuffer } from "./evidence";
 
-const evidenceDirectory = resolve(
-  process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
-);
+const evidenceDirectory = process.env.NEXLABS_EVIDENCE_ROOT
+  ? resolve(process.env.NEXLABS_EVIDENCE_ROOT, "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT")
+  : resolve(process.cwd(), ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT");
 const masterPath = resolve(
   process.cwd(),
   ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg",
@@ -20,7 +20,7 @@ function saveJson(name: string, value: unknown) {
 
 async function capture(page: Page, name: string, fullPage = false) {
   const screenshot = await page.screenshot({ fullPage, animations: "disabled", caret: "hide" });
-  writeFileSync(resolve(evidenceDirectory, name), screenshot);
+  writeEvidenceBuffer(resolve(evidenceDirectory, name), screenshot);
 }
 
 async function settleResponsiveLayout(page: Page) {
@@ -59,7 +59,7 @@ async function compositeComparison(
   await page.setViewportSize({ width: 1600, height: Math.max(220, rowHeight * 2 + 110) });
   await page.setContent(`<!doctype html><html><head><style>*{box-sizing:border-box}html,body{margin:0;background:#030812;color:#dff7ff;font:600 14px Arial,sans-serif}main{width:1600px;padding:12px;display:grid;grid-template-columns:1fr;gap:10px}figure{margin:0;overflow:hidden;border:1px solid #287eb5;background:#061326}figcaption{height:28px;padding:7px 10px;letter-spacing:.12em;text-transform:uppercase;background:#081a30}img,svg{display:block;width:100%;height:${rowHeight}px;object-fit:cover;object-position:top}</style></head><body><main><figure><figcaption>Approved master · evidence only</figcaption>${masterSvg}</figure><figure><figcaption>Current candidate · ${name}</figcaption><img src="data:image/png;base64,${candidateBase64}" alt=""/></figure></main></body></html>`);
   const screenshot = await page.screenshot({ animations: "disabled", fullPage: true });
-  writeFileSync(resolve(evidenceDirectory, name), screenshot);
+  writeEvidenceBuffer(resolve(evidenceDirectory, name), screenshot);
   await page.close();
 }
 
@@ -77,7 +77,7 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.locator("#capabilities article")).toHaveCount(5);
   const homeCapture = await page.screenshot({ animations: "disabled", caret: "hide" });
-  writeFileSync(resolve(evidenceDirectory, "candidate-home-1600x900.png"), homeCapture);
+  writeEvidenceBuffer(resolve(evidenceDirectory, "candidate-home-1600x900.png"), homeCapture);
 
   const activePage = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 });
   await activePage.goto("/technology", { waitUntil: "networkidle" });
@@ -86,7 +86,7 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   const headerBox = await activePage.locator("header").first().boundingBox();
   expect(headerBox).not.toBeNull();
   const headerCapture = await activePage.screenshot({ clip: { x: 0, y: 0, width: 1600, height: Math.ceil(headerBox?.height ?? 68) }, animations: "disabled" });
-  await writeFileSync(resolve(evidenceDirectory, "candidate-header-active-technology.png"), headerCapture);
+  writeEvidenceBuffer(resolve(evidenceDirectory, "candidate-header-active-technology.png"), headerCapture);
   await compositeComparison(browser, "master-vs-candidate-header.png", headerCapture, { x: 0, y: 0, width: 1600, height: 64 });
   await capture(activePage, "technology-1600x900.png");
   await activePage.close();
@@ -94,13 +94,13 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   const capability = page.locator("#capabilities");
   await capability.scrollIntoViewIfNeeded();
   const capabilityCapture = await capability.screenshot({ animations: "disabled" });
-  await writeFileSync(resolve(evidenceDirectory, "capabilities-five-objects.png"), capabilityCapture);
+  writeEvidenceBuffer(resolve(evidenceDirectory, "capabilities-five-objects.png"), capabilityCapture);
   await compositeComparison(browser, "master-vs-candidate-capabilities.png", capabilityCapture, { x: 0, y: 438, width: 1600, height: 188 });
 
   const lowerWorld = page.locator('[data-world-reveal="narrative"]');
   await lowerWorld.scrollIntoViewIfNeeded();
   const lowerCapture = await lowerWorld.screenshot({ animations: "disabled" });
-  await writeFileSync(resolve(evidenceDirectory, "home-lower-research-technology.png"), lowerCapture);
+  writeEvidenceBuffer(resolve(evidenceDirectory, "home-lower-research-technology.png"), lowerCapture);
   await compositeComparison(browser, "master-vs-candidate-lower-home.png", lowerCapture, { x: 0, y: 624, width: 1600, height: 214 });
   await page.evaluate(() => window.scrollTo(0, 0));
 

@@ -3,7 +3,7 @@ import { mkdirSync, statSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
-import { captureScreenshot } from "./evidence";
+import { captureScreenshot, writeEvidenceBuffer } from "./evidence";
 
 const screenshotDirectory = resolve(
   process.cwd(),
@@ -190,9 +190,9 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
 
   await page.setViewportSize({ width: 1440, height: 900 });
   const headerImage = await page.getByRole("banner").screenshot({ animations: "disabled" });
-  writeFileSync(resolve(screenshotDirectory, "header-desktop-1440x900.png"), headerImage);
+  writeEvidenceBuffer(resolve(screenshotDirectory, "header-desktop-1440x900.png"), headerImage);
   const footerImage = await page.locator("footer").screenshot({ animations: "disabled" });
-  writeFileSync(resolve(screenshotDirectory, "footer-desktop-1440x900.png"), footerImage);
+  writeEvidenceBuffer(resolve(screenshotDirectory, "footer-desktop-1440x900.png"), footerImage);
 
   expect(browserErrors).toEqual([]);
 });
