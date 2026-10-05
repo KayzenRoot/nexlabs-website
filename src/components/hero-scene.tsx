@@ -83,11 +83,33 @@ function useSceneInstances(
  * loss into the shared scene-failure path.
  */
 function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
-  const { gl, setFrameloop } = useThree();
+  const { gl, invalidate, setFrameloop } = useThree();
 
   useEffect(() => {
+    let startupMotionTimer: number | undefined;
+    let startupFramePending = true;
     const syncVisibility = () => {
-      setFrameloop(document.visibilityState === "hidden" ? "never" : "always");
+      if (document.visibilityState === "hidden") {
+        if (startupMotionTimer !== undefined) {
+          window.clearTimeout(startupMotionTimer);
+          startupMotionTimer = undefined;
+        }
+        setFrameloop("never");
+        return;
+      }
+
+      if (startupFramePending) {
+        startupFramePending = false;
+        setFrameloop("demand");
+        invalidate();
+        startupMotionTimer = window.setTimeout(() => {
+          startupMotionTimer = undefined;
+          if (document.visibilityState === "visible") setFrameloop("always");
+        }, 1200);
+        return;
+      }
+
+      setFrameloop("always");
     };
     const onContextLost = (event: Event) => {
       event.preventDefault();
@@ -101,8 +123,9 @@ function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
     return () => {
       document.removeEventListener("visibilitychange", syncVisibility);
       gl.domElement.removeEventListener("webglcontextlost", onContextLost, false);
+      if (startupMotionTimer !== undefined) window.clearTimeout(startupMotionTimer);
     };
-  }, [gl, onFailure, setFrameloop]);
+  }, [gl, invalidate, onFailure, setFrameloop]);
 
   return null;
 }
@@ -1017,7 +1040,7 @@ export default function HeroScene({ tier, onReady, onFailure }: HeroSceneProps) 
       <Canvas
         camera={{ position: [0, 0.15, 12], fov: 40, near: 0.1, far: 50 }}
         dpr={dpr}
-        frameloop="always"
+        frameloop="demand"
         gl={{
           alpha: true,
           antialias: tier === "FULL",
