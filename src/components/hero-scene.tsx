@@ -2,6 +2,7 @@
 
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import {
+  BoxGeometry,
   BufferGeometry,
   CatmullRomCurve3,
   Color,
@@ -13,14 +14,21 @@ import {
   SRGBColorSpace,
   Float32BufferAttribute,
   Group,
+  InstancedMesh,
+  Material,
   Mesh,
   MeshPhysicalMaterial,
+  MeshBasicMaterial,
+  MeshStandardMaterial,
+  Object3D,
+  PlaneGeometry,
   ShapeGeometry,
+  SphereGeometry,
   TubeGeometry,
   Vector3,
 } from "three";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
-import { Suspense, useEffect, useMemo, useRef } from "react";
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { precisionBladesGeometry, precisionBladesTransform } from "../brand/precision-blades";
 import { getMotionScale, livingOrganismMotion } from "../experience/living-organism";
 import type { HeroQualityTier } from "../experience/quality-tier";
@@ -30,6 +38,43 @@ interface HeroSceneProps {
   tier: Exclude<HeroQualityTier, "STATIC">;
   onReady: () => void;
   onFailure: (reason: unknown) => void;
+}
+
+interface SceneInstanceTransform {
+  position: [number, number, number];
+  rotation?: [number, number, number];
+  scale?: [number, number, number];
+  color?: string;
+}
+
+/** Packs repeated static detail into one draw call while preserving its transforms and color accents. */
+function useSceneInstances(
+  geometry: BufferGeometry,
+  material: Material,
+  transforms: SceneInstanceTransform[],
+) {
+  const instances = useMemo(
+    () => new InstancedMesh(geometry, material, transforms.length),
+    [geometry, material, transforms.length],
+  );
+
+  useLayoutEffect(() => {
+    const dummy = new Object3D();
+    transforms.forEach((transform, index) => {
+      dummy.position.set(...transform.position);
+      dummy.rotation.set(...(transform.rotation ?? [0, 0, 0]));
+      dummy.scale.set(...(transform.scale ?? [1, 1, 1]));
+      dummy.updateMatrix();
+      instances.setMatrixAt(index, dummy.matrix);
+      if (transform.color) instances.setColorAt(index, new Color(transform.color));
+    });
+    instances.instanceMatrix.needsUpdate = true;
+    if (instances.instanceColor) instances.instanceColor.needsUpdate = true;
+    instances.computeBoundingSphere();
+  }, [instances, transforms]);
+
+  useEffect(() => () => instances.dispose(), [instances]);
+  return instances;
 }
 
 /**
@@ -248,6 +293,59 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
   const detailSegments = tier === "FULL" ? 112 : 64;
   const ribCount = tier === "FULL" ? 36 : 20;
+  const ribGeometry = useMemo(() => new BoxGeometry(0.052, 4.9, 0.06), []);
+  const ribMaterial = useMemo(
+    () => new MeshStandardMaterial({
+      color: "#ffffff",
+      metalness: 0.86,
+      roughness: 0.19,
+      emissive: "#03152d",
+      emissiveIntensity: 0.92,
+      transparent: true,
+      opacity: 0.84,
+      vertexColors: true,
+    }),
+    [],
+  );
+  const ribTransforms = useMemo(
+    () => Array.from({ length: ribCount }, (_, index): SceneInstanceTransform => {
+      const angle = (index / ribCount) * Math.PI * 2;
+      const radius = 3.02;
+      return {
+        position: [Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06],
+        rotation: [0, -angle, 0],
+        color: index % 4 === 0 ? "#93dcff" : "#143c70",
+      };
+    }),
+    [ribCount],
+  );
+  const ribInstances = useSceneInstances(ribGeometry, ribMaterial, ribTransforms);
+  const axialCount = tier === "FULL" ? 13 : 7;
+  const axialGeometry = useMemo(() => new BoxGeometry(0.026, 5.16, 0.034), []);
+  const axialMaterial = useMemo(
+    () => new MeshBasicMaterial({
+      color: "#ffffff",
+      transparent: true,
+      opacity: 0.72,
+      vertexColors: true,
+    }),
+    [],
+  );
+  const axialTransforms = useMemo(
+    () => Array.from({ length: axialCount }, (_, index): SceneInstanceTransform => ({
+      position: [-3.5 + index * (7 / (axialCount - 1)), 0.12, -0.08],
+      color: index % 2 ? "#3f9bff" : "#a7efff",
+    })),
+    [axialCount],
+  );
+  const axialInstances = useSceneInstances(axialGeometry, axialMaterial, axialTransforms);
+
+  useEffect(() => () => {
+    ribGeometry.dispose();
+    ribMaterial.dispose();
+    axialGeometry.dispose();
+    axialMaterial.dispose();
+  }, [axialGeometry, axialMaterial, ribGeometry, ribMaterial]);
 
   useFrame(({ clock }) => {
     if (rails.current) rails.current.rotation.y = Math.sin(clock.elapsedTime * 0.12) * 0.006;
@@ -273,34 +371,8 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
             <meshBasicMaterial color={index % 3 === 1 ? "#a4f3ff" : index % 2 ? "#328dff" : "#1a55c7"} transparent opacity={index % 3 === 1 ? 0.78 : 0.47} />
           </mesh>
         ))}
-        {Array.from({ length: ribCount }, (_, index) => {
-          const angle = (index / ribCount) * Math.PI * 2;
-          const radius = 3.02;
-          return (
-            <mesh key={"rib-" + index} position={[Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06]} rotation={[0, -angle, 0]}>
-              <boxGeometry args={[0.052, 4.9, 0.06]} />
-              <meshStandardMaterial
-                color={index % 4 === 0 ? "#93dcff" : "#143c70"}
-                metalness={0.86}
-                roughness={0.19}
-                emissive={index % 4 === 0 ? "#0a3f8b" : "#03152d"}
-                emissiveIntensity={index % 3 === 0 ? 1.55 : 0.68}
-                transparent
-                opacity={index % 3 === 0 ? 0.9 : 0.76}
-              />
-            </mesh>
-          );
-        })}
-        {Array.from({ length: tier === "FULL" ? 13 : 7 }, (_, index) => {
-          const count = tier === "FULL" ? 13 : 7;
-          const x = -3.5 + index * (7 / (count - 1));
-          return (
-            <mesh key={"axial-" + index} position={[x, 0.12, -0.08]}>
-              <boxGeometry args={[0.026, 5.16, 0.034]} />
-              <meshBasicMaterial color={index % 2 ? "#3f9bff" : "#a7efff"} transparent opacity={index % 2 ? 0.46 : 0.72} />
-            </mesh>
-          );
-        })}
+        <primitive object={ribInstances} />
+        <primitive object={axialInstances} />
         {[ -4.35, 4.35 ].map((x, index) => (
           <group key={"gantry-" + index} position={[x, 0.02, -1.75]}>
             <mesh>
@@ -341,6 +413,34 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
 /** Renders the slowly evolving globe/network motif required by the Home master. */
 function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   const globe = useRef<Group>(null);
+  const nodeGeometry = useMemo(() => new SphereGeometry(1, 6, 4), []);
+  const nodeMaterial = useMemo(
+    () => new MeshBasicMaterial({ color: "#ffffff", vertexColors: true }),
+    [],
+  );
+  const nodeTransforms = useMemo(
+    () => Array.from({ length: tier === "FULL" ? 42 : 21 }, (_, index): SceneInstanceTransform => {
+      const latitude = -1.16 + (index % 7) * 0.38;
+      const longitude = Math.floor(index / 7) * Math.PI / 3 + (index % 3) * 0.2;
+      const radius = 1.09;
+      return {
+        position: [
+          radius * Math.cos(latitude) * Math.cos(longitude),
+          radius * Math.sin(latitude),
+          radius * Math.cos(latitude) * Math.sin(longitude),
+        ],
+        scale: [0.023 + (index % 3) * 0.008, 0.023 + (index % 3) * 0.008, 0.023 + (index % 3) * 0.008],
+        color: index % 4 === 0 ? "#dcfaff" : "#6de2ff",
+      };
+    }),
+    [tier],
+  );
+  const nodeInstances = useSceneInstances(nodeGeometry, nodeMaterial, nodeTransforms);
+
+  useEffect(() => () => {
+    nodeGeometry.dispose();
+    nodeMaterial.dispose();
+  }, [nodeGeometry, nodeMaterial]);
 
   useFrame((_, delta) => {
     if (globe.current) globe.current.rotation.y += delta * livingOrganismMotion.globeRotation;
@@ -367,22 +467,7 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
           <meshBasicMaterial color={index % 2 ? "#2584db" : "#46a7ec"} transparent opacity={0.46} />
         </mesh>
       ))}
-      {Array.from({ length: tier === "FULL" ? 42 : 21 }, (_, index) => {
-        const latitude = -1.16 + (index % 7) * 0.38;
-        const longitude = Math.floor(index / 7) * Math.PI / 3 + (index % 3) * 0.2;
-        const radius = 1.09;
-        const point = new Vector3(
-          radius * Math.cos(latitude) * Math.cos(longitude),
-          radius * Math.sin(latitude),
-          radius * Math.cos(latitude) * Math.sin(longitude),
-        );
-        return (
-          <mesh key={index} position={point}>
-            <sphereGeometry args={[0.023 + (index % 3) * 0.008, 6, 4]} />
-            <meshBasicMaterial color={index % 4 === 0 ? "#dcfaff" : "#6de2ff"} />
-          </mesh>
-        );
-      })}
+      <primitive object={nodeInstances} />
       <mesh rotation={[Math.PI / 2, 0.35, 0]}>
         <torusGeometry args={[0.84, 0.009, 4, 72]} />
         <meshBasicMaterial color="#54dfff" transparent opacity={0.65} />
@@ -528,6 +613,42 @@ function LaboratoryConsoleBay({ side }: { side: -1 | 1 }) {
 
 /** Builds the reflective-looking platform rings and restrained holographic panels. */
 
+function FloorGuideLines() {
+  const geometry = useMemo(() => new PlaneGeometry(1, 1), []);
+  const material = useMemo(
+    () => new MeshBasicMaterial({
+      color: "#ffffff",
+      transparent: true,
+      opacity: 0.12,
+      side: DoubleSide,
+      vertexColors: true,
+    }),
+    [],
+  );
+  const transforms = useMemo(() => [
+    ...Array.from({ length: 13 }, (_, index): SceneInstanceTransform => ({
+      position: [-9 + index * 1.5, -2.125, -1.2],
+      rotation: [-Math.PI / 2, 0, 0],
+      scale: [0.012, 24, 1],
+      color: "#2266b5",
+    })),
+    ...Array.from({ length: 8 }, (_, index): SceneInstanceTransform => ({
+      position: [0, -2.122, -10 + index * 2.3],
+      rotation: [-Math.PI / 2, 0, 0],
+      scale: [28, 0.012, 1],
+      color: "#2b74bd",
+    })),
+  ], []);
+  const lines = useSceneInstances(geometry, material, transforms);
+
+  useEffect(() => () => {
+    geometry.dispose();
+    material.dispose();
+  }, [geometry, material]);
+
+  return <primitive object={lines} />;
+}
+
 function FloorAndPanels() {
   const panelPlacements: Array<[number, number, number, number, number]> = [
     [-5.35, 0.8, -1.35, 2.18, 1.5],
@@ -554,18 +675,7 @@ function FloorAndPanels() {
         <cylinderGeometry args={[2.12, 2.28, 0.035, 96, 1]} />
         <meshStandardMaterial color="#030812" metalness={0.92} roughness={0.2} emissive="#0a2a52" emissiveIntensity={0.48} />
       </mesh>
-      {Array.from({ length: 13 }, (_, index) => (
-        <mesh key={"floor-long-" + index} position={[-9 + index * 1.5, -2.125, -1.2]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[0.012, 24]} />
-          <meshBasicMaterial color="#2266b5" transparent opacity={0.12} side={DoubleSide} />
-        </mesh>
-      ))}
-      {Array.from({ length: 8 }, (_, index) => (
-        <mesh key={"floor-cross-" + index} position={[0, -2.122, -10 + index * 2.3]} rotation={[-Math.PI / 2, 0, 0]}>
-          <planeGeometry args={[28, 0.012]} />
-          <meshBasicMaterial color="#2b74bd" transparent opacity={0.11} side={DoubleSide} />
-        </mesh>
-      ))}
+      <FloorGuideLines />
       {[1.28, 1.72, 2.18, 2.62, 3.05, 3.48, 3.98, 4.42].map((radius, index) => (
         <mesh key={radius} position={[3.08, -1.93 + index * 0.009, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
           <torusGeometry args={[radius, index === 2 ? 0.028 : 0.016, 6, 112]} />
