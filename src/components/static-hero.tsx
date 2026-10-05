@@ -12,6 +12,8 @@ export function StaticHero() {
       >
         <div className={styles.referencePoster} />
         <div className={styles.worldGlow} />
+        <div className={styles.starField} />
+        <div className={styles.energyArcs} />
         <div className={styles.posterVignette} />
       </div>
 
