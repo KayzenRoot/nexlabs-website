@@ -7,3 +7,10 @@ test-results/
 .gef-private/
 .DS_Store
 Thumbs.db
+.visual-pipeline-local/
+tools/visual-pipeline/.local/
+tools/visual-pipeline/output/
+tools/visual-pipeline/models/
+tools/visual-pipeline/raw/
+*.blend1
+*.exr
