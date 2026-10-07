@@ -134,12 +134,28 @@ async function sampleFrameTimes(page: Page) {
 }
 
 async function pauseSceneForCleanup(page: Page) {
-  await page.evaluate(() => {
+  await page.evaluate(async () => {
     Object.defineProperty(document, "visibilityState", {
       configurable: true,
       value: "hidden",
     });
     document.dispatchEvent(new Event("visibilitychange"));
+
+    const canvas = document.querySelector("canvas");
+    const context = canvas?.getContext("webgl2");
+    const loseContext = context?.getExtension("WEBGL_lose_context");
+    if (!canvas || !context || context.isContextLost() || !loseContext) return;
+
+    await new Promise<void>((resolveContextLoss) => {
+      const finish = () => {
+        window.clearTimeout(timeout);
+        canvas.removeEventListener("webglcontextlost", finish);
+        resolveContextLoss();
+      };
+      const timeout = window.setTimeout(finish, 1_000);
+      canvas.addEventListener("webglcontextlost", finish, { once: true });
+      loseContext.loseContext();
+    });
   });
 }
 
