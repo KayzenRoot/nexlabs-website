@@ -1,13 +1,13 @@
 {
   "schemaVersion": 2,
   "project": "Nex Labs Technology Website",
-  "status": "WO_013_CORRECTION_RE_ADMISSION_LOCAL_VISUAL_PIPELINE",
+  "status": "WO_013_TEMPORARY_VERCEL_PRELAUNCH_AUTHORIZED",
   "phase": "VISUAL_FIDELITY_RESTORATION_IMPLEMENTATION",
   "completedThroughModule": "M07A_RELEASE_HARDENING_READINESS",
   "completedThroughSubIncrement": "M07A_RELEASE_HARDENING_READINESS",
   "activeModule": "VISUAL_FIDELITY_MASTER_ALIGNMENT",
   "activeSubIncrement": "WO_013_VISUAL_FIDELITY_MASTER_ALIGNMENT",
-  "activeModuleStatus": "CORRECTION_REQUIRED_RECOMPILE_CONTEXT",
+  "activeModuleStatus": "CORRECTION_REQUIRED_PRELAUNCH_DEPLOYMENT_AUTHORIZED",
   "activeWorkOrder": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
   "activeBranch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
   "activeContextLock": ".engineering/context-locks/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.json",
@@ -16,7 +16,7 @@
   "lastMergedMainSha": "43a1b55f2160013b96f35e291341f42272646375",
   "lastProductMergeSha": "43a1b55f2160013b96f35e291341f42272646375",
   "currentAdmissionBaseMainSha": "e14cfbe4660b076db85e7e529befffe17a098cd1",
-  "nextLegalStage": "BOOTSTRAP_LOCAL_VISUAL_PIPELINE_THEN_EXECUTE_WO_013_CORRECTION",
+  "nextLegalStage": "DEPLOY_TEMPORARY_VERCEL_PRELAUNCH_THEN_CONTINUE_WO_013_VISUAL_CORRECTION",
   "stopState": "NO_M07B_OR_PUBLIC_DEPLOYMENT_BEFORE_WO_013_APPROVAL_MERGE_AND_CHECKPOINT_PROMOTION",
   "visualAcceptance": "CORRECTION_REQUIRED_AUDITOR_SCORE_68",
   "visualMasterSha256": "d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647",
@@ -25,5 +25,16 @@
   "lastAuditedWo013Head": "487556d65d62c5581ee9fdcf6f77cf881c569f81",
   "lastAuditorVisualScore": 68,
   "pipelineStrategy": "COMFYUI_LOCAL_API_PLUS_BLENDER_BACKGROUND_PYTHON",
-  "blenderMcpDefault": "DISABLED_SECURITY_BOUNDARY"
+  "blenderMcpDefault": "DISABLED_SECURITY_BOUNDARY",
+  "temporaryPublicDeployment": {
+    "authorized": true,
+    "purpose": "ANTHROPIC_COMPANY_REGISTRATION",
+    "provider": "VERCEL",
+    "projectName": "nexlabs-website",
+    "projectId": "prj_HtZ5M9lpS0JZhkaHLbTCrWX38YHV",
+    "teamSlug": "claytons-projects-5922d27c",
+    "finalLaunch": false,
+    "bannerRequired": true,
+    "indexing": "NOINDEX_NOFOLLOW_ROBOTS_DISALLOW"
+  }
 }

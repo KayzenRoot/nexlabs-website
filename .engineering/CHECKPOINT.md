@@ -1,6 +1,6 @@
 # Project Checkpoint
 
-Status: WO_013_CORRECTION_RE_ADMISSION_LOCAL_VISUAL_PIPELINE
+Status: WO_013_TEMPORARY_VERCEL_PRELAUNCH_AUTHORIZED
 
 - GEF Bootstrap v1.1.2 and M01 through M06: APPROVED/MERGED.
 - M07A Release Hardening & Production Readiness: APPROVED/MERGED and checkpoint-promoted.
@@ -19,9 +19,13 @@ Status: WO_013_CORRECTION_RE_ADMISSION_LOCAL_VISUAL_PIPELINE
 - Implementation is authorized for Codex after the recompiled lock; merge/deployment is not.
 - Public copy/content facts are regression-protected.
 - M07A security/runtime/readiness behavior is regression-protected.
-- M07B Deployment + Production Launch remains BLOCKED.
+- M07B final Deployment + Production Launch remains BLOCKED.
+- Temporary Vercel pre-launch is OWNER-AUTHORIZED for Anthropic/company registration.
+- Temporary target: Vercel project `nexlabs-website` / `prj_HtZ5M9lpS0JZhkaHLbTCrWX38YHV`, team `claytons-projects-5922d27c`.
+- PRE-LAUNCH banner is mandatory on all six routes.
+- noindex/nofollow + robots disallow remain mandatory.
 - Development Docker continuity remains mandatory.
 
-Next legal stage: Codex first bootstraps/validates the local visual asset pipeline described in VISUAL-ASSET-PIPELINE.md, then uses it to execute the existing WO-013 Correction Delta, preserving the same PR #20 and requesting a new independent exact-head visual audit.
+Next legal stage: validate the recompiled Context Lock, implement/verify the site-wide PRE-LAUNCH banner, then Codex performs the exact-head Vercel production-target pre-launch deployment and live smoke defined in VERCEL-PRELAUNCH-SPEC.md. After evidence is retained, continue WO-013 visual correction. Do not merge or declare M07B final launch.
 
 The machine-readable view is CHECKPOINT.json.

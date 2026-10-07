@@ -1,3 +1,39 @@
+.prelaunchBanner {
+  display: flex;
+  min-height: 1.85rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  padding: 0.32rem clamp(0.75rem, 3vw, 2rem);
+  border-bottom: 1px solid rgb(71 204 255 / 28%);
+  background:
+    linear-gradient(90deg, rgb(4 17 33 / 96%), rgb(7 31 54 / 96%) 50%, rgb(4 17 33 / 96%));
+  box-shadow: inset 0 -1px rgb(118 221 255 / 5%);
+  color: #c8f6ff;
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  line-height: 1.3;
+  text-align: center;
+}
+
+.prelaunchLabel {
+  flex: 0 0 auto;
+  border: 1px solid rgb(80 215 255 / 55%);
+  border-radius: 999px;
+  padding: 0.12rem 0.45rem;
+  background: rgb(19 93 132 / 24%);
+  color: #75e7ff;
+  font-size: 0.56rem;
+  font-weight: 750;
+  letter-spacing: 0.16em;
+  box-shadow: 0 0 0.7rem rgb(43 181 255 / 10%);
+}
+
+.prelaunchMessage {
+  min-width: 0;
+}
+
 .header {
   position: relative;
   z-index: var(--z-header);
@@ -154,4 +190,20 @@
 
   .contactDesktopLabel { display: none; }
   .contactMobileLabel { display: inline; }
+}
+
+
+@media (max-width: 34rem) {
+  .prelaunchBanner {
+    min-height: 2.2rem;
+    gap: 0.4rem;
+    padding: 0.3rem 0.55rem;
+    font-size: 0.56rem;
+    letter-spacing: 0.045em;
+  }
+
+  .prelaunchLabel {
+    padding-inline: 0.36rem;
+    font-size: 0.5rem;
+  }
 }

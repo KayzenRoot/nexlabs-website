@@ -23,7 +23,8 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Security | SECURITY.md and repository settings/evidence |
 | Validation | TEST-BENCHMARK-PLAN.md and exact-head check results |
 | Deployment | DEPLOYMENT.md, RELEASE-READINESS-SPEC.md and an admitted M07B Work Order |
+| Temporary Vercel pre-launch | VERCEL-PRELAUNCH-SPEC.md plus the re-admitted WO-013 Context Lock |
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-The active implementation authority is `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT` plus its recompiled exact Context Lock. The local visual asset pipeline is a NECESSARY correction enabler inside WO-013, not a separate product increment. `VISUAL-FIDELITY-DELTA-SPEC.md`, HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md, UI-UX.md, BRAND-SYSTEM.md and the exact locked master asset govern visual fidelity. HOME-CONTENT-SPEC.md and SECONDARY-PAGES-SPEC.md remain canonical for copy. M07A hardening/security/readiness sources remain regression-protected. M07B is not executable until WO-013 is APPROVED, merged and checkpoint-promoted.
+The active implementation authority is `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT` plus its recompiled exact Context Lock. The local visual asset pipeline is a NECESSARY correction enabler inside WO-013, not a separate product increment. `VISUAL-FIDELITY-DELTA-SPEC.md`, HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md, UI-UX.md, BRAND-SYSTEM.md and the exact locked master asset govern visual fidelity. HOME-CONTENT-SPEC.md and SECONDARY-PAGES-SPEC.md remain canonical for copy. M07A hardening/security/readiness sources remain regression-protected. M07B final launch is not executable until WO-013 is APPROVED, merged and checkpoint-promoted. The temporary Vercel pre-launch exception is separately governed by VERCEL-PRELAUNCH-SPEC.md and does not satisfy M07B.

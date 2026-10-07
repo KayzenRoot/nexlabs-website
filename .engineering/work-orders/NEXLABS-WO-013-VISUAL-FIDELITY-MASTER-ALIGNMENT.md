@@ -140,7 +140,7 @@ At stop:
 
 ## OUT OF SCOPE
 
-- public deployment / M07B;
+- M07B final launch / custom-domain launch; temporary Vercel pre-launch is now a separately governed owner-authorized exception;
 - provider, production URL, domain/DNS/TLS/HSTS;
 - index enablement/sitemap/canonical origin;
 - analytics/trackers;
@@ -421,3 +421,63 @@ Executor may propose a new score. Independent auditor remains final authority.
 ### Additional STOP CONDITION
 
 Do not resume final visual implementation until Phase 1 is proven PASS. Do not merge until independent visual audit reaches the original WO-013 gate.
+
+
+## CORRECTION DELTA 03 — TEMPORARY VERCEL PRE-LAUNCH FOR EXTERNAL REGISTRATION
+
+Trigger:
+- owner requires a functional public website immediately for Anthropic/company registration;
+- current candidate is technically healthy but final visual acceptance remains pending.
+
+This delta changes deployment priority without approving the visual result.
+
+### Objective
+
+Create the fastest safe public Vercel deployment of the functional PR #20 candidate, clearly labeled as unfinished, while retaining all pre-launch indexing/security boundaries.
+
+### Required product change
+
+Add a persistent global notice above normal navigation:
+
+`PRE-LAUNCH — This website is still in production and is not yet final.`
+
+It must appear on all six public routes and remain responsive/accessibility-safe.
+
+### Vercel target
+
+Use the existing linked project:
+- team: `claytons-projects-5922d27c`;
+- project: `nexlabs-website`;
+- project ID: `prj_HtZ5M9lpS0JZhkaHLbTCrWX38YHV`.
+
+Follow `.engineering/VERCEL-PRELAUNCH-SPEC.md`.
+
+### Authorization
+
+This correction authorizes Codex to perform exactly one production-target Vercel pre-launch deployment/redeploy cycle as needed to achieve a healthy public candidate.
+
+It does NOT authorize:
+- final M07B declaration;
+- custom domain/DNS;
+- search indexing;
+- analytics;
+- Contact collection;
+- merge;
+- checkpoint promotion.
+
+### Acceptance
+
+- all exact-head predeploy gates pass;
+- public Vercel HTTPS URL is READY;
+- all six routes return 200 live;
+- banner appears live on all six routes;
+- 404 remains branded;
+- noindex/nofollow and robots disallow remain;
+- sitemap remains absent;
+- live navigation/Contact zero-collection pass;
+- evidence records deployment ID/SHA/URL without credentials;
+- PR #20 remains OPEN.
+
+### STOP CONDITION
+
+Stop after the temporary Vercel deployment is live and validated. Then request review. Do not merge, promote checkpoint or begin M07B final launch.

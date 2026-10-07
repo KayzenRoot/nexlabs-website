@@ -104,3 +104,30 @@ Before resuming the visual correction pass, retain:
 - one end-to-end pipeline sample from generated reference to Blender/web-export candidate.
 
 Pipeline bootstrap PASS is necessary to continue the WO-013 correction but does not change the visual score.
+
+
+## Temporary Vercel pre-launch validation
+
+Before deploy:
+- exact-head local production build;
+- six-route local smoke;
+- banner visible on all six routes;
+- noindex/nofollow + robots disallow + sitemap absence;
+- CI Quality / Browser Smoke / Release Readiness green;
+- no unresolved blocking review/security finding.
+
+After deploy:
+- record exact deployed Git SHA / deployment ID / HTTPS URL;
+- six public routes HTTP 200;
+- branded 404;
+- PRE-LAUNCH banner visible desktop/mobile;
+- navigation works;
+- no unexpected mobile overflow;
+- noindex/nofollow remains present;
+- robots disallows crawling;
+- sitemap absent;
+- Contact remains zero-collection;
+- no obvious console/runtime error;
+- retain live screenshots and sanitized reports.
+
+Deployment can be used for external registration even while the independent visual score remains below 85/100, because it is explicitly labeled PRE-LAUNCH. Final visual approval remains a separate gate.
