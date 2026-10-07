@@ -7,14 +7,23 @@
       "passes": 21,
       "incomplete": [
         {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "help": "Elements must only use permitted ARIA attributes",
+          "nodeCount": 1,
+          "manualReviewReasons": [
+            "aria-label attribute is not well supported on a div with no valid role attribute."
+          ]
+        },
+        {
           "id": "color-contrast",
           "impact": "serious",
           "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodeCount": 63,
+          "nodeCount": 65,
           "manualReviewReasons": [
-            "Element's background color could not be determined due to a background gradient",
+            "Element's background color could not be determined due to a pseudo element",
             "Element content contains only non-text characters",
-            "Element's background color could not be determined due to a pseudo element"
+            "Element's background color could not be determined due to a background gradient"
           ]
         }
       ],
@@ -26,13 +35,23 @@
       "passes": 21,
       "incomplete": [
         {
+          "id": "aria-prohibited-attr",
+          "impact": "serious",
+          "help": "Elements must only use permitted ARIA attributes",
+          "nodeCount": 1,
+          "manualReviewReasons": [
+            "aria-label attribute is not well supported on a div with no valid role attribute."
+          ]
+        },
+        {
           "id": "color-contrast",
           "impact": "serious",
           "help": "Elements must meet minimum color contrast ratio thresholds",
-          "nodeCount": 61,
+          "nodeCount": 63,
           "manualReviewReasons": [
-            "Element's background color could not be determined due to a background gradient",
-            "Element content contains only non-text characters"
+            "Element's background color could not be determined due to a pseudo element",
+            "Element content contains only non-text characters",
+            "Element's background color could not be determined due to a background gradient"
           ]
         }
       ],

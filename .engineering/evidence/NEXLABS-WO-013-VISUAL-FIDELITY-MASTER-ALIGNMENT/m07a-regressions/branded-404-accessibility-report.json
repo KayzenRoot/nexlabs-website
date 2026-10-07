@@ -6,6 +6,11 @@
   "violations": [],
   "incomplete": [
     {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes"
+    },
+    {
       "id": "color-contrast",
       "impact": "serious",
       "help": "Elements must meet minimum color contrast ratio thresholds"

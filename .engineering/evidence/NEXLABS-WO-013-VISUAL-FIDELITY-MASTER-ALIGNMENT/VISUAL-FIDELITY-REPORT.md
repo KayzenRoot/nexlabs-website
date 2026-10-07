@@ -4,7 +4,9 @@
 **Proposed score:** **77/100**
 **Work Order:** `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
-**Implementation/test anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`
+**Initial implementation anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`
+**Visual correction:** `45bbf10ceeb834be14c92e6bb11145d73fa6ea55`
+**Performance test/source candidate:** `3838e2cc81050b5fd6d620e511daae5bb768f469`
 **Deterministic Browser Smoke fixture:** `8ac950e`
 **Master:** Git blob `52932511adfeb8d372717185fe9a18907625cc0c`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
 
@@ -45,5 +47,11 @@ The score is an executor proposal based on the retained deterministic comparison
 - Scene modes: `home-full-3d-1600x900.png`, `home-balanced-3d-900x768.png`, `home-static-reduced-motion-1440x900.png`, `home-webgl-context-loss-fallback-1600x900.png`.
 - Responsive/menu: `candidate-home-390x844.png`, `mobile-menu-closed-320x844.png`, `mobile-menu-open-320x844.png`, `mobile-menu-active-company-390x844.png`, `research-mobile-390x844.png`.
 - Performance: `candidate-performance-variance.json` and the three retained production candidate run folders.
+
+## Exact-head performance correction
+
+The exact candidate image was built from source/test commit `3838e2cc81050b5fd6d620e511daae5bb768f469`, digest `sha256:b68630b56345a05525d693549fc96a2f7e1e7c01d9e84b4a19fd3b7c6e0deddf`. Three consecutive Chromium full production-candidate suites passed 30/30 with retries=0. Per-run Home mobile LCP measured 1844 ms, 1908 ms, and 1836 ms; each is below the unchanged 2500 ms limit. Run-specific logs and reports are in `production-candidate-runs/perf-3838e2cc-final/run-01` through `run-03`.
+
+The suite retains 119 frame samples for each distinct FULL and BALANCED WebGL tier. Chromium selected the ANGLE/SwiftShader software renderer; observed frame timing is diagnostic for this host and does not establish physical-GPU frame-rate qualification. The earlier `perf-3838e2c*` attempts are explicitly excluded because their image tag metadata used a mistyped full SHA; only the `perf-3838e2cc-final` sequence is qualifying.
 
 **Decision:** visual score remains PROPOSED. Do not treat WO-013 as visually approved, do not promote the checkpoint and do not begin M07B until the independent audit and owner acceptance gates are resolved.

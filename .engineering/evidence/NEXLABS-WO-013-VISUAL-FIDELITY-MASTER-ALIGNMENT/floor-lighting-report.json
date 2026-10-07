@@ -1,0 +1,37 @@
+{
+  "source": "FULL WebGL canvas screenshot",
+  "viewport": "1600x900",
+  "floor": {
+    "bounds": {
+      "x": 0.9,
+      "y": 0.84,
+      "width": 0.06,
+      "height": 0.05
+    },
+    "meanRgb": [
+      0,
+      0,
+      0
+    ],
+    "meanLuminance": 0,
+    "samples": 2208,
+    "maximumMeanLuminance": 55
+  },
+  "backdrop": {
+    "bounds": {
+      "x": 0.94,
+      "y": 0.28,
+      "width": 0.04,
+      "height": 0.12
+    },
+    "meanRgb": [
+      46.96,
+      77.64,
+      91.9
+    ],
+    "meanLuminance": 72.14,
+    "samples": 3456,
+    "minimumMeanLuminance": 18
+  },
+  "interpretation": "The dark base preserves the lighted platform while the surrounding lab remains visibly textured."
+}

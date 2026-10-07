@@ -1,0 +1,9 @@
+{
+  "source": "/hero/home-hero-poster.jpg",
+  "format": "jpeg",
+  "width": 1280,
+  "height": 720,
+  "bytes": 124181,
+  "maximumBytes": 130000,
+  "provenance": "Blender 5.2.2 render of the canonical Precision Blades N and original lab geometry; no master pixels used."
+}
