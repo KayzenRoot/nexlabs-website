@@ -10,7 +10,8 @@ export function StaticHero() {
         aria-hidden="true"
         data-testid="hero-static-poster"
       >
-        <div className={styles.referencePoster} />
+        <div className={styles.labBackdrop} data-testid="hero-lab-backdrop" />
+        <div className={styles.referencePoster} data-testid="hero-reference-poster" />
         <div className={styles.worldGlow} />
         <div className={styles.starField} />
         <div className={styles.energyArcs} />

@@ -1,5 +1,5 @@
 import AxeBuilder from "@axe-core/playwright";
-import { mkdirSync, statSync, writeFileSync } from "node:fs";
+import { mkdirSync, statSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
@@ -621,6 +621,16 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       loadEventMs: navigation?.loadEventEnd ?? 0,
     };
   });
+  // Do not let CDP emulation leak from the mobile sample into later route tests.
+  await mobileCdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
+  await mobileCdp.send("Network.emulateNetworkConditions", {
+    offline: false,
+    latency: 0,
+    downloadThroughput: -1,
+    uploadThroughput: -1,
+    connectionType: "none",
+  });
+  await mobileCdp.detach();
   await mobilePage.close();
 
   await page.setViewportSize({ width: 1600, height: 900 });
@@ -819,10 +829,9 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       interactionProxyMs: 200,
     },
   };
-  writeFileSync(
+  writeEvidenceBuffer(
     resolve(screenshotDirectory, "home-performance-report.json"),
-    `${JSON.stringify(report, null, 2)}\n`,
-    "utf8",
+    Buffer.from(`${JSON.stringify(report, null, 2)}\n`),
   );
 
   expect(desktopPosterBytes).toBeLessThan(600 * 1024);
@@ -839,7 +848,10 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
   expect(mobileVitals.cls).toBeLessThanOrEqual(0.1);
   expect(mobileVitals.inpSampleCount).toBeGreaterThan(0);
-  expect(mobileVitals.inpMs).toBeLessThanOrEqual(200);
+  expect(
+    mobileVitals.inpMs,
+    `Mobile interaction samples exceeded their budget: ${JSON.stringify(mobileVitals.inpEvents)}`,
+  ).toBeLessThanOrEqual(200);
 
   expect(desktopTier).toMatch(/^(FULL|BALANCED|STATIC)$/);
 });

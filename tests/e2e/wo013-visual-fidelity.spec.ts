@@ -2,6 +2,7 @@ import { createHash } from "node:crypto";
 import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test, type Browser, type Page } from "@playwright/test";
+import sharp from "sharp";
 import { writeEvidenceBuffer } from "./evidence";
 
 const evidenceDirectory = process.env.NEXLABS_EVIDENCE_ROOT
@@ -30,11 +31,33 @@ async function settleResponsiveLayout(page: Page) {
 }
 
 async function waitForLivePosterFade(page: Page) {
-  const poster = page.locator('[data-testid="hero-static-poster"] > div').first();
-  await expect.poll(
-    () => poster.evaluate((element) => getComputedStyle(element).opacity),
-    { timeout: 3_000 },
-  ).toBe("0");
+  const poster = page.getByTestId("hero-reference-poster");
+  try {
+    await expect.poll(
+      () => poster.evaluate((element) => getComputedStyle(element).opacity),
+      { timeout: 10_000 },
+    ).toBe("0");
+  } catch (error) {
+    const diagnostics = await page.evaluate(() => {
+      const hero = document.querySelector("#home");
+      const stage = document.querySelector<HTMLElement>('[data-testid="hero-scene-stage"]');
+      const referencePoster = document.querySelector<HTMLElement>(
+        '[data-testid="hero-reference-poster"]',
+      );
+      return {
+        reducedMotion: window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+        heroSceneLive: hero?.getAttribute("data-scene-live"),
+        heroHasReadyScene: Boolean(hero?.querySelector('[data-scene-state="ready"]')),
+        tier: stage?.getAttribute("data-quality-tier"),
+        sceneState: stage?.getAttribute("data-scene-state"),
+        posterOpacity: referencePoster ? getComputedStyle(referencePoster).opacity : null,
+        posterTransition: referencePoster ? getComputedStyle(referencePoster).transition : null,
+        canvasCount: document.querySelectorAll("canvas").length,
+      };
+    });
+    console.error("[wo013:poster-fade-diagnostic]", JSON.stringify(diagnostics));
+    throw error;
+  }
 }
 
 async function pauseSceneForCleanup(page: Page) {
@@ -62,6 +85,39 @@ async function pauseSceneForCleanup(page: Page) {
       loseContext.loseContext();
     });
   });
+}
+
+async function waitForResearchArtwork(page: Page) {
+  await page.waitForFunction(
+    () => {
+      const source = document
+        .querySelector<SVGImageElement>('[data-world-reveal="research"] svg image')
+        ?.getAttribute("href");
+      if (!source) return false;
+      const url = new URL(source, document.baseURI).href;
+      return performance
+        .getEntriesByName(url)
+        .some(
+          (entry) =>
+            entry.entryType === "resource" &&
+            (entry as PerformanceResourceTiming).responseEnd > 0,
+        );
+    },
+    null,
+    { timeout: 15_000 },
+  );
+  await page.evaluate(async () => {
+    const source = document
+      .querySelector<SVGImageElement>('[data-world-reveal="research"] svg image')
+      ?.getAttribute("href");
+    if (!source) throw new Error("The lower Home research artwork is missing its source.");
+    const decodedImage = new window.Image();
+    decodedImage.src = new URL(source, document.baseURI).href;
+    await decodedImage.decode();
+  });
+  await page.evaluate(
+    () => new Promise<void>((resolve) => requestAnimationFrame(() => requestAnimationFrame(() => resolve()))),
+  );
 }
 
 async function hasHorizontalOverflow(page: Page) {
@@ -110,6 +166,20 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   await page.emulateMedia({ reducedMotion: "reduce" });
   const homeResponse = await page.goto("/", { waitUntil: "networkidle" });
   expect(homeResponse?.status()).toBe(200);
+  const labBackdropDimensions = await page.evaluate(async () => {
+    const image = new Image();
+    image.src = "/generated/home/hero-lab-backdrop.webp";
+    await image.decode();
+    return { width: image.naturalWidth, height: image.naturalHeight };
+  });
+  expect(labBackdropDimensions).toEqual({ width: 768, height: 432 });
+  const environmentDimensions = await page.evaluate(async () => {
+    const image = new Image();
+    image.src = "/generated/home/hero-lab-environment-360.webp";
+    await image.decode();
+    return { width: image.naturalWidth, height: image.naturalHeight };
+  });
+  expect(environmentDimensions).toEqual({ width: 1024, height: 512 });
   await expect(page.getByRole("heading", { level: 1, name: /human potential multiplied/i })).toBeVisible();
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.locator("#capabilities article")).toHaveCount(5);
@@ -136,6 +206,7 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
 
   const lowerWorld = page.locator('[data-world-reveal="narrative"]');
   await lowerWorld.scrollIntoViewIfNeeded();
+  await waitForResearchArtwork(page);
   const lowerCapture = await lowerWorld.screenshot({ animations: "disabled" });
   writeEvidenceBuffer(resolve(evidenceDirectory, "home-lower-research-technology.png"), lowerCapture);
   await compositeComparison(browser, "master-vs-candidate-lower-home.png", lowerCapture, { x: 0, y: 624, width: 1600, height: 214 });
@@ -287,4 +358,96 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
     routes: [{ path: "/", status: 200, screenshot: "candidate-home-1600x900.png" }, ...routeStatuses],
     axeCoverage: "Existing Home and M06 route WCAG 2.2 AA axe suites remain enabled in the full E2E runs.",
   });
+});
+
+test("FULL Home shows an environmental lab backdrop behind a dark illuminated platform", async ({ page }) => {
+  test.setTimeout(60_000);
+  mkdirSync(evidenceDirectory, { recursive: true });
+  await page.addInitScript(() => {
+    Object.defineProperty(navigator, "hardwareConcurrency", { configurable: true, value: 16 });
+    Object.defineProperty(navigator, "deviceMemory", { configurable: true, value: 8 });
+  });
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/", { waitUntil: "networkidle" });
+  const labBackdrop = page.getByTestId("hero-lab-backdrop");
+  const labBackdropBackground = await labBackdrop.evaluate((element) => getComputedStyle(element).backgroundImage);
+  expect(labBackdropBackground).toContain("/generated/home/hero-lab-backdrop.webp");
+  const poster = page.getByTestId("hero-reference-poster");
+  const posterBackground = await poster.evaluate((element) => getComputedStyle(element).backgroundImage);
+  expect(posterBackground).toContain("/hero/home-hero-poster.jpg");
+  const posterBox = await poster.boundingBox();
+  const heroBox = await page.locator("#home").boundingBox();
+  expect(posterBox).not.toBeNull();
+  expect(heroBox).not.toBeNull();
+  expect(posterBox?.width).toBeLessThanOrEqual(700);
+  expect(posterBox?.height).toBeLessThanOrEqual(400);
+  expect(posterBox?.y).toBeGreaterThanOrEqual((heroBox?.y ?? 0) - 1);
+  expect((posterBox?.y ?? 0) + (posterBox?.height ?? 0)).toBeLessThanOrEqual(
+    (heroBox?.y ?? 0) + (heroBox?.height ?? 0) + 1,
+  );
+  const posterResponse = await page.request.get(new URL("/hero/home-hero-poster.jpg", page.url()).href);
+  expect(posterResponse.status()).toBe(200);
+  const posterBytes = await posterResponse.body();
+  const posterMetadata = await sharp(posterBytes).metadata();
+  const posterAsset = {
+    source: "/hero/home-hero-poster.jpg",
+    format: posterMetadata.format,
+    width: posterMetadata.width,
+    height: posterMetadata.height,
+    bytes: posterBytes.byteLength,
+    maximumBytes: 130_000,
+    provenance: "Blender 5.2.2 render of the canonical Precision Blades N and original lab geometry; no master pixels used.",
+  };
+  saveJson("poster-asset-report.json", posterAsset);
+  expect(posterAsset).toMatchObject({ format: "jpeg", width: 1280, height: 720 });
+  expect(posterAsset.bytes).toBeLessThanOrEqual(posterAsset.maximumBytes);
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-quality-tier", "FULL");
+  await expect(stage).toHaveAttribute("data-scene-state", "ready", { timeout: 30_000 });
+
+  const { data, info } = await sharp(await page.locator("canvas").screenshot())
+    .raw()
+    .toBuffer({ resolveWithObject: true });
+  const meanLuminance = (region: { x: number; y: number; width: number; height: number }) => {
+    const xStart = Math.floor(info.width * region.x);
+    const xEnd = Math.floor(info.width * (region.x + region.width));
+    const yStart = Math.floor(info.height * region.y);
+    const yEnd = Math.floor(info.height * (region.y + region.height));
+    let luminance = 0;
+    let red = 0;
+    let green = 0;
+    let blue = 0;
+    let samples = 0;
+    for (let y = yStart; y < yEnd; y += 1) {
+      for (let x = xStart; x < xEnd; x += 1) {
+        const offset = (y * info.width + x) * info.channels;
+        const pixelRed = data[offset];
+        const pixelGreen = data[offset + 1];
+        const pixelBlue = data[offset + 2];
+        red += pixelRed;
+        green += pixelGreen;
+        blue += pixelBlue;
+        luminance += 0.2126 * pixelRed + 0.7152 * pixelGreen + 0.0722 * pixelBlue;
+        samples += 1;
+      }
+    }
+    return {
+      bounds: region,
+      meanRgb: [red, green, blue].map((channel) => Number((channel / samples).toFixed(2))),
+      meanLuminance: Number((luminance / samples).toFixed(2)),
+      samples,
+    };
+  };
+  const floorRegion = meanLuminance({ x: 0.9, y: 0.84, width: 0.06, height: 0.05 });
+  const backdropRegion = meanLuminance({ x: 0.94, y: 0.28, width: 0.04, height: 0.12 });
+  const result = {
+    source: "FULL WebGL canvas screenshot",
+    viewport: "1600x900",
+    floor: { ...floorRegion, maximumMeanLuminance: 55 },
+    backdrop: { ...backdropRegion, minimumMeanLuminance: 18 },
+    interpretation: "The dark base preserves the lighted platform while the surrounding lab remains visibly textured.",
+  };
+  saveJson("floor-lighting-report.json", result);
+  expect(floorRegion.meanLuminance, JSON.stringify(result)).toBeLessThan(55);
+  expect(backdropRegion.meanLuminance, JSON.stringify(result)).toBeGreaterThan(18);
 });

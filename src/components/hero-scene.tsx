@@ -1,6 +1,6 @@
 "use client";
 
-import { Canvas, useFrame, useThree } from "@react-three/fiber";
+import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
   BufferGeometry,
@@ -10,8 +10,6 @@ import {
   EquirectangularReflectionMapping,
   EdgesGeometry,
   ExtrudeGeometry,
-  DataTexture,
-  RGBAFormat,
   SRGBColorSpace,
   Float32BufferAttribute,
   Group,
@@ -25,6 +23,8 @@ import {
   PlaneGeometry,
   ShapeGeometry,
   SphereGeometry,
+  Texture,
+  TextureLoader,
   TubeGeometry,
   Vector3,
 } from "three";
@@ -219,62 +219,18 @@ function useHeroFaceGeometry() {
 }
 
 
-/** Builds a tiny studio-strip environment map so chrome reflects authored chamber lights. */
-function useChromeEnvironmentMap() {
-  const environment = useMemo(() => {
-    const width = 256;
-    const height = 128;
-    const data = new Uint8Array(width * height * 4);
-    const softboxes = [
-      { center: 0.09, width: 0.035, color: [43, 122, 255], power: 0.75 },
-      { center: 0.27, width: 0.055, color: [194, 235, 255], power: 0.95 },
-      { center: 0.5, width: 0.08, color: [29, 69, 121], power: 0.84 },
-      { center: 0.71, width: 0.052, color: [215, 248, 255], power: 0.98 },
-      { center: 0.91, width: 0.03, color: [52, 151, 255], power: 0.85 },
-    ];
-    for (let y = 0; y < height; y += 1) {
-      const v = y / height;
-      for (let x = 0; x < width; x += 1) {
-        const u = x / width;
-        let red = 3 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 7;
-        let green = 7 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 13;
-        let blue = 17 + Math.max(0, 1 - Math.abs(v - 0.48) * 2) * 30;
-        for (const strip of softboxes) {
-          const falloff = Math.exp(-(((u - strip.center) / strip.width) ** 2)) * strip.power;
-          const verticalMask = 0.42 + 0.58 * Math.sin(Math.PI * Math.min(1, Math.max(0, (v - 0.04) / 0.92)));
-          red += strip.color[0] * falloff * verticalMask;
-          green += strip.color[1] * falloff * verticalMask;
-          blue += strip.color[2] * falloff * verticalMask;
-        }
-        const rim = Math.exp(-(((v - 0.11) / 0.035) ** 2)) + Math.exp(-(((v - 0.89) / 0.04) ** 2));
-        red += 35 * rim;
-        green += 125 * rim;
-        blue += 190 * rim;
-        const offset = (y * width + x) * 4;
-        data[offset] = Math.min(255, red);
-        data[offset + 1] = Math.min(255, green);
-        data[offset + 2] = Math.min(255, blue);
-        data[offset + 3] = 255;
-      }
-    }
-    const texture = new DataTexture(data, width, height, RGBAFormat);
-    texture.mapping = EquirectangularReflectionMapping;
-    texture.colorSpace = SRGBColorSpace;
-    texture.needsUpdate = true;
-    return texture;
-  }, []);
-
-  useEffect(() => () => environment.dispose(), [environment]);
-  return environment;
-}
-
 /** Renders the selected Precision Blades N with tier-scaled living motion. */
-function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
+function PrecisionBladesN({
+  tier,
+  environment,
+}: {
+  tier: HeroSceneProps["tier"];
+  environment: Texture;
+}) {
   const geometry = useHeroGeometry();
   const faceGeometry = useHeroFaceGeometry();
   const edgeGeometry = useMemo(() => new EdgesGeometry(geometry, 18), [geometry]);
   const faceDepth = (geometry.boundingBox?.max.z ?? 0.253) - 3 * 0.0115 + 0.002;
-  const environment = useChromeEnvironmentMap();
   const mark = useRef<Group>(null);
   const materials = useMemo(
     () => [
@@ -287,7 +243,7 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
         emissive: new Color("#07182d"),
         emissiveIntensity: 0.2,
         envMap: environment,
-        envMapIntensity: 2.8,
+        envMapIntensity: 1.65,
         side: DoubleSide,
       }),
       new MeshPhysicalMaterial({
@@ -297,7 +253,7 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
         clearcoat: 0.92,
         clearcoatRoughness: 0.1,
         envMap: environment,
-        envMapIntensity: 2.35,
+        envMapIntensity: 1.45,
         vertexColors: true,
         side: DoubleSide,
       }),
@@ -1009,13 +965,19 @@ function HolographicPanelBank() {
   );
 }
 
-function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
-  const environment = useChromeEnvironmentMap();
+function FloorAndPanels({
+  tier,
+  environment,
+}: {
+  tier: HeroSceneProps["tier"];
+  environment: Texture;
+}) {
   const platformMaterials = useMemo(
     () => [
       new MeshPhysicalMaterial({ color: "#07101d", metalness: 0.96, roughness: 0.21, clearcoat: 0.62, clearcoatRoughness: 0.16, envMap: environment, envMapIntensity: 0.55, emissive: "#07182e", emissiveIntensity: 0.3 }),
       new MeshPhysicalMaterial({ color: "#0b1a2c", metalness: 0.97, roughness: 0.18, clearcoat: 0.76, clearcoatRoughness: 0.12, envMap: environment, envMapIntensity: 0.62, emissive: "#09264a", emissiveIntensity: 0.28 }),
       new MeshPhysicalMaterial({ color: "#030913", metalness: 0.98, roughness: 0.16, clearcoat: 0.82, clearcoatRoughness: 0.1, envMap: environment, envMapIntensity: 0.7, emissive: "#0a2b55", emissiveIntensity: 0.34 }),
+      new MeshBasicMaterial({ color: "#030609", side: DoubleSide }),
     ],
     [environment],
   );
@@ -1025,7 +987,7 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
     <group>
       <mesh position={[0, -2.14, -1.6]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[28, 26]} />
-        <meshBasicMaterial color="#01040a" side={DoubleSide} />
+        <primitive object={platformMaterials[3]} attach="material" />
       </mesh>
       <mesh position={[3.08, -2.075, -0.2]}>
         <cylinderGeometry args={[5.02, 5.28, 0.16, 112, 1]} />
@@ -1115,14 +1077,73 @@ function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+/** Places the text-generated laboratory environment behind the live geometry. */
+function CinematicBackdrop({
+  environment,
+}: {
+  environment: Texture;
+}) {
+  const { scene } = useThree();
+
+  useEffect(() => {
+    const previousBackground = scene.background;
+    const previousBackgroundIntensity = scene.backgroundIntensity;
+    const previousEnvironment = scene.environment;
+    const previousEnvironmentIntensity = scene.environmentIntensity;
+    environment.colorSpace = SRGBColorSpace;
+    environment.needsUpdate = true;
+    scene.background = environment;
+    scene.backgroundIntensity = 0.36;
+    scene.environment = environment;
+    scene.environmentIntensity = 0.58;
+
+    return () => {
+      if (scene.background === environment) scene.background = previousBackground;
+      scene.backgroundIntensity = previousBackgroundIntensity;
+      if (scene.environment === environment) scene.environment = previousEnvironment;
+      scene.environmentIntensity = previousEnvironmentIntensity;
+    };
+  }, [environment, scene]);
+
+  return null;
+}
+
 /**
  * Composes the living laboratory world and applies bounded pointer, scroll and
  * idle motion without moving semantic content into the canvas.
  */
-function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
+function SceneReadiness({ onReady }: Pick<HeroSceneProps, "onReady">) {
+  useEffect(() => {
+    let secondFrame: number | null = null;
+    const firstFrame = requestAnimationFrame(() => {
+      secondFrame = requestAnimationFrame(onReady);
+    });
+
+    return () => {
+      cancelAnimationFrame(firstFrame);
+      if (secondFrame !== null) cancelAnimationFrame(secondFrame);
+    };
+  }, [onReady]);
+
+  return null;
+}
+
+function HolographicWorld({
+  tier,
+  onReady,
+}: Pick<HeroSceneProps, "tier" | "onReady">) {
+  const backdrop = useLoader(TextureLoader, "/generated/home/hero-lab-environment-360.webp");
+  const environment = useMemo(() => {
+    const reflection = backdrop.clone();
+    reflection.mapping = EquirectangularReflectionMapping;
+    reflection.colorSpace = SRGBColorSpace;
+    reflection.needsUpdate = true;
+    return reflection;
+  }, [backdrop]);
   const world = useRef<Group>(null);
   const pointerTarget = useRef({ x: 0, y: 0, scroll: 0 });
   const scale = getMotionScale(tier);
+  useEffect(() => () => environment.dispose(), [environment]);
   useEffect(() => {
     const onPointerMove = (event: PointerEvent) => {
       pointerTarget.current.x = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -1153,6 +1174,8 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
 
   return (
     <group ref={world}>
+      <SceneReadiness onReady={onReady} />
+      <CinematicBackdrop environment={environment} />
       <ambientLight intensity={tier === "FULL" ? 0.48 : 0.4} color="#7899c3" />
       <hemisphereLight args={["#a8dcff", "#020710", 0.82]} />
       <directionalLight position={[1, 5, 8]} intensity={tier === "FULL" ? 2.2 : 1.55} color="#d9efff" />
@@ -1162,12 +1185,12 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
       <pointLight position={[2.6, 3.4, 7.5]} intensity={tier === "FULL" ? 22 : 13} distance={18} decay={2} color="#e7f7ff" />
       <pointLight position={[4.2, -0.2, 6.5]} intensity={tier === "FULL" ? 12 : 7} distance={15} decay={2} color="#3ebdff" />
       <Chamber tier={tier} />
-      <PrecisionBladesN tier={tier} />
+      <PrecisionBladesN environment={environment} tier={tier} />
       <GlobalNetwork tier={tier} />
       <HumanScaleFigure />
       <LaboratoryConsoleBay side={-1} />
       <LaboratoryConsoleBay side={1} />
-      <FloorAndPanels tier={tier} />
+      <FloorAndPanels environment={environment} tier={tier} />
       <SceneParticles tier={tier} />
       {Array.from({ length: tier === "FULL" ? 6 : 3 }, (_, index) => (
         <EnergyFilament key={index} index={index} tier={tier} />
@@ -1176,21 +1199,13 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
 }
 
+
 /**
  * Hosts the lazy React Three Fiber canvas, tier-specific DPR and two-frame
  * readiness handshake used by the poster-to-live crossfade.
  */
 export default function HeroScene({ tier, onReady, onFailure }: HeroSceneProps) {
   const dpr: [number, number] = tier === "FULL" ? [1, 1.5] : [1, 1.25];
-  const readinessFrame = useRef<number | null>(null);
-  const secondReadinessFrame = useRef<number | null>(null);
-
-  useEffect(() => {
-    return () => {
-      if (readinessFrame.current !== null) cancelAnimationFrame(readinessFrame.current);
-      if (secondReadinessFrame.current !== null) cancelAnimationFrame(secondReadinessFrame.current);
-    };
-  }, []);
 
   return (
     <div className={styles.canvasFrame} data-renderer="react-three-fiber">
@@ -1207,14 +1222,11 @@ export default function HeroScene({ tier, onReady, onFailure }: HeroSceneProps) 
         }}
         onCreated={({ gl }) => {
           gl.setClearColor(0x050914, 0);
-          readinessFrame.current = requestAnimationFrame(() => {
-            secondReadinessFrame.current = requestAnimationFrame(onReady);
-          });
         }}
       >
         <SceneLifecycle onFailure={onFailure} />
         <Suspense fallback={null}>
-          <HolographicWorld tier={tier} />
+          <HolographicWorld onReady={onReady} tier={tier} />
         </Suspense>
       </Canvas>
     </div>

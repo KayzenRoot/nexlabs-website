@@ -25,6 +25,21 @@
   background: #03060d;
 }
 
+.labBackdrop {
+  position: absolute;
+  inset: -34% -5% -18% 30%;
+  background-image:
+    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 48%) 15%, transparent 44%),
+    linear-gradient(0deg, #03060d 0%, transparent 28%, rgb(3 6 13 / 20%) 100%),
+    url("/generated/home/hero-lab-backdrop.webp");
+  background-position: center, center, 52% 66%;
+  background-repeat: no-repeat;
+  background-size: auto, auto, cover;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
 .worldGlow {
   position: absolute;
   inset: 0;
@@ -59,11 +74,17 @@
 
 .referencePoster {
   position: absolute;
-  inset: 4.25rem 0 0;
+  top: calc(50% + 2.125rem);
+  left: 74%;
+  width: min(42vw, 42rem);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
   background-image: url("/hero/home-hero-poster.jpg");
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: 100% 100%;
+  mask-image: radial-gradient(ellipse 75% 100% at 50% 50%, #000 46%, transparent 95%);
+  mix-blend-mode: screen;
   opacity: 1;
   transition: opacity 760ms ease;
   will-change: opacity;
@@ -569,6 +590,12 @@
       linear-gradient(180deg, #03060d, #040916 69%, #03060d);
   }
 
+  .labBackdrop {
+    inset: -5% -24% 4% 4%;
+    background-position: center, center, 50% 68%;
+    opacity: 0.62;
+  }
+
   .worldGlow {
     background:
       radial-gradient(ellipse at 70% 68%, rgb(43 132 255 / 27%), transparent 28%),
@@ -577,9 +604,15 @@
 
   .referencePoster {
     inset: 4.1rem 0 0;
+    top: auto;
+    left: 0;
+    width: min(100%, 28rem);
+    aspect-ratio: auto;
+    transform: none;
     background-image: url("/hero/home-hero-poster-mobile.jpg");
     background-position: left bottom;
     background-size: min(100%, 28rem) auto;
+    mask-image: none;
     opacity: 0.92;
   }
 

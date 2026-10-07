@@ -308,10 +308,14 @@
   position: relative;
   z-index: 1;
   width: clamp(6.35rem, 7.8vw, 7.75rem);
-  height: auto;
-  overflow: visible;
+  height: clamp(6.35rem, 7.8vw, 7.75rem);
+  flex: 0 0 auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 73% 73% at 50% 48%, #000 52%, rgb(0 0 0 / 94%) 68%, transparent 88%);
+  mask-image: radial-gradient(ellipse 73% 73% at 50% 48%, #000 52%, rgb(0 0 0 / 94%) 68%, transparent 88%);
   filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.42rem rgb(181 241 255 / 82%)) drop-shadow(0 0 1.55rem rgb(55 167 255 / 94%));
-  transform: perspective(14rem) rotateX(22deg) rotateY(-18deg) translate3d(0, -0.62rem, 1.45rem) scale(1.04);
+  transform: translate3d(0, -0.42rem, 0) scale(1.04);
   transform-style: preserve-3d;
   transition: filter var(--motion-medium) var(--ease-standard), transform var(--motion-medium) var(--ease-standard);
 }
@@ -325,7 +329,7 @@
 .capabilityCard:hover .capabilityGlyph,
 .capabilityCard:focus-within .capabilityGlyph {
   filter: drop-shadow(0 0.85rem 0.7rem rgb(0 0 0 / 66%)) drop-shadow(0 0 1.2rem rgb(69 196 255 / 94%));
-  transform: perspective(9rem) rotateX(4deg) rotateY(0deg) translateY(-4px) scale(1.04);
+  transform: translateY(-4px) scale(1.04);
 }
 
 .cardCopy {
@@ -688,6 +692,11 @@
   transform: perspective(30rem) rotateY(-12deg) rotateX(7deg) translateZ(1.8rem);
 }
 
+.researchImage {
+  mix-blend-mode: screen;
+  filter: hue-rotate(18deg) saturate(1.08) contrast(1.08);
+}
+
 .visualCaption {
   position: absolute;
   right: 0;
@@ -759,6 +768,20 @@
 .cubeGlow {
   inset: 16%;
   background: radial-gradient(ellipse, rgb(32 132 255 / 30%), transparent 70%);
+}
+
+.technologyPhoto {
+  position: absolute;
+  z-index: 0;
+  width: min(142%, 35rem);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.78;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
+  mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
+  filter: drop-shadow(0 1.1rem 0.9rem rgb(0 0 0 / 72%)) drop-shadow(0 0 1.5rem rgb(30 165 255 / 34%));
+  transform: translateY(-0.32rem) scale(1.06);
 }
 
 .technologyGlyph {

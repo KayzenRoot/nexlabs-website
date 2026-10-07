@@ -1,3 +1,4 @@
+import Image from "next/image";
 import styles from "./home-sections.module.css";
 import { ScrollReveal } from "./visual/scroll-reveal";
 
@@ -6,31 +7,31 @@ const capabilities = [
     title: "Artificial Intelligence",
     description:
       "AI-native systems designed around useful reasoning, automation and human-centered workflows.",
-    motif: "network",
+    artwork: "/generated/capabilities/ai-neural-lattice.webp",
   },
   {
     title: "Intelligent Infrastructure",
     description:
       "Software and data foundations designed to support reliable, observable and adaptable intelligent systems.",
-    motif: "layers",
+    artwork: "/generated/capabilities/infrastructure-stack.webp",
   },
   {
     title: "Advanced Interfaces",
     description:
       "Interfaces that make complex systems easier to understand, operate and collaborate with.",
-    motif: "globe",
+    artwork: "/generated/capabilities/interfaces-network-core.webp",
   },
   {
     title: "Sustainable Technologies",
     description:
       "Technology concepts shaped by efficiency, responsible resource use and long-term operational thinking.",
-    motif: "orbit",
+    artwork: "/generated/capabilities/sustainable-energy-torus.webp",
   },
   {
     title: "Research Platforms",
     description:
       "Experimental environments for turning technical questions into testable systems and measurable learning.",
-    motif: "crystal",
+    artwork: "/generated/capabilities/research-faceted-crystal.webp",
   },
 ] as const;
 
@@ -63,102 +64,6 @@ const technologyPillars = [
   "Interoperable Architecture",
 ] as const;
 
-type CapabilityMotif = (typeof capabilities)[number]["motif"];
-
-function CapabilityGlyph({ motif }: { motif: CapabilityMotif }) {
-  return (
-    <svg
-      aria-hidden="true"
-      className={styles.capabilityGlyph}
-      focusable="false"
-      viewBox="0 0 64 64"
-      fill="none"
-      stroke="currentColor"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth="1.45"
-    >
-      <defs>
-        <linearGradient id={`glyph-chrome-${motif}`} x1="0" x2="1" y1="0" y2="1">
-          <stop stopColor="#effcff" stopOpacity="0.9" />
-          <stop offset="0.42" stopColor="#45bdff" stopOpacity="0.35" />
-          <stop offset="1" stopColor="#173b70" stopOpacity="0.52" />
-        </linearGradient>
-        <radialGradient id={`glyph-core-${motif}`}>
-          <stop stopColor="#c4fbff" stopOpacity="0.95" />
-          <stop offset="0.38" stopColor="#44cfff" stopOpacity="0.48" />
-          <stop offset="1" stopColor="#166bff" stopOpacity="0.04" />
-        </radialGradient>
-      </defs>
-      {motif === "network" && (
-        <>
-          <path d="M32 12c-4-7-15-5-16 3-6 0-9 7-6 12-4 5-2 12 5 13 1 7 9 9 14 4V12Zm0 0c4-7 15-5 16 3 6 0 9 7 6 12 4 5 2 12-5 13-1 7-9 9-14 4V12Z" fill={`url(#glyph-chrome-${motif})`} fillOpacity="0.54" />
-          <circle cx="32" cy="31" r="19" fill={`url(#glyph-core-${motif})`} fillOpacity="0.56" stroke="none" />
-          <path d="M32 12c-4-7-15-5-16 3-6 0-9 7-6 12-4 5-2 12 5 13 1 7 9 9 14 4V12Zm0 0c4-7 15-5 16 3 6 0 9 7 6 12 4 5 2 12-5 13-1 7-9 9-14 4V12Z" transform="translate(1.2 2.2)" fill="#06152a" stroke="#257dd4" strokeOpacity="0.56" />
-          <path d="M32 12c-4-7-15-5-16 3-6 0-9 7-6 12-4 5-2 12 5 13 1 7 9 9 14 4V12Zm0 0c4-7 15-5 16 3 6 0 9 7 6 12 4 5 2 12-5 13-1 7-9 9-14 4V12Z" />
-          <path d="M32 14v34M18 22h10m8 0h10M14 34h13m10 0h13M21 43h8m6 0h8M17 27l7 5m23-5-7 5M23 39l7-5m11 5-7-5" />
-          <circle cx="21" cy="22" r="1.7" />
-          <circle cx="43" cy="22" r="1.7" />
-          <circle cx="20" cy="34" r="1.7" />
-          <circle cx="44" cy="34" r="1.7" />
-          <circle cx="25" cy="43" r="1.7" />
-          <circle cx="39" cy="43" r="1.7" />
-        </>
-      )}
-      {motif === "layers" && (
-        <>
-          <path d="m32 10 22 11-22 11-22-11 22-11Z" fill={`url(#glyph-chrome-${motif})`} fillOpacity="0.72" />
-          <path d="m10 30 22 11 22-11-22 11-22-11Zm0 9 22 11 22-11-22 11-22-11Z" fill={`url(#glyph-chrome-${motif})`} fillOpacity="0.46" />
-          <path d="m32 10 22 11-22 11-22-11 22-11Z" />
-          <path d="m10 30 22 11 22-11M10 39l22 11 22-11m-44 9 22 11 22-11" />
-          <path d="M14 33 32 42l18-9v7L32 51l-18-9v-9Zm0 10 18 9 18-9v7L32 59l-18-9v-7Z" fill="#071d39" fillOpacity="0.95" stroke="#71d8ff" strokeOpacity="0.78" />
-          <path d="M17 21 32 29l15-8M17 39v5m30-5v5M32 32v8" />
-          <path d="M10 48 32 59l22-11" />
-        </>
-      )}
-      {motif === "globe" && (
-        <>
-          <circle cx="32" cy="32" r="23" fill={`url(#glyph-core-${motif})`} fillOpacity="0.62" stroke="none" />
-          <circle cx="32" cy="32" r="23" />
-          <path d="M9 32h46M32 9c8 7 12 15 12 23s-4 16-12 23c-8-7-12-15-12-23S24 16 32 9Z" />
-          <path d="M13 21c6 4 12 6 19 6s13-2 19-6M13 43c6-4 12-6 19-6s13 2 19 6" />
-          <path d="M11 27c9-5 17-8 27-6m-22 23c11-2 20-1 31 4" strokeOpacity="0.58" />
-          <path d="m16 23 8 9-4 10m4-20 8 10 8-10m-8 10 10 9m-18-9-8 6m24-16 7 3" stroke="#b4f4ff" strokeWidth="1.6" strokeOpacity="0.88" />
-          <g fill="#c8f8ff" stroke="none"><circle cx="16" cy="23" r="1.8"/><circle cx="24" cy="32" r="2"/><circle cx="32" cy="22" r="1.8"/><circle cx="40" cy="22" r="1.8"/><circle cx="42" cy="41" r="1.8"/><circle cx="20" cy="42" r="1.8"/></g>
-          <circle cx="32" cy="32" r="3" />
-        </>
-      )}
-      {motif === "orbit" && (
-        <>
-          <circle cx="32" cy="32" r="11" fill={`url(#glyph-core-${motif})`} stroke="none" />
-          <circle cx="32" cy="32" r="4" fill="#c8f8ff" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" fill="#0b315f" fillOpacity="0.72" stroke="#a2efff" strokeOpacity="0.8" strokeWidth="1.4" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" stroke="#071b37" strokeWidth="7" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" stroke="#83eaff" strokeOpacity="0.9" strokeWidth="2.2" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" transform="rotate(58 32 32) translate(1.5 2)" stroke="#06172f" strokeWidth="7" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" transform="rotate(58 32 32)" stroke="#0a2550" strokeWidth="6" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" transform="rotate(58 32 32)" stroke="#77cfff" strokeOpacity="0.82" strokeWidth="1.8" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" transform="rotate(-58 32 32)" stroke="#123b75" strokeWidth="5" />
-          <ellipse cx="32" cy="32" rx="23" ry="9" transform="rotate(-58 32 32)" stroke="#d3f8ff" strokeOpacity="0.85" strokeWidth="1.6" />
-          <circle cx="52" cy="25" r="2" />
-          <circle cx="20" cy="12" r="1.5" />
-        </>
-      )}
-      {motif === "crystal" && (
-        <>
-          <path d="m32 7 20 17-7 25-13 8-13-8-7-25L32 7Z" fill={`url(#glyph-chrome-${motif})`} fillOpacity="0.62" />
-          <path d="m32 7 0 24-13-7 13-17Zm0 24 20-7-7 25-13-18Zm0 0-13 18 13 8V31Z" fill={`url(#glyph-core-${motif})`} fillOpacity="0.46" stroke="none" />
-          <path d="m32 7 20 17-7 25-13 8-13-8-7-25L32 7Z" transform="translate(1.5 2.2)" fill="#06142b" stroke="#267cd2" strokeOpacity="0.72" />
-          <path d="m32 7 20 17-7 25-13 8-13-8-7-25L32 7Z" />
-          <path d="m12 24 20 7 20-7M19 49l13-18 13 18M32 7v24m0 0v27" />
-          <path d="m20 16 12 15 12-15" />
-          <circle cx="32" cy="31" r="2" />
-        </>
-      )}
-    </svg>
-  );
-}
-
 
 function ResearchHorizon() {
   return (
@@ -188,6 +93,9 @@ function ResearchHorizon() {
           <stop stopColor="#67dfff" stopOpacity="0.27" />
           <stop offset="1" stopColor="#082655" stopOpacity="0.08" />
         </linearGradient>
+        <clipPath id="research-world-photo-clip">
+          <ellipse cx="220" cy="159" rx="139" ry="132" />
+        </clipPath>
       </defs>
       <path d="M20 77h78v67H20zM31 88h56v2H31zm0 8h41v2H31zm0 8h49v2H31zm0 8h34v2H31z" fill="url(#research-glass)" stroke="#4aa9ff" strokeOpacity="0.46" />
       <path d="M321 62h71v84h-71zM330 74h52v1H330zm0 8h42v1H330zm0 8h48v1H330zm0 8h32v1H330z" fill="url(#research-glass)" stroke="#53baff" strokeOpacity="0.45" />
@@ -196,6 +104,17 @@ function ResearchHorizon() {
         <ellipse cx="220" cy="159" rx="157" ry="149" fill="url(#research-world-core)" fillOpacity="0.34" stroke="#3f9df5" strokeOpacity="0.26" strokeWidth="1.1" />
         <ellipse cx="220" cy="159" rx="145" ry="139" fill="url(#research-world-core)" stroke="#9aeaff" strokeOpacity="0.74" strokeWidth="1.8" />
       <path d="M147 129 171 96l24 5 17 22-10 25-27 8-24-13Zm91-24 28-13 26 21 12 30-21 13-22-11-17-20Zm-79 88 23-21 30 6 14 25-22 20-31-8Zm86 9 26-19 31 16-8 23-28 11-24-14Z" fill="url(#research-platform)" fillOpacity="0.86" stroke="none" />
+      <image
+        className={styles.researchImage}
+        clipPath="url(#research-world-photo-clip)"
+        href="/generated/home/research-earth.webp"
+        height="280"
+        opacity="0.58"
+        preserveAspectRatio="xMidYMid slice"
+        width="280"
+        x="80"
+        y="19"
+      />
       <ellipse cx="220" cy="159" rx="145" ry="139" strokeWidth="1.25" />
       <ellipse cx="220" cy="159" rx="62" ry="139" stroke="#9feaff" strokeOpacity="0.6" strokeWidth="1.1" />
       <ellipse cx="220" cy="159" rx="111" ry="139" stroke="#68c9ff" strokeOpacity="0.48" strokeWidth="0.9" />
@@ -297,7 +216,16 @@ export function HomeSections() {
               <article className={styles.capabilityCard} key={capability.title}>
                 <div className={styles.cardVisual}>
                   <span className={styles.cardHalo} aria-hidden="true" />
-                  <CapabilityGlyph motif={capability.motif} />
+                  <Image
+                    alt=""
+                    aria-hidden="true"
+                    className={styles.capabilityGlyph}
+                    height={384}
+                    loading="lazy"
+                    sizes="(min-width: 1280px) 128px, (min-width: 640px) 22vw, 40vw"
+                    src={capability.artwork}
+                    width={384}
+                  />
                 </div>
                 <div className={styles.cardCopy}>
                   <h3>{capability.title}</h3>
@@ -413,6 +341,16 @@ export function HomeSections() {
           <div className={styles.technologyDetails} id="technology-preview">
             <div className={styles.cubeVisual} data-world-reveal="technology">
               <span className={styles.cubeGlow} aria-hidden="true" />
+              <Image
+                alt=""
+                aria-hidden="true"
+                className={styles.technologyPhoto}
+                height={512}
+                loading="lazy"
+                sizes="(min-width: 1280px) 440px, (min-width: 768px) 38vw, 80vw"
+                src="/generated/home/technology-stack.webp"
+                width={768}
+              />
               <TechnologyCube />
             </div>
             <ul className={styles.technologyPillars}>
