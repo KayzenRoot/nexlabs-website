@@ -131,3 +131,22 @@ After deploy:
 - retain live screenshots and sanitized reports.
 
 Deployment can be used for external registration even while the independent visual score remains below 85/100, because it is explicitly labeled PRE-LAUNCH. Final visual approval remains a separate gate.
+
+
+## WO-013 Design Director Harness validation
+
+Before the next independent visual review:
+- style guide exists and decomposes the approved master by composition/material/light/density;
+- scene graph exists;
+- deterministic visual state list exists;
+- asset manifest distinguishes master/evidence, generated references, Blender sources and runtime assets;
+- at least three critique rounds are retained;
+- each critique round includes a contact sheet and review log;
+- each round scores composition, depth, material/lighting, environment density, object distinctiveness, brand accuracy, readability, motion purpose and mobile composition;
+- each round lists the three biggest gaps and the next round proves those gaps were addressed;
+- seeded/deterministic evidence states do not depend on Math.random;
+- master remains absent from production runtime references;
+- any motion-system change passes reduced-motion and performance regressions;
+- final independent 85/100 WO-013 gate remains unchanged.
+
+The contact-sheet loop is a process gate, not a substitute for exact-head CI/performance/security/accessibility validation.

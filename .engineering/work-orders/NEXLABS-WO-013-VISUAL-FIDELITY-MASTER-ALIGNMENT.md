@@ -1,6 +1,6 @@
 # NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT — Visual Fidelity Restoration / Master Alignment
 
-Status: CORRECTION REQUIRED — RE-ADMITTED WITH LOCAL VISUAL ASSET PIPELINE
+Status: CORRECTION REQUIRED — DESIGN DIRECTOR HARNESS ADMITTED
 
 Risk class: ELEVATED
 
@@ -180,6 +180,7 @@ At stop:
 19. AGENTS.md
 20. active Context Lock `.engineering/context-locks/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.json`
 21. current Home/Header/Footer/SecondaryPage/quality-tier code and tests.
+22. DESIGN-DIRECTOR-HARNESS.md
 
 ## REQUIREMENTS
 
@@ -481,3 +482,96 @@ It does NOT authorize:
 ### STOP CONDITION
 
 Stop after the temporary Vercel deployment is live and validated. Then request review. Do not merge, promote checkpoint or begin M07B final launch.
+
+
+## CORRECTION DELTA 04 — REFERENCE-FIRST DESIGN DIRECTOR HARNESS
+
+Trigger:
+- owner supplied the motion-design studio workflow at https://x.com/0xMovez/status/2104216919033192746 and explicitly directed its applicable techniques to be used for Nex Labs;
+- current exact-head candidate `25d85e692b7a57d7c416dce9bd954184a2e88f57` remains materially different from the approved master;
+- executor-proposed score is 77/100, below the 85/100 gate.
+
+The article is treated as an external technique reference, not as canonical product truth. Applicable techniques are adapted to a website; video/audio-specific steps are excluded.
+
+### Phase A — Reference extraction, no product code
+
+Read `.engineering/DESIGN-DIRECTOR-HARNESS.md`.
+
+Create:
+- `.engineering/design-director/master-style-guide.md`;
+- `.engineering/design-director/master-scene-graph.md`;
+- `.engineering/design-director/master-state-list.md`;
+- `.engineering/design-director/master-asset-manifest.md`;
+- `.engineering/design-director/review-log.md`.
+
+The approved master must be decomposed before implementation continues.
+
+### Phase B — Ordered specialist passes
+
+Execute sequentially:
+1. Reference Extractor;
+2. Scene Architect;
+3. Material & Lighting Director;
+4. Capability Object Designer;
+5. Lower-World Director;
+6. Motion Director;
+7. Harsh Critic.
+
+Do not let a single monolithic pass redesign everything.
+
+### Phase C — Generate then trace
+
+Use ComfyUI to create controlled reference studies.
+Use Blender to trace selected references into geometry/material/light studies.
+Translate selected ownable outputs into existing web architecture.
+
+Master pixels/crops remain forbidden in runtime.
+
+### Phase D — Deterministic visual state harness
+
+Retain deterministic captures for all required states in DESIGN-DIRECTOR-HARNESS.md.
+
+Visual evidence must be reproducible and must not depend on Math.random-driven output.
+
+### Phase E — Three critique loops minimum
+
+For each round:
+- render contact sheet;
+- compare directly to master;
+- score the nine harness dimensions;
+- name the three biggest gaps;
+- fix those gaps;
+- rerender.
+
+Do not request independent review before all required harness dimensions reach at least 8/10.
+
+### Visual focus for this correction
+
+The current candidate remains too:
+- empty around the Hero;
+- schematic in chamber architecture;
+- flat in material/reflection;
+- weak in left/right laboratory density;
+- simplified in Earth/network/panel integration;
+- card-like in capabilities;
+- sparse in lower Research/Technology.
+
+The next candidate must prioritize architectural density and real spatial layering over more glow.
+
+### Motion adaptation
+
+Use spring/mass behavior for purposeful UI/3D motion where it improves quality.
+Do not add GSAP/Framer/Remotion/HyperFrames.
+No audio is added to the website.
+
+### STOP CONDITION
+
+Stop with:
+- all design-director artifacts retained;
+- at least three critique rounds retained;
+- final executor score PROPOSED only;
+- full WO-013 regressions passing;
+- exact-head Evidence Bundle refreshed;
+- PR #20 OPEN/READY FOR INDEPENDENT REVIEW.
+
+Do not merge, promote checkpoint or declare M07B complete.

@@ -194,3 +194,15 @@ M07B remains blocked until WO-013 approval, merge and checkpoint promotion.
 ## Global implementation rule
 
 Each runnable frontend increment remains functional, tested, documented, deployable and objectively validated within its admitted scope. Docker remains running/healthy unless the owner explicitly instructs otherwise.
+
+
+## WO-013 Design Director Harness completion gate
+
+The remaining master-alignment correction is not complete until:
+- reference extraction artifacts exist;
+- the design is rebuilt through ordered specialist passes rather than one monolithic prompt;
+- ComfyUI/Blender outputs are treated as references or ownable assets, never as master-copy shortcuts;
+- deterministic site states are captured;
+- at least three harsh contact-sheet critique rounds are completed;
+- no required critique dimension remains below 8/10 before independent review;
+- the independent WO-013 score still reaches >=85/100 with the existing per-criterion floors.
