@@ -8,6 +8,7 @@ import {
   Color,
   DoubleSide,
   EquirectangularReflectionMapping,
+  EdgesGeometry,
   ExtrudeGeometry,
   DataTexture,
   RGBAFormat,
@@ -86,30 +87,33 @@ function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
   const { gl, invalidate, setFrameloop } = useThree();
 
   useEffect(() => {
-    let startupMotionTimer: number | undefined;
-    let startupFramePending = true;
+    let motionFrameTimer: number | undefined;
+    const stopMotionUpdates = () => {
+      if (motionFrameTimer !== undefined) {
+        window.clearTimeout(motionFrameTimer);
+        motionFrameTimer = undefined;
+      }
+    };
+    const scheduleMotionUpdate = () => {
+      if (motionFrameTimer !== undefined || document.visibilityState === "hidden") return;
+      motionFrameTimer = window.setTimeout(() => {
+        motionFrameTimer = undefined;
+        if (document.visibilityState !== "hidden") {
+          invalidate();
+          scheduleMotionUpdate();
+        }
+      }, 1000 / 30);
+    };
     const syncVisibility = () => {
       if (document.visibilityState === "hidden") {
-        if (startupMotionTimer !== undefined) {
-          window.clearTimeout(startupMotionTimer);
-          startupMotionTimer = undefined;
-        }
+        stopMotionUpdates();
         setFrameloop("never");
         return;
       }
 
-      if (startupFramePending) {
-        startupFramePending = false;
-        setFrameloop("demand");
-        invalidate();
-        startupMotionTimer = window.setTimeout(() => {
-          startupMotionTimer = undefined;
-          if (document.visibilityState === "visible") setFrameloop("always");
-        }, 1200);
-        return;
-      }
-
-      setFrameloop("always");
+      setFrameloop("demand");
+      invalidate();
+      scheduleMotionUpdate();
     };
     const onContextLost = (event: Event) => {
       event.preventDefault();
@@ -123,7 +127,7 @@ function SceneLifecycle({ onFailure }: Pick<HeroSceneProps, "onFailure">) {
     return () => {
       document.removeEventListener("visibilitychange", syncVisibility);
       gl.domElement.removeEventListener("webglcontextlost", onContextLost, false);
-      if (startupMotionTimer !== undefined) window.clearTimeout(startupMotionTimer);
+      stopMotionUpdates();
     };
   }, [gl, invalidate, onFailure, setFrameloop]);
 
@@ -152,6 +156,7 @@ function useHeroGeometry() {
     geometry.center();
     geometry.scale(0.0115, -0.0115, 0.0115);
     geometry.computeVertexNormals();
+    geometry.computeBoundingBox();
     return geometry;
   }, []);
 
@@ -174,19 +179,23 @@ function useHeroFaceGeometry() {
       const width = Math.max(bounds.max.x - bounds.min.x, 0.001);
       const height = Math.max(bounds.max.y - bounds.min.y, 0.001);
       const stops = [
-        [0, new Color("#17395f")],
-        [0.08, new Color("#82a9c9")],
-        [0.17, new Color("#e1f2ff")],
-        [0.25, new Color("#203f61")],
-        [0.34, new Color("#0b1e34")],
-        [0.43, new Color("#86b9d9")],
-        [0.51, new Color("#eaf7ff")],
-        [0.59, new Color("#183554")],
-        [0.68, new Color("#a5d1ec")],
-        [0.77, new Color("#254d70")],
-        [0.86, new Color("#dceeff")],
-        [0.94, new Color("#183653")],
-        [1, new Color("#7b9fba")],
+        [0, new Color("#182a3b")],
+        [0.055, new Color("#bed0df")],
+        [0.105, new Color("#f7fcff")],
+        [0.16, new Color("#263a4c")],
+        [0.245, new Color("#71879a")],
+        [0.315, new Color("#f4fbff")],
+        [0.365, new Color("#d6e4ef")],
+        [0.435, new Color("#23384c")],
+        [0.51, new Color("#102438")],
+        [0.59, new Color("#e7f2fa")],
+        [0.645, new Color("#657e93")],
+        [0.715, new Color("#182d41")],
+        [0.79, new Color("#d1e2ef")],
+        [0.835, new Color("#f9fdff")],
+        [0.9, new Color("#263a4d")],
+        [0.965, new Color("#9db4c7")],
+        [1, new Color("#1a2d40")],
       ] as const;
       const colors = new Float32Array(positions.count * 3);
       const color = new Color();
@@ -263,37 +272,42 @@ function useChromeEnvironmentMap() {
 function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
   const geometry = useHeroGeometry();
   const faceGeometry = useHeroFaceGeometry();
+  const edgeGeometry = useMemo(() => new EdgesGeometry(geometry, 18), [geometry]);
+  const faceDepth = (geometry.boundingBox?.max.z ?? 0.253) - 3 * 0.0115 + 0.002;
   const environment = useChromeEnvironmentMap();
   const mark = useRef<Group>(null);
   const materials = useMemo(
     () => [
       new MeshPhysicalMaterial({
-        color: new Color("#8fa6bb"),
+        color: new Color("#52687c"),
         metalness: 0.98,
-        roughness: 0.12,
+        roughness: 0.23,
         clearcoat: 0.68,
-        clearcoatRoughness: 0.08,
-        emissive: new Color("#12345d"),
-        emissiveIntensity: 0.36,
+        clearcoatRoughness: 0.11,
+        emissive: new Color("#07182d"),
+        emissiveIntensity: 0.2,
         envMap: environment,
-        envMapIntensity: 2.15,
+        envMapIntensity: 2.8,
         side: DoubleSide,
       }),
       new MeshPhysicalMaterial({
-        color: "#a6bacb",
-        metalness: 0.98,
-        roughness: 0.16,
+        color: "#ffffff",
+        metalness: 0.94,
+        roughness: 0.24,
         clearcoat: 0.92,
-        clearcoatRoughness: 0.08,
+        clearcoatRoughness: 0.1,
         envMap: environment,
-        envMapIntensity: 2.45,
+        envMapIntensity: 2.35,
         vertexColors: true,
         side: DoubleSide,
       }),
     ],
     [environment],
   );
-  useEffect(() => () => materials.forEach((material) => material.dispose()), [materials]);
+  useEffect(() => () => {
+    materials.forEach((material) => material.dispose());
+    edgeGeometry.dispose();
+  }, [edgeGeometry, materials]);
 
   useFrame(({ clock }) => {
     if (!mark.current) return;
@@ -309,7 +323,10 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
       scale={1.15}
     >
       <mesh geometry={geometry} material={materials[0]} castShadow={false} receiveShadow={false} />
-      <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, 0.129]} castShadow={false} receiveShadow={false} />
+      <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, faceDepth]} castShadow={false} receiveShadow={false} />
+      <lineSegments geometry={edgeGeometry} position={[0, 0, 0.001]}>
+        <lineBasicMaterial color="#6fcaff" transparent opacity={0.68} depthWrite={false} />
+      </lineSegments>
       <pointLight color="#d8f5ff" intensity={2.8} distance={3.2} position={[-0.72, 0.76, 1.45]} />
       <pointLight color="#46aaff" intensity={4.5} distance={3.8} position={[0.88, -0.2, 1.25]} />
       <pointLight color="#effcff" intensity={2.1} distance={3.2} position={[0.12, 1.35, 0.9]} />
@@ -320,14 +337,14 @@ function PrecisionBladesN({ tier }: { tier: HeroSceneProps["tier"] }) {
 /** Renders the luminous portal chamber and structural energy rails around the N. */
 function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
-  const detailSegments = tier === "FULL" ? 112 : 64;
-  const ribCount = tier === "FULL" ? 28 : 16;
-  const ribGeometry = useMemo(() => new BoxGeometry(0.04, 5.15, 0.052), []);
+  const detailSegments = tier === "FULL" ? 144 : 80;
+  const ribCount = tier === "FULL" ? 36 : 20;
+  const ribGeometry = useMemo(() => new BoxGeometry(0.072, 5.42, 0.11), []);
   const ribMaterial = useMemo(
     () => new MeshBasicMaterial({
       color: "#ffffff",
       transparent: true,
-      opacity: 0.46,
+      opacity: 0.56,
       vertexColors: true,
     }),
     [],
@@ -347,11 +364,11 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   );
   const ribInstances = useSceneInstances(ribGeometry, ribMaterial, ribTransforms);
   const outerRibTransforms = useMemo(
-    () => Array.from({ length: tier === "FULL" ? 18 : 10 }, (_, index): SceneInstanceTransform | null => {
-      const count = tier === "FULL" ? 18 : 10;
+    () => Array.from({ length: tier === "FULL" ? 24 : 12 }, (_, index): SceneInstanceTransform | null => {
+      const count = tier === "FULL" ? 24 : 12;
       const angle = (index / count) * Math.PI * 2;
       if (Math.sin(angle) > 0.58) return null;
-      const radius = 4.08;
+      const radius = 4.24;
       return {
         position: [Math.cos(angle) * radius, 0.08, Math.sin(angle) * radius - 0.48],
         rotation: [0, -angle, 0],
@@ -362,8 +379,8 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
     [tier],
   );
   const outerRibs = useSceneInstances(ribGeometry, ribMaterial, outerRibTransforms);
-  const axialCount = tier === "FULL" ? 17 : 9;
-  const axialGeometry = useMemo(() => new BoxGeometry(0.026, 5.16, 0.034), []);
+  const axialCount = tier === "FULL" ? 13 : 7;
+  const axialGeometry = useMemo(() => new BoxGeometry(0.04, 5.56, 0.075), []);
   const axialMaterial = useMemo(
     () => new MeshBasicMaterial({
       color: "#ffffff",
@@ -403,16 +420,32 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
         <cylinderGeometry args={[3.06, 3.06, 4.9, detailSegments, 1, true]} />
         <meshBasicMaterial color="#1761a1" transparent opacity={0.12} depthWrite={false} side={DoubleSide} />
       </mesh>
+      <mesh position={[0, 0.04, -0.48]}>
+        <cylinderGeometry args={[4.18, 4.18, 5.42, detailSegments, 1, true, Math.PI * 0.64, Math.PI * 0.72]} />
+        <meshPhysicalMaterial
+          color="#0a2038"
+          metalness={0.78}
+          roughness={0.3}
+          clearcoat={0.58}
+          clearcoatRoughness={0.22}
+          emissive="#0b315a"
+          emissiveIntensity={0.52}
+          transparent
+          opacity={0.38}
+          depthWrite={false}
+          side={DoubleSide}
+        />
+      </mesh>
       <group ref={rails}>
         {[
-          [2.2, 2.38], [2.38, 2.26], [2.55, 2.12], [2.78, 1.74],
-          [3.52, 2.45], [3.88, 2.57], [4.12, 2.42],
-          [3.02, -1.84], [3.22, -2.38], [3.42, -2.56],
-          [3.72, -2.43], [4.02, -2.3],
+          [2.08, 2.38], [2.22, 2.34], [2.38, 2.26], [2.55, 2.12], [2.78, 1.74],
+          [3.16, 2.34], [3.38, 2.4], [3.58, 2.48], [3.82, 2.55], [4.08, 2.48], [4.3, 2.34],
+          [2.86, -1.72], [3.02, -1.9], [3.22, -2.38], [3.42, -2.56],
+          [3.62, -2.52], [3.82, -2.42], [4.04, -2.28], [4.22, -2.12],
         ].map(([radius, y], index) => (
-          <mesh key={radius} position={[0, y, -0.06]} rotation={[Math.PI / 2 + 0.035, 0, 0]}>
-            <torusGeometry args={[radius, index % 3 === 1 ? 0.042 : 0.062, 8, detailSegments]} />
-            <meshBasicMaterial color={index % 4 === 0 ? "#d5faff" : index % 3 === 1 ? "#78d7ff" : index % 2 ? "#49a5ff" : "#286ce0"} transparent opacity={index % 3 === 1 ? 0.82 : 0.66} />
+          <mesh key={`${radius}-${y}`} position={[0, y, -0.06]} rotation={[Math.PI / 2 + 0.035, 0, 0]}>
+            <torusGeometry args={[radius, index % 4 === 1 ? 0.038 : 0.056, 8, detailSegments]} />
+            <meshBasicMaterial color={index % 5 === 0 ? "#e0fbff" : index % 3 === 1 ? "#78d7ff" : index % 2 ? "#49a5ff" : "#286ce0"} transparent opacity={index % 3 === 1 ? 0.86 : 0.7} />
           </mesh>
         ))}
         <primitive object={ribInstances} />
@@ -432,15 +465,43 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
         ))}
         {[-2.38, 2.48].map((y, index) => (
           <mesh key={"gantry-cross-" + index} position={[0, y, -1.78]}>
-            <boxGeometry args={[8.85, 0.12, 0.18]} />
+            <boxGeometry args={[9.15, 0.19, 0.24]} />
             <meshStandardMaterial color="#112c49" metalness={0.9} roughness={0.26} emissive="#0a3b6d" emissiveIntensity={0.68} />
           </mesh>
         ))}
-        {[3.55, 3.88, 4.16].map((radius, index) => (
+        {[3.48, 3.76, 4.06, 4.36].map((radius, index) => (
           <mesh key={"crown-ring-" + index} position={[0, 2.18, -0.1]} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[radius, index === 1 ? 0.065 : 0.035, 8, detailSegments]} />
-            <meshBasicMaterial color={index === 1 ? "#c1f6ff" : "#347cff"} transparent opacity={index === 1 ? 0.88 : 0.66} />
+            <torusGeometry args={[radius, index === 1 ? 0.064 : 0.042, 8, detailSegments]} />
+            <meshBasicMaterial color={index === 1 ? "#c9f7ff" : index % 2 ? "#57aaff" : "#347cff"} transparent opacity={index === 1 ? 0.82 : 0.68} />
           </mesh>
+        ))}
+        {[-2.9, 2.9].map((x, index) => (
+          <group key={"front-spine-" + index} position={[x, 0.1, 0.32]}>
+            <mesh>
+              <boxGeometry args={[0.16, 5.28, 0.28]} />
+              <meshPhysicalMaterial color="#15283b" metalness={0.98} roughness={0.18} clearcoat={0.9} emissive="#081b31" emissiveIntensity={0.4} />
+            </mesh>
+            <mesh position={[index === 0 ? 0.071 : -0.071, 0, 0.148]}>
+              <boxGeometry args={[0.035, 5.06, 0.028]} />
+              <meshBasicMaterial color="#b5f5ff" transparent opacity={0.94} />
+            </mesh>
+            <mesh position={[index === 0 ? -0.058 : 0.058, 0, 0.15]}>
+              <boxGeometry args={[0.026, 4.88, 0.024]} />
+              <meshBasicMaterial color="#287cff" transparent opacity={0.86} />
+            </mesh>
+          </group>
+        ))}
+        {[-2.72, 2.72].map((x, index) => (
+          <group key={"axial-core-" + index} position={[x, 0.16, -0.34]}>
+            <mesh>
+              <cylinderGeometry args={[0.12, 0.12, 5.18, 10]} />
+              <meshBasicMaterial color="#1e75d0" transparent opacity={0.16} depthWrite={false} />
+            </mesh>
+            <mesh>
+              <cylinderGeometry args={[0.032, 0.032, 5.34, 8]} />
+              <meshBasicMaterial color="#9ceeff" transparent opacity={0.82} />
+            </mesh>
+          </group>
         ))}
       </group>
       <mesh position={[0, 0.18, -1.02]}>
@@ -454,6 +515,37 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
 /** Renders the slowly evolving globe/network motif required by the Home master. */
 function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   const globe = useRef<Group>(null);
+  const networkLinks = useMemo(() => {
+    const columns = tier === "FULL" ? 9 : 6;
+    const rows = tier === "FULL" ? 7 : 5;
+    const radius = 1.115;
+    const at = (row: number, column: number) => {
+      const latitude = -1.16 + (row / (rows - 1)) * 2.32;
+      const longitude = (column / columns) * Math.PI * 2 + (row % 2) * 0.06;
+      return new Vector3(
+        radius * Math.cos(latitude) * Math.cos(longitude),
+        radius * Math.sin(latitude),
+        radius * Math.cos(latitude) * Math.sin(longitude),
+      );
+    };
+    const values: number[] = [];
+    for (let row = 0; row < rows; row += 1) {
+      for (let column = 0; column < columns; column += 1) {
+        const point = at(row, column);
+        const nextLongitude = at(row, (column + 1) % columns);
+        values.push(point.x, point.y, point.z, nextLongitude.x, nextLongitude.y, nextLongitude.z);
+        if (row < rows - 1) {
+          const nextLatitude = at(row + 1, column);
+          values.push(point.x, point.y, point.z, nextLatitude.x, nextLatitude.y, nextLatitude.z);
+          const diagonal = at(row + 1, (column + (row % 2 ? columns - 1 : 1)) % columns);
+          values.push(point.x, point.y, point.z, diagonal.x, diagonal.y, diagonal.z);
+        }
+      }
+    }
+    const geometry = new BufferGeometry();
+    geometry.setAttribute("position", new Float32BufferAttribute(values, 3));
+    return geometry;
+  }, [tier]);
   const nodeGeometry = useMemo(() => new SphereGeometry(1, 6, 4), []);
   const nodeMaterial = useMemo(
     () => new MeshBasicMaterial({ color: "#ffffff", vertexColors: true }),
@@ -481,35 +573,39 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
   useEffect(() => () => {
     nodeGeometry.dispose();
     nodeMaterial.dispose();
-  }, [nodeGeometry, nodeMaterial]);
+    networkLinks.dispose();
+  }, [networkLinks, nodeGeometry, nodeMaterial]);
 
   useFrame((_, delta) => {
     if (globe.current) globe.current.rotation.y += delta * livingOrganismMotion.globeRotation;
   });
 
   return (
-    <group ref={globe} position={[6.5, 0.58, -1.55]} scale={2.36}>
+    <group ref={globe} position={[-1.42, 0.58, 0.58]} scale={1.28}>
       <mesh>
-        <sphereGeometry args={[1.17, tier === "FULL" ? 36 : 22, tier === "FULL" ? 28 : 16]} />
-        <meshBasicMaterial color="#168dff" transparent opacity={0.11} side={DoubleSide} depthWrite={false} />
+        <sphereGeometry args={[1.2, tier === "FULL" ? 44 : 26, tier === "FULL" ? 32 : 18]} />
+        <meshBasicMaterial color="#168dff" transparent opacity={0.27} side={DoubleSide} depthWrite={false} />
       </mesh>
       <mesh>
-        <sphereGeometry args={[1.06, tier === "FULL" ? 40 : 22, tier === "FULL" ? 30 : 16]} />
-        <meshPhysicalMaterial color="#10437f" metalness={0.52} roughness={0.22} transparent opacity={0.82} emissive="#073474" emissiveIntensity={0.82} envMapIntensity={1.35} />
+        <sphereGeometry args={[1.055, tier === "FULL" ? 48 : 26, tier === "FULL" ? 36 : 18]} />
+        <meshPhysicalMaterial color="#0c315e" metalness={0.56} roughness={0.24} transparent opacity={0.94} emissive="#073c7a" emissiveIntensity={1.08} envMapIntensity={1.65} clearcoat={0.72} clearcoatRoughness={0.12} />
       </mesh>
       <mesh>
-        <sphereGeometry args={[1.075, tier === "FULL" ? 28 : 16, tier === "FULL" ? 20 : 12]} />
-        <meshBasicMaterial color="#42aaff" wireframe transparent opacity={0.46} />
+        <sphereGeometry args={[1.075, tier === "FULL" ? 32 : 18, tier === "FULL" ? 24 : 14]} />
+        <meshBasicMaterial color="#47baff" wireframe transparent opacity={0.3} />
       </mesh>
+      <lineSegments geometry={networkLinks}>
+        <lineBasicMaterial color="#76dcff" transparent opacity={tier === "FULL" ? 0.64 : 0.42} />
+      </lineSegments>
       {[
         { position: [-0.45, 0.34, 0.91] as [number, number, number], scale: [0.78, 0.48, 0.14] as [number, number, number], rotation: [0.12, -0.24, 0.1] as [number, number, number] },
         { position: [0.08, 0.55, 0.82] as [number, number, number], scale: [0.54, 0.35, 0.13] as [number, number, number], rotation: [-0.18, 0.12, -0.22] as [number, number, number] },
         { position: [0.46, -0.12, 0.91] as [number, number, number], scale: [0.68, 0.44, 0.13] as [number, number, number], rotation: [0.1, 0.36, 0.2] as [number, number, number] },
         { position: [-0.25, -0.5, 0.82] as [number, number, number], scale: [0.64, 0.34, 0.12] as [number, number, number], rotation: [-0.16, -0.18, 0.28] as [number, number, number] },
       ].map((mass, index) => (
-        <mesh key={"continent-" + index} position={mass.position} rotation={mass.rotation} scale={mass.scale}>
-          <icosahedronGeometry args={[0.34, 0]} />
-          <meshBasicMaterial color={index % 2 ? "#2584db" : "#46a7ec"} transparent opacity={0.46} />
+          <mesh key={"continent-" + index} position={mass.position} rotation={mass.rotation} scale={mass.scale}>
+          <icosahedronGeometry args={[0.34, 1]} />
+          <meshPhysicalMaterial color={index % 2 ? "#2584db" : "#46a7ec"} metalness={0.18} roughness={0.4} transparent opacity={0.74} emissive={index % 2 ? "#1768c1" : "#258de2"} emissiveIntensity={0.62} clearcoat={0.45} />
         </mesh>
       ))}
       <primitive object={nodeInstances} />
@@ -533,7 +629,7 @@ function GlobalNetwork({ tier }: { tier: HeroSceneProps["tier"] }) {
         <torusGeometry args={[1.42, 0.008, 4, tier === "FULL" ? 88 : 44]} />
         <meshBasicMaterial color="#4bdcff" transparent opacity={0.45} />
       </mesh>
-      <pointLight color="#299bff" intensity={tier === "FULL" ? 2.4 : 1.1} distance={5} />
+      <pointLight color="#299bff" intensity={tier === "FULL" ? 3.4 : 1.6} distance={5.5} position={[0, 0.05, 0.2]} />
     </group>
   );
 }
@@ -583,34 +679,40 @@ function EnergyFilament({
 /** Adds a human-scale visitor silhouette grounded in the chamber platform. */
 function HumanScaleFigure() {
   return (
-    <group position={[-1.18, -1.58, 3.5]} scale={1.34}>
+    <group position={[-1.18, -1.58, 3.5]} scale={1.48}>
       <mesh position={[0, 0.65, 0]}>
         <sphereGeometry args={[0.105, 10, 8]} />
         <meshBasicMaterial color="#02050a" />
       </mesh>
       <mesh position={[0, 0.3, 0]}>
         <capsuleGeometry args={[0.13, 0.48, 4, 8]} />
-        <meshStandardMaterial color="#173655" metalness={0.64} roughness={0.31} emissive="#1766a5" emissiveIntensity={0.82} />
+        <meshStandardMaterial color="#071321" metalness={0.68} roughness={0.34} emissive="#071a2c" emissiveIntensity={0.18} />
       </mesh>
       <mesh position={[0, 0.28, -0.11]}>
         <boxGeometry args={[0.24, 0.34, 0.13]} />
-        <meshStandardMaterial color="#0b1d32" metalness={0.76} roughness={0.24} emissive="#0a2a4f" emissiveIntensity={0.32} />
+        <meshStandardMaterial color="#050d18" metalness={0.82} roughness={0.26} emissive="#07172a" emissiveIntensity={0.12} />
       </mesh>
       <mesh position={[0, 0.48, 0]} rotation={[0, 0, Math.PI / 2]}>
         <capsuleGeometry args={[0.055, 0.29, 3, 6]} />
-        <meshStandardMaterial color="#091421" metalness={0.42} roughness={0.38} />
+        <meshStandardMaterial color="#040a12" metalness={0.58} roughness={0.36} />
       </mesh>
-      <mesh position={[0, -0.13, 0.015]} rotation={[0, 0, 0.04]}>
-        <boxGeometry args={[0.075, 0.34, 0.095]} />
-        <meshStandardMaterial color="#03060b" />
+      {[-1, 1].map((side) => (
+        <mesh key={"arm-" + side} position={[side * 0.19, 0.29, 0.015]} rotation={[0, 0, side * -0.14]}>
+          <capsuleGeometry args={[0.052, 0.29, 3, 6]} />
+          <meshStandardMaterial color="#071321" metalness={0.72} roughness={0.34} emissive="#07182b" emissiveIntensity={0.12} />
+        </mesh>
+      ))}
+      <mesh position={[-0.075, -0.12, 0.03]} rotation={[0, 0, 0.035]}>
+        <capsuleGeometry args={[0.045, 0.31, 3, 6]} />
+        <meshStandardMaterial color="#03070d" metalness={0.55} roughness={0.42} />
       </mesh>
-      <mesh position={[0.13, -0.13, 0.015]} rotation={[0, 0, -0.04]}>
-        <boxGeometry args={[0.075, 0.34, 0.095]} />
-        <meshStandardMaterial color="#03060b" />
+      <mesh position={[0.075, -0.12, 0.03]} rotation={[0, 0, -0.035]}>
+        <capsuleGeometry args={[0.045, 0.31, 3, 6]} />
+        <meshStandardMaterial color="#03070d" metalness={0.55} roughness={0.42} />
       </mesh>
       <mesh position={[0, 0.23, 0.11]}>
         <boxGeometry args={[0.026, 0.38, 0.014]} />
-        <meshBasicMaterial color="#a9f2ff" transparent opacity={0.92} />
+        <meshBasicMaterial color="#82cfff" transparent opacity={0.38} />
       </mesh>
       <mesh position={[0, -0.31, 0]} rotation={[Math.PI / 2, 0, 0]}>
         <torusGeometry args={[0.31, 0.012, 4, 32]} />
@@ -700,13 +802,56 @@ function LaboratoryBackplanes({ tier }: { tier: HeroSceneProps["tier"] }) {
     });
   }, [tier]);
   const beams = useSceneInstances(beamGeometry, beamMaterial, transforms);
+  const panelGeometry = useMemo(() => new BoxGeometry(1, 1, 1), []);
+  const panelMaterial = useMemo(
+    () => new MeshPhysicalMaterial({
+      color: "#ffffff",
+      metalness: 0.76,
+      roughness: 0.32,
+      clearcoat: 0.62,
+      clearcoatRoughness: 0.2,
+      emissive: "#0a1e37",
+      emissiveIntensity: 0.72,
+      transparent: true,
+      opacity: 0.92,
+      vertexColors: true,
+    }),
+    [],
+  );
+  const wallPanels = useMemo(() => {
+    const planes = tier === "FULL"
+      ? [{ z: -3.84, columns: 7, halfWidth: 8.8 }, { z: -6.62, columns: 7, halfWidth: 10.2 }]
+      : [{ z: -3.84, columns: 7, halfWidth: 8.8 }];
+    return planes.flatMap(({ z, columns, halfWidth }, planeIndex) =>
+      Array.from({ length: columns * 2 }, (_, index): SceneInstanceTransform => {
+        const row = Math.floor(index / columns);
+        const column = index % columns;
+        const width = (halfWidth * 2) / columns;
+        const x = -halfWidth + width * (column + 0.5);
+        const y = row === 0 ? 1.28 : -1.28;
+        return {
+          position: [x, y, z],
+          scale: [width * 0.92, 1.14, planeIndex === 0 ? 0.12 : 0.08],
+          color: planeIndex === 0
+            ? column % 3 === 0 ? "#173a5d" : "#102a45"
+            : column % 3 === 0 ? "#0f2b48" : "#0a2038",
+        };
+      }),
+    );
+  }, [tier]);
+  const wallPanelInstances = useSceneInstances(panelGeometry, panelMaterial, wallPanels);
 
   useEffect(() => () => {
     beamGeometry.dispose();
     beamMaterial.dispose();
-  }, [beamGeometry, beamMaterial]);
+    panelGeometry.dispose();
+    panelMaterial.dispose();
+  }, [beamGeometry, beamMaterial, panelGeometry, panelMaterial]);
 
-  return <primitive object={beams} />;
+  return <>
+    <primitive object={wallPanelInstances} />
+    <primitive object={beams} />
+  </>;
 }
 
 /** Builds the reflective-looking platform rings and restrained holographic panels. */
@@ -717,23 +862,23 @@ function FloorGuideLines() {
     () => new MeshBasicMaterial({
       color: "#ffffff",
       transparent: true,
-      opacity: 0.22,
+      opacity: 0.3,
       side: DoubleSide,
       vertexColors: true,
     }),
     [],
   );
   const transforms = useMemo(() => [
-    ...Array.from({ length: 13 }, (_, index): SceneInstanceTransform => ({
-      position: [-9 + index * 1.5, -2.115, -1.2],
+    ...Array.from({ length: 17 }, (_, index): SceneInstanceTransform => ({
+      position: [-10 + index * 1.25, -2.115, -1.2],
       rotation: [-Math.PI / 2, 0, 0],
-      scale: [0.012, 24, 1],
-      color: "#2266b5",
+      scale: [0.016, 28, 1],
+      color: index % 4 === 0 ? "#49baff" : "#2266b5",
     })),
-    ...Array.from({ length: 8 }, (_, index): SceneInstanceTransform => ({
-      position: [0, -2.112, -10 + index * 2.3],
+    ...Array.from({ length: 10 }, (_, index): SceneInstanceTransform => ({
+      position: [0, -2.112, -11 + index * 2.45],
       rotation: [-Math.PI / 2, 0, 0],
-      scale: [28, 0.012, 1],
+      scale: [30, 0.016, 1],
       color: "#2b74bd",
     })),
     ...Array.from({ length: 12 }, (_, index): SceneInstanceTransform => ({
@@ -754,10 +899,10 @@ function FloorGuideLines() {
 }
 
 const holographicPanelPlacements: Array<[number, number, number, number, number]> = [
-  [-0.8, 1.38, -2.35, 1.9, 1.42],
-  [8.2, 1.12, -2.25, 2.7, 1.82],
-  [8.45, -0.42, -0.72, 2.2, 1.46],
-  [2.6, 2.28, -2.85, 1.78, 1.16],
+  [1.02, 1.57, -2.46, 2.06, 1.46],
+  [9.15, 1.08, -2.08, 2.82, 1.92],
+  [12.02, -0.62, -1.35, 2.2, 1.54],
+  [-2.72, 0.88, -3.05, 2.12, 1.5],
 ];
 
 interface HolographicPanelRect {
@@ -838,14 +983,14 @@ function HolographicPanelBank() {
   }, [panelRects]);
   const materials = useMemo(
     () => ({
-      backplates: new MeshBasicMaterial({ color: "#187fe8", transparent: true, opacity: 0.27, side: DoubleSide, depthWrite: false }),
-      glassFaces: new MeshBasicMaterial({ color: "#104779", transparent: true, opacity: 0.52, side: DoubleSide, depthWrite: false }),
-      innerGlass: new MeshBasicMaterial({ color: "#061b35", transparent: true, opacity: 0.48, side: DoubleSide, depthWrite: false }),
-      wireframes: new MeshBasicMaterial({ color: "#68dfff", wireframe: true, transparent: true, opacity: 0.3, side: DoubleSide, depthWrite: false }),
-      horizontalFrames: new MeshBasicMaterial({ color: "#c6f7ff", transparent: true, opacity: 0.86, side: DoubleSide }),
-      verticalFrames: new MeshBasicMaterial({ color: "#5dbbff", transparent: true, opacity: 0.76, side: DoubleSide }),
-      highlightLines: new MeshBasicMaterial({ color: "#e1fbff", transparent: true, opacity: 0.86, side: DoubleSide }),
-      telemetryLines: new MeshBasicMaterial({ color: "#67c8ff", transparent: true, opacity: 0.64, side: DoubleSide }),
+      backplates: new MeshBasicMaterial({ color: "#187fe8", transparent: true, opacity: 0.34, side: DoubleSide, depthWrite: false }),
+      glassFaces: new MeshBasicMaterial({ color: "#15548b", transparent: true, opacity: 0.64, side: DoubleSide, depthWrite: false }),
+      innerGlass: new MeshBasicMaterial({ color: "#061b35", transparent: true, opacity: 0.57, side: DoubleSide, depthWrite: false }),
+      wireframes: new MeshBasicMaterial({ color: "#68dfff", wireframe: true, transparent: true, opacity: 0.42, side: DoubleSide, depthWrite: false }),
+      horizontalFrames: new MeshBasicMaterial({ color: "#d6fbff", transparent: true, opacity: 0.94, side: DoubleSide }),
+      verticalFrames: new MeshBasicMaterial({ color: "#5dbbff", transparent: true, opacity: 0.86, side: DoubleSide }),
+      highlightLines: new MeshBasicMaterial({ color: "#e1fbff", transparent: true, opacity: 0.94, side: DoubleSide }),
+      telemetryLines: new MeshBasicMaterial({ color: "#67c8ff", transparent: true, opacity: 0.72, side: DoubleSide }),
     }),
     [],
   );
@@ -880,7 +1025,7 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
     <group>
       <mesh position={[0, -2.14, -1.6]} rotation={[-Math.PI / 2, 0, 0]}>
         <planeGeometry args={[28, 26]} />
-        <meshBasicMaterial color="#030814" side={DoubleSide} />
+        <meshBasicMaterial color="#01040a" side={DoubleSide} />
       </mesh>
       <mesh position={[3.08, -2.075, -0.2]}>
         <cylinderGeometry args={[5.02, 5.28, 0.16, 112, 1]} />
@@ -895,10 +1040,10 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
         <primitive object={platformMaterials[2]} attach="material" />
       </mesh>
       <FloorGuideLines />
-      {[1.35, 1.72, 2.12, 2.55, 2.96, 3.35, 3.76, 4.16, 4.56, 4.98, 5.32].map((radius, index) => (
+      {[1.22, 1.42, 1.66, 1.9, 2.12, 2.38, 2.66, 2.92, 3.18, 3.44, 3.72, 4.02, 4.3, 4.56, 4.82, 5.08, 5.34, 5.58].map((radius, index) => (
         <mesh key={radius} position={[3.08, -1.858 + index * 0.008, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
-          <torusGeometry args={[radius, index === 2 || index === 6 || index === 9 ? 0.045 : 0.026, 7, 120]} />
-          <meshBasicMaterial color={index % 3 === 0 ? "#92dfff" : index % 2 ? "#286ac5" : "#51b7eb"} transparent opacity={index % 3 === 0 ? 0.54 : 0.38 - index * 0.012} />
+          <torusGeometry args={[radius, index % 5 === 0 ? 0.065 : 0.035, 8, 144]} />
+          <meshBasicMaterial color={index % 4 === 0 ? "#c6f5ff" : index % 2 ? "#286ac5" : "#51b7eb"} transparent opacity={index % 4 === 0 ? 0.62 : Math.max(0.2, 0.42 - index * 0.008)} />
         </mesh>
       ))}
       <mesh position={[3.08, -1.924, -0.2]} rotation={[Math.PI / 2, 0, 0]}>
@@ -914,6 +1059,18 @@ function FloorAndPanels({ tier }: { tier: HeroSceneProps["tier"] }) {
           <mesh position={[x, -2.008, 2.3]}>
             <boxGeometry args={[0.26, 0.018, 12.2]} />
             <meshBasicMaterial color="#0f3b6c" transparent opacity={0.74} />
+          </mesh>
+        </group>
+      ))}
+      {[-7.4, -6.35, -4.55, 4.55, 6.35, 7.4].map((x, index) => (
+        <group key={"floor-runway-" + x} position={[x, -2.095, 2.65]}>
+          <mesh>
+            <boxGeometry args={[index % 3 === 0 ? 0.12 : 0.065, 0.03, 7.2]} />
+            <meshBasicMaterial color={index % 2 ? "#286ac5" : "#8ceaff"} transparent opacity={index % 2 ? 0.58 : 0.74} />
+          </mesh>
+          <mesh position={[0, -0.018, 0]}>
+            <boxGeometry args={[0.3, 0.016, 7.4]} />
+            <meshBasicMaterial color="#0b2850" transparent opacity={0.58} />
           </mesh>
         </group>
       ))}
@@ -1024,7 +1181,7 @@ function HolographicWorld({ tier }: { tier: HeroSceneProps["tier"] }) {
  * readiness handshake used by the poster-to-live crossfade.
  */
 export default function HeroScene({ tier, onReady, onFailure }: HeroSceneProps) {
-  const dpr: [number, number] = tier === "FULL" ? [1, 1.75] : [1, 1.25];
+  const dpr: [number, number] = tier === "FULL" ? [1, 1.5] : [1, 1.25];
   const readinessFrame = useRef<number | null>(null);
   const secondReadinessFrame = useRef<number | null>(null);
 

@@ -40,7 +40,18 @@ function collectScriptGzipSizes(page: Page) {
 /** Installs lightweight lab observers for LCP, CLS and interaction timing evidence. */
 async function installVitalsObserver(page: Page) {
   await page.addInitScript(() => {
-    const vitals = { lcpMs: 0, cls: 0, inpSamples: [] as number[] };
+    const vitals = {
+      lcpMs: 0,
+      cls: 0,
+      inpSamples: [] as number[],
+      inpEvents: [] as Array<{
+        name: string;
+        startTime: number;
+        duration: number;
+        processingStart: number;
+        processingEnd: number;
+      }>,
+    };
     Reflect.set(window, "__nexlabsVitals", vitals);
 
     try {
@@ -71,9 +82,18 @@ async function installVitalsObserver(page: Page) {
         for (const entry of entries.getEntries()) {
           const interaction = entry as PerformanceEntry & {
             interactionId?: number;
+            processingStart?: number;
+            processingEnd?: number;
           };
           if ((interaction.interactionId ?? 0) > 0) {
             vitals.inpSamples.push(entry.duration);
+            vitals.inpEvents.push({
+              name: entry.name,
+              startTime: entry.startTime,
+              duration: entry.duration,
+              processingStart: interaction.processingStart ?? 0,
+              processingEnd: interaction.processingEnd ?? 0,
+            });
           }
         }
       }).observe({
@@ -553,6 +573,13 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     const values = Reflect.get(window, "__nexlabsVitals") as {
       cls: number;
       inpSamples: number[];
+      inpEvents: Array<{
+        name: string;
+        startTime: number;
+        duration: number;
+        processingStart: number;
+        processingEnd: number;
+      }>;
       lcpMs: number;
     };
     const navigation = performance.getEntriesByType(
@@ -563,6 +590,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       cls: values.cls,
       inpMs: values.inpSamples.length ? Math.max(...values.inpSamples) : 0,
       inpSampleCount: values.inpSamples.length,
+      inpEvents: values.inpEvents,
       domContentLoadedMs: navigation?.domContentLoadedEventEnd ?? 0,
       loadEventMs: navigation?.loadEventEnd ?? 0,
     };
@@ -670,22 +698,6 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   const mobilePosterBytes = statSync(
     resolve(process.cwd(), "public/hero/home-hero-poster-mobile.jpg"),
   ).size;
-  expect(desktopPosterBytes).toBeLessThan(600 * 1024);
-  expect(mobilePosterBytes).toBeLessThan(desktopPosterBytes * 0.75);
-  expect(staticScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
-  expect(mobileScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
-  if (desktopState === "ready") {
-    expect(lazyChunkGzipBytes).toBeLessThanOrEqual(700 * 1024);
-  }
-  expect(liveVitals.lcpMs, "desktop production candidate LCP must be observed").toBeGreaterThan(0);
-  expect(liveVitals.lcpMs).toBeLessThanOrEqual(2500);
-  expect(liveVitals.cls).toBeLessThanOrEqual(0.1);
-  expect(mobileVitals.lcpMs, "mobile production candidate LCP must be observed").toBeGreaterThan(0);
-  expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
-  expect(mobileVitals.cls).toBeLessThanOrEqual(0.1);
-  expect(mobileVitals.inpSampleCount).toBeGreaterThan(0);
-  expect(mobileVitals.inpMs).toBeLessThanOrEqual(200);
-
   let balancedTier: string | null = null;
   let balancedState: string | null = null;
   let balancedFrames: Awaited<ReturnType<typeof sampleFrameTimes>> | null = null;
@@ -771,12 +783,37 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
         budgetMs: 200,
       },
     },
+    budgets: {
+      desktopPosterBytes: 600 * 1024,
+      mobilePosterRatio: 0.75,
+      initialRouteJsGzipBytes: 220 * 1024,
+      lazyHome3dGzipBytes: 700 * 1024,
+      lcpMs: 2500,
+      cls: 0.1,
+      interactionProxyMs: 200,
+    },
   };
   writeFileSync(
     resolve(screenshotDirectory, "home-performance-report.json"),
     `${JSON.stringify(report, null, 2)}\n`,
     "utf8",
   );
+
+  expect(desktopPosterBytes).toBeLessThan(600 * 1024);
+  expect(mobilePosterBytes).toBeLessThan(desktopPosterBytes * 0.75);
+  expect(staticScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
+  expect(mobileScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
+  if (desktopState === "ready") {
+    expect(lazyChunkGzipBytes).toBeLessThanOrEqual(700 * 1024);
+  }
+  expect(liveVitals.lcpMs, "desktop production candidate LCP must be observed").toBeGreaterThan(0);
+  expect(liveVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(liveVitals.cls).toBeLessThanOrEqual(0.1);
+  expect(mobileVitals.lcpMs, "mobile production candidate LCP must be observed").toBeGreaterThan(0);
+  expect(mobileVitals.lcpMs).toBeLessThanOrEqual(2500);
+  expect(mobileVitals.cls).toBeLessThanOrEqual(0.1);
+  expect(mobileVitals.inpSampleCount).toBeGreaterThan(0);
+  expect(mobileVitals.inpMs).toBeLessThanOrEqual(200);
 
   expect(desktopTier).toMatch(/^(FULL|BALANCED|STATIC)$/);
 });

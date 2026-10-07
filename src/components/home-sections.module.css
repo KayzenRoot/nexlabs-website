@@ -229,7 +229,7 @@
 .cardVisual {
   position: relative;
   display: grid;
-  min-height: 8.1rem;
+  min-height: 8.45rem;
   flex: 0 0 auto;
   place-items: center;
   perspective: 22rem;
@@ -248,15 +248,16 @@
 .cardVisual::before {
   top: 0.4rem;
   left: 50%;
-  width: 6.7rem;
-  height: 6.7rem;
+  width: 7rem;
+  height: 7rem;
   transform: translateX(-50%) translateZ(-1rem);
   border: 1px solid rgb(94 194 255 / 13%);
   border-radius: 50%;
   background:
-    radial-gradient(circle at 36% 28%, rgb(119 221 255 / 20%), transparent 34%),
+    radial-gradient(circle at 31% 23%, rgb(174 241 255 / 28%), transparent 29%),
+    radial-gradient(circle at 64% 72%, rgb(20 84 181 / 34%), transparent 58%),
     radial-gradient(circle, rgb(36 117 227 / 22%), rgb(7 24 45 / 4%) 72%);
-  box-shadow: inset 0 0 1.2rem rgb(46 148 255 / 14%), 0 0 1.8rem rgb(29 113 227 / 13%);
+  box-shadow: inset 0 0 1.45rem rgb(46 148 255 / 20%), 0 0 2.1rem rgb(29 113 227 / 18%);
 }
 
 .cardVisual::after {
@@ -284,6 +285,7 @@
     linear-gradient(180deg, rgb(116 223 255 / 10%), transparent);
   box-shadow: 0 0.55rem 1.2rem rgb(0 0 0 / 54%), 0 0 1.6rem rgb(31 135 255 / 22%);
   transform: translateX(-50%) perspective(8rem) rotateX(62deg);
+  animation: capability-field-pulse 8s ease-in-out infinite;
 }
 
 .cardHalo::before,
@@ -305,19 +307,20 @@
 .capabilityGlyph {
   position: relative;
   z-index: 1;
-  width: clamp(6.1rem, 7.4vw, 7.25rem);
+  width: clamp(6.35rem, 7.8vw, 7.75rem);
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 0.9rem 0.8rem rgb(0 0 0 / 70%)) drop-shadow(0 0 0.35rem rgb(181 241 255 / 74%)) drop-shadow(0 0 1.3rem rgb(55 167 255 / 92%));
-  transform: perspective(16rem) rotateX(19deg) rotateY(-15deg) translate3d(0, -0.55rem, 1.2rem);
+  filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.42rem rgb(181 241 255 / 82%)) drop-shadow(0 0 1.55rem rgb(55 167 255 / 94%));
+  transform: perspective(14rem) rotateX(22deg) rotateY(-18deg) translate3d(0, -0.62rem, 1.45rem) scale(1.04);
+  transform-style: preserve-3d;
   transition: filter var(--motion-medium) var(--ease-standard), transform var(--motion-medium) var(--ease-standard);
 }
 
-.capabilityCard:nth-child(1) .capabilityGlyph { filter: drop-shadow(0 0 0.4rem #91eaff) drop-shadow(0 0 1.3rem rgb(43 147 255 / 78%)); }
-.capabilityCard:nth-child(2) .capabilityGlyph { filter: drop-shadow(0 0.8rem 0.7rem rgb(0 0 0 / 64%)) drop-shadow(0 0 1.2rem rgb(58 190 255 / 78%)); }
-.capabilityCard:nth-child(3) .capabilityGlyph { filter: drop-shadow(0 0 0.5rem rgb(182 246 255 / 80%)) drop-shadow(0 0 1.3rem rgb(41 145 255 / 86%)); }
-.capabilityCard:nth-child(4) .capabilityGlyph { filter: drop-shadow(0 0 0.45rem rgb(149 238 255 / 88%)) drop-shadow(0 0 1.25rem rgb(25 125 255 / 88%)); }
-.capabilityCard:nth-child(5) .capabilityGlyph { filter: drop-shadow(0 0 0.42rem rgb(219 248 255 / 82%)) drop-shadow(0 0 1.3rem rgb(58 149 255 / 82%)); }
+.capabilityCard:nth-child(1) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.42rem #91eaff) drop-shadow(0 0 1.45rem rgb(43 147 255 / 88%)); }
+.capabilityCard:nth-child(2) .capabilityGlyph { filter: drop-shadow(0 1rem 0.8rem rgb(0 0 0 / 72%)) drop-shadow(0 0 0.38rem rgb(196 243 255 / 76%)) drop-shadow(0 0 1.35rem rgb(58 190 255 / 84%)); }
+.capabilityCard:nth-child(3) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.5rem rgb(182 246 255 / 88%)) drop-shadow(0 0 1.45rem rgb(41 145 255 / 92%)); }
+.capabilityCard:nth-child(4) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.45rem rgb(149 238 255 / 92%)) drop-shadow(0 0 1.4rem rgb(25 125 255 / 92%)); }
+.capabilityCard:nth-child(5) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.42rem rgb(219 248 255 / 88%)) drop-shadow(0 0 1.45rem rgb(58 149 255 / 88%)); }
 
 .capabilityCard:hover .capabilityGlyph,
 .capabilityCard:focus-within .capabilityGlyph {
@@ -678,11 +681,11 @@
 .researchGlyph {
   position: relative;
   z-index: 1;
-  width: min(151%, 33rem);
+  width: min(158%, 35rem);
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 68%)) drop-shadow(0 0 0.45rem rgb(167 237 255 / 52%)) drop-shadow(0 0 1.55rem rgb(48 154 255 / 68%));
-  transform: perspective(30rem) rotateY(-10deg) rotateX(6deg) translateZ(1.5rem);
+  filter: drop-shadow(0 1.45rem 1.1rem rgb(0 0 0 / 74%)) drop-shadow(0 0 0.52rem rgb(167 237 255 / 62%)) drop-shadow(0 0 1.8rem rgb(48 154 255 / 78%));
+  transform: perspective(30rem) rotateY(-12deg) rotateX(7deg) translateZ(1.8rem);
 }
 
 .visualCaption {
@@ -761,12 +764,12 @@
 .technologyGlyph {
   position: relative;
   z-index: 1;
-  width: 160%;
-  max-width: 35rem;
+  width: 168%;
+  max-width: 37rem;
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 64%)) drop-shadow(0 0 0.5rem rgb(191 245 255 / 58%)) drop-shadow(0 0 1.7rem rgb(41 148 255 / 68%));
-  transform: perspective(34rem) rotateY(-13deg) rotateX(7deg) translateZ(1.6rem);
+  filter: drop-shadow(0 1.5rem 1.15rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.58rem rgb(191 245 255 / 68%)) drop-shadow(0 0 1.95rem rgb(41 148 255 / 78%));
+  transform: perspective(34rem) rotateY(-15deg) rotateX(8deg) translateZ(1.9rem);
 }
 
 .technologyPillars {
@@ -777,8 +780,9 @@
   margin: 0;
   padding: 0.45rem 0.55rem;
   list-style: none;
-  background: linear-gradient(90deg, transparent, rgb(4 12 24 / 74%) 26%, rgb(4 12 24 / 42%));
-  box-shadow: 0 0 1.2rem rgb(18 103 195 / 12%);
+  border-left: 1px solid rgb(89 190 255 / 38%);
+  background: linear-gradient(90deg, rgb(4 12 24 / 76%), rgb(4 12 24 / 62%) 72%, transparent);
+  box-shadow: inset 0.55rem 0 1.15rem rgb(18 103 195 / 12%), 0 0 1.2rem rgb(18 103 195 / 12%);
 }
 
 .technologyPillars li {
@@ -915,6 +919,11 @@
   to {
     transform: translateX(660%);
   }
+}
+
+@keyframes capability-field-pulse {
+  0%, 100% { opacity: 0.72; filter: brightness(0.88); }
+  50% { opacity: 1; filter: brightness(1.22); }
 }
 
 @media (max-width: 70rem) {
@@ -1169,9 +1178,14 @@
     animation: none;
   }
 
+  .cardHalo {
+    animation: none;
+  }
+
   .capabilityCard,
   .capabilityCard::after,
   .capabilityGlyph,
+  .cardHalo,
   .textLink,
   .textLink span,
   .cardLink,
