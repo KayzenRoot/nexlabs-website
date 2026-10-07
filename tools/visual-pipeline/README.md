@@ -60,6 +60,58 @@ pwsh -NoProfile -File tools/visual-pipeline/healthcheck.ps1
 pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 queue path\to\workflow-api.json -TimeoutSeconds 900
 ```
 
+## Home environment map
+
+Regenerate the deterministic text-to-image workflows, start the local ComfyUI
+service, and queue `hero_lab_backdrop.json` for a 1024×512 (2:1) equirectangular
+environment. Review the output before conversion to the compact WebP runtime
+asset. This workflow is text-only and must not load the locked Home master.
+
+```powershell
+python tools/visual-pipeline/generate-workflows.py
+pwsh -NoProfile -File tools/visual-pipeline/start-comfy.ps1
+pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 queue tools/visual-pipeline/workflows/hero_lab_backdrop.json -TimeoutSeconds 1800
+pwsh -NoProfile -File tools/visual-pipeline/stop-comfy.ps1
+```
+
+## Controlled master and geometry-guided studies
+
+The workflow generator writes deterministic ComfyUI API-format definitions to
+`tools/visual-pipeline/workflows/`. It can copy the locked master and a
+Blender-generated depth proxy into ComfyUI's local input directory. Both inputs
+remain local; the master is art direction only and is never a production asset.
+
+```powershell
+$visualRoot = if ($env:NEXLABS_VISUAL_LOCAL) { $env:NEXLABS_VISUAL_LOCAL } else { Join-Path $env:LOCALAPPDATA "NexLabs\VisualPipeline" }
+$candidate = Join-Path $visualRoot "generated\blender-candidate-wo013"
+
+python tools/visual-pipeline/prepare-control-maps.py `
+  --blender-depth (Join-Path $candidate "blender-candidate-depth-proxy.png")
+
+python tools/visual-pipeline/generate-workflows.py `
+  --copy-master `
+  --copy-depth (Join-Path $candidate "blender-candidate-depth-proxy.png")
+
+pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 health
+pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 queue tools/visual-pipeline/workflows/hero_lab_concept.json -TimeoutSeconds 900
+```
+
+The generated depth map is an object-bound camera projection for composition
+guidance, not a per-pixel Z render. Review all generated output before choosing
+any derivative for a production runtime.
+
+## Blender chamber candidate
+
+The candidate script uses the official Blender 5.2.2 `bpy` runtime and validates
+the exported GLB by importing it in a fresh background scene. Pass a generated
+ComfyUI reference image; output remains outside Git.
+
+```powershell
+pwsh -NoProfile -File tools/visual-pipeline/run-blender-candidate.ps1 `
+  -Reference (Join-Path $visualRoot "generated\<prompt-id>\<approved-reference>.png") `
+  -OutputName blender-candidate-wo013
+```
+
 ## Model manifest
 
 Copy `model-manifest.example.json` to the local evidence area, resolve exact revisions/files/checksums/licenses, and commit only a sanitized evidence manifest without tokens or private local paths.
