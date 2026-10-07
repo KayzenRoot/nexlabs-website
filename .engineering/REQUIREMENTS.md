@@ -170,3 +170,16 @@ Home planned sections:
 - No unreviewed third-party ComfyUI custom node.
 - Pipeline outputs are candidate assets only until selected, optimized and reviewed.
 - Tooling must not weaken M07A/WO-013 performance, CSP, security or public factual boundaries.
+
+
+### WO-013 temporary Vercel pre-launch requirements
+
+- Owner explicitly authorizes a public temporary Vercel deployment before final visual acceptance solely to support Anthropic/company registration.
+- This temporary deployment does not satisfy M07B and does not relax the final WO-013 >=85/100 visual gate.
+- Every route must show: `PRE-LAUNCH — This website is still in production and is not yet final.`
+- Banner must be visible/responsive/non-dismissible and must not obstruct navigation/content.
+- Vercel target is the already linked `nexlabs-website` project under the owner team.
+- Keep noindex/nofollow, robots disallow, no sitemap and no analytics.
+- No custom domain or DNS change is required for the temporary deployment.
+- Live Vercel smoke must verify all six routes, branded 404, banner, indexing posture, navigation and Contact zero-collection.
+- PR #20 remains open after deployment; deployment success does not authorize merge/checkpoint promotion.

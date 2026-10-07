@@ -122,6 +122,29 @@ test("all routes stay noindex and robots blocks crawling without publishing a si
   );
 });
 
+
+
+test("prelaunch banner is visible on every public route", async ({ page }) => {
+  mkdirSync(evidenceDirectory, { recursive: true });
+  const reports = [];
+
+  for (const path of sixRoutes) {
+    const response = await page.goto(path, { waitUntil: "networkidle" });
+    expect(response?.status(), `${path} route`).toBe(200);
+    const banner = page.locator("[data-prelaunch-banner]");
+    await expect(banner).toBeVisible();
+    await expect(banner).toContainText("PRE-LAUNCH");
+    await expect(banner).toContainText("This website is still in production and is not yet final.");
+    reports.push({ path, status: response?.status(), visible: true, text: await banner.innerText() });
+  }
+
+  writeFileSync(
+    resolve(evidenceDirectory, "prelaunch-banner-report.json"),
+    `${JSON.stringify({ routes: reports, result: "PASS" }, null, 2)}\n`,
+    "utf8",
+  );
+});
+
 test("branded 404 has no Axe violations and exposes a safe route back Home", async ({ page }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
   const response = await page.goto("/__m07a_missing_route__", { waitUntil: "networkidle" });

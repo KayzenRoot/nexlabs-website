@@ -15,6 +15,10 @@ Risk: ELEVATED
 
 ### NECESSARY
 
+- publish one functional temporary Vercel pre-launch build for external company/service registration;
+- show a persistent site-wide PRE-LAUNCH notice stating the site is still in production and not final;
+- preserve noindex/nofollow, robots disallow, Contact zero-collection and all M07A security/readiness constraints;
+
 - materially restore fidelity to the approved Home Visual Master;
 - enrich the existing one-Home-WebGL scene, not replace architecture;
 - improve N/chamber/material/lighting/floor/Earth/network/panels/human scale;
@@ -42,7 +46,7 @@ Risk: ELEVATED
 
 ## BLOCKED / OUT OF SCOPE
 
-- M07B/public deployment;
+- M07B final launch / custom-domain launch;
 - provider/domain/DNS/TLS/HSTS;
 - sitemap/canonical/index enablement;
 - analytics;
@@ -53,4 +57,4 @@ Risk: ELEVATED
 - WebGPU;
 - unrelated cleanup.
 
-Do not advance to M07B until WO-013 is independently APPROVED, merged and checkpoint-promoted.
+A temporary Vercel pre-launch deployment is now NECESSARY and admitted solely for external registration, subject to VERCEL-PRELAUNCH-SPEC.md. Do not treat it as M07B or final launch. M07B still waits for WO-013 approval/merge/promotion.

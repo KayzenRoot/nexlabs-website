@@ -14,3 +14,4 @@ tools/visual-pipeline/models/
 tools/visual-pipeline/raw/
 *.blend1
 *.exr
+.vercel/

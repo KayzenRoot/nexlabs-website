@@ -63,3 +63,15 @@ Any future communication/submission path requires verified channel provenance, s
 - Official Blender MCP is disabled by default due its upstream warning about unguarded execution of LLM-generated Blender code.
 - If MCP is ever authorized, use a sanitized isolated environment with no secrets/wallets/browser credentials/unrelated repositories.
 - Raw generated media is treated as untrusted until optimized and selected.
+
+
+## Temporary public Vercel pre-launch security boundary
+
+- A temporary public HTTPS Vercel deployment is owner-authorized for external registration.
+- Keep global noindex/nofollow and robots disallow.
+- No public form, personal-data collection, tracker, analytics or auth is introduced.
+- Do not store Vercel tokens in Git/evidence.
+- Use authenticated Vercel CLI/session or the existing Vercel account connection only.
+- Do not expose local ComfyUI/Blender services as part of the web deployment.
+- No custom domain/DNS/TLS administration is required in this temporary stage.
+- Live route/header/indexing smoke is mandatory before declaring the temporary deployment usable.

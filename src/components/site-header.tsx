@@ -8,6 +8,10 @@ import { SiteNavigation } from "./site-navigation";
 export function SiteHeader() {
   return (
     <header className={styles.header}>
+      <div className={styles.prelaunchBanner} data-prelaunch-banner aria-label="Pre-launch notice">
+        <span className={styles.prelaunchLabel}>PRE-LAUNCH</span>
+        <span className={styles.prelaunchMessage}>This website is still in production and is not yet final.</span>
+      </div>
       <div className={styles.inner}>
         <a className={styles.brandLink} href="/" aria-label="Nex Labs Technology — home">
           <span className={styles.markFrame}>
