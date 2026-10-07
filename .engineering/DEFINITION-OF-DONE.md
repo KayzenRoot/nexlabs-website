@@ -157,6 +157,7 @@ M07A is complete. Owner visual acceptance remains pending, so M07B remains block
 ## WO-013 — Visual Fidelity Restoration / Master Alignment
 
 WO-013 is complete only when:
+0. the local visual asset pipeline prerequisite is evidenced: ComfyUI localhost API + one commercial-use image model smoke PASS + Blender background Python render/export PASS, with model weights/raw renders/secrets excluded from Git;
 1. the locked master asset fingerprint matches the canonical reference;
 2. the master image/crops are absent from production runtime references;
 3. Home composition is materially closer to the approved master;

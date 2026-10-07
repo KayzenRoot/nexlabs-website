@@ -13,6 +13,7 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Architecture | ARCHITECTURE.md and accepted architecture decisions |
 | Home visual composition | HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md and the exact approved reference asset |
 | Visual fidelity delta | VISUAL-FIDELITY-DELTA-SPEC.md and the active WO-013 |
+| Local visual asset tooling | VISUAL-ASSET-PIPELINE.md and reviewed scripts under tools/visual-pipeline/ |
 | Home content and approved copy | HOME-CONTENT-SPEC.md |
 | M06 secondary routes and approved copy | SECONDARY-PAGES-SPEC.md |
 | UI/UX and brand identity | UI-UX.md, BRAND-SYSTEM.md and accepted owner visual decisions |
@@ -25,4 +26,4 @@ Authority is resolved by semantic domain and exact project binding; no universal
 | Planning and future work | BACKLOG.md |
 | Innovation | INNOVATION-LEDGER.md |
 
-The active implementation authority is `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT` plus its exact Context Lock. `VISUAL-FIDELITY-DELTA-SPEC.md`, HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md, UI-UX.md, BRAND-SYSTEM.md and the exact locked master asset govern visual fidelity. HOME-CONTENT-SPEC.md and SECONDARY-PAGES-SPEC.md remain canonical for copy. M07A hardening/security/readiness sources remain regression-protected. M07B is not executable until WO-013 is APPROVED, merged and checkpoint-promoted.
+The active implementation authority is `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT` plus its recompiled exact Context Lock. The local visual asset pipeline is a NECESSARY correction enabler inside WO-013, not a separate product increment. `VISUAL-FIDELITY-DELTA-SPEC.md`, HOME-VISUAL-MASTER-SPEC.md, VISUAL-DIRECTION.md, UI-UX.md, BRAND-SYSTEM.md and the exact locked master asset govern visual fidelity. HOME-CONTENT-SPEC.md and SECONDARY-PAGES-SPEC.md remain canonical for copy. M07A hardening/security/readiness sources remain regression-protected. M07B is not executable until WO-013 is APPROVED, merged and checkpoint-promoted.

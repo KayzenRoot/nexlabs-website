@@ -1,6 +1,6 @@
 # NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT — Visual Fidelity Restoration / Master Alignment
 
-Status: ADMITTED — READY FOR CODEX EXECUTOR
+Status: CORRECTION REQUIRED — RE-ADMITTED WITH LOCAL VISUAL ASSET PIPELINE
 
 Risk class: ELEVATED
 
@@ -347,3 +347,77 @@ Brazilian Portuguese:
 ## STOP CONDITION
 
 Stop with WO-013 fully implemented, tested and evidenced, executor proposed fidelity score documented, development Docker UP/healthy and PR OPEN/READY FOR REVIEW. Do not merge. Do not promote checkpoint. Do not deploy. Do not begin M07B.
+
+
+## CORRECTION DELTA 02 — LOCAL VISUAL ASSET PIPELINE + MASTER-FIDELITY RECOVERY
+
+Trigger:
+- independent auditor score at HEAD `487556d65d62c5581ee9fdcf6f77cf881c569f81`: **68/100**;
+- approval gate: >=85/100;
+- owner determined that procedural-only web implementation is not converging sufficiently toward the approved master and explicitly directed ComfyUI + Blender local authoring.
+
+This Correction Delta remains inside WO-013 and PR #20. It does not create a new product increment.
+
+### Phase 1 — Bootstrap local authoring pipeline
+
+Read and implement `.engineering/VISUAL-ASSET-PIPELINE.md`.
+
+On the owner workstation:
+1. detect RTX/GPU/VRAM/RAM/disk/driver;
+2. install/pin ComfyUI local runtime;
+3. configure localhost-only API on 127.0.0.1:8188;
+4. install and smoke-test the required SDXL commercial-use baseline;
+5. optionally test FLUX.2 Klein 4B FP8 using dynamic/offload profile; fallback cleanly if 8 GB is insufficient;
+6. install Blender 5.2 LTS current patch;
+7. validate Blender background Python rendering/export;
+8. use repository scripts under `tools/visual-pipeline/`;
+9. record sanitized evidence and local model manifest/checksums/licenses;
+10. do not commit weights, raw renders, tokens or secrets.
+
+Official Blender MCP is not required and must remain disabled by default because upstream warns about unguarded LLM-generated code execution. Blender background Python API satisfies the automation requirement.
+
+### Phase 2 — Generate controlled design assets
+
+Use the approved master as an art-direction/reference input only.
+
+Create candidate references for:
+- hero laboratory/chamber depth;
+- chrome N lighting/material studies;
+- Earth/network/panels/floor composition;
+- five capability micro-sculptures;
+- Research lower-world;
+- Technology stack/cube;
+- static/poster fallbacks.
+
+Generated references are design inputs, not automatically production assets.
+
+### Phase 3 — Blender production studies
+
+Use Blender background scripts to build/render/export:
+- chamber/floor/panel blockouts;
+- Earth/network sphere;
+- capability micro-sculpture candidates;
+- material/lighting studies;
+- animation loop studies;
+- web-ready GLB only where justified.
+
+Use generated image references to guide geometry/materials; do not texture-map the whole master screenshot onto meshes.
+
+### Phase 4 — Integrate and re-score
+
+Integrate only selected/optimized assets or derived geometry into the existing Home architecture.
+
+All original WO-013 acceptance criteria remain binding.
+
+Refresh:
+- deterministic master comparisons;
+- visual fidelity report;
+- evidence bundle;
+- 3 consecutive production-candidate suites;
+- exact-head gates.
+
+Executor may propose a new score. Independent auditor remains final authority.
+
+### Additional STOP CONDITION
+
+Do not resume final visual implementation until Phase 1 is proven PASS. Do not merge until independent visual audit reaches the original WO-013 gate.

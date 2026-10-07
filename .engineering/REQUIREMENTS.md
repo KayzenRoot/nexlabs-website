@@ -155,3 +155,18 @@ Home planned sections:
 - No dependency addition by default.
 - Maintain existing performance budgets; final candidate requires three consecutive retries=0 full-suite passes at Home mobile LCP <=2.5 s.
 - Visual completion requires independent fidelity score >=85/100 using VISUAL-FIDELITY-DELTA-SPEC.md.
+
+
+### WO-013 local visual asset pipeline requirements
+
+- Bootstrap a reproducible local ComfyUI + Blender authoring pipeline before the next visual-fidelity correction pass.
+- Target Windows + RTX 5050 8 GB; detect actual hardware before selecting model/runtime profile.
+- ComfyUI must bind localhost only and expose its local API for deterministic workflow execution.
+- Blender automation must use background Python API by default.
+- Official Blender MCP may not be enabled by default; any use requires explicit isolation because upstream warns it executes LLM-generated code without guards.
+- Keep model weights/raw renders outside Git and record model source, revision, SHA-256 and license.
+- Install at least one commercially usable image model that passes an 8 GB smoke generation.
+- SDXL is the required baseline; FLUX.2 Klein 4B FP8 is optional after automated memory smoke test; FLUX.1 dev is excluded by default because of non-commercial weight license.
+- No unreviewed third-party ComfyUI custom node.
+- Pipeline outputs are candidate assets only until selected, optimized and reviewed.
+- Tooling must not weaken M07A/WO-013 performance, CSP, security or public factual boundaries.

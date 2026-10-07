@@ -116,3 +116,15 @@ M06A rules:
 - Precision Blades canonical vector geometry is immutable; only presentation/material may change.
 - The approved master remains evidence-only and cannot be served as production artwork.
 - M07A security headers, indexing posture, standalone candidate and Release Readiness remain architecture constraints.
+
+
+## WO-013 local visual asset pipeline
+
+- ComfyUI and Blender are local authoring tools, never website runtime dependencies.
+- ComfyUI is accessed through localhost API only and is not exposed to LAN/internet.
+- Blender automation defaults to background/headless CLI plus reviewed Python scripts.
+- Official Blender Lab MCP is optional and disabled by default because it executes LLM-generated code without guards; MCP requires separate isolation/authorization.
+- Model weights, raw renders and source working files live outside Git.
+- Repository contains only orchestration scripts, manifests/templates, approved optimized web assets and sanitized evidence.
+- Generated images/meshes are design inputs, not automatically trusted production artifacts.
+- Website integration remains subject to WO-013 performance, a11y, security and fidelity gates.

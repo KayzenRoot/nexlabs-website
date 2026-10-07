@@ -86,3 +86,21 @@ Because WO-013 is ELEVATED, require baseline + M07A regression checks plus:
 - six-route Contact/content/metadata regressions.
 
 A visual score cannot override a failed performance, accessibility, security or factual-integrity gate.
+
+
+## WO-013 local visual pipeline bootstrap validation
+
+Before resuming the visual correction pass, retain:
+- hardware probe: GPU model, VRAM, RAM, driver;
+- ComfyUI exact version/commit and localhost port check;
+- CUDA/PyTorch GPU recognition;
+- SDXL generation smoke test under the selected 8 GB profile;
+- optional FLUX.2 Klein 4B FP8 smoke result, with fallback recorded if OOM/unstable;
+- model manifest with source, license, revision and SHA-256;
+- Blender exact version and background Python smoke test;
+- Blender render/export smoke result;
+- open-port proof that ComfyUI is not listening publicly;
+- Git scan proving model weights, raw renders and secrets are not tracked;
+- one end-to-end pipeline sample from generated reference to Blender/web-export candidate.
+
+Pipeline bootstrap PASS is necessary to continue the WO-013 correction but does not change the visual score.

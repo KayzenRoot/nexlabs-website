@@ -1,0 +1,17 @@
+{
+  "comfy": {
+    "url": "http://127.0.0.1:8188",
+    "required_model_profile": "sdxl",
+    "optional_model_profile": "flux2-klein-4b-fp8"
+  },
+  "blender": {
+    "version_line": "5.2 LTS",
+    "automation": "background-python",
+    "mcp_enabled": false
+  },
+  "asset_policy": {
+    "auto_publish": false,
+    "raw_outputs_in_git": false,
+    "weights_in_git": false
+  }
+}
