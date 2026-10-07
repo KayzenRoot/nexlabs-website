@@ -172,6 +172,7 @@ test.afterEach(async ({ browser, page }) => {
 test("Home renders the approved poster and retains responsive screenshots", async ({
   page,
 }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   const browserErrors: string[] = [];
   page.on("pageerror", (error) => browserErrors.push(error.message));
   page.on("console", (message) => {
@@ -652,7 +653,9 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   }
 
   const desktopFrames =
-    desktopState === "ready" ? await sampleFrameTimes(page) : null;
+    desktopState === "ready" && desktopTier === "FULL"
+      ? await sampleFrameTimes(page)
+      : null;
   const desktopCapabilities = await page.evaluate(() => {
     const memoryNavigator = navigator as Navigator & { deviceMemory?: number };
     const canvas = document.querySelector("canvas");
@@ -706,7 +709,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   await expect(fullStage).toHaveAttribute("data-scene-state", "ready", {
     timeout: 30_000,
   });
-  const fullFrames = await sampleFrameTimes(fullProfilePage);
+  const fullFrames = desktopFrames ?? await sampleFrameTimes(fullProfilePage);
   await captureScreenshot(fullProfilePage, {
     path: resolve(screenshotDirectory, "home-full-scene-1600x900.png"),
     fullPage: false,
@@ -762,6 +765,11 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
 
   const report = {
     source: "Playwright Chromium; desktop and 390x844 mobile emulation with 4G/4x CPU throttling",
+    frameSampling: {
+      samplesPerDistinctWebglTier: 119,
+      duplicateDesktopFullSampleReused: desktopFrames !== null,
+      desktopBalancedProfile: "Captured by the explicit 900x768 BALANCED profile below.",
+    },
     posterAssets: {
       desktopBytes: desktopPosterBytes,
       mobileBytes: mobilePosterBytes,
