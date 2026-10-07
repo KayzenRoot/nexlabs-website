@@ -37,6 +37,17 @@ async function waitForLivePosterFade(page: Page) {
   ).toBe("0");
 }
 
+async function pauseSceneForCleanup(page: Page) {
+  if (page.isClosed()) return;
+  await page.evaluate(() => {
+    Object.defineProperty(document, "visibilityState", {
+      configurable: true,
+      value: "hidden",
+    });
+    document.dispatchEvent(new Event("visibilitychange"));
+  });
+}
+
 async function hasHorizontalOverflow(page: Page) {
   return page.evaluate(() => {
     document.documentElement.getBoundingClientRect();
@@ -62,6 +73,16 @@ async function compositeComparison(
   writeEvidenceBuffer(resolve(evidenceDirectory, name), screenshot);
   await page.close();
 }
+
+test.afterEach(async ({ browser, page }) => {
+  const fixtureContext = page.context();
+  for (const context of browser.contexts()) {
+    for (const contextPage of context.pages()) {
+      await pauseSceneForCleanup(contextPage);
+    }
+    if (context !== fixtureContext) await context.close();
+  }
+});
 
 test("WO-013 deterministic visual, responsive, motion and comparison evidence", async ({ browser, page }) => {
   test.setTimeout(180_000);

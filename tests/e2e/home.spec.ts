@@ -143,6 +143,16 @@ async function pauseSceneForCleanup(page: Page) {
   });
 }
 
+test.afterEach(async ({ browser, page }) => {
+  const fixtureContext = page.context();
+  for (const context of browser.contexts()) {
+    for (const contextPage of context.pages()) {
+      if (!contextPage.isClosed()) await pauseSceneForCleanup(contextPage);
+    }
+    if (context !== fixtureContext) await context.close();
+  }
+});
+
 test("Home renders the approved poster and retains responsive screenshots", async ({
   page,
 }) => {
