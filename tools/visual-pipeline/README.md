@@ -14,7 +14,7 @@ Canonical policy: `.engineering/VISUAL-ASSET-PIPELINE.md`.
 
 ## Environment variables
 
-- `NEXLABS_COMFY_URL` default: `http://127.0.0.1:8188`
+- `NEXLABS_COMFY_URL` accepted aliases: `http://127.0.0.1:8188` or `http://localhost:8188`
 - `NEXLABS_COMFY_HOME` local ComfyUI install root
 - `NEXLABS_BLENDER_EXE` absolute path to `blender.exe`
 - `NEXLABS_VISUAL_LOCAL` local working root outside Git
@@ -32,12 +32,12 @@ pwsh -NoProfile -File tools/visual-pipeline/start-comfy.ps1
 # If the 8 GB GPU profile OOMs:
 pwsh -NoProfile -File tools/visual-pipeline/start-comfy.ps1 -LowVram
 
-python tools/visual-pipeline/comfy_client.py health
+pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 health
 
 pwsh -NoProfile -File tools/visual-pipeline/stop-comfy.ps1
 ```
 
-The start script always binds `127.0.0.1:8188`; it does not expose ComfyUI to the LAN.
+The start script always binds `127.0.0.1:8188`; the API client itself is pinned to the numeric loopback address.
 
 ## Blender background smoke
 
@@ -46,22 +46,20 @@ $env:NEXLABS_BLENDER_EXE = "C:\Path\To\blender.exe"
 pwsh -NoProfile -File tools/visual-pipeline/run-blender-smoke.ps1
 ```
 
-## Full core health
+The Blender smoke launcher creates its fixed Python script temporarily in the local pipeline run directory, executes it with Blender background mode, and removes the script afterwards. No generated Python execution server is exposed.
 
-With ComfyUI running and Blender configured:
+## Full core health
 
 ```powershell
 pwsh -NoProfile -File tools/visual-pipeline/healthcheck.ps1
 ```
 
-## API execution
+## API workflow execution
 
 ```powershell
-python tools/visual-pipeline/comfy_client.py queue path\to\workflow-api.json --timeout 900
+pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 queue path\to\workflow-api.json -TimeoutSeconds 900
 ```
 
 ## Model manifest
 
-Copy `model-manifest.example.json` to the local pipeline evidence area, resolve exact revisions/files/checksums/licenses, and commit only a sanitized evidence manifest without tokens or private local paths.
-
-The Codex bootstrap prompt should install the local toolchain, validate these scripts, and prove pipeline readiness before continuing the WO-013 visual correction.
+Copy `model-manifest.example.json` to the local evidence area, resolve exact revisions/files/checksums/licenses, and commit only a sanitized evidence manifest without tokens or private local paths.
