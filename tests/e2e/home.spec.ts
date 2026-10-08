@@ -216,16 +216,51 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
     { width: 1600, height: 900, name: "desktop-1600x900", fullPage: false },
   ]) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    if (viewport.width <= 768) {
+      // Wait until the responsive header media rule has applied before measuring the resized layout.
+      await expect(page.locator("header > div").nth(1)).toHaveCSS("gap", "7.2px");
+    }
     await page.evaluate(
       () =>
         new Promise<void>((resolve) =>
           requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
         ),
     );
-    const hasHorizontalOverflow = await page.evaluate(
-      () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
-    );
-    expect(hasHorizontalOverflow, `${viewport.name} horizontal overflow`).toBe(false);
+    const overflowState = await page.evaluate(() => {
+      const root = document.documentElement;
+      const hasHorizontalOverflow = root.scrollWidth > root.clientWidth;
+      const overflowElements = hasHorizontalOverflow
+        ? Array.from(document.body.querySelectorAll<HTMLElement>("*"))
+            .map((element) => {
+              const bounds = element.getBoundingClientRect();
+              const style = getComputedStyle(element);
+              return {
+                tag: element.tagName,
+                id: element.id,
+                className: typeof element.className === "string" ? element.className : "",
+                left: Math.round(bounds.left),
+                right: Math.round(bounds.right),
+                width: Math.round(bounds.width),
+                position: style.position,
+                overflowX: style.overflowX,
+              };
+            })
+            .filter((element) => element.right > root.clientWidth + 1 || element.left < -1)
+            .slice(0, 8)
+        : [];
+      return {
+        hasHorizontalOverflow,
+        innerWidth: window.innerWidth,
+        clientWidth: root.clientWidth,
+        scrollWidth: root.scrollWidth,
+        scrollX: window.scrollX,
+        overflowElements,
+      };
+    });
+    expect(
+      overflowState.hasHorizontalOverflow,
+      `${viewport.name} horizontal overflow: ${JSON.stringify(overflowState)}`,
+    ).toBe(false);
     await captureScreenshot(page, {
       path: resolve(screenshotDirectory, `home-${viewport.name}.png`),
       fullPage: viewport.fullPage,

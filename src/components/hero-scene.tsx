@@ -4,9 +4,9 @@ import { Canvas, useFrame, useLoader, useThree } from "@react-three/fiber";
 import {
   BoxGeometry,
   BufferGeometry,
+  DataTexture,
   CatmullRomCurve3,
   Color,
-  DataTexture,
   DoubleSide,
   EquirectangularReflectionMapping,
   EdgesGeometry,
@@ -15,6 +15,7 @@ import {
   Float32BufferAttribute,
   Group,
   InstancedMesh,
+  LinearFilter,
   Matrix4,
   Material,
   Mesh,
@@ -52,39 +53,6 @@ interface SceneInstanceTransform {
   rotation?: [number, number, number];
   scale?: [number, number, number];
   color?: string;
-}
-
-/** Builds a deterministic strip-light reflection card for the chrome N only. */
-function createChromeReflectionEnvironment() {
-  const width = 512;
-  const height = 256;
-  const pixels = new Uint8Array(width * height * 4);
-  const stripCenters = [0.14, 0.35, 0.52, 0.69, 0.86];
-
-  for (let y = 0; y < height; y += 1) {
-    for (let x = 0; x < width; x += 1) {
-      const u = x / width;
-      let reflection = 4;
-      for (let index = 0; index < stripCenters.length; index += 1) {
-        const distance = Math.abs(u - stripCenters[index]);
-        reflection = Math.max(
-          reflection,
-          4 + Math.max(0, 1 - distance / 0.055) * 54 + Math.max(0, 1 - distance / 0.006) * 190,
-        );
-      }
-      const offset = (y * width + x) * 4;
-      pixels[offset] = Math.round(reflection * 0.78);
-      pixels[offset + 1] = Math.round(reflection * 0.9);
-      pixels[offset + 2] = Math.round(reflection);
-      pixels[offset + 3] = 255;
-    }
-  }
-
-  const texture = new DataTexture(pixels, width, height, RGBAFormat, UnsignedByteType);
-  texture.mapping = EquirectangularReflectionMapping;
-  texture.colorSpace = SRGBColorSpace;
-  texture.needsUpdate = true;
-  return texture;
 }
 
 /** Packs repeated static detail into one draw call while preserving its transforms and color accents. */
@@ -202,7 +170,7 @@ function useHeroGeometry() {
   return geometry;
 }
 
-/** Adds a restrained silver/chrome gradient to the front plane of the exact N silhouette. */
+/** Adds a chrome reflection coordinate to the front plane of the exact N silhouette. */
 function useHeroFaceGeometry() {
   const geometry = useMemo(() => {
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 335 335"><path d="${precisionBladesGeometry.silhouette}" transform="${precisionBladesTransform}" /></svg>`;
@@ -213,47 +181,69 @@ function useHeroFaceGeometry() {
     face.computeBoundingBox();
     const bounds = face.boundingBox;
     const positions = face.getAttribute("position");
-    if (bounds && positions) {
+    const uvs = face.getAttribute("uv");
+    if (bounds && positions && uvs) {
       const width = Math.max(bounds.max.x - bounds.min.x, 0.001);
       const height = Math.max(bounds.max.y - bounds.min.y, 0.001);
-      const stops = [
-        [0, new Color("#97aab3")],
-        [0.045, new Color("#ffffff")],
-        [0.095, new Color("#7f929b")],
-        [0.15, new Color("#f5fbfd")],
-        [0.235, new Color("#b7c8d0")],
-        [0.305, new Color("#ffffff")],
-        [0.36, new Color("#627782")],
-        [0.43, new Color("#eaf4f7")],
-        [0.505, new Color("#82969f")],
-        [0.585, new Color("#ffffff")],
-        [0.64, new Color("#a5b8c0")],
-        [0.71, new Color("#f7fdff")],
-        [0.785, new Color("#6b808a")],
-        [0.83, new Color("#f0f8fb")],
-        [0.895, new Color("#879ba4")],
-        [0.96, new Color("#ffffff")],
-        [1, new Color("#718791")],
-      ] as const;
-      const colors = new Float32Array(positions.count * 3);
-      const color = new Color();
       for (let index = 0; index < positions.count; index += 1) {
         const x = (positions.getX(index) - bounds.min.x) / width;
         const y = (positions.getY(index) - bounds.min.y) / height;
-        const position = x * 0.82 + (1 - y) * 0.18;
-        const right = stops.findIndex(([offset]) => offset >= position);
-        const previous = stops[Math.max(0, right - 1)];
-        const next = stops[Math.max(0, right)];
-        const amount = next[0] === previous[0] ? 0 : (position - previous[0]) / (next[0] - previous[0]);
-        color.lerpColors(previous[1], next[1], amount).toArray(colors, index * 3);
+        uvs.setXY(index, x * 0.58 + (1 - y) * 0.42, y);
       }
-      face.setAttribute("color", new Float32BufferAttribute(colors, 3));
+      uvs.needsUpdate = true;
     }
     return face;
   }, []);
 
   useEffect(() => () => geometry.dispose(), [geometry]);
   return geometry;
+}
+
+/** Creates a deterministic diagonal softbox reflection for the N's chrome face. */
+function createChromeFaceMap() {
+  const width = 512;
+  const height = 256;
+  const pixels = new Uint8Array(width * height * 4);
+  const stops = [
+    [0, [48, 61, 70]],
+    [0.075, [226, 239, 244]],
+    [0.145, [76, 92, 102]],
+    [0.235, [248, 253, 255]],
+    [0.315, [111, 128, 137]],
+    [0.405, [232, 245, 250]],
+    [0.49, [58, 76, 87]],
+    [0.57, [252, 255, 255]],
+    [0.66, [88, 107, 118]],
+    [0.75, [219, 238, 245]],
+    [0.835, [50, 71, 83]],
+    [0.915, [242, 250, 253]],
+    [1, [67, 83, 92]],
+  ] as const;
+
+  for (let y = 0; y < height; y += 1) {
+    const vertical = y / (height - 1);
+    for (let x = 0; x < width; x += 1) {
+      const position = x / (width - 1);
+      const right = stops.findIndex(([offset]) => offset >= position);
+      const previous = stops[Math.max(0, right - 1)];
+      const next = stops[Math.max(0, right)];
+      const amount = next[0] === previous[0] ? 0 : (position - previous[0]) / (next[0] - previous[0]);
+      const verticalFalloff = 0.91 + Math.cos((vertical - 0.48) * Math.PI) * 0.09;
+      const offset = (y * width + x) * 4;
+      for (let channel = 0; channel < 3; channel += 1) {
+        const value = previous[1][channel] + (next[1][channel] - previous[1][channel]) * amount;
+        pixels[offset + channel] = Math.round(value * verticalFalloff);
+      }
+      pixels[offset + 3] = 255;
+    }
+  }
+
+  const texture = new DataTexture(pixels, width, height, RGBAFormat, UnsignedByteType);
+  texture.colorSpace = SRGBColorSpace;
+  texture.minFilter = LinearFilter;
+  texture.magFilter = LinearFilter;
+  texture.needsUpdate = true;
+  return texture;
 }
 
 
@@ -267,41 +257,36 @@ function PrecisionBladesN({
 }) {
   const geometry = useHeroGeometry();
   const faceGeometry = useHeroFaceGeometry();
+  const faceMap = useMemo(createChromeFaceMap, []);
   const edgeGeometry = useMemo(() => new EdgesGeometry(geometry, 18), [geometry]);
   const faceDepth = (geometry.boundingBox?.max.z ?? 0.253) + 0.003;
   const mark = useRef<Group>(null);
   const materials = useMemo(
     () => [
       new MeshPhysicalMaterial({
-        color: new Color("#dfe9ed"),
-        metalness: 0.84,
-        roughness: 0.18,
-        clearcoat: 0.96,
-        clearcoatRoughness: 0.06,
+        color: new Color("#e7f1f4"),
+        metalness: 0.96,
+        roughness: 0.15,
+        clearcoat: 0.98,
+        clearcoatRoughness: 0.08,
         emissive: new Color("#040d18"),
         emissiveIntensity: 0.08,
         envMap: environment,
-        envMapIntensity: 2.2,
+        envMapIntensity: 2.7,
         side: DoubleSide,
       }),
-      new MeshPhysicalMaterial({
-        color: "#f5fbfd",
-        vertexColors: true,
-        metalness: 0.38,
-        roughness: 0.18,
-        clearcoat: 0.82,
-        clearcoatRoughness: 0.1,
-        envMap: environment,
-        envMapIntensity: 1.45,
+      new MeshBasicMaterial({
+        color: "#ffffff",
+        map: faceMap,
+        toneMapped: false,
         polygonOffset: true,
         polygonOffsetFactor: -1,
         side: DoubleSide,
       }),
       new MeshBasicMaterial({
         color: "#c5eaff",
-        vertexColors: true,
         transparent: true,
-        opacity: 0.05,
+        opacity: 0.035,
         toneMapped: false,
         depthWrite: false,
         polygonOffset: true,
@@ -309,12 +294,13 @@ function PrecisionBladesN({
         side: DoubleSide,
       }),
     ],
-    [environment],
+    [environment, faceMap],
   );
   useEffect(() => () => {
     materials.forEach((material) => material.dispose());
     edgeGeometry.dispose();
-  }, [edgeGeometry, materials]);
+    faceMap.dispose();
+  }, [edgeGeometry, faceMap, materials]);
 
   useFrame(({ clock }) => {
     if (!mark.current) return;
@@ -333,7 +319,7 @@ function PrecisionBladesN({
       <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, faceDepth]} scale={[0.965, 0.965, 1]} castShadow={false} receiveShadow={false} />
       <mesh geometry={faceGeometry} material={materials[2]} position={[0, 0, faceDepth + 0.004]} scale={[0.965, 0.965, 1]} castShadow={false} receiveShadow={false} />
       <lineSegments geometry={edgeGeometry} position={[0, 0, 0.001]}>
-        <lineBasicMaterial color="#7bd7ff" transparent opacity={0.84} depthWrite={false} />
+        <lineBasicMaterial color="#94dfff" transparent opacity={0.42} depthWrite={false} />
       </lineSegments>
       <pointLight color="#e8f8ff" intensity={14} distance={4.8} decay={2} position={[-0.72, 0.76, 1.45]} />
       <pointLight color="#5db7ff" intensity={8} distance={5} decay={2} position={[0.88, -0.2, 1.25]} />
@@ -426,10 +412,10 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
     () => new MeshBasicMaterial({
       color: "#ffffff",
       transparent: true,
-      opacity: 0.82,
+      opacity: tier === "FULL" ? 0.92 : 0.72,
       vertexColors: true,
     }),
-    [],
+    [tier],
   );
   const axialTransforms = useMemo(
     () => Array.from({ length: axialCount }, (_, index): SceneInstanceTransform => ({
@@ -753,7 +739,10 @@ function EnergyFilament({
       new Vector3(side > 0 ? 9.2 + spread : -5.85 - spread, 0.2 + spread * 0.3, 1.35),
     ]);
   }, [index]);
-  const geometry = useMemo(() => new TubeGeometry(curve, 96, 0.022, 6, false), [curve]);
+  const geometry = useMemo(
+    () => new TubeGeometry(curve, 96, tier === "FULL" ? 0.03 : 0.018, 6, false),
+    [curve, tier],
+  );
   useEffect(() => () => geometry.dispose(), [geometry]);
   const speed = livingOrganismMotion.energyFlowPerSecond * (1 + index * 0.11);
 
@@ -766,10 +755,10 @@ function EnergyFilament({
   return (
     <group>
       <mesh geometry={geometry}>
-        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.44 : 0.3} />
+        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.58 : 0.3} toneMapped={false} />
       </mesh>
       <mesh ref={node}>
-        <sphereGeometry args={[tier === "FULL" ? 0.035 : 0.026, 8, 6]} />
+        <sphereGeometry args={[tier === "FULL" ? 0.046 : 0.026, 8, 6]} />
         <meshBasicMaterial color="#b5f7ff" />
       </mesh>
     </group>
@@ -877,7 +866,7 @@ function LaboratoryBackplanes({ tier }: { tier: HeroSceneProps["tier"] }) {
       clearcoat: 0.72,
       clearcoatRoughness: 0.18,
       emissive: "#071c34",
-      emissiveIntensity: tier === "FULL" ? 0.24 : 0.16,
+      emissiveIntensity: tier === "FULL" ? 0.36 : 0.22,
       vertexColors: true,
     }),
     [tier],
@@ -919,7 +908,7 @@ function LaboratoryBackplanes({ tier }: { tier: HeroSceneProps["tier"] }) {
       clearcoat: 0.62,
       clearcoatRoughness: 0.2,
       emissive: "#0a1e37",
-      emissiveIntensity: 0.72,
+      emissiveIntensity: tier === "FULL" ? 0.9 : 0.66,
       transparent: true,
       opacity: 0.92,
       vertexColors: true,
@@ -1007,10 +996,10 @@ function FloorGuideLines() {
 }
 
 const holographicPanelPlacements: Array<[number, number, number, number, number]> = [
-  [5.85, 1.57, -2.46, 2.06, 1.46],
-  [11.4, 1.08, -2.08, 2.82, 1.92],
-  [14.2, -0.62, -1.35, 2.2, 1.54],
-  [-2.72, 0.88, -3.05, 2.12, 1.5],
+  [5.85, 1.57, -1.1, 2.6, 1.8],
+  [10.4, 1.15, -0.92, 3.5, 2.35],
+  [13.45, -0.58, -0.35, 2.65, 1.8],
+  [-2.72, 0.88, -0.72, 2.35, 1.68],
 ];
 
 interface HolographicPanelRect {
@@ -1046,7 +1035,7 @@ function buildHolographicPanelGeometry(rectangles: HolographicPanelRect[], depth
   return geometry;
 }
 
-function HolographicPanelBank() {
+function HolographicPanelBank({ environment }: { environment: Texture }) {
   const panelRects = useMemo(
     () => holographicPanelPlacements.map(([, , , width, height], panel) => ({ panel, width, height })),
     [],
@@ -1091,16 +1080,16 @@ function HolographicPanelBank() {
   }, [panelRects]);
   const materials = useMemo(
     () => ({
-      backplates: new MeshBasicMaterial({ color: "#187fe8", transparent: true, opacity: 0.2, side: DoubleSide, depthWrite: false }),
-      glassFaces: new MeshBasicMaterial({ color: "#15548b", transparent: true, opacity: 0.32, side: DoubleSide, depthWrite: false }),
-      innerGlass: new MeshBasicMaterial({ color: "#061b35", transparent: true, opacity: 0.28, side: DoubleSide, depthWrite: false }),
-      wireframes: new MeshBasicMaterial({ color: "#68dfff", wireframe: true, transparent: true, opacity: 0.42, side: DoubleSide, depthWrite: false }),
+      backplates: new MeshPhysicalMaterial({ color: "#164d79", metalness: 0.72, roughness: 0.22, clearcoat: 0.9, clearcoatRoughness: 0.1, emissive: "#08305a", emissiveIntensity: 0.34, envMap: environment, envMapIntensity: 0.62, transparent: true, opacity: 0.54, side: DoubleSide, depthWrite: false }),
+      glassFaces: new MeshPhysicalMaterial({ color: "#3d83b6", metalness: 0.36, roughness: 0.16, clearcoat: 0.96, clearcoatRoughness: 0.06, envMap: environment, envMapIntensity: 0.82, transparent: true, opacity: 0.3, side: DoubleSide, depthWrite: false }),
+      innerGlass: new MeshPhysicalMaterial({ color: "#061b35", metalness: 0.28, roughness: 0.2, clearcoat: 0.84, clearcoatRoughness: 0.11, envMap: environment, envMapIntensity: 0.48, transparent: true, opacity: 0.34, side: DoubleSide, depthWrite: false }),
+      wireframes: new MeshBasicMaterial({ color: "#68dfff", wireframe: true, transparent: true, opacity: 0.5, side: DoubleSide, depthWrite: false }),
       horizontalFrames: new MeshBasicMaterial({ color: "#d6fbff", transparent: true, opacity: 0.94, side: DoubleSide }),
       verticalFrames: new MeshBasicMaterial({ color: "#5dbbff", transparent: true, opacity: 0.86, side: DoubleSide }),
       highlightLines: new MeshBasicMaterial({ color: "#e1fbff", transparent: true, opacity: 0.94, side: DoubleSide }),
       telemetryLines: new MeshBasicMaterial({ color: "#67c8ff", transparent: true, opacity: 0.72, side: DoubleSide }),
     }),
-    [],
+    [environment],
   );
 
   useEffect(() => () => {
@@ -1189,7 +1178,7 @@ function FloorAndPanels({
         </group>
       ))}
       <LaboratoryBackplanes tier={tier} />
-      <HolographicPanelBank />
+      <HolographicPanelBank environment={environment} />
     </group>
   );
 }
@@ -1247,9 +1236,9 @@ function CinematicBackdrop({
     environment.colorSpace = SRGBColorSpace;
     environment.needsUpdate = true;
     scene.background = environment;
-    scene.backgroundIntensity = tier === "FULL" ? 0.38 : 0.56;
+    scene.backgroundIntensity = tier === "FULL" ? 0.72 : 0.56;
     scene.environment = environment;
-    scene.environmentIntensity = 0.9;
+    scene.environmentIntensity = tier === "FULL" ? 1.2 : 0.9;
 
     return () => {
       if (scene.background === environment) scene.background = previousBackground;
@@ -1294,12 +1283,10 @@ function HolographicWorld({
     reflection.needsUpdate = true;
     return reflection;
   }, [backdrop]);
-  const chromeReflection = useMemo(createChromeReflectionEnvironment, []);
   const world = useRef<Group>(null);
   const pointerTarget = useRef({ x: 0, y: 0, scroll: 0 });
   const scale = getMotionScale(tier);
   useEffect(() => () => environment.dispose(), [environment]);
-  useEffect(() => () => chromeReflection.dispose(), [chromeReflection]);
   useEffect(() => {
     const onPointerMove = (event: PointerEvent) => {
       pointerTarget.current.x = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -1344,7 +1331,7 @@ function HolographicWorld({
         <>
           <BlenderChamberModel environment={environment} />
           <FloorGuideLines />
-          <HolographicPanelBank />
+          <HolographicPanelBank environment={environment} />
           <LaboratoryConsoleBay side={-1} />
           <LaboratoryConsoleBay side={1} />
         </>
@@ -1356,7 +1343,7 @@ function HolographicWorld({
           <FloorAndPanels environment={environment} tier={tier} />
         </>
       )}
-      <PrecisionBladesN environment={chromeReflection} tier={tier} />
+      <PrecisionBladesN environment={environment} tier={tier} />
       <GlobalNetwork tier={tier} />
       <HumanScaleFigure />
       <SceneParticles tier={tier} />
@@ -1393,7 +1380,7 @@ function BlenderChamberModel({ environment }: { environment: Texture }) {
     <primitive
       object={chamber}
       position={[3.08, -1.82, -1.1]}
-      scale={[0.96, 0.66, 0.96]}
+      scale={[0.96, 0.76, 0.96]}
       dispose={null}
     />
   );

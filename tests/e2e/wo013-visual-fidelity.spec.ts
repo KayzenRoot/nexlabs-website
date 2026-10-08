@@ -420,6 +420,7 @@ test("FULL Home shows an environmental lab backdrop behind a dark illuminated pl
   const stage = page.getByTestId("hero-scene-stage");
   await expect(stage).toHaveAttribute("data-quality-tier", "FULL");
   await expect(stage).toHaveAttribute("data-scene-state", "ready", { timeout: 30_000 });
+  await waitForLivePosterFade(page);
 
   const canvasCapture = await page.locator("canvas").screenshot();
   writeEvidenceBuffer(resolve(evidenceDirectory, "home-full-3d-canvas-1600x900.png"), canvasCapture);
