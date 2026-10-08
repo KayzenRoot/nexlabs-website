@@ -1,6 +1,6 @@
 # NEXLABS-WO-013 Evidence Bundle
 
-**Status:** implementation and local technical proof are complete for immutable source/test candidate `a837bee`; the visual harness still misses its composition and environment-density floors, so independent visual audit and owner acceptance remain pending. Exact final PR HEAD and hosted signals are read from live PR #20 metadata after the final evidence push.
+**Status:** Correction Delta 04's browser-stall and Sonar fixes are implemented and locally qualified on immutable code/test candidate `0dbb768554b818d8319395441a990a6f748ead74`. Three consecutive production-candidate E2E suites are green at 31/31 with retries=0; Home mobile LCP, renderer fallback and hardware FULL/BALANCED measurements meet unchanged budgets. The visual score remains PROPOSED 77/100, below the independent approval threshold; visual audit and owner acceptance are pending. Exact final PR HEAD and hosted signals are read from live PR #20 metadata after the final evidence push.
 **Repository:** `KayzenRoot/nexlabs-website`
 **Branch / PR:** `work/nexlabs-wo-013-visual-fidelity-master-alignment` / [PR #20](https://github.com/KayzenRoot/nexlabs-website/pull/20)
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
@@ -10,18 +10,26 @@
 **Navigation/report correction commits:** `86505817683af00cdecf312d6ca73b2ed1a7fb52`, `a665a7dd74992d4109a19ef4bb88de3a7761309a`, `d16a6f53fba6b98dff9d9004e11196056493038f`
 **Visual correction and authoring workflow commits:** `45bbf10ceeb834be14c92e6bb11145d73fa6ea55`, `afd110393f1227b90e50d0d0f8354d418ef330e3`
 **Prior performance harness source/test commit (superseded):** `3838e2cc81050b5fd6d620e511daae5bb768f469`
-**Current Correction Delta 04 source/test commit:** `a837beeae11921dbe35c7757adedbd42055bc21d`.
-**Current candidate image:** `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`; digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
+**Prior visual candidate, superseded:** `a837beeae11921dbe35c7757adedbd42055bc21d`; image digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
+**Correction Delta 04 Sonar fixes:** `fdc064501e3d347ddbf3d932f859c9626edc40c5`, `6adfaf8dd935b2f5e9204d0b82195ced1235a956`.
+**Correction Delta 04 source/test commit:** `0dbb768554b818d8319395441a990a6f748ead74`.
+**Current candidate image:** `nexlabs-website-release-candidate:wo013-cd04-0dbb768`; image ID `sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c`.
 **Final PR HEAD:** recorded from PR #20 metadata after the final Evidence Bundle push. The immutable implementation/test SHA is retained above; this avoids a self-referential SHA in the evidence commit. Exact-head hosted check results are checked after that push and documented in the PR update.
 
 ## Authority and master identity
 
-- The active WO-013 Work Order, Context Lock and required canonical sources were reviewed before implementation. Context Lock validation reported **0 STALE** at admission.
+- The active WO-013 Work Order, Context Lock and required canonical sources were reviewed before implementation. Revalidation against the reconciled committed HEAD reports **30/30 critical-source blobs match, 0 STALE**. The locked `AGENTS.md` blob at HEAD remains `a7253838a4e63acb341767fac57dfa75c3ba33e1`; its worktree has an uncommitted Next.js-generated instruction block, preserved locally and excluded from the PR changes. This local-only change was not silently discarded or staged.
 - Locked master: `.engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg`.
 - Git blob: `52932511adfeb8d372717185fe9a18907625cc0c`.
 - SHA-256: `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
 - The master and its crops are used only by the deterministic test/evidence compositor. A negative source/runtime search found no master path, hash or image reference in `src/` or `public/`.
-- The Precision Blades N source geometry and quality-tier selection remain unchanged. No package manifest or lockfile changed; no dependency was added.
+- The Precision Blades N source geometry and tier thresholds remain unchanged. Correction Delta 04 adds only evidence-backed classification of known software WebGL renderers into the existing STATIC path. No package manifest or lockfile changed; no dependency was added.
+
+## Correction Delta 04 — Browser Smoke and Sonar
+
+The complete diagnosis, phase-by-phase instrumentation summary, actual SonarCloud issue keys, remediation commits, image identity and run receipts are in [correction-delta-04-performance-sonar-diagnosis.md](correction-delta-04-performance-sonar-diagnosis.md). The root cause was a headless Chromium SwiftShader renderer entering live WebGL because its virtual CPU/RAM profile appeared capable; repeated GPU `ReadPixels` stalls led to context loss while the 119-frame `page.evaluate` remained pending. The trace ZIP warning was a secondary incomplete artifact, not an application/root-cause finding. The fix checks the actual renderer before canvas creation and preserves the existing STATIC fallback for software renderers.
+
+The actual Sonar findings were `pythonsecurity:S8707` (MAJOR path-traversal vulnerability; Security C) and `css:S4656` (duplicate CSS declaration; Reliability C). They were fixed without suppressions, exclusions, rule changes, or dependency changes. Exact-head SonarCloud status remains **PENDING** until the new evidence commit is pushed and checked on live PR #20.
 
 ## Change summary
 
@@ -59,7 +67,7 @@ No page copy, metadata, route definitions, Contact data boundary, M07A security 
 | `npm test` | PASS; 5 files / 34 tests. |
 | `npm audit --audit-level=moderate` | PASS; 0 reported vulnerabilities. |
 | `npm run build` | PASS; static output includes `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact`, and `/robots.txt`. |
-| Production-candidate Playwright full suite | PASS; 30/30 tests in each of three consecutive exact-head/image runs, retries=0. |
+| Production-candidate Playwright full suite | PASS; 31/31 tests in each of three consecutive runs on the same exact source/image/container, retries=0. |
 | Mobile menu breakpoint regression | PASS; 10/10 targeted local repetitions; also passed in all three final candidate suites. |
 | Secondary-page responsive test, 10 repeats | PASS; 10/10 after waiting for the resized viewport’s layout frames; overflow threshold unchanged. |
 | Secret-pattern scan | PASS; no matching credential patterns in changed source, tests, public assets or this WO evidence. |
@@ -67,7 +75,7 @@ No page copy, metadata, route definitions, Contact data boundary, M07A security 
 | `git diff --check` | PASS. |
 | `git diff -- package.json package-lock.json` | Empty; manifests are unchanged. |
 
-The current `a837bee` production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/final-candidate-a837bee/run-01` through `run-03`. Each used the same immutable image digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`, one worker, `retries=0` and all 30 tests. Home mobile LCP was **1836 ms, 1796 ms and 1776 ms**; all are below the unchanged 2500 ms limit. CLS was 0 in each run; interaction proxies were 112 / 96 / 112 ms. Initial Home JavaScript was 151,225 gzip bytes and lazy 3D was 272,599 gzip bytes in each report, below unchanged budgets. The suites used headed, hardware-accelerated Chromium on RTX 5050 / ANGLE D3D11. Each run folder contains its receipt, exact command, full-suite log, screenshot and individual `home-performance-report.json`.
+The prior `a837bee` production-candidate results in `production-candidate-runs/final-candidate-a837bee/` are historical and superseded for this delta. Current immutable `0dbb768` results are in `candidate-performance-variance.json` and `correction-delta-04/run-01` through `run-03`. The three sequential suites used the same image ID `sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c`, one worker, `retries=0` and all 31 tests. Home mobile LCP was **1832 ms, 1956 ms and 1848 ms**, below the unchanged 2500 ms limit; CLS was 0 in each run and interaction proxies were 104 / 168 / 120 ms. Initial Home JavaScript was 151,360 gzip bytes, below the unchanged 225,280-byte budget. The headless suites correctly selected STATIC on SwiftShader; the same-image headed RTX 5050/ANGLE D3D11 run separately proved FULL/BALANCED at 119/119 frames each and lazy 3D at 272,599 gzip bytes. Each run contains its receipt, full-suite log, per-phase diagnostic JSONL and `home-performance-report.json`.
 
 The first post-harness diagnostic had `E2E_PORT` unset and is retained under `production-candidate-runs/wo013-correction-20261007/`; it failed before completion and is nonqualifying. Two additional three-run attempts under `perf-3838e2c/` and `perf-3838e2c-captured/` passed their tests but used a manually mistyped image tag/source label; they are excluded from exact-head qualification and retained for audit context. The final sequence rebuilds with the SHA read directly from Git and is the only qualifying sequence. Earlier nonqualifying evidence remains available: `production-candidate-runs/harness-misconfigured-attempt/` (port mismatch), `production-candidate-runs/after-coderabbit-corrections/` (focus-transfer race and transient Chromium `net::ERR_NO_BUFFER_SPACE`), and the older 28-test receipts. The focus behavior was corrected in `a665a7d`; the hosted four-core Browser Smoke fixture was corrected in `8ac950e`. No selector or performance budget changed.
 
@@ -83,14 +91,13 @@ The first post-harness diagnostic had `E2E_PORT` unset and is retained under `pr
 - Structured behavior record: `visual-responsiveness-motion-and-routes.json`.
 - Visual comparison and residual-difference assessment with executor score: `VISUAL-FIDELITY-REPORT.md`.
 
-All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000`) and the production candidate (`127.0.0.1:3004`). The E2E checks retain route, accessibility, keyboard, menu, reduced-motion, Contact zero-collection, WebGL fallback, responsive overflow, route-chunk and M07A security/indexing/404 regressions.
+All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000`) and the current production candidate (`127.0.0.1:3102`). The E2E checks retain route, accessibility, keyboard, menu, reduced-motion, Contact zero-collection, WebGL fallback, responsive overflow, route-chunk and M07A security/indexing/404 regressions.
 
-## Performance and hardware limits
+## Prior candidate performance (historical; superseded by Correction Delta 04)
 
-- Home mobile: LCP 1836 / 1796 / 1776 ms; CLS 0 each; interaction proxy 112 / 96 / 112 ms.
-- Initial Home route JavaScript: 151,225 bytes gzip (147.7 KiB), below 220 KiB.
-- Lazy Home 3D chunk: 272,599 bytes gzip (266.2 KiB), below 700 KiB.
-- Current suites used hardware-accelerated Chromium **ANGLE / D3D11** on the RTX 5050, 119 samples per FULL/BALANCED tier and 75.2 FPS medians. A separate headless SwiftShader run is nonqualifying diagnostic evidence; host measurements do not establish field performance.
+- Prior `a837bee` Home mobile LCP: 1836 / 1796 / 1776 ms; CLS 0; interaction proxy 112 / 96 / 112 ms.
+- Prior initial Home route JavaScript: 151,225 bytes gzip; lazy Home 3D: 272,599 bytes gzip.
+- These previous suites used hardware-accelerated Chromium **ANGLE / D3D11** on RTX 5050. Current Correction Delta 04 results and unchanged budgets are recorded above and in the linked correction report.
 
 ## Docker evidence
 
@@ -103,12 +110,11 @@ Development Docker remains **UP/healthy** at `http://127.0.0.1:3000`:
 - Inspect: `docker compose ps`; logs: `docker compose logs -f`.
 - The service was started/updated with `docker compose up -d --build`; `docker compose down` was not run.
 
-The isolated, local production candidate used for proof was healthy during the three runs:
+The prior `a837bee` isolated production candidate at port 3004 is historical evidence. The current Correction Delta 04 candidate used for proof is:
 
-- Image: `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`.
-- Image digest: `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
-- Container ID: `9d09769172ab2d0c6cda7aef2a6aed2af7abb923c8c4d30b474b1209b2dbe408`; health `healthy` during the runs; runtime user `1000:1000`.
-- Published only on loopback at `127.0.0.1:3004`; Node `v22.23.3`, npm `10.9.9`.
+- Image: `nexlabs-website-release-candidate:wo013-cd04-0dbb768`; image ID `sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c`.
+- Container ID: `c94582ac97bb8864fc9d5968a0eb5ce29467036d57af6ab9de43bced77cdb4d2`; health **healthy**; runtime user `1000:1000`.
+- Published only on loopback at `127.0.0.1:3102`; Node `v22.23.3`, npm `10.9.9`.
 - Runtime: Node `v22.23.3`, npm `10.9.9`.
 - Candidate command: `docker compose -f compose.production.yaml up -d`; it is a local validation image, not a deployment. No direct Vercel deployment, configuration or promotion action was taken. The existing GitHub PR integration may produce its normal preview check after push; it was not operated here.
 
@@ -120,4 +126,4 @@ Independent visual audit >=85/100 (including its per-criterion floors), owner vi
 
 ## Stop state
 
-Checkpoint Delta is **PROPOSED only**. PR #20 remains OPEN; visual-floor and independent-review gates remain pending. No merge, deployment, checkpoint promotion or M07B work is authorized or performed. The existing Vercel version/configuration was not touched. Development Docker is left UP/healthy.
+Checkpoint Delta is **PROPOSED only**. PR #20 remains OPEN for independent audit; visual-floor and owner-acceptance gates remain pending. Exact-head hosted gates are checked after the final evidence push and recorded in PR metadata, not inferred from a predecessor SHA. No merge, additional deployment, checkpoint promotion or M07B work was performed. The existing Vercel version/configuration was not touched. Development Docker is left UP/healthy.
