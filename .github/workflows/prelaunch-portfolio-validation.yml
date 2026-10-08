@@ -1,0 +1,38 @@
+name: Prelaunch Portfolio Validation
+
+on:
+  push:
+    branches:
+      - work/nexlabs-prelaunch-portfolio-production-snapshot
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+      - name: Install locked dependencies
+        run: npm ci
+      - name: Dependency audit
+        run: npm audit --audit-level=moderate
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Unit and component tests
+        run: npm run test
+      - name: Production build
+        run: npm run build
+      - name: Install browser
+        run: npx playwright install --with-deps chromium
+      - name: Regression and portfolio accessibility smoke
+        run: npm run test:e2e -- --retries=0
