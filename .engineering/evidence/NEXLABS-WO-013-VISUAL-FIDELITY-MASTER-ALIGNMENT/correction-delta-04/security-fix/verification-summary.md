@@ -2,17 +2,17 @@
 
 - **Work Order:** `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`
 - **Branch:** `work/nexlabs-wo-013-visual-fidelity-master-alignment`
-- **Local code-fix commit:** `90de8fe957269488aaeebd9783ef175f9183ad1d`
+- **Latest local code-fix commit:** `ceab16f1808a163dd6c769bd1f53ec6832778961`
 - **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
-- **Previous pushed HEAD:** `0eafebea17735f0fe0f3c7c6733a8ab99996c6e8`
-- **Context Lock at code-fix HEAD:** 30/30 critical fingerprints match; **0 STALE**.
+- **Previous pushed HEAD:** `24d3e43dca8e72ecd773247daf074b59b1488c8d`
+- **Context Lock at previous code-fix HEAD:** 30/30 critical fingerprints match; **0 STALE**. Latest code commit changes only an admitted `tools/visual-pipeline/**` file; it is revalidated before push.
 - **Master:** blob `52932511adfeb8d372717185fe9a18907625cc0c`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
 
 ## SonarCloud finding
 
-At the previous pushed HEAD, SonarCloud had one open new-code `pythonsecurity:S8707` issue (`AaEaunfYCXFy810awQdb`) and reported Security `3.0` / C, Reliability `1.0` / A. `css:S4656` (`AaEauncOCXFy810awQda`) was CLOSED after the duplicate CSS declaration was removed.
+At the prior analysis, SonarCloud had one open new-code `pythonsecurity:S8707` issue (`AaEaunfYCXFy810awQdb`) and reported Security `3.0` / C, Reliability `1.0` / A. `css:S4656` (`AaEauncOCXFy810awQda`) was CLOSED after the duplicate CSS declaration was removed. Removing only the absolute `source` report field in `90de8fe` did not clear the finding: analysis on `24d3e43dca8e72ecd773247daf074b59b1488c8d` remained Security C / Reliability A.
 
-The S8707 flow was from CLI `--source` to the optimizer's JSON `write_text` call. The destination filename was already fixed and validated beneath the user-data directory, outside Git. The actual unnecessary tainted value was the absolute input path stored in the JSON content. Commit `90de8fe957269488aaeebd9783ef175f9183ad1d` removes that report field and keeps the source/output SHA-256 values and byte counts. Repository search found no consumer of the removed report field. The accepted external generated-GLB input path, output location, checks, and geometry processing remain unchanged. `quality-tier.ts`, npm manifests, gates, and suppressions were not changed in this delta.
+The S8707 flow was from CLI `--source` to the optimizer's JSON `write_text` call. The destination filename was already fixed and validated beneath the user-data directory, outside Git. Sonar still reported the flow after the absolute input path was removed because the report retained `sourceSha256` and `sourceBytes`. Commit `ceab16f1808a163dd6c769bd1f53ec6832778961` removes all source-derived fields from persisted JSON while keeping expected-SHA validation in process and retaining output SHA-256/size metadata. Repository search found no consumers of the removed report fields. The accepted external generated-GLB input path, output location, checks, and geometry processing remain unchanged. `quality-tier.ts`, npm manifests, gates, and suppressions were not changed in this delta.
 
 The finding will be considered closed only if the exact final PR head re-analysis reports Security A and Reliability A. No issue status was manually changed.
 
@@ -27,6 +27,7 @@ The finding will be considered closed only if the exact final PR head re-analysi
 | `npm run build` | PASS — all 6 product routes generated |
 | `npm audit --audit-level=moderate` | PASS — 0 vulnerabilities |
 | Full local E2E, `retries=0` | PASS — 31/31; port 3105; [log](full-e2e-retries-0.log) |
+| Optimizer after latest report change | PASS — Python AST assertion and `py_compile`; report no longer contains `source`, `sourceSha256`, or `sourceBytes` |
 | Candidate route smoke, port 3102 | PASS — `/`, `/technology`, `/solutions`, `/research`, `/company`, `/contact` all HTTP 200 |
 
 ## Production-candidate qualification

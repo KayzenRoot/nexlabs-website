@@ -1,6 +1,6 @@
 {
   "workOrder": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
-  "createdAtUtc": "2026-10-08T13:09:16.826Z",
+  "createdAtUtc": "2026-10-08T13:22:31.443Z",
   "admissionBase": "e14cfbe4660b076db85e7e529befffe17a098cd1",
   "implementationCommit": "c860171d8aa45c04032c2605934e82e1a09079d4",
   "browserSmokeFixtureCommit": "8ac950e27176b72c7bbb9886161bdb5a626e2277",
@@ -491,28 +491,29 @@
     "remediationCommits": [
       "fdc064501e3d347ddbf3d932f859c9626edc40c5",
       "6adfaf8dd935b2f5e9204d0b82195ced1235a956",
-      "90de8fe957269488aaeebd9783ef175f9183ad1d"
+      "90de8fe957269488aaeebd9783ef175f9183ad1d",
+      "ceab16f1808a163dd6c769bd1f53ec6832778961"
     ],
     "suppressionOrExclusion": "none",
-    "exactHeadSonarGate": "PENDING_AFTER_EVIDENCE_PUSH",
+    "exactHeadSonarGate": "PENDING_AFTER_CEAB_EVIDENCE_PUSH",
     "securityInvestigation": {
       "issueKey": "AaEaunfYCXFy810awQdb",
       "rule": "pythonsecurity:S8707",
-      "observedAtHead": "0eafebea17735f0fe0f3c7c6733a8ab99996c6e8",
+      "observedAtHead": "24d3e43dca8e72ecd773247daf074b59b1488c8d",
       "observedRatings": {
         "security": "C (3.0)",
         "reliability": "A (1.0)"
       },
       "source": "tools/visual-pipeline/optimize-runtime-glb.py:63 --source CLI argument",
       "sink": "JSON report write_text call",
-      "finding": "The output path itself is fixed and validated under user data outside the repository. The user-supplied absolute source path was unnecessarily serialized into JSON report content and caused the taint flow.",
-      "correction": "Commit 90de8fe957269488aaeebd9783ef175f9183ad1d removes only the absolute source-path field; source/output hashes and byte counts remain. No in-repository consumer of that report field was found.",
+      "finding": "The output path itself is fixed and validated under user data outside the repository. Removing the absolute source path alone did not clear the flow; sourceSha256 and sourceBytes remained serialized in the JSON report.",
+      "correction": "Commit 90de8fe957269488aaeebd9783ef175f9183ad1d removes the absolute source path. Commit ceab16f1808a163dd6c769bd1f53ec6832778961 removes the remaining sourceSha256/sourceBytes report fields while preserving in-process expected-SHA verification and output hash/size metadata. No consumer of the removed source fields was found.",
       "suppressionsExclusionsOrQualityGateChanges": false,
       "exactFinalHeadRating": "PENDING_SONARCLOUD_REANALYSIS"
     }
   },
   "correctionDelta04ContextLock": {
-    "validatedAtHead": "90de8fe957269488aaeebd9783ef175f9183ad1d",
+    "validatedAtHead": "ceab16f1808a163dd6c769bd1f53ec6832778961",
     "criticalSourceBlobs": 30,
     "matching": 30,
     "stale": 0,
@@ -560,6 +561,7 @@
       "host": "127.0.0.1",
       "port": 3000
     },
-    "evidenceLog": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-04/security-fix/full-e2e-retries-0.log"
+    "evidenceLog": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-04/security-fix/full-e2e-retries-0.log",
+    "optimizerScriptAfterFinalReportChange": "PASS: Python AST assertion plus py_compile at ceab16f1808a163dd6c769bd1f53ec6832778961; source-derived fields absent from report, output metadata retained."
   }
 }

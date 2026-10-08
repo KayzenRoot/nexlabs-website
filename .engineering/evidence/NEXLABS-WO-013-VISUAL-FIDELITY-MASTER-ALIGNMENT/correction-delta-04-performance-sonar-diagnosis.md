@@ -26,10 +26,10 @@ The new-code issues retrieved from SonarCloud were:
 
 | Issue | Prior finding | Correction |
 | --- | --- | --- |
-| `pythonsecurity:S8707` (`AaEaunfYCXFy810awQdb`) | Sonar reported a path traversal at the JSON `write_text` sink because `--source` was included as report content. The actual output path was already a fixed, validated user-data path. | `fdc064501e3d347ddbf3d932f859c9626edc40c5` confines the output destination; `90de8fe957269488aaeebd9783ef175f9183ad1d` removes the unnecessary absolute source path from the JSON report while retaining hash/size provenance. Exact-head Security rating remains pending. |
+| `pythonsecurity:S8707` (`AaEaunfYCXFy810awQdb`) | Sonar reported a path traversal at the JSON `write_text` sink from CLI `--source`. The actual output path was fixed and validated, but source-derived data still reached report content after the first correction. | `fdc064501e3d347ddbf3d932f859c9626edc40c5` confines the output destination. `90de8fe957269488aaeebd9783ef175f9183ad1d` removes the absolute source path. Sonar remained C at `24d3e43`; `ceab16f1808a163dd6c769bd1f53ec6832778961` removes remaining source hash/size fields from the persisted report while retaining in-process expected-SHA validation and output integrity metadata. Exact-head Security rating remains pending. |
 | `css:S4656` (`AaEauncOCXFy810awQda`) | Duplicate `border-radius` declaration in `src/components/home-sections.module.css:530`; MAJOR bug / Reliability rating C. Sonar later marked it CLOSED and measured Reliability A. | Commit `6adfaf8dd935b2f5e9204d0b82195ced1235a956` removes the duplicate declaration without changing the effective rule. |
 
-No exclusions, suppressions, quality-gate changes or dependency changes were made. The exact-head SonarCloud check must be read from live PR #20 metadata after the evidence push; an older rating is not carried forward.
+No exclusions, suppressions, quality-gate changes or dependency changes were made. The analysis on `24d3e43dca8e72ecd773247daf074b59b1488c8d` reported Security C and Reliability A. The exact-head SonarCloud check must be read from live PR #20 metadata after pushing the follow-up and evidence; an older rating is not carried forward.
 
 ## Verification receipts
 
