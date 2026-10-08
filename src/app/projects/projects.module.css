@@ -1,0 +1,155 @@
+.shell {
+  width: min(100%, 110rem);
+  margin-inline: auto;
+  padding: clamp(2.75rem, 5.2vw, 6rem) clamp(1.15rem, 5.1vw, 5.5rem) 6rem;
+  color: var(--color-text-primary);
+}
+.intro, .detailIntro {
+  max-width: 66rem;
+  padding-block: clamp(2rem, 5vw, 5.25rem);
+}
+.kicker {
+  margin: 0 0 1.2rem;
+  color: var(--color-accent-cyan);
+  font: 600 .72rem/1.5 var(--font-mono);
+  letter-spacing: .19em;
+}
+.intro h1, .detailIntro h1 {
+  margin: 0;
+  max-width: 16ch;
+  font-size: clamp(2.85rem, 6.2vw, 6rem);
+  line-height: 1.04;
+  letter-spacing: -.052em;
+  font-weight: 650;
+}
+.intro h1 span { color: #8dcfff; }
+.lead {
+  max-width: 58rem;
+  margin: 1.7rem 0 0;
+  font-size: clamp(1.025rem, 1.5vw, 1.3rem);
+  line-height: 1.7;
+  color: var(--color-text-secondary);
+}
+.catalogue { padding-block: 1.5rem 3.5rem; }
+.sectionHeading { margin-bottom: 1.8rem; }
+.sectionHeading h2, .detailPanel h2 {
+  margin: 0;
+  font-size: clamp(1.5rem, 2.1vw, 2.15rem);
+  letter-spacing: -.035em;
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(.9rem, 1.5vw, 1.5rem);
+}
+.card, .detailPanel, .disclosure {
+  border: 1px solid rgb(117 183 230 / 24%);
+  border-radius: 1.35rem;
+  background:
+    radial-gradient(ellipse at 88% 4%, rgb(24 88 151 / 15%), transparent 62%),
+    linear-gradient(150deg, rgb(13 26 43 / 94%), rgb(5 12 23 / 94%));
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 24rem;
+  padding: clamp(1.3rem, 2.3vw, 2rem);
+  box-shadow: inset 0 1px rgb(210 244 255 / 9%);
+}
+.cardIndex {
+  margin: 0 0 1.35rem;
+  color: var(--color-text-muted);
+  font: .72rem var(--font-mono);
+  letter-spacing: .12em;
+}
+.stage {
+  align-self: flex-start;
+  padding: .4rem .75rem;
+  border: 1px solid rgb(94 204 247 / 36%);
+  border-radius: 5rem;
+  margin: 0 0 1.15rem;
+  background: rgb(25 94 143 / 15%);
+  color: #a5e9f2;
+  font-size: .75rem;
+  line-height: 1.4;
+}
+.card h3 {
+  margin: 0;
+  font-size: clamp(1.55rem, 2.1vw, 2rem);
+  letter-spacing: -.04em;
+}
+.tagline {
+  margin: .25rem 0 0;
+  color: #cfe4f7;
+  font-weight: 600;
+}
+.description, .detailSummary {
+  margin: 1rem 0 1.4rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+.cardAction, .externalAction, .returnLink {
+  display: inline-flex;
+  align-items: center;
+  gap: .7rem;
+  min-height: 2.8rem;
+  color: var(--color-accent-cyan);
+  font-size: .86rem;
+  font-weight: 650;
+  text-decoration: none;
+  text-underline-offset: .25em;
+}
+.cardAction { margin-top: auto; }
+.cardAction:hover, .externalAction:hover, .returnLink:hover, .breadcrumb a:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+.disclosure {
+  max-width: 75rem;
+  padding: clamp(1.3rem, 2.5vw, 2rem);
+  border-color: rgb(133 171 207 / 20%);
+  background: rgb(11 19 30 / 72%);
+}
+.disclosure h2 { font-size: 1.15rem; margin: 0 0 .55rem; }
+.disclosure p { margin: 0; color: var(--color-text-secondary); line-height: 1.7; }
+.breadcrumb {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .75rem;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: .83rem;
+}
+.breadcrumb a { color: var(--color-accent-cyan); text-underline-offset: .25em; }
+.detailIntro { padding-block: 4.5rem 3.5rem; }
+.detailIntro .stage { display: inline-block; margin-bottom: 1.35rem; }
+.detailSummary { max-width: 53rem; font-size: 1.05rem; }
+.externalAction {
+  min-height: 3rem;
+  padding: .62rem 1.2rem;
+  border: 1px solid rgb(109 210 253 / 48%);
+  border-radius: 100rem;
+}
+.detailGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 1.4rem;
+}
+.detailPanel { padding: clamp(1.4rem, 2.5vw, 2.25rem); }
+.points { padding-left: 1.4rem; margin: 1.35rem 0 0; color: var(--color-text-secondary); line-height: 1.75; }
+.points li { padding-left: .25rem; margin-bottom: .65rem; }
+.points li::marker { color: var(--color-accent-cyan); }
+.returnLink { margin-top: 2rem; }
+@media (max-width: 66rem) {
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (max-width: 40rem) {
+  .shell { padding-bottom: 3.75rem; }
+  .grid, .detailGrid { grid-template-columns: 1fr; }
+  .card { min-height: 0; }
+  .intro, .detailIntro { padding-block: 2.5rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .card, .cardAction, .externalAction { transition: none; }
+}
