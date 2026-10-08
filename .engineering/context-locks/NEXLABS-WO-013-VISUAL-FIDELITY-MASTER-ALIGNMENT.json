@@ -66,6 +66,8 @@
     "src/components/brand-mark.module.css",
     "src/components/visual/**",
     "src/experience/living-organism.ts",
+    "src/experience/quality-tier.test.ts",
+    "src/experience/quality-tier.ts",
     "src/app/technology/page.tsx",
     "src/app/technology/technology.module.css",
     "src/app/solutions/page.tsx",
@@ -102,7 +104,7 @@
     "unreviewed third-party ComfyUI custom nodes",
     "Blender MCP enabled by default",
     "src/brand/precision-blades.ts canonical geometry changes",
-    "src/experience/quality-tier.ts capability-selection changes",
+    "src/experience/quality-tier.ts: arbitrary threshold/policy changes, disabling FULL/BALANCED/STATIC, unconditional forced tier, reduced-motion/save-data/low-resource regression or capability misrepresentation remain forbidden; only evidence-backed defect correction is admitted",
     "next.config.ts security/header weakening",
     "Dockerfile.production changes",
     "compose.production.yaml changes",
@@ -245,7 +247,11 @@
     "one Home R3F runtime only",
     "M07A security/readiness regression",
     "no unresolved HIGH/CRITICAL finding",
-    "visual-fidelity independent gate >=85/100 remains required for final WO-013 approval/merge"
+    "visual-fidelity independent gate >=85/100 remains required for final WO-013 approval/merge",
+    "browser smoke: FULL/ready transitions poster opacity to 0; fallback retains visible poster",
+    "quality-tier defect correction, if any, has causal reproduction and unit/Chromium coverage",
+    "SonarCloud Reliability/Security new-code ratings meet required A grade without exclusions",
+    "local two unpushed commits and uncommitted changes preserved during branch reconciliation"
   ],
   "staleIfChanged": [
     ".engineering/CHECKPOINT.json",
@@ -295,18 +301,28 @@
     "runtimeMasterPixelsAllowed": false
   },
   "permissionCorrection": {
-    "id": "NEXLABS-WO-013-CORRECTION-DELTA-04-PREFLIGHT-WRITEALLOW",
-    "reason": "Grant design-director documentation path required by the already accepted Correction Delta 04 and DESIGN-DIRECTOR-HARNESS.md. No product source, critical source or scope change.",
-    "previousHead": "282f9ec20f16064222fbd2c41e21508f1e44229c",
-    "newlyAuthorized": [
-      ".engineering/design-director/**"
+    "id": "NEXLABS-WO-013-CORRECTION-DELTA-04-TIER-DIAGNOSTIC",
+    "authorizedAtRemoteHead": "8ee60b573c03f570b455e8103acd3685f9a29635",
+    "classification": "ELEVATED_FOCUSED_BUGFIX_ONLY",
+    "approvedPaths": [
+      "src/experience/quality-tier.ts",
+      "src/experience/quality-tier.test.ts",
+      "tests/e2e/home.spec.ts",
+      "tests/e2e/wo013-visual-fidelity.spec.ts",
+      "src/components/hero-scene-client.tsx",
+      "src/components/static-hero.module.css"
     ],
-    "prohibitedStill": [
-      "master runtime reuse",
-      "canonical critical-source edits without re-admission",
-      "new dependencies",
-      "M07B final launch",
-      "merge/checkpoint promotion"
+    "reason": "Local working tree contains a change in the protected tier selector; CI failure evidence shows FULL/ready with poster opacity 1, which does not prove tier selector is the root cause. Grant conditional correction scope only, with tests and diagnostic evidence before modification.",
+    "mandatoryDiagnostics": [
+      "Reconcile and inspect the user's two unpushed commits and uncommitted quality-tier.ts patch; preserve all work and review the diff before changing it.",
+      "Reproduce Chromium CI poster crossfade failure under same simulated capabilities, evaluate computed CSS selectors and document root cause.",
+      "The tier selector must NOT be changed unless causal evidence proves the defect is in tier resolution or capability probe.",
+      "If poster CSS/state handshake is root cause, fix in already-approved component/CSS paths, and restore the local quality-tier.ts change if unnecessary.",
+      "Retain no-WebGL STATIC, reduced-motion, save-data, low-memory, low-CPU and unknown-hardware behavior.",
+      "Sonar Reliability C and Security C must be fixed to pass Quality Gate without suppression or changes to rules; retrieve actual issues.",
+      "Run entire E2E with retries=0 and three consecutive candidate suites per ELEVATED DoD.",
+      "No ComfyUI Qwen/Z-Image model inference while memory headroom is insufficient; memory freeing/quantization requires separate proof.",
+      "No merge, force-push, history rewrite, deployment or checkpoint promotion."
     ]
   }
 }
