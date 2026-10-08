@@ -48,4 +48,18 @@ One earlier, non-qualifying 30/31 attempt omitted `E2E_PORT=3102`; the measureme
 
 ## Hosted gates / stop state
 
+### Superseding follow-up — source confinement, junction checks, and final run set
+
+The metadata-only code head above did not clear Sonar Security C. The exact `pythonsecurity:S8707` flow was from CLI `--source` to the optimizer report write. Correction commit `146fef80905ea5ec31ba1219aeb9f9f69c9fd3e2` constrains that source to a regular `.glb` under the resolved local `VisualPipeline/generated` root outside Git, stages output in system temp, rejects output reparse points and hard links, and revalidates each fixed destination immediately before atomic publication. Python path regressions pass 8/8. No suppression or Sonar gate change was made.
+
+Three new serial full production-candidate suites on the same image/container pass 31/31 each with retries=0 and unchanged budgets. Mobile LCP is 1900 / 1748 / 1748 ms; interaction proxy 88 / 128 / 152 ms; CLS 0 / 0 / 0; JS gzip 151,360 bytes each. Exact reports, phase diagnostics, suite logs and hashes are stored in `.engineering/evidence/wo013-cd04-final/verified-run-01` through `verified-run-03`, indexed by the current `candidate-performance-variance.json`.
+
+The last completed Sonar analysis at this capture still showed Security C / Reliability A on an older head; exact-head reanalysis remained pending. Do not treat those ratings as the result for `146fef8`. The new implementation and gate state are summarized in `.engineering/evidence/wo013-cd04-final/verification-summary.md`.
+
+### Superseding Sonar and exact-head update — `1898db0`
+
+The exact `pythonsecurity:S8707` flow on `146fef8` was caused by copying the bounded but user-supplied `--ratio` CLI value into the persisted report (`decimateRatio`). The report destination was fixed; no CLI argument selected it. Commit `1898db09f7334245285a722c1a793ee88bc63eec` removes that report field while retaining the value for the Blender operation. The actual issue `AaEb6EvLXfIun6ARmluk` now has resolution FIXED/status CLOSED, filtered open S8707 count is 0, Security is A (1.0), Reliability is A (1.0), and SonarCloud Code Analysis is PASS on code head `1898db0`. No rule, threshold, exclusion, suppression or gate configuration changed.
+
+The full hosted checks on `1898db0` are CI Quality PASS, Browser Smoke PASS, Release Readiness PASS, SonarCloud PASS, Socket Project Report PASS, and Socket PR Alerts PASS. CodeRabbit reports PASS with review paused; this is not an independent review approval. The post-edit Python path tests are 8/8 PASS and syntax compilation passes; see `.engineering/evidence/wo013-cd04-final/python-optimizer-tests.txt` (SHA-256 `fa378a69e60655885eab3b5c3840d19d57b7c1160766c8672486e11cd9a65`). The exact production-candidate run set remains the same 3 consecutive 31/31 suites, retries=0, same application image and unchanged budgets. Final exact-head results must be checked again after the evidence-only push; PR #20 remains OPEN and the checkpoint stays PROPOSED.
+
 The final code and evidence commits must be pushed before reading hosted checks. CI Quality, Browser Smoke, Release Readiness, SonarCloud, Socket, and CodeRabbit are not claimed PASS by these local results. Read the exact final HEAD and results from live PR #20 metadata after the push. PR #20 remains OPEN for independent review; visual score 77/100 remains below the required 85/100 and owner visual acceptance remains pending. No merge, checkpoint promotion, deployment action, or M07B work is authorized by this delta.
