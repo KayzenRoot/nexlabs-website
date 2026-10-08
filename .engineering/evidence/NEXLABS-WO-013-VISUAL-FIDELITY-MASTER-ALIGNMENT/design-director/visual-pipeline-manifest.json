@@ -1,0 +1,211 @@
+{
+  "schemaVersion": 1,
+  "workOrder": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
+  "sourceHead": "e5ce80c4e0d6bc1d3ac441fd2e626f851e33377c",
+  "comfyui": {
+    "version": "0.36.0",
+    "commit": "ee71d5c4993f29086b27fde1629a945ae48425bf",
+    "api": "http://127.0.0.1:8188",
+    "listenAddress": "127.0.0.1",
+    "customNodes": "disabled",
+    "gpu": "NVIDIA GeForce RTX 5050",
+    "torch": "2.13.0+cu130",
+    "python": "3.13.14",
+    "health": "PASS",
+    "userSuppliedModelDiscovery": "PASS: Qwen3-4B listed by CLIPLoader; Z-Image Turbo listed by UNETLoader",
+    "userSuppliedModelInference": "NOT TESTED: 1,682,773,202 bytes VRAM free at observation; both weights exceed available headroom",
+    "controlNetWorkflows": "exported but not executed because their optional weights are absent",
+    "flux2Klein": "not selected; optional model not required for the qualified SDXL pipeline on an 8 GiB GPU"
+  },
+  "models": [
+    {
+      "role": "required baseline / local reference generation",
+      "source": "stabilityai/stable-diffusion-xl-base-1.0",
+      "revision": "f298da3c058bd8f1f1c62f3ecfa775244a243897",
+      "filename": "sd_xl_base_1.0.safetensors",
+      "sha256": "31e35c80fc4829d14f90153f4c74cd59c90b779f6afe05a74cd6120b893f7e5b",
+      "bytes": 6938078334,
+      "license": "CreativeML Open RAIL++-M (Hugging Face model card labels openrail++)",
+      "storage": "outside repository",
+      "smokeStatus": "PASS: deterministic SDXL ComfyUI generation completed"
+    },
+    {
+      "role": "owner-supplied text encoder; installed and discoverable, not loaded",
+      "source": "Qwen/Qwen3-4B",
+      "filename": "qwen_3_4b.safetensors",
+      "sha256": "6c671498573ac2f7a5501502ccce8d2b08ea6ca2f661c458e708f36b36edfc5a",
+      "bytes": 8044982048,
+      "license": "Apache-2.0 (official model-card metadata)",
+      "modelCard": "https://huggingface.co/Qwen/Qwen3-4B",
+      "comfyLoader": "CLIPLoader",
+      "storage": "outside repository",
+      "discoveryStatus": "PASS",
+      "inferenceStatus": "NOT TESTED: insufficient free VRAM at observation time"
+    },
+    {
+      "role": "owner-supplied diffusion model; installed and discoverable, not loaded",
+      "source": "Tongyi-MAI/Z-Image-Turbo",
+      "filename": "z_image_turbo_bf16.safetensors",
+      "sha256": "2407613050b809ffdff18a4ac99af83ea6b95443ecebdf80e064a79c825574a6",
+      "bytes": 12309866400,
+      "license": "Apache-2.0 (official model-card metadata)",
+      "modelCard": "https://huggingface.co/Tongyi-MAI/Z-Image-Turbo",
+      "comfyLoader": "UNETLoader",
+      "storage": "outside repository",
+      "discoveryStatus": "PASS",
+      "inferenceStatus": "NOT TESTED: insufficient free VRAM at observation time"
+    }
+  ],
+  "blender": {
+    "version": "5.2.2 LTS",
+    "runtime": "Blender Foundation bpy Python module",
+    "background": true,
+    "render": "PASS",
+    "glbReadback": true,
+    "meshObjects": 155,
+    "glbReadbackMeshes": 172,
+    "animatedObjects": 2,
+    "glbBytes": 505464,
+    "glbSha256": "e2b62afed0f87ab491261d0e3b2da3300a83c8e3ae6b17a425b02881700a7ca6",
+    "referenceRole": "visual art direction only; not rendered, not mapped, not exported",
+    "referenceSha256": "db84dd52f8ae107c750d951d8822ceaa17edb720a312bec1f1d0d0fbc0a8b9e1",
+    "renderSha256": "69b59230f8dc36f7cd8697d2bcf8db21ef6e7a40169740869143ada2e92d7a6b",
+    "depthProxySha256": "4b0f7ed3888516ec068c863064f7fbe0345a56b3c1a937892d96ddda200a50ab",
+    "depthProxyLimitation": "coarse object-bound guidance; not a per-pixel renderer Z pass"
+  },
+  "integratedRuntimeGeometry": {
+    "path": "public/generated/home/blender/hero-lab-structure-r17.glb",
+    "sha256": "1864f255c2b0fdc254bb12fdf2e805a288f10439e344e544a92cb49f862bce9e",
+    "bytes": 2373500,
+    "materials": 9,
+    "triangles": 59352,
+    "optimization": {
+      "source": "D:/NexLabs/VisualPipeline/generated/hero-lab-structure-r16-original.glb",
+      "sourceSha256": "a21c571d31b26ba4c32bbe2811d7c42d802ff7ad4e3c9a337974a4b3361526e0",
+      "sourceBytes": 3616812,
+      "sourceTriangles": 107914,
+      "tool": "tools/visual-pipeline/optimize-runtime-glb.py",
+      "blenderVersion": "5.2.2 LTS",
+      "decimateRatio": 0.55,
+      "resultTriangles": 59352,
+      "triangleReductionPercent": 45.0,
+      "bytesReductionPercent": 34.4,
+      "readback": "PASS: one mesh, 9 materials, triangle count preserved"
+    },
+    "animations": 0,
+    "scope": "FULL tier in the existing Home R3F Canvas; structural architecture/floor only",
+    "omissions": ["canonical N", "Earth/network", "human scale cue", "animated energy"],
+    "draco": "not used; blob-backed decoder workers conflict with the unchanged production worker-src 'self' CSP",
+    "masterPixelsOrTexture": false
+  },
+  "ownerSuppliedModelInferenceResourceCheck": {
+    "checkedAtUtc": "2026-10-08T03:54:40.395Z",
+    "systemRamTotalBytes": 16188887040,
+    "systemRamFreeBytes": 2481610752,
+    "gpu": "NVIDIA GeForce RTX 5050",
+    "vramTotalBytes": 8518041600,
+    "vramFreeBytes": 2131073786,
+    "decision": "weights are installed and discoverable, but inference was not run because the available VRAM/RAM cannot safely hold the supplied model files"
+  },
+  "generatedReferences": [
+    {
+      "role": "master-reference-only",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231401,
+      "sha256": "f32034cc02e8310e73de91e7d99b6264f7cc3e07fcf1bd9b4d5f5451f9861a1b",
+      "bytes": 701248
+    },
+    {
+      "role": "hero-environment-360",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231307,
+      "sha256": "db84dd52f8ae107c750d951d8822ceaa17edb720a312bec1f1d0d0fbc0a8b9e1",
+      "bytes": 862621
+    },
+    {
+      "role": "capability-ai",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231003,
+      "sha256": "8c3daaf868b0a2797b569581a4cf60c6e27cfc3fff029f38b241d43a5647ec0d",
+      "bytes": 825936
+    },
+    {
+      "role": "capability-infrastructure",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231017,
+      "sha256": "c154b1f0354f59c1bb8d9abc0598a1057f37820d16e5f7f92e333d54db5fecf6",
+      "bytes": 513104
+    },
+    {
+      "role": "capability-interfaces",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231029,
+      "sha256": "aa01e56a8bd5c99c1ebecb47885d809c2a4aabfcb73d1499b6d9107bf4bcd083",
+      "bytes": 690302
+    },
+    {
+      "role": "capability-sustainable",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231043,
+      "sha256": "69e02c9fe9bd5167e5012087b549d500584e2a588adfd0300698d9d67fb18f7f",
+      "bytes": 778287
+    },
+    {
+      "role": "capability-research",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231059,
+      "sha256": "e5c64bb4e72bf94003c196a2af1400b60e43f1063b688e1bcfeaf85ce11f977f",
+      "bytes": 595182
+    },
+    {
+      "role": "chrome-n-study",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231211,
+      "sha256": "34f78bbb53f3b8261ad75efe6604a6dc9de2025a62c325be6ee6d4fb3bc6daf7",
+      "bytes": 484358
+    },
+    {
+      "role": "earth-panels-floor",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231227,
+      "sha256": "311c95638e81b71f5888133108d3ec856d6cf2d2772356f8c29aff15758458a2",
+      "bytes": 632828
+    },
+    {
+      "role": "technology-stack",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231251,
+      "sha256": "3fdedb3a4a6f33d8cbd4119b6fbe5e7ea19b78c504b9766b7154bca638a519b5",
+      "bytes": 528996
+    },
+    {
+      "role": "research-lower-world",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231239,
+      "sha256": "d403286f52471be651144ff385b460b7100bd69a10981ac627896cd0a0d1529e",
+      "bytes": 552191
+    },
+    {
+      "role": "static-poster-fallback",
+      "storage": "outside repository under local VisualPipeline root",
+      "seed": 231263,
+      "sha256": "dd4fa3024e4d5cf19d651ac75ea40c8bb9c1fc381387a42111e2ea20a52b050b",
+      "bytes": 622738
+    }
+  ],
+  "commands": [
+    "python tools/visual-pipeline/generate-workflows.py --copy-master",
+    "pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 health",
+    "pwsh -NoProfile -File tools/visual-pipeline/comfy-client.ps1 queue <fixed-seed-workflow>",
+    "pwsh -NoProfile -File tools/visual-pipeline/run-blender-smoke.ps1",
+    "pwsh -NoProfile -File tools/visual-pipeline/run-blender-candidate.ps1 -Reference <generated-study> -OutputName blender-candidate-wo013-delta04"
+  ],
+  "security": {
+    "masterCopiedOnlyToLocalComfyInput": true,
+    "masterOutputRuntimeUse": "forbidden",
+    "publicDeployment": "not performed; Vercel unchanged per owner",
+    "dockerDev": "127.0.0.1:3000",
+    "noTokensOrWeightsCommitted": true,
+    "comfyListen": "127.0.0.1:8188"
+  }
+}

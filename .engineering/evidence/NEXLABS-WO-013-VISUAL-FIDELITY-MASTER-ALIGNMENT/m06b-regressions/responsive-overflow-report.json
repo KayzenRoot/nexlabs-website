@@ -4,71 +4,71 @@
     {
       "path": "/research",
       "viewport": "1600x900",
-      "scrollWidth": 1600,
-      "clientWidth": 1600,
+      "scrollWidth": 1585,
+      "clientWidth": 1585,
       "horizontalOverflow": false
     },
     {
       "path": "/research",
       "viewport": "1440x900",
-      "scrollWidth": 1440,
-      "clientWidth": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
       "horizontalOverflow": false
     },
     {
       "path": "/research",
       "viewport": "900x768",
-      "scrollWidth": 900,
-      "clientWidth": 900,
+      "scrollWidth": 885,
+      "clientWidth": 885,
       "horizontalOverflow": false
     },
     {
       "path": "/research",
       "viewport": "390x844",
-      "scrollWidth": 390,
-      "clientWidth": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
       "horizontalOverflow": false
     },
     {
       "path": "/research",
       "viewport": "320x740",
-      "scrollWidth": 320,
-      "clientWidth": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
       "horizontalOverflow": false
     },
     {
       "path": "/company",
       "viewport": "1600x900",
-      "scrollWidth": 1600,
-      "clientWidth": 1600,
+      "scrollWidth": 1585,
+      "clientWidth": 1585,
       "horizontalOverflow": false
     },
     {
       "path": "/company",
       "viewport": "1440x900",
-      "scrollWidth": 1440,
-      "clientWidth": 1440,
+      "scrollWidth": 1425,
+      "clientWidth": 1425,
       "horizontalOverflow": false
     },
     {
       "path": "/company",
       "viewport": "900x768",
-      "scrollWidth": 900,
-      "clientWidth": 900,
+      "scrollWidth": 885,
+      "clientWidth": 885,
       "horizontalOverflow": false
     },
     {
       "path": "/company",
       "viewport": "390x844",
-      "scrollWidth": 390,
-      "clientWidth": 390,
+      "scrollWidth": 375,
+      "clientWidth": 375,
       "horizontalOverflow": false
     },
     {
       "path": "/company",
       "viewport": "320x740",
-      "scrollWidth": 320,
-      "clientWidth": 320,
+      "scrollWidth": 305,
+      "clientWidth": 305,
       "horizontalOverflow": false
     }
   ]

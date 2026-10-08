@@ -9,12 +9,12 @@
       "height": 0.05
     },
     "meanRgb": [
-      0,
-      0,
-      0
+      4.44,
+      52.17,
+      78.04
     ],
-    "meanLuminance": 0,
-    "samples": 2208,
+    "meanLuminance": 43.89,
+    "samples": 2185,
     "maximumMeanLuminance": 55
   },
   "backdrop": {
@@ -25,11 +25,11 @@
       "height": 0.12
     },
     "meanRgb": [
-      46.96,
-      77.64,
-      91.9
+      65.85,
+      106.41,
+      125.79
     ],
-    "meanLuminance": 72.14,
+    "meanLuminance": 99.18,
     "samples": 3456,
     "minimumMeanLuminance": 18
   },

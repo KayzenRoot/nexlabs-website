@@ -1,16 +1,17 @@
 # NEXLABS-WO-013 Evidence Bundle
 
-**Status:** implementation and local proof complete; exact-head hosted signals are recorded in live PR #20 metadata after the final evidence push; independent visual audit and owner acceptance remain pending.
+**Status:** implementation and local technical proof are complete for immutable source/test candidate `a837bee`; the visual harness still misses its composition and environment-density floors, so independent visual audit and owner acceptance remain pending. Exact final PR HEAD and hosted signals are read from live PR #20 metadata after the final evidence push.
 **Repository:** `KayzenRoot/nexlabs-website`
 **Branch / PR:** `work/nexlabs-wo-013-visual-fidelity-master-alignment` / [PR #20](https://github.com/KayzenRoot/nexlabs-website/pull/20)
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
-**Branch starting HEAD:** `05a470a5b664afb2e3cc731c0a1f664dd59fa02c`
+**Branch starting HEAD:** `e5ce80c4e0d6bc1d3ac441fd2e626f851e33377c`
 **Initial implementation commit:** `c860171d8aa45c04032c2605934e82e1a09079d4`
 **Deterministic Browser Smoke fixture commit:** `8ac950e`
 **Navigation/report correction commits:** `86505817683af00cdecf312d6ca73b2ed1a7fb52`, `a665a7dd74992d4109a19ef4bb88de3a7761309a`, `d16a6f53fba6b98dff9d9004e11196056493038f`
 **Visual correction and authoring workflow commits:** `45bbf10ceeb834be14c92e6bb11145d73fa6ea55`, `afd110393f1227b90e50d0d0f8354d418ef330e3`
-**Final performance harness source/test commit:** `3838e2cc81050b5fd6d620e511daae5bb768f469`
-**Candidate image:** `nexlabs-website-release-candidate:3838e2cc81050b5fd6d620e511daae5bb768f469`; digest `sha256:b68630b56345a05525d693549fc96a2f7e1e7c01d9e84b4a19fd3b7c6e0deddf`.
+**Prior performance harness source/test commit (superseded):** `3838e2cc81050b5fd6d620e511daae5bb768f469`
+**Current Correction Delta 04 source/test commit:** `a837beeae11921dbe35c7757adedbd42055bc21d`.
+**Current candidate image:** `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`; digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
 **Final PR HEAD:** recorded from PR #20 metadata after the final Evidence Bundle push. The immutable implementation/test SHA is retained above; this avoids a self-referential SHA in the evidence commit. Exact-head hosted check results are checked after that push and documented in the PR update.
 
 ## Authority and master identity
@@ -37,12 +38,14 @@ Files in implementation commit `c860171`:
 
 Commit `8ac950e` makes the BALANCED visual proof deterministic by setting 8 CPU/8 GB capabilities only in that Playwright context. It does not alter product tier selection. Commits `8650581` and `a665a7d` close the mobile menu on desktop breakpoint changes and preserve focus at the active desktop route. Commit `d16a6f5` labels M06A as desktop performance plus mobile layout-only checks, and M06B as performance and layout checks at both desktop and mobile sizes. Commit `45bbf10` integrates the generated lab backdrop behind the poster and keeps the N fully framed; `afd1103` adds local visual authoring workflows without changing package manifests. Commit `3838e2c` makes the responsive poster test use reduced motion and reuses a frame sample only when it represents the same WebGL tier; it keeps 119 samples for each distinct FULL/BALANCED tier and does not change performance budgets or assertions.
 
+The Correction Delta 04 source commits are `c3ce5ceac3617acaf67f8fcd4f3a3516a71c509a` and `a837beeae11921dbe35c7757adedbd42055bc21d`. They refine the existing Home chamber/material/environment, generated Blender study and workflow support, and deterministic visual evidence capture. They do not alter the canonical N geometry, package manifests, security/readiness configuration, public copy or the one-Home-WebGL architecture.
+
 Additional changed paths in those correction commits:
 
 - Visual correction `45bbf10`: `public/generated/capabilities/*.webp`, `public/generated/home/*.webp`, the updated `public/hero/home-hero-poster.jpg`, `src/components/hero-scene.tsx`, Home/static hero components and styles, `src/app/page.test.tsx`, and the WO-013 visual E2E coverage.
 - Local authoring pipeline `afd1103`: `tools/visual-pipeline/**`, including Blender/ComfyUI launch, health, hardware probe, authored workflow JSON, map preparation and candidate-building scripts. This is local authoring tooling; it adds no runtime dependency.
 - Performance harness `3838e2cc`: `tests/e2e/home.spec.ts` only.
-- Final exact-head receipts and screenshots are stored under `production-candidate-runs/perf-3838e2cc-final/` and the linked visual evidence directory. Earlier misstated-tag receipts are retained but marked nonqualifying in `candidate-performance-variance.json`.
+- Current exact source/test receipts and screenshots are stored under `production-candidate-runs/final-candidate-a837bee/` and the linked visual evidence directory. Historical/misconfigured attempts remain excluded from current qualification in `candidate-performance-variance.json`.
 
 No page copy, metadata, route definitions, Contact data boundary, M07A security configuration, Dockerfile, production Compose configuration, workflow, package manifest or lockfile was changed.
 
@@ -64,7 +67,7 @@ No page copy, metadata, route definitions, Contact data boundary, M07A security 
 | `git diff --check` | PASS. |
 | `git diff -- package.json package-lock.json` | Empty; manifests are unchanged. |
 
-Final exact-head production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/perf-3838e2cc-final/run-01` through `run-03`. Each used source/test SHA `3838e2cc81050b5fd6d620e511daae5bb768f469`, the same immutable image digest `sha256:b68630b56345a05525d693549fc96a2f7e1e7c01d9e84b4a19fd3b7c6e0deddf`, one worker, retries zero and all 30 tests. Home mobile LCP was **1844 ms, 1908 ms and 1836 ms**; each is below the unchanged 2500 ms limit. CLS was 0 in each run; interaction proxies were 120 / 136 / 128 ms. Initial Home JavaScript was 151,225 gzip bytes and lazy 3D was 259,185 gzip bytes in each report, below their unchanged budgets. Each per-run folder contains its full-suite log and an individual `home-performance-report.json`.
+The current `a837bee` production-candidate results are in `candidate-performance-variance.json` and `production-candidate-runs/final-candidate-a837bee/run-01` through `run-03`. Each used the same immutable image digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`, one worker, `retries=0` and all 30 tests. Home mobile LCP was **1836 ms, 1796 ms and 1776 ms**; all are below the unchanged 2500 ms limit. CLS was 0 in each run; interaction proxies were 112 / 96 / 112 ms. Initial Home JavaScript was 151,225 gzip bytes and lazy 3D was 272,599 gzip bytes in each report, below unchanged budgets. The suites used headed, hardware-accelerated Chromium on RTX 5050 / ANGLE D3D11. Each run folder contains its receipt, exact command, full-suite log, screenshot and individual `home-performance-report.json`.
 
 The first post-harness diagnostic had `E2E_PORT` unset and is retained under `production-candidate-runs/wo013-correction-20261007/`; it failed before completion and is nonqualifying. Two additional three-run attempts under `perf-3838e2c/` and `perf-3838e2c-captured/` passed their tests but used a manually mistyped image tag/source label; they are excluded from exact-head qualification and retained for audit context. The final sequence rebuilds with the SHA read directly from Git and is the only qualifying sequence. Earlier nonqualifying evidence remains available: `production-candidate-runs/harness-misconfigured-attempt/` (port mismatch), `production-candidate-runs/after-coderabbit-corrections/` (focus-transfer race and transient Chromium `net::ERR_NO_BUFFER_SPACE`), and the older 28-test receipts. The focus behavior was corrected in `a665a7d`; the hosted four-core Browser Smoke fixture was corrected in `8ac950e`. No selector or performance budget changed.
 
@@ -74,18 +77,20 @@ The first post-harness diagnostic had `E2E_PORT` unset and is retained under `pr
 - Scene tiers and fallback: `home-full-3d-1600x900.png`, `home-balanced-3d-900x768.png`, `home-static-reduced-motion-1440x900.png`, `home-webgl-context-loss-fallback-1600x900.png`.
 - Responsive Home and menu: `candidate-home-1600x900.png`, `candidate-home-1440x900.png`, `candidate-home-390x844.png`, `mobile-menu-closed-320x844.png`, `mobile-menu-open-320x844.png`, `mobile-menu-active-company-390x844.png`.
 - Capability objects: `capabilities-five-objects.png`.
+- Retained Design Director evidence: `.engineering/design-director/master-style-guide.md`, `master-scene-graph.md`, `master-state-list.md`, `master-asset-manifest.md`, `review-log.md`; R01–R03 contact sheets/reviews; and exact-source R32 sheet/review at `design-director/round-32-contact-sheet.png` and `round-32-review.md`. Exploratory R04–R31 contact sheets are not part of the minimal tracked evidence set.
+- The owner-downloaded ComfyUI model paths, sizes, SHA-256 values and loader discovery are recorded in `design-director/comfyui-user-models.json`; both weights remain outside Git. The Qwen text encoder and Z-Image diffusion model were not loaded because current free VRAM/RAM is insufficient; no failed inference is reported as a pass. The fixed-seed SDXL generation and Blender background-export path remain the qualified authoring workflow.
 - Lower Home and pages: `home-lower-research-technology.png`, `technology-1600x900.png`, `solutions-1600x900.png`, `research-1600x900.png`, `company-1600x900.png`, `contact-1600x900.png`, `research-mobile-390x844.png`.
 - Structured behavior record: `visual-responsiveness-motion-and-routes.json`.
 - Visual comparison and residual-difference assessment with executor score: `VISUAL-FIDELITY-REPORT.md`.
 
-All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000`) and the production candidate (`127.0.0.1:3002`). The E2E checks retain route, accessibility, keyboard, menu, reduced-motion, Contact zero-collection, WebGL fallback, responsive overflow, route-chunk and M07A security/indexing/404 regressions.
+All six admitted routes returned HTTP 200 from both development (`127.0.0.1:3000`) and the production candidate (`127.0.0.1:3004`). The E2E checks retain route, accessibility, keyboard, menu, reduced-motion, Contact zero-collection, WebGL fallback, responsive overflow, route-chunk and M07A security/indexing/404 regressions.
 
 ## Performance and hardware limits
 
-- Home mobile: LCP 1844 / 1908 / 1836 ms; CLS 0 each; interaction proxy 120 / 136 / 128 ms.
+- Home mobile: LCP 1836 / 1796 / 1776 ms; CLS 0 each; interaction proxy 112 / 96 / 112 ms.
 - Initial Home route JavaScript: 151,225 bytes gzip (147.7 KiB), below 220 KiB.
-- Lazy Home 3D chunk: 259,185 bytes gzip (253.1 KiB), below 700 KiB.
-- The performance report identifies Chromium **ANGLE / SwiftShader software rendering**. The diagnostic medians were about 2.2 FPS for FULL and 4.3 FPS for BALANCED on this software renderer; the samples prove the tier paths execute, but do not establish physical-GPU frame-rate qualification or field performance. Hardware performance on a physical GPU remains a validation gap.
+- Lazy Home 3D chunk: 272,599 bytes gzip (266.2 KiB), below 700 KiB.
+- Current suites used hardware-accelerated Chromium **ANGLE / D3D11** on the RTX 5050, 119 samples per FULL/BALANCED tier and 75.2 FPS medians. A separate headless SwiftShader run is nonqualifying diagnostic evidence; host measurements do not establish field performance.
 
 ## Docker evidence
 
@@ -98,21 +103,21 @@ Development Docker remains **UP/healthy** at `http://127.0.0.1:3000`:
 - Inspect: `docker compose ps`; logs: `docker compose logs -f`.
 - The service was started/updated with `docker compose up -d --build`; `docker compose down` was not run.
 
-The isolated, local production candidate used for proof is also healthy:
+The isolated, local production candidate used for proof was healthy during the three runs:
 
-- Image: `nexlabs-website-release-candidate:3838e2cc81050b5fd6d620e511daae5bb768f469`.
-- Image digest: `sha256:b68630b56345a05525d693549fc96a2f7e1e7c01d9e84b4a19fd3b7c6e0deddf`.
-- Container ID: `ff127bbea9527e6e616daf92901440585b623cfc3ce5e4bc0d6bb6a9bcc8482a`; health `healthy`; runtime user `1000:1000`.
-- Published only on loopback at `127.0.0.1:3002`; Node `v22.23.3`, npm `10.9.9`.
+- Image: `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`.
+- Image digest: `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
+- Container ID: `9d09769172ab2d0c6cda7aef2a6aed2af7abb923c8c4d30b474b1209b2dbe408`; health `healthy` during the runs; runtime user `1000:1000`.
+- Published only on loopback at `127.0.0.1:3004`; Node `v22.23.3`, npm `10.9.9`.
 - Runtime: Node `v22.23.3`, npm `10.9.9`.
 - Candidate command: `docker compose -f compose.production.yaml up -d`; it is a local validation image, not a deployment. No direct Vercel deployment, configuration or promotion action was taken. The existing GitHub PR integration may produce its normal preview check after push; it was not operated here.
 
 ## Proposed visual score and gaps
 
-Executor score is **PROPOSED 77/100**, the sum of the criterion scores in `VISUAL-FIDELITY-REPORT.md`. The master comparisons show that N, chamber, energy rails, icon objects and global atmosphere are closer, while cinematic scene density, reflective environment, Earth/detail, capability imagery and the expansive lower-world compositions remain materially different.
+Executor score is **PROPOSED 77/100**, the sum of the weighted criterion scores in `VISUAL-FIDELITY-REPORT.md`. The current exact-candidate R32 diagnostic scores composition 7/10 and environment density 7/10 (the other seven dimensions are 8 or higher). The master comparisons show that N, chamber, energy rails, icon objects and global atmosphere are closer, while cinematic scene density, reflective environment, Earth/detail, capability imagery and the expansive lower-world compositions remain materially different.
 
-Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The previous independent audit returned 68/100 at an earlier head; this bundle does not treat that as an audit of the new candidate. The proposed 77/100 remains below the approval threshold, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final correction/evidence push; no result from an earlier SHA is carried forward. The three CodeRabbit findings on the preceding PR head were corrected: breakpoint closure/focus, accurate M06A desktop-performance/mobile-layout-only and M06B desktop/mobile performance-and-layout labels, and the visual-score total.
+Independent visual audit >=85/100 (including its per-criterion floors), owner visual acceptance and independent exact-head review are **PENDING**. The previous independent audit at 68/100 was on an earlier head; this bundle does not treat it as an audit of `a837bee`. The proposed 77/100 remains below the approval threshold and R32 misses two harness floors, so this bundle does not assert visual approval or checkpoint readiness. Exact-head GitHub CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit signals must be read from PR #20 after the final evidence push; no result from an earlier SHA is carried forward. The three CodeRabbit findings on the preceding PR head were corrected: breakpoint closure/focus, accurate M06A desktop-performance/mobile-layout-only and M06B desktop/mobile performance-and-layout labels, and the visual-score total.
 
 ## Stop state
 
-Checkpoint Delta is **PROPOSED only**. PR #20 remains OPEN/READY FOR REVIEW. No merge, deployment, checkpoint promotion or M07B work is authorized or performed. Development Docker is left UP/healthy.
+Checkpoint Delta is **PROPOSED only**. PR #20 remains OPEN; visual-floor and independent-review gates remain pending. No merge, deployment, checkpoint promotion or M07B work is authorized or performed. The existing Vercel version/configuration was not touched. Development Docker is left UP/healthy.

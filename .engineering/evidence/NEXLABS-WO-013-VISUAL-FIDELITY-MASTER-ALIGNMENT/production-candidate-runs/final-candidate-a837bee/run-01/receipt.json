@@ -1,0 +1,17 @@
+{
+  "sourceCommit": "a837beeae11921dbe35c7757adedbd42055bc21d",
+  "image": "nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d",
+  "imageDigest": "sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3",
+  "candidateUrl": "http://127.0.0.1:3004",
+  "suite": "30/30 PASS",
+  "retries": 0,
+  "browser": "headed hardware-accelerated Chromium (RTX 5050/ANGLE D3D11)",
+  "homeMobileLcpMs": 1836,
+  "homeMobileBudgetMs": 2500,
+  "homeMobileCls": 0,
+  "interactionProxyMs": 112,
+  "desktopTier": "BALANCED",
+  "desktopLazyChunkGzipBytes": 272599,
+  "balancedFpsMedian": 75.2,
+  "reportSha256": "4b86fd329f9d5d9ee40d12f1c4d0149c09c54ff2ebaa0e5709b43ba58870bae2"
+}

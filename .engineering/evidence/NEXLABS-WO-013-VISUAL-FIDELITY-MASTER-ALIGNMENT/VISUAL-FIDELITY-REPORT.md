@@ -6,8 +6,10 @@
 **Admission base:** `e14cfbe4660b076db85e7e529befffe17a098cd1`
 **Initial implementation anchor:** `c860171d8aa45c04032c2605934e82e1a09079d4`
 **Visual correction:** `45bbf10ceeb834be14c92e6bb11145d73fa6ea55`
-**Performance test/source candidate:** `3838e2cc81050b5fd6d620e511daae5bb768f469`
+**Prior performance test/source candidate (superseded):** `3838e2cc81050b5fd6d620e511daae5bb768f469`
 **Deterministic Browser Smoke fixture:** `8ac950e`
+**Current Correction Delta 04 source/test candidate:** `a837beeae11921dbe35c7757adedbd42055bc21d`
+**Current candidate image:** `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`; digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`.
 **Master:** Git blob `52932511adfeb8d372717185fe9a18907625cc0c`; SHA-256 `d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647`.
 
 The score is an executor proposal based on the retained deterministic comparisons. It is not an independent audit or owner acceptance. The independent approval gate remains **PENDING** and requires at least 85/100, with Hero Composition and N/Chamber/Material each at least 15/20.
@@ -39,7 +41,7 @@ The score is an executor proposal based on the retained deterministic comparison
 - The approved master is a dense, photoreal cinematic composition. The candidate uses original SVG/CSS/Three geometry and therefore has less texture, environmental reflection, fine-grain detail and visual density. This is intentional: the master image and all crops remain evidence-only and are not runtime assets.
 - The candidate retains canonical site copy and admitted destinations. It does not add the master’s Products route, search behavior, video behavior, social links, fabricated metrics or unverified claims.
 - The Earth, human silhouette, capability objects and lower-page environments remain simplified compared with the master. Increasing their authored detail is the principal visual correction area indicated by this proposal.
-- Local WebGL frame measurements used Chromium SwiftShader software rendering. They prove quality-tier behavior and test fallbacks but do not qualify a physical GPU’s frame rate.
+- The earlier `3838e2cc` performance sequence used Chromium SwiftShader and is historical only; the current `a837bee` sequence is hardware-accelerated. Neither host measurement establishes field performance.
 
 ## Evidence references
 
@@ -48,10 +50,24 @@ The score is an executor proposal based on the retained deterministic comparison
 - Responsive/menu: `candidate-home-390x844.png`, `mobile-menu-closed-320x844.png`, `mobile-menu-open-320x844.png`, `mobile-menu-active-company-390x844.png`, `research-mobile-390x844.png`.
 - Performance: `candidate-performance-variance.json` and the three retained production candidate run folders.
 
-## Exact-head performance correction
+## Superseded performance history
 
-The exact candidate image was built from source/test commit `3838e2cc81050b5fd6d620e511daae5bb768f469`, digest `sha256:b68630b56345a05525d693549fc96a2f7e1e7c01d9e84b4a19fd3b7c6e0deddf`. Three consecutive Chromium full production-candidate suites passed 30/30 with retries=0. Per-run Home mobile LCP measured 1844 ms, 1908 ms, and 1836 ms; each is below the unchanged 2500 ms limit. Run-specific logs and reports are in `production-candidate-runs/perf-3838e2cc-final/run-01` through `run-03`.
+The earlier `3838e2cc` image/digest/run set is retained as historical evidence and is not the current candidate. Its SwiftShader frame timings and 1844/1908/1836 ms LCP results have been superseded by the three `a837bee` runs below. Earlier mistyped-tag attempts remain excluded in `candidate-performance-variance.json`.
 
-The suite retains 119 frame samples for each distinct FULL and BALANCED WebGL tier. Chromium selected the ANGLE/SwiftShader software renderer; observed frame timing is diagnostic for this host and does not establish physical-GPU frame-rate qualification. The earlier `perf-3838e2c*` attempts are explicitly excluded because their image tag metadata used a mistyped full SHA; only the `perf-3838e2cc-final` sequence is qualifying.
+## Current exact-candidate critique — Round 32
 
-**Decision:** visual score remains PROPOSED. Do not treat WO-013 as visually approved, do not promote the checkpoint and do not begin M07B until the independent audit and owner acceptance gates are resolved.
+The current `a837bee` Home and page captures were compared to the complete locked Master in `design-director/round-32-contact-sheet.png`. The nine harness dimensions score **7, 8, 8, 7, 8, 9, 9, 8, 8** (72/90 diagnostic points). Composition and environment density remain below the required 8/10 floors. The weighted visual report remains **PROPOSED 77/100**; these are separate scales. The main residual gaps are side/overhead instrumentation density, physical environmental reflections, and Research/Technology continuity as one photographic world. No independent audit is requested or implied while those floors remain unmet.
+
+## Exact candidate performance correction
+
+The current source/test candidate is `a837beeae11921dbe35c7757adedbd42055bc21d`, image `nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d`, digest `sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3`. Three **consecutive complete** Chromium production-candidate suites passed **30/30** with `retries=0`; every run used this same image and met the unchanged LCP budget:
+
+| Run | Home mobile LCP | CLS | Interaction proxy | Initial JS gzip | Lazy 3D gzip | FULL / BALANCED median |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| 1 | 1836 ms | 0 | 112 ms | 151,225 B | 272,599 B | 75.2 / 75.2 FPS |
+| 2 | 1796 ms | 0 | 96 ms | 151,225 B | 272,599 B | 75.2 / 75.2 FPS |
+| 3 | 1776 ms | 0 | 112 ms | 151,225 B | 272,599 B | 75.2 / 75.2 FPS |
+
+All runs used headed hardware-accelerated Chromium on the RTX 5050 / ANGLE D3D11 path. Run-specific receipts, commands, full-suite logs, screenshots and performance reports are under `production-candidate-runs/final-candidate-a837bee/run-01` through `run-03`. A separate earlier headless SwiftShader attempt is retained as a nonqualifying diagnostic; it is not counted as one of these three runs. The host-only frame results do not establish field GPU performance.
+
+**Decision:** visual score remains PROPOSED. The technical and LCP proof is green for the immutable `a837bee` source/test candidate, while composition/density floors, independent visual audit, owner acceptance and exact-head hosted checks remain PENDING. Do not promote the checkpoint or begin M07B.
