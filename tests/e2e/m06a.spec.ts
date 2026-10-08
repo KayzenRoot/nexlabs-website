@@ -3,10 +3,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06a-regressions",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m06a-regressions",
 );
 
 const routeCases = [
@@ -186,7 +187,7 @@ test("M06A routes retain canonical metadata, semantic content and isolated bundl
     if (metrics.lcpMs > 0) expect(metrics.lcpMs).toBeLessThanOrEqual(2500);
     expect(metrics.cls).toBeLessThanOrEqual(0.1);
 
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, route.screenshot),
       fullPage: false,
       animations: "disabled",
@@ -198,7 +199,7 @@ test("M06A routes retain canonical metadata, semantic content and isolated bundl
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
     );
     expect(mobileOverflow, `${route.path} mobile horizontal overflow`).toBe(false);
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, route.mobileScreenshot),
       fullPage: false,
       animations: "disabled",
@@ -217,7 +218,7 @@ test("M06A routes retain canonical metadata, semantic content and isolated bundl
   writeFileSync(
     resolve(evidenceDirectory, "route-performance-report.json"),
     `${JSON.stringify({
-      source: "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+      source: "Playwright Chromium; local production build; desktop performance metrics 1600x900; mobile layout checks 390x844",
       routeJsBudgetGzipBytes: 220 * 1024,
       routes: reports,
     }, null, 2)}\n`,
@@ -279,7 +280,7 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
     await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
     const focusShadow = await page.evaluate(() => getComputedStyle(document.activeElement!).boxShadow);
     expect(focusShadow).not.toBe("none");
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, `${route.path.slice(1)}-keyboard-focus.png`),
       fullPage: false,
       animations: "disabled",
@@ -296,6 +297,12 @@ test("secondary pages preserve skip-link, keyboard focus, responsive layout and 
       { width: 320, height: 740 },
     ]) {
       await page.setViewportSize(viewport);
+      await page.evaluate(
+        () =>
+          new Promise<void>((resolve) =>
+            requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+          ),
+      );
       const overflow = await page.evaluate(
         () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
       );

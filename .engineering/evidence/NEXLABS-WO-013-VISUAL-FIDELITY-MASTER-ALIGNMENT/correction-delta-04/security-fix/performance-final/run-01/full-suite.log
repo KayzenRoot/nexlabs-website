@@ -1,0 +1,42 @@
+
+> nexlabs-website@1.0.0 test:e2e
+> playwright test --config=.engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts --retries=0 --output=.engineering\evidence\NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT\correction-delta-04\security-fix\performance-final\run-01\playwright-artifacts
+
+
+Running 31 tests using 1 worker
+
+(node:17092) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  1 [chromium] › tests\e2e\home.spec.ts:403:1 › Home renders the approved poster and retains responsive screenshots (5.7s)
+  ok  2 [chromium] › tests\e2e\home.spec.ts:519:1 › M05 sections preserve canonical copy, live anchors, and visual continuity (2.5s)
+  ok  3 [chromium] › tests\e2e\home.spec.ts:587:1 › skip link and keyboard focus are visible and usable (1.1s)
+  ok  4 [chromium] › tests\e2e\home.spec.ts:606:1 › mobile menu exposes every route and closes on Escape with focus restored (1.7s)
+  ok  5 [chromium] › tests\e2e\home.spec.ts:644:1 › mobile menu closes and transfers focus when the viewport enters desktop navigation (823ms)
+  ok  6 [chromium] › tests\e2e\home.spec.ts:662:1 › lazy scene reaches ready on capable WebGL and retains the poster otherwise (1.6s)
+  ok  7 [chromium] › tests\e2e\home.spec.ts:696:1 › software WebGL renderers stay on the static poster path (763ms)
+  ok  8 [chromium] › tests\e2e\home.spec.ts:730:1 › WebGL failure selects the static hero without blocking semantic content (1.5s)
+  ok  9 [chromium] › tests\e2e\home.spec.ts:764:1 › runtime WebGL failure keeps the poster fallback after resize (2.5s)
+  ok 10 [chromium] › tests\e2e\home.spec.ts:843:1 › measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles (7.7s)
+  ok 11 [chromium] › tests\e2e\home.spec.ts:1317:1 › reduced motion keeps the static Home composition usable (1.6s)
+  ok 12 [chromium] › tests\e2e\home.spec.ts:1364:1 › 16px and 24px monochrome marks load and retain the favicon silhouette (767ms)
+  ok 13 [chromium] › tests\e2e\home.spec.ts:1395:1 › horizontal lockups and the chrome-blue treatment load as the selected identity (819ms)
+  ok 14 [chromium] › tests\e2e\home.spec.ts:1431:1 › Home has no automated accessibility violations (2.1s)
+  ok 15 [chromium] › tests\e2e\m06a.spec.ts:129:1 › M06A routes retain canonical metadata, semantic content and isolated bundles (3.3s)
+  ok 16 [chromium] › tests\e2e\m06a.spec.ts:229:1 › global navigation and route CTAs resolve only to admitted destinations (1.8s)
+  ok 17 [chromium] › tests\e2e\m06a.spec.ts:266:1 › secondary pages preserve skip-link, keyboard focus, responsive layout and reduced motion (3.5s)
+  ok 18 [chromium] › tests\e2e\m06a.spec.ts:326:1 › M06A routes meet WCAG 2.2 AA and Contact is integrated (2.7s)
+  ok 19 [chromium] › tests\e2e\m06b.spec.ts:177:1 › Research and Company render canonical content, metadata and isolated route bundles (4.9s)
+  ok 20 [chromium] › tests\e2e\m06b.spec.ts:277:1 › Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and responsive checks (6.3s)
+  ok 21 [chromium] › tests\e2e\m06b.spec.ts:384:1 › M06B navigation and all admitted Research transitions resolve with Contact integrated (7.5s)
+  ok 22 [chromium] › tests\e2e\m06c.spec.ts:82:1 › Contact renders exact canonical copy, metadata and a zero-collection surface (1.4s)
+  ok 23 [chromium] › tests\e2e\m06c.spec.ts:154:1 › Contact meets accessibility, reduced-motion, responsive and isolated-route budgets (8.6s)
+  ok 24 [chromium] › tests\e2e\m06c.spec.ts:275:1 › Contact navigation is final across six V1 routes and Home retains its section anchor (7.3s)
+  ok 25 [chromium] › tests\e2e\m07a.spec.ts:21:1 › production HTML routes and the 404 carry the minimum security header policy (805ms)
+  ok 26 [chromium] › tests\e2e\m07a.spec.ts:80:1 › production Home preloads the responsive static poster (134ms)
+  ok 27 [chromium] › tests\e2e\m07a.spec.ts:93:1 › all routes stay noindex and robots blocks crawling without publishing a sitemap (4.1s)
+  ok 28 [chromium] › tests\e2e\m07a.spec.ts:127:1 › prelaunch banner is visible on every public route (4.1s)
+  ok 29 [chromium] › tests\e2e\m07a.spec.ts:148:1 › branded 404 has no Axe violations and exposes a safe route back Home (2.4s)
+  ok 30 [chromium] › tests\e2e\wo013-visual-fidelity.spec.ts:159:1 › WO-013 deterministic visual, responsive, motion and comparison evidence (24.1s)
+  ok 31 [chromium] › tests\e2e\wo013-visual-fidelity.spec.ts:416:1 › Home retains its environmental artwork when software WebGL needs a static fallback (1.3s)
+
+  31 passed (2.0m)

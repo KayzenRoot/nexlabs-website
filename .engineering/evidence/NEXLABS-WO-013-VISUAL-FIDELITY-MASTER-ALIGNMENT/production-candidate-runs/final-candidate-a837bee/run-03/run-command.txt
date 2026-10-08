@@ -1,0 +1,8 @@
+source=a837beeae11921dbe35c7757adedbd42055bc21d
+image=nexlabs-website-release-candidate:a837beeae11921dbe35c7757adedbd42055bc21d
+imageDigest=sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3
+target=http://127.0.0.1:3004
+retries=0
+mode=headed hardware-accelerated Chromium
+config=.engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS/performance-candidate-playwright.config.ts
+command=NEXLABS_RELEASE_PORT=3004 E2E_PORT=3004; npx playwright test --config performance-candidate-playwright.config.ts --workers=1 --retries=0 --headed --output <run-dir>/playwright-results

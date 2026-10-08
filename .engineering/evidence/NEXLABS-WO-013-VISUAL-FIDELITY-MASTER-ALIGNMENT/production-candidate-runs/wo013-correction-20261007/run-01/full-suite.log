@@ -1,0 +1,85 @@
+
+Running 30 tests using 1 worker
+
+(node:1208) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  x   1 [chromium] › tests\e2e\home.spec.ts:172:1 › Home renders the approved poster and retains responsive screenshots (33.0s)
+(node:2504) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok  2 [chromium] › tests\e2e\home.spec.ts:246:1 › M05 sections preserve canonical copy, live anchors, and visual continuity (17.8s)
+  ok  3 [chromium] › tests\e2e\home.spec.ts:314:1 › skip link and keyboard focus are visible and usable (1.7s)
+  ok  4 [chromium] › tests\e2e\home.spec.ts:333:1 › mobile menu exposes every route and closes on Escape with focus restored (2.1s)
+  ok  5 [chromium] › tests\e2e\home.spec.ts:371:1 › mobile menu closes and transfers focus when the viewport enters desktop navigation (866ms)
+  ok  6 [chromium] › tests\e2e\home.spec.ts:389:1 › lazy scene reaches ready on capable WebGL and retains the poster otherwise (13.4s)
+  ok  7 [chromium] › tests\e2e\home.spec.ts:422:1 › WebGL failure selects the static hero without blocking semantic content (1.4s)
+  ok  8 [chromium] › tests\e2e\home.spec.ts:455:1 › runtime WebGL failure keeps the poster fallback after resize (3.3s)
+  x   9 [chromium] › tests\e2e\home.spec.ts:519:1 › measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles (544ms)
+(node:3812) Warning: The 'NO_COLOR' env is ignored due to the 'FORCE_COLOR' env being set.
+(Use `node --trace-warnings ...` to show where the warning was created)
+  ok 10 [chromium] › tests\e2e\home.spec.ts:859:1 › reduced motion keeps the static Home composition usable (1.8s)
+  ok 11 [chromium] › tests\e2e\home.spec.ts:906:1 › 16px and 24px monochrome marks load and retain the favicon silhouette (998ms)
+  ok 12 [chromium] › tests\e2e\home.spec.ts:937:1 › horizontal lockups and the chrome-blue treatment load as the selected identity (1.2s)
+  ok 13 [chromium] › tests\e2e\home.spec.ts:973:1 › Home has no automated accessibility violations (10.3s)
+  ok 14 [chromium] › tests\e2e\m06a.spec.ts:129:1 › M06A routes retain canonical metadata, semantic content and isolated bundles (3.6s)
+  ok 15 [chromium] › tests\e2e\m06a.spec.ts:229:1 › global navigation and route CTAs resolve only to admitted destinations (1.7s)
+  ok 16 [chromium] › tests\e2e\m06a.spec.ts:266:1 › secondary pages preserve skip-link, keyboard focus, responsive layout and reduced motion (4.2s)
+  ok 17 [chromium] › tests\e2e\m06a.spec.ts:326:1 › M06A routes meet WCAG 2.2 AA and Contact is integrated (2.6s)
+  ok 18 [chromium] › tests\e2e\m06b.spec.ts:177:1 › Research and Company render canonical content, metadata and isolated route bundles (5.6s)
+  ok 19 [chromium] › tests\e2e\m06b.spec.ts:277:1 › Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and responsive checks (7.4s)
+  ok 20 [chromium] › tests\e2e\m06b.spec.ts:384:1 › M06B navigation and all admitted Research transitions resolve with Contact integrated (19.4s)
+  ok 21 [chromium] › tests\e2e\m06c.spec.ts:82:1 › Contact renders exact canonical copy, metadata and a zero-collection surface (1.2s)
+  ok 22 [chromium] › tests\e2e\m06c.spec.ts:154:1 › Contact meets accessibility, reduced-motion, responsive and isolated-route budgets (9.2s)
+  ok 23 [chromium] › tests\e2e\m06c.spec.ts:275:1 › Contact navigation is final across six V1 routes and Home retains its section anchor (24.4s)
+  ok 24 [chromium] › tests\e2e\m07a.spec.ts:21:1 › production HTML routes and the 404 carry the minimum security header policy (1.2s)
+  ok 25 [chromium] › tests\e2e\m07a.spec.ts:80:1 › production Home preloads the responsive static poster (153ms)
+  ok 26 [chromium] › tests\e2e\m07a.spec.ts:93:1 › all routes stay noindex and robots blocks crawling without publishing a sitemap (4.6s)
+  ok 27 [chromium] › tests\e2e\m07a.spec.ts:127:1 › prelaunch banner is visible on every public route (12.3s)
+  ok 28 [chromium] › tests\e2e\m07a.spec.ts:148:1 › branded 404 has no Axe violations and exposes a safe route back Home (2.4s)
+  ok 29 [chromium] › tests\e2e\wo013-visual-fidelity.spec.ts:159:1 › WO-013 deterministic visual, responsive, motion and comparison evidence (1.3m)
+  ok 30 [chromium] › tests\e2e\wo013-visual-fidelity.spec.ts:363:1 › FULL Home shows an environmental lab backdrop behind a dark illuminated platform (16.4s)
+
+
+  1) [chromium] › tests\e2e\home.spec.ts:172:1 › Home renders the approved poster and retains responsive screenshots
+
+    Test timeout of 30000ms exceeded.
+
+    Error Context: test-results-performance001\home-Home-renders-the-appr-57fda-ains-responsive-screenshots-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results-performance001\home-Home-renders-the-appr-57fda-ains-responsive-screenshots-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results-performance001\home-Home-renders-the-appr-57fda-ains-responsive-screenshots-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2) [chromium] › tests\e2e\home.spec.ts:519:1 › measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles
+
+    Error: page.goto: net::ERR_CONNECTION_REFUSED at http://127.0.0.1:3100/
+    Call log:
+      - navigating to "http://127.0.0.1:3100/", waiting until "load"
+
+
+      532 |   const staticChunkCollector = collectScriptGzipSizes(staticPage);
+      533 |   const staticStart = Date.now();
+    > 534 |   await staticPage.goto(`${testBaseURL}/`, { waitUntil: "load" });
+          |                    ^
+      535 |   await expect(staticPage.getByTestId("hero-scene-stage")).toHaveAttribute(
+      536 |     "data-quality-tier",
+      537 |     "STATIC",
+        at C:\Users\csn19\.codex\worktrees\nexlabs-wo-013-visual-fidelity\nexlabs-website\tests\e2e\home.spec.ts:534:20
+
+    Error Context: test-results-performance001\home-measures-poster-first-72d74--proxies-and-frame-profiles-chromium\error-context.md
+
+    attachment #2: trace (application/zip) ─────────────────────────────────────────────────────────
+    test-results-performance001\home-measures-poster-first-72d74--proxies-and-frame-profiles-chromium\trace.zip
+    Usage:
+
+        npx playwright show-trace test-results-performance001\home-measures-poster-first-72d74--proxies-and-frame-profiles-chromium\trace.zip
+
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+  2 failed
+    [chromium] › tests\e2e\home.spec.ts:172:1 › Home renders the approved poster and retains responsive screenshots
+    [chromium] › tests\e2e\home.spec.ts:519:1 › measures poster-first, lazy chunk size, Web Vitals proxies, and frame profiles
+  28 passed (4.9m)

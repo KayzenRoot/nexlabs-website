@@ -1,0 +1,86 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "A seamless 360-degree equirectangular lat-long environment map, exact 2:1 panorama, viewpoint centered inside a photoreal high-end AI research laboratory. Wraparound dark graphite and midnight-blue architecture, curved segmented wall bays, layered vertical chrome support ribs, deep side alcoves and distant instrument consoles with tiny abstract cyan indicators. A tall open cylindrical chamber with luminous upper and lower ring lights surrounds an entirely empty central volume for a separately rendered sculpture. The floor is dark polished graphite, mostly black, with fine cyan and ice-white concentric inlays and narrow controlled reflections; no broad pale surface. Cold axial light shafts, smoked-glass panels, restrained energy filaments and sparse fine particles create layered depth and realistic material response. Premium cinematic lighting, dense but legible environment, balanced exposure, continuous architecture across the left and right panorama edges. No person, no central sculpture, no N, no logo, no text, no signs, no letters, no words, no readable interface, no fisheye, no split-screen.",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "bright white floor, pale gray floor, beige floor, daylight, overexposed, washed out, blank studio, minimal empty room, flat wall, no depth, fisheye, wide empty foreground, large central sculpture, logo, N letter, people, readable text, signage, fake dashboard, watermark, duplicated ceiling rings, clutter, neon oversaturation, cheap plastic, non panoramic perspective, seams, black border, circular fisheye projection",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "4": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 512,
+      "batch_size": 1
+    }
+  },
+  "5": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231307,
+      "steps": 20,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "2",
+        0
+      ],
+      "negative": [
+        "3",
+        0
+      ],
+      "latent_image": [
+        "4",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "5",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "7": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_hero_environment_360",
+      "images": [
+        "6",
+        0
+      ]
+    }
+  }
+}

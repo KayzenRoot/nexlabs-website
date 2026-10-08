@@ -1,0 +1,5 @@
+run=1/3
+image=sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c
+port=3102
+retries=0
+suite=full production-candidate chromium E2E

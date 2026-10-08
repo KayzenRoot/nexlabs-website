@@ -1,0 +1,8 @@
+run=3/3
+image=sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c
+NEXLABS_RELEASE_PORT=3102
+E2E_PORT=3102
+retries=0
+suite=full production-candidate chromium E2E
+evidenceRoot=<local path redacted>; committed artifacts=.engineering/evidence/wo013-cd04-final/verified-run-03
+run=3 result=PASS suite=31/31 mobileLcpMs=1748 image=sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c health=healthy

@@ -103,3 +103,28 @@ M06A rules:
 - Release-readiness CI validates artifacts locally and never deploys.
 - Production provider/origin/DNS/TLS remain M07B concerns.
 - The Home Three/R3F client island architecture remains unchanged.
+
+
+## WO-013 visual-fidelity architecture
+
+- The approved Home architecture remains one lazy React Three Fiber / Three.js client island.
+- WO-013 enriches that existing scene through procedural geometry/material/light composition rather than adding a second runtime.
+- FULL/BALANCED/STATIC remain mandatory and compositionally aligned.
+- Semantic content and critical interactions remain outside canvas.
+- Header/mobile navigation may use a small isolated client interaction component for current-route/menu state; no global state library.
+- Secondary pages remain server-rendered semantic content and may use CSS perspective, SVG/HTML layers and narrowly scoped client motion only when justified.
+- Precision Blades canonical vector geometry is immutable; only presentation/material may change.
+- The approved master remains evidence-only and cannot be served as production artwork.
+- M07A security headers, indexing posture, standalone candidate and Release Readiness remain architecture constraints.
+
+
+## WO-013 local visual asset pipeline
+
+- ComfyUI and Blender are local authoring tools, never website runtime dependencies.
+- ComfyUI is accessed through localhost API only and is not exposed to LAN/internet.
+- Blender automation defaults to background/headless CLI plus reviewed Python scripts.
+- Official Blender Lab MCP is optional and disabled by default because it executes LLM-generated code without guards; MCP requires separate isolation/authorization.
+- Model weights, raw renders and source working files live outside Git.
+- Repository contains only orchestration scripts, manifests/templates, approved optimized web assets and sanitized evidence.
+- Generated images/meshes are design inputs, not automatically trusted production artifacts.
+- Website integration remains subject to WO-013 performance, a11y, security and fidelity gates.

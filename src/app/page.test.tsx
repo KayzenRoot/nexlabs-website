@@ -126,6 +126,46 @@ describe("HomePage", () => {
     expect(screen.queryByText(/global partners/i)).not.toBeInTheDocument();
   });
 
+  it("renders five optimized, decorative capability sculptures", () => {
+    const { container } = renderHomeExperience();
+    const artwork = Array.from(
+      container.querySelectorAll<HTMLImageElement>("#capabilities img"),
+    );
+
+    expect(artwork).toHaveLength(5);
+    expect(
+      artwork.map((image) => {
+        const source = new URL(image.getAttribute("src") ?? "", window.location.origin);
+        return source.searchParams.get("url") ?? source.pathname;
+      }),
+    ).toEqual([
+      "/generated/capabilities/ai-neural-lattice.webp",
+      "/generated/capabilities/infrastructure-stack.webp",
+      "/generated/capabilities/interfaces-network-core.webp",
+      "/generated/capabilities/sustainable-energy-torus.webp",
+      "/generated/capabilities/research-faceted-crystal.webp",
+    ]);
+    expect(artwork.every((image) => image.getAttribute("alt") === "")).toBe(true);
+    expect(artwork.every((image) => image.getAttribute("loading") === "lazy")).toBe(true);
+  });
+
+  it("keeps lower Home environment artwork decorative and local", () => {
+    const { container } = renderHomeExperience();
+    const researchArtwork = container.querySelector<SVGImageElement>("#researchVisual image, [data-world-reveal='research'] image");
+    const researchScene = container.querySelector<SVGSVGElement>("[data-world-reveal='research'] svg");
+    const technologyArtwork = container.querySelector<HTMLImageElement>("#infrastructure img");
+
+    expect(researchArtwork?.getAttribute("href")).toBe("/generated/home/research-earth.webp");
+    expect(researchScene?.getAttribute("aria-hidden")).toBe("true");
+    expect(technologyArtwork).not.toBeNull();
+    const technologySource = new URL(technologyArtwork?.getAttribute("src") ?? "", window.location.origin);
+    expect(technologySource.searchParams.get("url") ?? technologySource.pathname).toBe(
+      "/generated/home/technology-stack.webp",
+    );
+    expect(technologyArtwork?.getAttribute("alt")).toBe("");
+    expect(technologyArtwork?.getAttribute("loading")).toBe("lazy");
+  });
+
   it("keeps every visible Home navigation and CTA target on a visible section", () => {
     const { container } = renderHomeExperience();
     const targetIds = Array.from(
