@@ -119,7 +119,6 @@ def main() -> None:
     report = {
         "status": "PASS",
         "blenderVersion": bpy.app.version_string,
-        "source": str(source),
         "sourceSha256": source_sha,
         "sourceBytes": source.stat().st_size,
         "output": str(output),
