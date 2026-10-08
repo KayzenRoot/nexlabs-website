@@ -171,11 +171,10 @@
   flex-direction: column;
   overflow: hidden;
   padding: clamp(0.85rem, 1.15vw, 1.15rem);
-  border: 1px solid rgb(71 161 239 / 45%);
-  border-radius: 1rem;
+  border: 1px solid rgb(88 165 222 / 42%);
+  border-radius: 0.48rem;
   background:
-    radial-gradient(ellipse at 50% 26%, rgb(47 148 255 / 14%), transparent 42%),
-    linear-gradient(155deg, rgb(13 32 54 / 91%), rgb(5 13 25 / 94%) 68%),
+    linear-gradient(145deg, rgb(13 31 50 / 91%), rgb(4 12 23 / 96%) 72%),
     var(--color-surface-glass);
   box-shadow: inset 0 1px rgb(217 240 255 / 7%), 0 14px 36px rgb(0 0 0 / 22%);
   transition:
@@ -229,7 +228,7 @@
 .cardVisual {
   position: relative;
   display: grid;
-  min-height: 8.45rem;
+  min-height: 9rem;
   flex: 0 0 auto;
   place-items: center;
   perspective: 22rem;
@@ -248,8 +247,8 @@
 .cardVisual::before {
   top: 0.4rem;
   left: 50%;
-  width: 7rem;
-  height: 7rem;
+  width: 8rem;
+  height: 8rem;
   transform: translateX(-50%) translateZ(-1rem);
   border: 1px solid rgb(94 194 255 / 13%);
   border-radius: 50%;
@@ -274,10 +273,10 @@
 
 .cardHalo {
   position: absolute;
-  top: 4.8rem;
+  top: 5.15rem;
   left: 50%;
-  width: 7.4rem;
-  height: 1.7rem;
+  width: 8rem;
+  height: 1.85rem;
   border: 1px solid rgb(85 194 255 / 28%);
   border-radius: 50%;
   background:
@@ -307,14 +306,14 @@
 .capabilityGlyph {
   position: relative;
   z-index: 1;
-  width: clamp(6.35rem, 7.8vw, 7.75rem);
-  height: clamp(6.35rem, 7.8vw, 7.75rem);
+  width: clamp(7rem, 8.2vw, 8.5rem);
+  height: clamp(7rem, 8.2vw, 8.5rem);
   flex: 0 0 auto;
   object-fit: contain;
   mix-blend-mode: screen;
-  -webkit-mask-image: radial-gradient(ellipse 73% 73% at 50% 48%, #000 52%, rgb(0 0 0 / 94%) 68%, transparent 88%);
-  mask-image: radial-gradient(ellipse 73% 73% at 50% 48%, #000 52%, rgb(0 0 0 / 94%) 68%, transparent 88%);
-  filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.42rem rgb(181 241 255 / 82%)) drop-shadow(0 0 1.55rem rgb(55 167 255 / 94%));
+  -webkit-mask-image: radial-gradient(ellipse 66% 68% at 50% 47%, #000 45%, rgb(0 0 0 / 95%) 58%, transparent 78%);
+  mask-image: radial-gradient(ellipse 66% 68% at 50% 47%, #000 45%, rgb(0 0 0 / 95%) 58%, transparent 78%);
+  filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.28rem rgb(181 241 255 / 62%)) drop-shadow(0 0 1.1rem rgb(55 167 255 / 72%));
   transform: translate3d(0, -0.42rem, 0) scale(1.04);
   transform-style: preserve-3d;
   transition: filter var(--motion-medium) var(--ease-standard), transform var(--motion-medium) var(--ease-standard);
@@ -530,9 +529,12 @@
   border: 1px solid rgb(111 170 227 / 25%);
   border-radius: var(--radius-lg);
   background:
-    radial-gradient(ellipse at 74% 48%, rgb(17 83 158 / 17%), transparent 42%),
+    linear-gradient(90deg, transparent 0 8%, rgb(81 172 245 / 8%) 8.1%, transparent 8.25% 92%, rgb(81 172 245 / 8%) 92.1%, transparent 92.25%),
+    repeating-linear-gradient(0deg, transparent 0 5.1rem, rgb(91 157 225 / 3%) 5.14rem 5.18rem, transparent 5.24rem 8.4rem),
+    radial-gradient(ellipse at 74% 48%, rgb(17 83 158 / 20%), transparent 42%),
     linear-gradient(100deg, rgb(6 16 29 / 97%), rgb(3 9 18 / 96%)),
     var(--color-surface-glass);
+  border-radius: 0.48rem;
   box-shadow: inset 0 1px rgb(214 238 255 / 7%), 0 26px 74px rgb(0 0 0 / 34%), 0 0 2.4rem rgb(20 95 191 / 11%);
 }
 
@@ -586,11 +588,32 @@
   pointer-events: none;
 }
 
+.research::after,
+.technology::after {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 9%;
+  left: 0;
+  height: 1px;
+  content: "";
+  box-shadow: 0 0 0.7rem rgb(58 170 255 / 42%);
+  pointer-events: none;
+}
+
+.research::after {
+  background: linear-gradient(90deg, transparent, rgb(79 189 255 / 42%) 36%, rgb(125 229 255 / 82%));
+}
+
+.technology::after {
+  background: linear-gradient(90deg, rgb(125 229 255 / 82%), rgb(79 189 255 / 42%) 64%, transparent);
+}
+
 .research::before {
   background:
-    linear-gradient(90deg, transparent 8%, rgb(41 134 235 / 16%) 8.1%, transparent 8.35%),
-    linear-gradient(180deg, transparent 0 70%, rgb(39 132 226 / 9%) 70.2%, transparent 70.5%),
-    radial-gradient(ellipse at 75% 45%, rgb(32 128 245 / 18%), transparent 43%);
+    linear-gradient(90deg, transparent 8%, rgb(41 134 235 / 18%) 8.1%, transparent 8.35%, transparent 90%, rgb(51 151 244 / 14%) 90.1%, transparent 90.35%),
+    linear-gradient(180deg, transparent 0 22%, rgb(39 132 226 / 9%) 22.1%, transparent 22.35% 70%, rgb(39 132 226 / 11%) 70.2%, transparent 70.5%),
+    radial-gradient(ellipse at 75% 45%, rgb(32 128 245 / 22%), transparent 43%);
 }
 
 .technology::before {
@@ -776,12 +799,12 @@
   width: min(142%, 35rem);
   height: auto;
   object-fit: contain;
-  opacity: 0.78;
+  opacity: 0.62;
   mix-blend-mode: screen;
   -webkit-mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
   mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
-  filter: drop-shadow(0 1.1rem 0.9rem rgb(0 0 0 / 72%)) drop-shadow(0 0 1.5rem rgb(30 165 255 / 34%));
-  transform: translateY(-0.32rem) scale(1.06);
+  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 72%)) drop-shadow(0 0 1.25rem rgb(30 165 255 / 30%));
+  transform: translateY(-0.32rem) scale(1.1);
 }
 
 .technologyGlyph {
@@ -791,7 +814,8 @@
   max-width: 37rem;
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 1.5rem 1.15rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.58rem rgb(191 245 255 / 68%)) drop-shadow(0 0 1.95rem rgb(41 148 255 / 78%));
+  opacity: 0.9;
+  filter: drop-shadow(0 1.5rem 1.15rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.42rem rgb(191 245 255 / 56%)) drop-shadow(0 0 1.55rem rgb(41 148 255 / 68%));
   transform: perspective(34rem) rotateY(-15deg) rotateX(8deg) translateZ(1.9rem);
 }
 
@@ -1045,11 +1069,12 @@
   }
 
   .cardVisual {
-    min-height: 6.4rem;
+    min-height: 7rem;
   }
 
   .capabilityGlyph {
-    width: clamp(5.2rem, 20vw, 6.2rem);
+    width: clamp(5.7rem, 21vw, 6.5rem);
+    height: clamp(5.7rem, 21vw, 6.5rem);
     transform: perspective(14rem) rotateX(16deg) rotateY(-12deg) translate3d(0, -0.35rem, 0.9rem);
   }
 

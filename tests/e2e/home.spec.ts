@@ -216,6 +216,12 @@ test("Home renders the approved poster and retains responsive screenshots", asyn
     { width: 1600, height: 900, name: "desktop-1600x900", fullPage: false },
   ]) {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
+    await page.evaluate(
+      () =>
+        new Promise<void>((resolve) =>
+          requestAnimationFrame(() => requestAnimationFrame(() => resolve())),
+        ),
+    );
     const hasHorizontalOverflow = await page.evaluate(
       () => document.documentElement.scrollWidth > document.documentElement.clientWidth,
     );

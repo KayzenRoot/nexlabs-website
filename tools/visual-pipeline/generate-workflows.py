@@ -246,6 +246,51 @@ def _master_style_graph() -> dict[str, dict]:
     return graph
 
 
+def _master_style_reference_only_graph() -> dict[str, dict]:
+    """Low-denoise full-frame master study; output remains local/reference-only."""
+    graph = _text_to_image(
+        (
+            "Art-direction study of the supplied full-frame approved website reference. "
+            "Keep the broad composition zones: left editorial area, central monumental "
+            "chrome N in a cylindrical chamber, dark circular platform, network Earth, "
+            "smoked-glass panels, lower capability band and two connected laboratory "
+            "worlds. Refine physical depth and cold blue-white lighting. Do not preserve "
+            "or invent readable text, labels, claims, logos, metrics or interface copy. "
+            "This is a private design reference only, never a production image."
+        ),
+        seed=231401,
+        width=768,
+        height=432,
+        steps=16,
+        prefix="nexlabs_wo013_master_reference_only",
+        negative=(
+            "readable text, typography, watermark, invented logo, extra letters, fake dashboard, "
+            "bright white floor, empty black void, flat icon, cheap plastic, oversaturated glow"
+        ),
+    )
+    graph["8"] = {
+        "class_type": "LoadImage",
+        "inputs": {"image": MASTER_INPUT_NAME},
+    }
+    graph["9"] = {
+        "class_type": "ImageScale",
+        "inputs": {
+            "upscale_method": "lanczos",
+            "width": 768,
+            "height": 432,
+            "crop": "disabled",
+            "image": ["8", 0],
+        },
+    }
+    graph["10"] = {
+        "class_type": "VAEEncode",
+        "inputs": {"pixels": ["9", 0], "vae": ["1", 2]},
+    }
+    graph["5"]["inputs"]["denoise"] = 0.28
+    graph["5"]["inputs"]["latent_image"] = ["10", 0]
+    return graph
+
+
 def _depth_guided_text_to_image(
     positive: str,
     *,
@@ -451,6 +496,11 @@ def main() -> None:
             ),
         )
     _save_graph(workflow_dir, "master_style_img2img_sdxl.json", _master_style_graph())
+    _save_graph(
+        workflow_dir,
+        "master_style_reference_only.json",
+        _master_style_reference_only_graph(),
+    )
 
     if args.copy_master:
         master = repository_root / MASTER_RELATIVE

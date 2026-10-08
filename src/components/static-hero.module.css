@@ -603,10 +603,10 @@
   }
 
   .referencePoster {
-    inset: 4.1rem 0 0;
-    top: auto;
+    inset: 4.1rem 0 auto;
     left: 0;
     width: min(100%, 28rem);
+    height: calc(100% - 4.1rem);
     aspect-ratio: auto;
     transform: none;
     background-image: url("/hero/home-hero-poster-mobile.jpg");

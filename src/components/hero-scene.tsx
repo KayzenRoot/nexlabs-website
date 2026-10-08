@@ -6,6 +6,7 @@ import {
   BufferGeometry,
   CatmullRomCurve3,
   Color,
+  DataTexture,
   DoubleSide,
   EquirectangularReflectionMapping,
   EdgesGeometry,
@@ -18,17 +19,21 @@ import {
   Material,
   Mesh,
   MeshPhysicalMaterial,
+  MeshStandardMaterial,
   MeshBasicMaterial,
   Object3D,
   PlaneGeometry,
+  RGBAFormat,
   ShapeGeometry,
   SphereGeometry,
   Texture,
   TextureLoader,
   TubeGeometry,
+  UnsignedByteType,
   Vector3,
 } from "three";
 import { SVGLoader } from "three/addons/loaders/SVGLoader.js";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { mergeGeometries } from "three/addons/utils/BufferGeometryUtils.js";
 import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import { precisionBladesGeometry, precisionBladesTransform } from "../brand/precision-blades";
@@ -47,6 +52,39 @@ interface SceneInstanceTransform {
   rotation?: [number, number, number];
   scale?: [number, number, number];
   color?: string;
+}
+
+/** Builds a deterministic strip-light reflection card for the chrome N only. */
+function createChromeReflectionEnvironment() {
+  const width = 512;
+  const height = 256;
+  const pixels = new Uint8Array(width * height * 4);
+  const stripCenters = [0.14, 0.35, 0.52, 0.69, 0.86];
+
+  for (let y = 0; y < height; y += 1) {
+    for (let x = 0; x < width; x += 1) {
+      const u = x / width;
+      let reflection = 4;
+      for (let index = 0; index < stripCenters.length; index += 1) {
+        const distance = Math.abs(u - stripCenters[index]);
+        reflection = Math.max(
+          reflection,
+          4 + Math.max(0, 1 - distance / 0.055) * 54 + Math.max(0, 1 - distance / 0.006) * 190,
+        );
+      }
+      const offset = (y * width + x) * 4;
+      pixels[offset] = Math.round(reflection * 0.78);
+      pixels[offset + 1] = Math.round(reflection * 0.9);
+      pixels[offset + 2] = Math.round(reflection);
+      pixels[offset + 3] = 255;
+    }
+  }
+
+  const texture = new DataTexture(pixels, width, height, RGBAFormat, UnsignedByteType);
+  texture.mapping = EquirectangularReflectionMapping;
+  texture.colorSpace = SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
 }
 
 /** Packs repeated static detail into one draw call while preserving its transforms and color accents. */
@@ -179,30 +217,30 @@ function useHeroFaceGeometry() {
       const width = Math.max(bounds.max.x - bounds.min.x, 0.001);
       const height = Math.max(bounds.max.y - bounds.min.y, 0.001);
       const stops = [
-        [0, new Color("#182a3b")],
-        [0.055, new Color("#bed0df")],
-        [0.105, new Color("#f7fcff")],
-        [0.16, new Color("#263a4c")],
-        [0.245, new Color("#71879a")],
-        [0.315, new Color("#f4fbff")],
-        [0.365, new Color("#d6e4ef")],
-        [0.435, new Color("#23384c")],
-        [0.51, new Color("#102438")],
-        [0.59, new Color("#e7f2fa")],
-        [0.645, new Color("#657e93")],
-        [0.715, new Color("#182d41")],
-        [0.79, new Color("#d1e2ef")],
-        [0.835, new Color("#f9fdff")],
-        [0.9, new Color("#263a4d")],
-        [0.965, new Color("#9db4c7")],
-        [1, new Color("#1a2d40")],
+        [0, new Color("#97aab3")],
+        [0.045, new Color("#ffffff")],
+        [0.095, new Color("#7f929b")],
+        [0.15, new Color("#f5fbfd")],
+        [0.235, new Color("#b7c8d0")],
+        [0.305, new Color("#ffffff")],
+        [0.36, new Color("#627782")],
+        [0.43, new Color("#eaf4f7")],
+        [0.505, new Color("#82969f")],
+        [0.585, new Color("#ffffff")],
+        [0.64, new Color("#a5b8c0")],
+        [0.71, new Color("#f7fdff")],
+        [0.785, new Color("#6b808a")],
+        [0.83, new Color("#f0f8fb")],
+        [0.895, new Color("#879ba4")],
+        [0.96, new Color("#ffffff")],
+        [1, new Color("#718791")],
       ] as const;
       const colors = new Float32Array(positions.count * 3);
       const color = new Color();
       for (let index = 0; index < positions.count; index += 1) {
         const x = (positions.getX(index) - bounds.min.x) / width;
         const y = (positions.getY(index) - bounds.min.y) / height;
-        const position = x * 0.72 + (1 - y) * 0.28;
+        const position = x * 0.82 + (1 - y) * 0.18;
         const right = stops.findIndex(([offset]) => offset >= position);
         const previous = stops[Math.max(0, right - 1)];
         const next = stops[Math.max(0, right)];
@@ -230,31 +268,44 @@ function PrecisionBladesN({
   const geometry = useHeroGeometry();
   const faceGeometry = useHeroFaceGeometry();
   const edgeGeometry = useMemo(() => new EdgesGeometry(geometry, 18), [geometry]);
-  const faceDepth = (geometry.boundingBox?.max.z ?? 0.253) - 3 * 0.0115 + 0.002;
+  const faceDepth = (geometry.boundingBox?.max.z ?? 0.253) + 0.003;
   const mark = useRef<Group>(null);
   const materials = useMemo(
     () => [
       new MeshPhysicalMaterial({
-        color: new Color("#52687c"),
-        metalness: 0.98,
-        roughness: 0.23,
-        clearcoat: 0.68,
-        clearcoatRoughness: 0.11,
-        emissive: new Color("#07182d"),
-        emissiveIntensity: 0.2,
+        color: new Color("#dfe9ed"),
+        metalness: 0.84,
+        roughness: 0.18,
+        clearcoat: 0.96,
+        clearcoatRoughness: 0.06,
+        emissive: new Color("#040d18"),
+        emissiveIntensity: 0.08,
         envMap: environment,
-        envMapIntensity: 1.65,
+        envMapIntensity: 2.2,
         side: DoubleSide,
       }),
       new MeshPhysicalMaterial({
-        color: "#ffffff",
-        metalness: 0.94,
-        roughness: 0.24,
-        clearcoat: 0.92,
+        color: "#f5fbfd",
+        vertexColors: true,
+        metalness: 0.38,
+        roughness: 0.18,
+        clearcoat: 0.82,
         clearcoatRoughness: 0.1,
         envMap: environment,
         envMapIntensity: 1.45,
+        polygonOffset: true,
+        polygonOffsetFactor: -1,
+        side: DoubleSide,
+      }),
+      new MeshBasicMaterial({
+        color: "#c5eaff",
         vertexColors: true,
+        transparent: true,
+        opacity: 0.05,
+        toneMapped: false,
+        depthWrite: false,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
         side: DoubleSide,
       }),
     ],
@@ -279,13 +330,14 @@ function PrecisionBladesN({
       scale={1.15}
     >
       <mesh geometry={geometry} material={materials[0]} castShadow={false} receiveShadow={false} />
-      <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, faceDepth]} castShadow={false} receiveShadow={false} />
+      <mesh geometry={faceGeometry} material={materials[1]} position={[0, 0, faceDepth]} scale={[0.965, 0.965, 1]} castShadow={false} receiveShadow={false} />
+      <mesh geometry={faceGeometry} material={materials[2]} position={[0, 0, faceDepth + 0.004]} scale={[0.965, 0.965, 1]} castShadow={false} receiveShadow={false} />
       <lineSegments geometry={edgeGeometry} position={[0, 0, 0.001]}>
-        <lineBasicMaterial color="#6fcaff" transparent opacity={0.68} depthWrite={false} />
+        <lineBasicMaterial color="#7bd7ff" transparent opacity={0.84} depthWrite={false} />
       </lineSegments>
-      <pointLight color="#d8f5ff" intensity={2.8} distance={3.2} position={[-0.72, 0.76, 1.45]} />
-      <pointLight color="#46aaff" intensity={4.5} distance={3.8} position={[0.88, -0.2, 1.25]} />
-      <pointLight color="#effcff" intensity={2.1} distance={3.2} position={[0.12, 1.35, 0.9]} />
+      <pointLight color="#e8f8ff" intensity={14} distance={4.8} decay={2} position={[-0.72, 0.76, 1.45]} />
+      <pointLight color="#5db7ff" intensity={8} distance={5} decay={2} position={[0.88, -0.2, 1.25]} />
+      <pointLight color="#ffffff" intensity={10} distance={4.3} decay={2} position={[0.12, 1.35, 0.9]} />
     </group>
   );
 }
@@ -295,12 +347,16 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   const rails = useRef<Group>(null);
   const detailSegments = tier === "FULL" ? 144 : 80;
   const ribCount = tier === "FULL" ? 36 : 20;
-  const ribGeometry = useMemo(() => new BoxGeometry(0.072, 5.42, 0.11), []);
+  const ribGeometry = useMemo(() => new BoxGeometry(0.16, 5.42, 0.24), []);
   const ribMaterial = useMemo(
-    () => new MeshBasicMaterial({
+    () => new MeshPhysicalMaterial({
       color: "#ffffff",
-      transparent: true,
-      opacity: 0.56,
+      metalness: 0.88,
+      roughness: 0.24,
+      clearcoat: 0.78,
+      clearcoatRoughness: 0.14,
+      emissive: "#0a1930",
+      emissiveIntensity: 0.22,
       vertexColors: true,
     }),
     [],
@@ -313,7 +369,7 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
       return {
         position: [Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.06],
         rotation: [0, -angle, 0],
-        color: index % 6 === 0 ? "#b5f1ff" : index % 3 === 0 ? "#5595c7" : "#2d6397",
+        color: index % 6 === 0 ? "#c0f5ff" : index % 3 === 0 ? "#75b4d4" : "#43799d",
       };
     }).filter((transform): transform is SceneInstanceTransform => transform !== null),
     [ribCount],
@@ -335,6 +391,35 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
     [tier],
   );
   const outerRibs = useSceneInstances(ribGeometry, ribMaterial, outerRibTransforms);
+  const shellPanelGeometry = useMemo(() => new BoxGeometry(1.24, 4.45, 0.2), []);
+  const shellPanelMaterial = useMemo(
+    () => new MeshPhysicalMaterial({
+      color: "#ffffff",
+      metalness: 0.9,
+      roughness: 0.3,
+      clearcoat: 0.72,
+      clearcoatRoughness: 0.16,
+      emissive: "#0b2a44",
+      emissiveIntensity: 0.3,
+      vertexColors: true,
+    }),
+    [],
+  );
+  const shellPanelTransforms = useMemo(
+    () => Array.from({ length: tier === "FULL" ? 24 : 12 }, (_, index): SceneInstanceTransform | null => {
+      const count = tier === "FULL" ? 24 : 12;
+      const angle = (index / count) * Math.PI * 2;
+      if (Math.sin(angle) > 0.58) return null;
+      const radius = 3.18;
+      return {
+        position: [Math.cos(angle) * radius, 0.02, Math.sin(angle) * radius - 0.12],
+        rotation: [0, Math.PI / 2 - angle, 0],
+        color: index % 4 === 0 ? "#63849a" : index % 2 ? "#456b82" : "#34576e",
+      };
+    }).filter((transform): transform is SceneInstanceTransform => transform !== null),
+    [tier],
+  );
+  const shellPanelInstances = useSceneInstances(shellPanelGeometry, shellPanelMaterial, shellPanelTransforms);
   const axialCount = tier === "FULL" ? 13 : 7;
   const axialGeometry = useMemo(() => new BoxGeometry(0.04, 5.56, 0.075), []);
   const axialMaterial = useMemo(
@@ -358,9 +443,11 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
   useEffect(() => () => {
     ribGeometry.dispose();
     ribMaterial.dispose();
+    shellPanelGeometry.dispose();
+    shellPanelMaterial.dispose();
     axialGeometry.dispose();
     axialMaterial.dispose();
-  }, [axialGeometry, axialMaterial, ribGeometry, ribMaterial]);
+  }, [axialGeometry, axialMaterial, ribGeometry, ribMaterial, shellPanelGeometry, shellPanelMaterial]);
 
   useFrame(({ clock }) => {
     if (rails.current) rails.current.rotation.y = Math.sin(clock.elapsedTime * 0.12) * 0.006;
@@ -400,12 +487,22 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
           [3.62, -2.52], [3.82, -2.42], [4.04, -2.28], [4.22, -2.12],
         ].map(([radius, y], index) => (
           <mesh key={`${radius}-${y}`} position={[0, y, -0.06]} rotation={[Math.PI / 2 + 0.035, 0, 0]}>
-            <torusGeometry args={[radius, index % 4 === 1 ? 0.038 : 0.056, 8, detailSegments]} />
-            <meshBasicMaterial color={index % 5 === 0 ? "#e0fbff" : index % 3 === 1 ? "#78d7ff" : index % 2 ? "#49a5ff" : "#286ce0"} transparent opacity={index % 3 === 1 ? 0.86 : 0.7} />
+            <torusGeometry args={[radius, index % 4 === 1 ? 0.086 : 0.068, 10, detailSegments]} />
+            <meshPhysicalMaterial
+              color={index % 5 === 0 ? "#94b8cf" : index % 2 ? "#315b7c" : "#1d3e60"}
+              metalness={0.96}
+              roughness={index % 3 === 1 ? 0.18 : 0.24}
+              clearcoat={0.92}
+              clearcoatRoughness={0.1}
+              emissive={index % 3 === 1 ? "#14508b" : "#092648"}
+              emissiveIntensity={index % 5 === 0 ? 0.62 : 0.34}
+              envMapIntensity={1.35}
+            />
           </mesh>
         ))}
         <primitive object={ribInstances} />
         <primitive object={outerRibs} />
+        <primitive object={shellPanelInstances} />
         <primitive object={axialInstances} />
         {[ -4.35, 4.35 ].map((x, index) => (
           <group key={"gantry-" + index} position={[x, 0.02, -1.75]}>
@@ -427,8 +524,17 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
         ))}
         {[3.48, 3.76, 4.06, 4.36].map((radius, index) => (
           <mesh key={"crown-ring-" + index} position={[0, 2.18, -0.1]} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[radius, index === 1 ? 0.064 : 0.042, 8, detailSegments]} />
-            <meshBasicMaterial color={index === 1 ? "#c9f7ff" : index % 2 ? "#57aaff" : "#347cff"} transparent opacity={index === 1 ? 0.82 : 0.68} />
+            <torusGeometry args={[radius, index === 1 ? 0.092 : 0.064, 10, detailSegments]} />
+            <meshPhysicalMaterial
+              color={index === 1 ? "#b8d1df" : "#315b80"}
+              metalness={0.97}
+              roughness={0.18}
+              clearcoat={0.96}
+              clearcoatRoughness={0.08}
+              emissive={index === 1 ? "#2b91d8" : "#103f7a"}
+              emissiveIntensity={index === 1 ? 0.82 : 0.48}
+              envMapIntensity={1.6}
+            />
           </mesh>
         ))}
         {[-2.9, 2.9].map((x, index) => (
@@ -457,6 +563,42 @@ function Chamber({ tier }: { tier: HeroSceneProps["tier"] }) {
               <cylinderGeometry args={[0.032, 0.032, 5.34, 8]} />
               <meshBasicMaterial color="#9ceeff" transparent opacity={0.82} />
             </mesh>
+          </group>
+        ))}
+        {[-1, 1].map((side) => (
+          <group key={"outer-lab-pylon-" + side} position={[side * 5.25, 0.04, 0.55]}>
+            <mesh>
+              <boxGeometry args={[0.42, 5.62, 0.4]} />
+              <meshPhysicalMaterial
+                color="#405a68"
+                metalness={0.96}
+                roughness={0.2}
+                clearcoat={0.92}
+                clearcoatRoughness={0.1}
+                emissive="#10334d"
+                emissiveIntensity={0.52}
+              />
+            </mesh>
+            <mesh position={[-side * 0.17, 0, 0.22]}>
+              <boxGeometry args={[0.034, 5.38, 0.03]} />
+              <meshBasicMaterial color="#a1f0ff" transparent opacity={0.9} />
+            </mesh>
+            <mesh position={[side * 0.17, 0, 0.22]}>
+              <boxGeometry args={[0.028, 5.16, 0.028]} />
+              <meshBasicMaterial color="#62aaff" transparent opacity={0.82} />
+            </mesh>
+            {[-2.62, -1.3, 1.3, 2.62].map((y) => (
+              <mesh key={"crossbar-" + y} position={[0, y, -0.02]}>
+                <boxGeometry args={[0.94, 0.1, 0.3]} />
+                <meshStandardMaterial
+                  color="#1b3851"
+                  metalness={0.94}
+                  roughness={0.24}
+                  emissive="#0b3156"
+                  emissiveIntensity={0.36}
+                />
+              </mesh>
+            ))}
           </group>
         ))}
       </group>
@@ -600,13 +742,15 @@ function EnergyFilament({
 }) {
   const node = useRef<Mesh>(null);
   const curve = useMemo(() => {
-    const sign = index % 2 === 0 ? 1 : -1;
+    const side = index % 2 === 0 ? 1 : -1;
+    const lane = Math.floor(index / 2);
+    const spread = lane * 0.24;
     return new CatmullRomCurve3([
-      new Vector3(2.35, -1.4 + index * 0.28, -1.8),
-      new Vector3(4.1, 1.4 * sign, -0.6),
-      new Vector3(2.15, -1.1 * sign, 1.4),
-      new Vector3(5.4, 1.4 + index * 0.2, -0.7),
-      new Vector3(8.2, -0.3 + index * 0.38, 0.8),
+      new Vector3(side > 0 ? 6.65 + spread : -3.3 - spread, -1.55 + spread * 0.25, -2.3),
+      new Vector3(side > 0 ? 7.05 + spread : -3.65 - spread, -0.65 + spread * 0.2, -1.3),
+      new Vector3(side > 0 ? 7.65 + spread : -4.05 - spread, 0.35 + spread * 0.2, -0.25),
+      new Vector3(side > 0 ? 8.35 + spread : -4.8 - spread, 0.95 + spread * 0.2, 0.65),
+      new Vector3(side > 0 ? 9.2 + spread : -5.85 - spread, 0.2 + spread * 0.3, 1.35),
     ]);
   }, [index]);
   const geometry = useMemo(() => new TubeGeometry(curve, 96, 0.022, 6, false), [curve]);
@@ -622,10 +766,10 @@ function EnergyFilament({
   return (
     <group>
       <mesh geometry={geometry}>
-        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.62 : 0.38} />
+        <meshBasicMaterial color={index % 2 === 0 ? "#1c78ff" : "#56e5ff"} transparent opacity={tier === "FULL" ? 0.44 : 0.3} />
       </mesh>
       <mesh ref={node}>
-        <sphereGeometry args={[tier === "FULL" ? 0.045 : 0.03, 8, 6]} />
+        <sphereGeometry args={[tier === "FULL" ? 0.035 : 0.026, 8, 6]} />
         <meshBasicMaterial color="#b5f7ff" />
       </mesh>
     </group>
@@ -683,7 +827,11 @@ function LaboratoryConsoleBay({ side }: { side: -1 | 1 }) {
   const screenOffsets = [-0.72, 0, 0.72];
 
   return (
-    <group position={[side * 6.55, -1.05, 0.72]} rotation={[0, side * -0.18, 0]} scale={[1.16, 1.2, 1.08]}>
+    <group
+      position={[side * 6.55 + (side === 1 ? 1.75 : 0), side === 1 ? -1.25 : -1.05, 0.72]}
+      rotation={[0, side * -0.18, 0]}
+      scale={[1.16, 1.2, 1.08]}
+    >
       <mesh position={[0, 0.26, 0]}>
         <boxGeometry args={[3.1, 0.52, 1.16]} />
         <meshPhysicalMaterial color="#0a1c31" metalness={0.94} roughness={0.22} emissive="#0b2d52" emissiveIntensity={0.58} />
@@ -722,10 +870,14 @@ function LaboratoryConsoleBay({ side }: { side: -1 | 1 }) {
 function LaboratoryBackplanes({ tier }: { tier: HeroSceneProps["tier"] }) {
   const beamGeometry = useMemo(() => new BoxGeometry(1, 1, 1), []);
   const beamMaterial = useMemo(
-    () => new MeshBasicMaterial({
+    () => new MeshPhysicalMaterial({
       color: "#ffffff",
-      transparent: true,
-      opacity: tier === "FULL" ? 0.72 : 0.54,
+      metalness: 0.84,
+      roughness: 0.3,
+      clearcoat: 0.72,
+      clearcoatRoughness: 0.18,
+      emissive: "#071c34",
+      emissiveIntensity: tier === "FULL" ? 0.24 : 0.16,
       vertexColors: true,
     }),
     [tier],
@@ -855,9 +1007,9 @@ function FloorGuideLines() {
 }
 
 const holographicPanelPlacements: Array<[number, number, number, number, number]> = [
-  [1.02, 1.57, -2.46, 2.06, 1.46],
-  [9.15, 1.08, -2.08, 2.82, 1.92],
-  [12.02, -0.62, -1.35, 2.2, 1.54],
+  [5.85, 1.57, -2.46, 2.06, 1.46],
+  [11.4, 1.08, -2.08, 2.82, 1.92],
+  [14.2, -0.62, -1.35, 2.2, 1.54],
   [-2.72, 0.88, -3.05, 2.12, 1.5],
 ];
 
@@ -939,9 +1091,9 @@ function HolographicPanelBank() {
   }, [panelRects]);
   const materials = useMemo(
     () => ({
-      backplates: new MeshBasicMaterial({ color: "#187fe8", transparent: true, opacity: 0.34, side: DoubleSide, depthWrite: false }),
-      glassFaces: new MeshBasicMaterial({ color: "#15548b", transparent: true, opacity: 0.64, side: DoubleSide, depthWrite: false }),
-      innerGlass: new MeshBasicMaterial({ color: "#061b35", transparent: true, opacity: 0.57, side: DoubleSide, depthWrite: false }),
+      backplates: new MeshBasicMaterial({ color: "#187fe8", transparent: true, opacity: 0.2, side: DoubleSide, depthWrite: false }),
+      glassFaces: new MeshBasicMaterial({ color: "#15548b", transparent: true, opacity: 0.32, side: DoubleSide, depthWrite: false }),
+      innerGlass: new MeshBasicMaterial({ color: "#061b35", transparent: true, opacity: 0.28, side: DoubleSide, depthWrite: false }),
       wireframes: new MeshBasicMaterial({ color: "#68dfff", wireframe: true, transparent: true, opacity: 0.42, side: DoubleSide, depthWrite: false }),
       horizontalFrames: new MeshBasicMaterial({ color: "#d6fbff", transparent: true, opacity: 0.94, side: DoubleSide }),
       verticalFrames: new MeshBasicMaterial({ color: "#5dbbff", transparent: true, opacity: 0.86, side: DoubleSide }),
@@ -1080,8 +1232,10 @@ function SceneParticles({ tier }: { tier: HeroSceneProps["tier"] }) {
 /** Places the text-generated laboratory environment behind the live geometry. */
 function CinematicBackdrop({
   environment,
+  tier,
 }: {
   environment: Texture;
+  tier: HeroSceneProps["tier"];
 }) {
   const { scene } = useThree();
 
@@ -1093,9 +1247,9 @@ function CinematicBackdrop({
     environment.colorSpace = SRGBColorSpace;
     environment.needsUpdate = true;
     scene.background = environment;
-    scene.backgroundIntensity = 0.36;
+    scene.backgroundIntensity = tier === "FULL" ? 0.38 : 0.56;
     scene.environment = environment;
-    scene.environmentIntensity = 0.58;
+    scene.environmentIntensity = 0.9;
 
     return () => {
       if (scene.background === environment) scene.background = previousBackground;
@@ -1103,7 +1257,7 @@ function CinematicBackdrop({
       if (scene.environment === environment) scene.environment = previousEnvironment;
       scene.environmentIntensity = previousEnvironmentIntensity;
     };
-  }, [environment, scene]);
+  }, [environment, scene, tier]);
 
   return null;
 }
@@ -1140,10 +1294,12 @@ function HolographicWorld({
     reflection.needsUpdate = true;
     return reflection;
   }, [backdrop]);
+  const chromeReflection = useMemo(createChromeReflectionEnvironment, []);
   const world = useRef<Group>(null);
   const pointerTarget = useRef({ x: 0, y: 0, scroll: 0 });
   const scale = getMotionScale(tier);
   useEffect(() => () => environment.dispose(), [environment]);
+  useEffect(() => () => chromeReflection.dispose(), [chromeReflection]);
   useEffect(() => {
     const onPointerMove = (event: PointerEvent) => {
       pointerTarget.current.x = (event.clientX / window.innerWidth - 0.5) * 2;
@@ -1175,7 +1331,7 @@ function HolographicWorld({
   return (
     <group ref={world}>
       <SceneReadiness onReady={onReady} />
-      <CinematicBackdrop environment={environment} />
+      <CinematicBackdrop environment={environment} tier={tier} />
       <ambientLight intensity={tier === "FULL" ? 0.48 : 0.4} color="#7899c3" />
       <hemisphereLight args={["#a8dcff", "#020710", 0.82]} />
       <directionalLight position={[1, 5, 8]} intensity={tier === "FULL" ? 2.2 : 1.55} color="#d9efff" />
@@ -1184,18 +1340,62 @@ function HolographicWorld({
       <directionalLight position={[-1, 4, -6]} intensity={tier === "FULL" ? 1.9 : 1} color="#6daaff" />
       <pointLight position={[2.6, 3.4, 7.5]} intensity={tier === "FULL" ? 22 : 13} distance={18} decay={2} color="#e7f7ff" />
       <pointLight position={[4.2, -0.2, 6.5]} intensity={tier === "FULL" ? 12 : 7} distance={15} decay={2} color="#3ebdff" />
-      <Chamber tier={tier} />
-      <PrecisionBladesN environment={environment} tier={tier} />
+      {tier === "FULL" ? (
+        <>
+          <BlenderChamberModel environment={environment} />
+          <FloorGuideLines />
+          <HolographicPanelBank />
+          <LaboratoryConsoleBay side={-1} />
+          <LaboratoryConsoleBay side={1} />
+        </>
+      ) : (
+        <>
+          <Chamber tier={tier} />
+          <LaboratoryConsoleBay side={-1} />
+          <LaboratoryConsoleBay side={1} />
+          <FloorAndPanels environment={environment} tier={tier} />
+        </>
+      )}
+      <PrecisionBladesN environment={chromeReflection} tier={tier} />
       <GlobalNetwork tier={tier} />
       <HumanScaleFigure />
-      <LaboratoryConsoleBay side={-1} />
-      <LaboratoryConsoleBay side={1} />
-      <FloorAndPanels environment={environment} tier={tier} />
       <SceneParticles tier={tier} />
       {Array.from({ length: tier === "FULL" ? 6 : 3 }, (_, index) => (
         <EnergyFilament key={index} index={index} tier={tier} />
       ))}
     </group>
+  );
+}
+
+/** Loads Blender-authored chamber architecture into the existing Home Canvas. */
+function BlenderChamberModel({ environment }: { environment: Texture }) {
+  const { scene } = useLoader(GLTFLoader, "/generated/home/blender/hero-lab-structure-r17.glb");
+  const chamber = useMemo(() => {
+    scene.traverse((object) => {
+      if (!(object instanceof Mesh)) return;
+      const materials = Array.isArray(object.material) ? object.material : [object.material];
+      for (const material of materials) {
+        if (!(material instanceof MeshStandardMaterial) || material.name !== "Graphite metallic floor") continue;
+        material.color.set("#000205");
+        material.metalness = 0.08;
+        material.roughness = 0.94;
+        material.envMap = environment;
+        material.envMapIntensity = 0.012;
+        material.emissive.set("#000000");
+        material.emissiveIntensity = 0;
+        material.needsUpdate = true;
+      }
+    });
+    return scene;
+  }, [environment, scene]);
+
+  return (
+    <primitive
+      object={chamber}
+      position={[3.08, -1.82, -1.1]}
+      scale={[0.96, 0.66, 0.96]}
+      dispose={null}
+    />
   );
 }
 

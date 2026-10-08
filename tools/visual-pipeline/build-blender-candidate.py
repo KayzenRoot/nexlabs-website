@@ -364,6 +364,40 @@ def add_globe(center: tuple[float, float, float], ocean: bpy.types.Material,
     return result
 
 
+def add_cylindrical_wall(name: str, radius: float, z_bottom: float, z_top: float,
+                         segments: int, dark: bpy.types.Material,
+                         glass: bpy.types.Material, front_opening: float = 0.72) -> bpy.types.Object:
+    vertices: list[tuple[float, float, float]] = []
+    faces: list[tuple[int, int, int, int]] = []
+    material_indices: list[int] = []
+    step = math.tau / segments
+    for index in range(segments):
+        middle = (index + 0.5) * step
+        signed_angle = (middle + math.pi) % math.tau - math.pi
+        if abs(signed_angle) < front_opening:
+            continue
+        angle_start = index * step + step * 0.08
+        angle_end = (index + 1) * step - step * 0.08
+        base = len(vertices)
+        vertices.extend([
+            (radius * math.sin(angle_start), -radius * math.cos(angle_start), z_bottom),
+            (radius * math.sin(angle_end), -radius * math.cos(angle_end), z_bottom),
+            (radius * math.sin(angle_end), -radius * math.cos(angle_end), z_top),
+            (radius * math.sin(angle_start), -radius * math.cos(angle_start), z_top),
+        ])
+        faces.append((base, base + 1, base + 2, base + 3))
+        material_indices.append(1 if index % 5 == 0 else 0)
+    mesh = bpy.data.meshes.new(f"{name} segmented shell")
+    mesh.from_pydata(vertices, [], faces)
+    mesh.materials.append(dark)
+    mesh.materials.append(glass)
+    mesh.update()
+    obj = bpy.data.objects.new(name, mesh)
+    bpy.context.collection.objects.link(obj)
+    for polygon, material_index in zip(mesh.polygons, material_indices):
+        polygon.material_index = material_index
+    return obj
+
 def configure_scene(reference: Path, output_dir: Path, canonical_source: Path) -> dict[str, object]:
     if bpy.app.version_string != "5.2.2 LTS" or not bpy.app.background:
         raise SystemExit(f"Expected official Blender 5.2.2 LTS background runtime, got {bpy.app.version_string}.")
@@ -402,6 +436,7 @@ def configure_scene(reference: Path, output_dir: Path, canonical_source: Path) -
 
     dark_floor = make_material("Graphite metallic floor", (0.012, 0.026, 0.052, 1), metallic=0.86, roughness=0.22)
     dark_shell = make_material("Smoked chrome structure", (0.025, 0.065, 0.12, 1), metallic=0.9, roughness=0.2)
+    deep_architecture = make_material("Deep graphite room panels", (0.004, 0.012, 0.025, 1), metallic=0.64, roughness=0.34)
     silver = make_material("Cold precision chrome", (0.62, 0.76, 0.9, 1), metallic=0.98, roughness=0.13)
     glass = make_material("Dark holographic glass", (0.012, 0.075, 0.13, 1), metallic=0.5, roughness=0.16)
     blue = make_material("Electric blue light", (0.012, 0.13, 0.68, 1), metallic=0.28, roughness=0.2,
@@ -452,6 +487,58 @@ def configure_scene(reference: Path, output_dir: Path, canonical_source: Path) -
             cube(f"Side laboratory crossbeam {x:+.0f}-{z:.1f}", (x, 1.9, z), (0.14, 3.4, 0.16), dark_shell,
                  radius=0.035)
 
+    # Dark, paneled room envelope and polished floor extend the circular stage into one laboratory.
+    bpy.ops.mesh.primitive_plane_add(size=32, location=(0, 0, 0.035))
+    floor_plane = bpy.context.object
+    floor_plane.name = "Continuous dark graphite laboratory floor"
+    assign(floor_plane, dark_floor)
+    add_cylindrical_wall("Rear cylindrical architectural enclosure", 7.9, 0.72, 6.72, 36,
+                         deep_architecture, glass, front_opening=0.76)
+    for index in range(36):
+        angle = (index + 0.5) * math.tau / 36
+        signed_angle = (angle + math.pi) % math.tau - math.pi
+        if abs(signed_angle) < 0.78:
+            continue
+        x, y = 7.86 * math.sin(angle), -7.86 * math.cos(angle)
+        material = silver if index % 6 == 0 else deep_architecture
+        beam(f"Outer chamber structural mullion {index + 1:02d}",
+             Vector((x, y, 0.78)), Vector((x, y, 6.68)),
+             0.055 if index % 6 == 0 else 0.085, material)
+        if index % 2 == 0:
+            rail_x, rail_y = 7.79 * math.sin(angle), -7.79 * math.cos(angle)
+            beam(f"Outer chamber cyan rail {index + 1:02d}",
+                 Vector((rail_x, rail_y, 1.02)), Vector((rail_x, rail_y, 6.42)),
+                 0.014, cyan if index % 4 == 0 else blue)
+    for z, material in ((0.86, dark_shell), (6.54, dark_shell)):
+        torus(f"Outer enclosure cross ring {z:.2f}", (0, 0, z), 7.82, 0.075, material,
+              segments=144)
+    for y in (-10, -7.5, -5, 5, 7.5, 10):
+        cube(f"Floor transverse machined seam {y:+.1f}", (0, y, 0.053), (19, 0.018, 0.012),
+             dark_shell)
+    for x in (-9, -6.5, -4, 4, 6.5, 9):
+        cube(f"Floor longitudinal machined seam {x:+.1f}", (x, 0, 0.054), (0.018, 23, 0.012),
+             dark_shell)
+    for side in (-1, 1):
+        x = side * 6.65
+        cube(f"Outer side laboratory tower {side:+d}", (x, 0.2, 3.15), (0.34, 0.52, 5.7),
+             deep_architecture, radius=0.055)
+        for z in (1.05, 2.2, 3.5, 4.75, 6.05):
+            cube(f"Outer tower signal aperture {side:+d}-{z:.2f}", (x - side * 0.19, -0.09, z),
+                 (0.026, 0.028, 0.72), cyan if z in (2.2, 4.75) else blue, radius=0.01)
+        for bay in range(3):
+            y = -2.3 + bay * 2.4
+            cube(f"Side workstation base {side:+d}-{bay + 1}", (side * 5.7, y, 0.82),
+                 (1.75, 1.2, 0.46), dark_shell, radius=0.07)
+            cube(f"Side workstation glass deck {side:+d}-{bay + 1}", (side * 5.7, y - 0.08, 1.08),
+                 (1.82, 1.24, 0.06), glass, radius=0.035)
+            cube(f"Side workstation display {side:+d}-{bay + 1}", (side * 5.7, y + 0.26, 1.92),
+                 (1.45, 0.1, 0.82), glass, radius=0.045,
+                 rotation=(0.12, 0, -side * 0.08))
+            for row in range(4):
+                cube(f"Side workstation telemetry {side:+d}-{bay + 1}-{row + 1}",
+                     (side * 5.7 - side * 0.08, y + 0.19, 1.66 + row * 0.16),
+                     (0.72 if row % 2 else 1.02, 0.018, 0.012),
+                     cyan if row == 0 else blue, radius=0.003)
     # The N contour is parsed directly from the accepted source, then receives only depth/material.
     n_points = canonical_n_points(canonical_source)
     n_obj = add_canonical_n(n_points, (0.2, -1.65, 3.55), silver)

@@ -210,6 +210,15 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   const lowerCapture = await lowerWorld.screenshot({ animations: "disabled" });
   writeEvidenceBuffer(resolve(evidenceDirectory, "home-lower-research-technology.png"), lowerCapture);
   await compositeComparison(browser, "master-vs-candidate-lower-home.png", lowerCapture, { x: 0, y: 624, width: 1600, height: 214 });
+  const researchLower = page.locator("#research");
+  await researchLower.scrollIntoViewIfNeeded();
+  writeEvidenceBuffer(resolve(evidenceDirectory, "home-lower-research.png"), await researchLower.screenshot({ animations: "disabled" }));
+  const technologyLower = page.locator("#infrastructure");
+  await technologyLower.scrollIntoViewIfNeeded();
+  writeEvidenceBuffer(
+    resolve(evidenceDirectory, "home-lower-technology.png"),
+    await technologyLower.screenshot({ animations: "disabled" }),
+  );
   await page.evaluate(() => window.scrollTo(0, 0));
 
   await page.setViewportSize({ width: 1440, height: 900 });
@@ -218,6 +227,13 @@ test("WO-013 deterministic visual, responsive, motion and comparison evidence", 
   await capture(page, "candidate-home-full-page-1600.png", true);
   await page.setViewportSize({ width: 390, height: 844 });
   await settleResponsiveLayout(page);
+  const mobilePoster = page.getByTestId("hero-reference-poster");
+  const mobilePosterBounds = await mobilePoster.boundingBox();
+  const mobilePosterBackground = await mobilePoster.evaluate(
+    (element) => getComputedStyle(element).backgroundImage,
+  );
+  expect(mobilePosterBounds?.height).toBeGreaterThan(400);
+  expect(mobilePosterBackground).toContain("/hero/home-hero-poster-mobile.jpg");
   const responsiveMenuTrigger = page.locator("button[data-site-menu-trigger]");
   await expect(responsiveMenuTrigger).toBeVisible();
   await expect.poll(() => page.locator("h1 span").first().evaluate((element) => getComputedStyle(element).transform))
@@ -405,7 +421,9 @@ test("FULL Home shows an environmental lab backdrop behind a dark illuminated pl
   await expect(stage).toHaveAttribute("data-quality-tier", "FULL");
   await expect(stage).toHaveAttribute("data-scene-state", "ready", { timeout: 30_000 });
 
-  const { data, info } = await sharp(await page.locator("canvas").screenshot())
+  const canvasCapture = await page.locator("canvas").screenshot();
+  writeEvidenceBuffer(resolve(evidenceDirectory, "home-full-3d-canvas-1600x900.png"), canvasCapture);
+  const { data, info } = await sharp(canvasCapture)
     .raw()
     .toBuffer({ resolveWithObject: true });
   const meanLuminance = (region: { x: number; y: number; width: number; height: number }) => {
