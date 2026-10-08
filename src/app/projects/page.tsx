@@ -3,6 +3,7 @@ import { publicProjects } from "../../data/public-projects";
 import styles from "./projects.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/projects" },
   title: "Projects & Evidence | Nex Labs Technology",
   description: "Selected founder-built software and research projects with verified repositories, transparent development stages and public technical evidence.",
 };

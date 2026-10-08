@@ -14,6 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const project = getPublicProject(slug);
   if (!project) return { title: "Project not found | Nex Labs Technology" };
   return {
+    alternates: { canonical: "/projects/" + project.slug },
     title: project.name + " | Nex Labs Projects",
     description: project.summary,
   };

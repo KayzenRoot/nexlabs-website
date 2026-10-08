@@ -7,6 +7,7 @@ import {
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/contact" },
   title: "Contact | Nex Labs Technology",
   description:
     "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.",

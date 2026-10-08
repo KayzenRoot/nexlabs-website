@@ -7,6 +7,7 @@ import {
 import styles from "./solutions.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/solutions" },
   title: "Solutions | Nex Labs Technology",
   description:
     "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints.",

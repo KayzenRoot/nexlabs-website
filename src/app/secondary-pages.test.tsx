@@ -26,6 +26,7 @@ const pageCases: readonly SecondaryPageCase[] = [
     Page: ContactPage,
     metadata: contactMetadata,
     expectedMetadata: {
+      alternates: { canonical: "/contact" },
       title: "Contact | Nex Labs Technology",
       description:
         "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.",
@@ -60,6 +61,7 @@ This page does not request or transmit personal information. Do not send sensiti
     Page: TechnologyPage,
     metadata: technologyMetadata,
     expectedMetadata: {
+      alternates: { canonical: "/technology" },
       title: "Technology | Nex Labs Technology",
       description:
         "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems.",
@@ -103,6 +105,7 @@ The technology layer exists to turn useful learning into systems that can be ope
     Page: SolutionsPage,
     metadata: solutionsMetadata,
     expectedMetadata: {
+      alternates: { canonical: "/solutions" },
       title: "Solutions | Nex Labs Technology",
       description:
         "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints.",
@@ -144,6 +147,7 @@ These pages describe areas Nex Labs focuses on exploring and engineering. They d
     Page: ResearchPage,
     metadata: researchMetadata,
     expectedMetadata: {
+      alternates: { canonical: "/research" },
       title: "Research | Nex Labs Technology",
       description:
         "Explore how Nex Labs turns technical questions into experiments, evidence and systems that can inform future products and platforms.",
@@ -183,6 +187,7 @@ Research directions are not presented as patents, publications, deployed client 
     Page: CompanyPage,
     metadata: companyMetadata,
     expectedMetadata: {
+      alternates: { canonical: "/company" },
       title: "Company | Nex Labs Technology",
       description:
         "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology.",

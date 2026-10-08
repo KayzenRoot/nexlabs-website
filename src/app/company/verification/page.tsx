@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import styles from "./verification.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/company/verification" },
   title: "Founder & Project Verification | Nex Labs Technology",
   description: "Factual founder, operating location, legal-stage and open-source project evidence for NexLabs Technology.",
 };

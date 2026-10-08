@@ -7,6 +7,7 @@ import {
 import styles from "./technology.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/technology" },
   title: "Technology | Nex Labs Technology",
   description:
     "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems.",

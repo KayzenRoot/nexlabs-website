@@ -7,6 +7,7 @@ import {
 import styles from "./research.module.css";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/research" },
   title: "Research | Nex Labs Technology",
   description:
     "Explore how Nex Labs turns technical questions into experiments, evidence and systems that can inform future products and platforms.",
