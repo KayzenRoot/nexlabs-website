@@ -116,7 +116,16 @@ The runtime GLB optimizer does not accept an output path from command-line input
 It writes its fixed GLB and report beneath
 `%LOCALAPPDATA%\NexLabs\VisualPipeline\optimized` (or
 `$XDG_DATA_HOME/NexLabs/VisualPipeline/optimized` when `LOCALAPPDATA` is unset)
-and rejects output paths that resolve inside the repository.
+and rejects output paths that resolve inside the repository. Its `--source` must
+resolve to a regular `.glb` beneath `VisualPipeline/generated/`; it rejects
+traversal, symlinks that resolve outside that subtree, and generated roots inside
+the Git repository. Set `NEXLABS_VISUAL_LOCAL` when the input VisualPipeline root
+is outside the platform default; the fixed output still uses the platform user-data
+directory described above. GLB and JSON are staged in the system temporary
+directory so a changed output path cannot redirect Blender's long-running export.
+The output hierarchy is checked component-by-component for links/junctions and
+revalidated immediately before publication; `os.replace` publishes each file
+atomically. Existing hard-linked destinations are rejected.
 
 ## Model manifest
 
