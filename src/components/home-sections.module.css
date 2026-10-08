@@ -527,7 +527,6 @@
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin-block: clamp(2.25rem, 4vw, 3.75rem);
   border: 1px solid rgb(111 170 227 / 25%);
-  border-radius: var(--radius-lg);
   background:
     linear-gradient(90deg, transparent 0 8%, rgb(81 172 245 / 8%) 8.1%, transparent 8.25% 92%, rgb(81 172 245 / 8%) 92.1%, transparent 92.25%),
     repeating-linear-gradient(0deg, transparent 0 5.1rem, rgb(91 157 225 / 3%) 5.14rem 5.18rem, transparent 5.24rem 8.4rem),
