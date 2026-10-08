@@ -221,7 +221,6 @@ def main() -> None:
             "output": str(output),
             "outputSha256": sha256(staged_output),
             "outputBytes": staged_output.stat().st_size,
-            "decimateRatio": args.ratio,
             "trianglesBefore": before_triangles,
             "trianglesAfter": after_triangles,
             "materials": material_count,
