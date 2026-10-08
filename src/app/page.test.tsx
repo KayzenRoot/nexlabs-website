@@ -196,7 +196,11 @@ describe("HomePage", () => {
     const footerNavigation = screen.getByRole("navigation", {
       name: "Footer navigation",
     });
-    expect(within(footerNavigation).getAllByRole("link")).toHaveLength(5);
+    expect(within(footerNavigation).getAllByRole("link")).toHaveLength(6);
+    expect(within(footerNavigation).getByRole("link", { name: "Projects" })).toHaveAttribute(
+      "href",
+      "/projects",
+    );
     expect(within(footerNavigation).getByRole("link", { name: "Contact Nex Labs" })).toHaveAttribute(
       "href",
       "/contact",
