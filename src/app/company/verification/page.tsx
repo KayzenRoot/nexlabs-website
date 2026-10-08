@@ -91,6 +91,7 @@ export default function FounderVerificationPage() {
           are not legal incorporation dates.
         </p>
         <a href="/company">Explore our working principles →</a>
+        <p><a href="/engineering">Inspect the HIVE source, stable release and architecture →</a></p>
       </aside>
     </div>
   );

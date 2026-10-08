@@ -25,6 +25,9 @@ export default function ProjectsPage() {
         <a className={styles.externalAction} href="/company/verification">
           Founder and project verification <span aria-hidden="true">↗</span>
         </a>
+        <a className={styles.externalAction} href="/engineering">
+          HIVE engineering evidence and release history <span aria-hidden="true">↗</span>
+        </a>
       </header>
       <section aria-labelledby="portfolio-heading" className={styles.catalogue}>
         <div className={styles.sectionHeading}>

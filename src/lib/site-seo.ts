@@ -18,7 +18,7 @@ export const PUBLIC_INDEXING_ENABLED = process.env.VERCEL_ENV === "production";
 
 export const PUBLIC_SITE_PAGES = [
   "/", "/technology", "/solutions", "/research", "/company",
-  "/company/verification", "/contact", "/projects",
+  "/company/verification", "/contact", "/projects", "/engineering",
 ] as const;
 
 export function canonicalUrl(pathname: string): string {

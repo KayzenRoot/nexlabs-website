@@ -23,6 +23,7 @@ export function SiteFooter() {
         <a href="/research">Research</a>
         <a href="/company">Company</a>
         <a href="/projects">Projects</a>
+        <a href="/engineering">Engineering evidence</a>
         <a href="/contact">Contact Nex Labs</a>
       </nav>
       <p className={styles.note}>Technology, research and engineering with intent.</p>
