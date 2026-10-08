@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  isSoftwareWebGLRenderer,
   resolveHeroQualityTier,
   type HeroCapabilities,
 } from "./quality-tier";
@@ -56,5 +57,26 @@ describe("resolveHeroQualityTier", () => {
         hardwareConcurrency: null,
       }),
     ).toBe("BALANCED");
+  });
+});
+
+describe("isSoftwareWebGLRenderer", () => {
+  it.each([
+    "Google SwiftShader",
+    "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero)))",
+    "llvmpipe (LLVM 17.0.6, 256 bits)",
+    "softpipe",
+    "Software Rasterizer",
+    "Microsoft Basic Render Driver",
+  ])("classifies %s as a static-render fallback", (renderer) => {
+    expect(isSoftwareWebGLRenderer(renderer)).toBe(true);
+  });
+
+  it.each([
+    null,
+    "ANGLE (NVIDIA, NVIDIA GeForce RTX 5050 Direct3D11)",
+    "Apple M4",
+  ])("does not classify %s as a software renderer", (renderer) => {
+    expect(isSoftwareWebGLRenderer(renderer)).toBe(false);
   });
 });

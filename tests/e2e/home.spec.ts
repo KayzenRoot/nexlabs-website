@@ -1,15 +1,175 @@
 import AxeBuilder from "@axe-core/playwright";
-import { mkdirSync, statSync } from "node:fs";
-import { resolve } from "node:path";
+import { appendFileSync, mkdirSync, statSync } from "node:fs";
+import { dirname, resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
-import { captureScreenshot, writeEvidenceBuffer } from "./evidence";
+import {
+  captureScreenshot,
+  resolveEvidencePath,
+  writeEvidenceBuffer,
+} from "./evidence";
 
 const screenshotDirectory = resolve(
   process.cwd(),
   ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-regressions",
 );
 const testBaseURL = `http://127.0.0.1:${process.env.E2E_PORT ?? "3100"}`;
+
+function createHomePerformanceDiagnostics() {
+  const path = resolveEvidencePath(
+    resolve(screenshotDirectory, "home-performance-diagnostics.jsonl"),
+  );
+  mkdirSync(dirname(path), { recursive: true });
+  const startedAt = Date.now();
+
+  return {
+    record(phase: string, event: string, details: Record<string, unknown> = {}) {
+      appendFileSync(
+        path,
+        `${JSON.stringify({
+          recordedAtUtc: new Date().toISOString(),
+          elapsedMs: Date.now() - startedAt,
+          phase,
+          event,
+          ...details,
+        })}\n`,
+      );
+    },
+  };
+}
+
+type HomePerformanceDiagnostics = ReturnType<typeof createHomePerformanceDiagnostics>;
+let activeHomePerformanceDiagnostics: HomePerformanceDiagnostics | null = null;
+
+async function installHomePerformanceDiagnostics(
+  page: Page,
+  label: string,
+  diagnostics: HomePerformanceDiagnostics,
+) {
+  const prefix = "[NEXLABS_HOME_PERF_DIAG]";
+  page.on("console", (message) => {
+    const value = message.text();
+    if (!value.startsWith(prefix)) return;
+    try {
+      diagnostics.record("browser-telemetry", "event", JSON.parse(value.slice(prefix.length)));
+    } catch {
+      diagnostics.record("browser-telemetry", "unparsed", { value });
+    }
+  });
+  page.on("pageerror", (error) => {
+    diagnostics.record("browser-page", "pageerror", { label, message: error.message });
+  });
+  page.on("crash", () => {
+    diagnostics.record("browser-page", "crash", { label });
+  });
+
+  await page.addInitScript((pageLabel) => {
+    const prefix = "[NEXLABS_HOME_PERF_DIAG]";
+    const emit = (event: string, details: Record<string, unknown> = {}) => {
+      console.info(
+        `${prefix}${JSON.stringify({
+          label: pageLabel,
+          event,
+          pageElapsedMs: performance.now(),
+          visibility: document.visibilityState,
+          ...details,
+        })}`,
+      );
+    };
+    Reflect.set(window, "__nexlabsHomePerfEmit", emit);
+
+    const canvasObserver = new MutationObserver((records) => {
+      for (const record of records) {
+        for (const node of record.addedNodes) {
+          if (node instanceof HTMLCanvasElement) emit("canvas-added", { connected: node.isConnected });
+          else if (node instanceof Element) {
+            const canvases = node.querySelectorAll("canvas");
+            if (canvases.length) emit("canvas-subtree-added", { count: canvases.length });
+          }
+        }
+        for (const node of record.removedNodes) {
+          if (node instanceof HTMLCanvasElement) emit("canvas-removed", { connected: node.isConnected });
+          else if (node instanceof Element) {
+            const canvases = node.querySelectorAll("canvas");
+            if (canvases.length) emit("canvas-subtree-removed", { count: canvases.length });
+          }
+        }
+      }
+    });
+    canvasObserver.observe(document, { childList: true, subtree: true });
+
+    document.addEventListener(
+      "webglcontextlost",
+      (event) => {
+        const canvas = event.target instanceof HTMLCanvasElement ? event.target : null;
+        const context = canvas?.getContext("webgl2") as WebGL2RenderingContext | null;
+        emit("webgl-context-lost", {
+          canvasConnected: canvas?.isConnected ?? false,
+          contextLost: context?.isContextLost() ?? null,
+          defaultPrevented: event.defaultPrevented,
+        });
+      },
+      true,
+    );
+    document.addEventListener("visibilitychange", () => {
+      emit("visibility-change", { nextVisibility: document.visibilityState });
+    });
+    window.addEventListener("error", (event) => {
+      emit("window-error", { message: event.message, filename: event.filename, line: event.lineno });
+    });
+    window.addEventListener("unhandledrejection", (event) => {
+      emit("unhandled-rejection", { reason: String(event.reason) });
+    });
+
+    try {
+      new PerformanceObserver((entries) => {
+        for (const entry of entries.getEntries()) {
+          emit("long-task", { startTime: entry.startTime, durationMs: entry.duration });
+        }
+      }).observe({ type: "longtask", buffered: true });
+    } catch {
+      emit("long-task-observer-unavailable");
+    }
+
+    const originalGetContext = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      configurable: true,
+      value: function getContext(type: string, ...args: unknown[]) {
+        const context = Reflect.apply(originalGetContext, this, [type, ...args]) as
+          | RenderingContext
+          | null;
+        if (context && /webgl/i.test(type)) {
+          const webglContext = context as WebGLRenderingContext | WebGL2RenderingContext;
+          let renderer: string | null = null;
+          try {
+            const debugInfo = webglContext.getExtension("WEBGL_debug_renderer_info") as {
+              UNMASKED_RENDERER_WEBGL: number;
+            } | null;
+            if (debugInfo) renderer = String(webglContext.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+          } catch {
+            renderer = "renderer-query-failed";
+          }
+          emit("webgl-context-created", {
+            contextType: type,
+            canvasConnected: this.isConnected,
+            width: this.width,
+            height: this.height,
+            renderer,
+            contextLost: webglContext.isContextLost(),
+          });
+        } else if (/webgl/i.test(type)) {
+          emit("webgl-context-unavailable", {
+            contextType: type,
+            canvasConnected: this.isConnected,
+          });
+        }
+        return context;
+      },
+    });
+
+    emit("document-start", { userAgent: navigator.userAgent });
+  }, label);
+}
 
 /** Collects gzip byte sizes for Next.js script chunks observed by a test page. */
 function collectScriptGzipSizes(page: Page) {
@@ -108,14 +268,28 @@ async function installVitalsObserver(page: Page) {
 }
 
 /** Samples requestAnimationFrame intervals and returns median/p95 frame evidence. */
-async function sampleFrameTimes(page: Page) {
-  return page.evaluate(async () => {
+async function sampleFrameTimes(page: Page, profile = "unspecified") {
+  return page.evaluate(async (profileName) => {
     const intervals: number[] = [];
+    const samplingStartedAt = performance.now();
+    const emit = Reflect.get(window, "__nexlabsHomePerfEmit") as
+      | ((event: string, details?: Record<string, unknown>) => void)
+      | undefined;
+    emit?.("frame-sample-start", { profile: profileName, targetIntervals: 119 });
     await new Promise<void>((resolveSamples) => {
       let previous: number | undefined;
       const sample = (time: number) => {
         if (previous !== undefined) intervals.push(time - previous);
         previous = time;
+        if (intervals.length > 0 && intervals.length % 10 === 0) {
+          emit?.("frame-sample-progress", {
+            profile: profileName,
+            sampleCount: intervals.length,
+            elapsedMs: Number((performance.now() - samplingStartedAt).toFixed(1)),
+            currentFrameIntervalMs: Number((intervals.at(-1) ?? 0).toFixed(2)),
+            canvasCount: document.querySelectorAll("canvas").length,
+          });
+        }
         if (intervals.length < 119) requestAnimationFrame(sample);
         else resolveSamples();
       };
@@ -124,17 +298,27 @@ async function sampleFrameTimes(page: Page) {
     const sorted = [...intervals].sort((left, right) => left - right);
     const medianFrameMs = sorted[Math.floor(sorted.length * 0.5)] ?? 0;
     const p95FrameMs = sorted[Math.floor(sorted.length * 0.95)] ?? 0;
-    return {
+    const result = {
       sampleCount: intervals.length,
       medianFrameMs: Number(medianFrameMs.toFixed(2)),
       p95FrameMs: Number(p95FrameMs.toFixed(2)),
       medianFps: medianFrameMs > 0 ? Number((1000 / medianFrameMs).toFixed(1)) : 0,
     };
-  });
+    emit?.("frame-sample-complete", {
+      profile: profileName,
+      elapsedMs: Number((performance.now() - samplingStartedAt).toFixed(1)),
+      ...result,
+    });
+    return result;
+  }, profile);
 }
 
 async function pauseSceneForCleanup(page: Page) {
   await page.evaluate(async () => {
+    const emit = Reflect.get(window, "__nexlabsHomePerfEmit") as
+      | ((event: string, details?: Record<string, unknown>) => void)
+      | undefined;
+    const cleanupStartedAt = performance.now();
     Object.defineProperty(document, "visibilityState", {
       configurable: true,
       value: "hidden",
@@ -144,15 +328,37 @@ async function pauseSceneForCleanup(page: Page) {
     const canvas = document.querySelector("canvas");
     const context = canvas?.getContext("webgl2");
     const loseContext = context?.getExtension("WEBGL_lose_context");
-    if (!canvas || !context || context.isContextLost() || !loseContext) return;
+    emit?.("scene-cleanup-start", {
+      canvasCount: document.querySelectorAll("canvas").length,
+      canvasConnected: canvas?.isConnected ?? false,
+      contextAvailable: Boolean(context),
+      contextAlreadyLost: context?.isContextLost() ?? null,
+      loseContextExtensionAvailable: Boolean(loseContext),
+    });
+    if (!canvas || !context || context.isContextLost() || !loseContext) {
+      emit?.("scene-cleanup-skipped", {
+        elapsedMs: Number((performance.now() - cleanupStartedAt).toFixed(1)),
+      });
+      return;
+    }
 
     await new Promise<void>((resolveContextLoss) => {
       const finish = () => {
         window.clearTimeout(timeout);
         canvas.removeEventListener("webglcontextlost", finish);
+        emit?.("scene-cleanup-context-lost", {
+          elapsedMs: Number((performance.now() - cleanupStartedAt).toFixed(1)),
+          contextLost: context.isContextLost(),
+        });
         resolveContextLoss();
       };
-      const timeout = window.setTimeout(finish, 1_000);
+      const timeout = window.setTimeout(() => {
+        emit?.("scene-cleanup-timeout", {
+          elapsedMs: Number((performance.now() - cleanupStartedAt).toFixed(1)),
+          contextLost: context.isContextLost(),
+        });
+        finish();
+      }, 1_000);
       canvas.addEventListener("webglcontextlost", finish, { once: true });
       loseContext.loseContext();
     });
@@ -160,13 +366,38 @@ async function pauseSceneForCleanup(page: Page) {
 }
 
 test.afterEach(async ({ browser, page }) => {
+  const diagnostics = activeHomePerformanceDiagnostics;
   const fixtureContext = page.context();
-  for (const context of browser.contexts()) {
+  const contexts = browser.contexts();
+  diagnostics?.record("context-cleanup", "start", {
+    contextCount: contexts.length,
+    pageCount: contexts.reduce((count, context) => count + context.pages().length, 0),
+  });
+  for (const [contextIndex, context] of contexts.entries()) {
     for (const contextPage of context.pages()) {
-      if (!contextPage.isClosed()) await pauseSceneForCleanup(contextPage);
+      if (!contextPage.isClosed()) {
+        diagnostics?.record("context-cleanup", "page-cleanup-start", {
+          contextIndex,
+          url: contextPage.url(),
+          label: contextPage === page ? "fixture-page" : "additional-page",
+        });
+        await pauseSceneForCleanup(contextPage);
+        diagnostics?.record("context-cleanup", "page-cleanup-complete", {
+          contextIndex,
+          url: contextPage.url(),
+        });
+      }
     }
-    if (context !== fixtureContext) await context.close();
+    if (context !== fixtureContext) {
+      diagnostics?.record("context-cleanup", "additional-context-close-start", { contextIndex });
+      await context.close();
+      diagnostics?.record("context-cleanup", "additional-context-close-complete", { contextIndex });
+    }
   }
+  diagnostics?.record("context-cleanup", "complete", {
+    remainingContexts: browser.contexts().length,
+  });
+  activeHomePerformanceDiagnostics = null;
 });
 
 test("Home renders the approved poster and retains responsive screenshots", async ({
@@ -435,6 +666,7 @@ test("lazy scene reaches ready on capable WebGL and retains the poster otherwise
   await page.goto("/");
 
   const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-capabilities-resolved", "true");
   await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED|STATIC)$/);
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
 
@@ -461,6 +693,40 @@ test("lazy scene reaches ready on capable WebGL and retains the poster otherwise
   });
 });
 
+test("software WebGL renderers stay on the static poster path", async ({ page }) => {
+  await page.addInitScript(() => {
+    const original = HTMLCanvasElement.prototype.getContext;
+    Object.defineProperty(HTMLCanvasElement.prototype, "getContext", {
+      configurable: true,
+      value: function getContext(type: string, ...args: unknown[]) {
+        if (type === "webgl2" && !this.isConnected) {
+          return {
+            getExtension(name: string) {
+              if (name === "WEBGL_debug_renderer_info") {
+                return { UNMASKED_RENDERER_WEBGL: 0 };
+              }
+              return name === "WEBGL_lose_context" ? { loseContext() {} } : null;
+            },
+            getParameter() {
+              return "Google SwiftShader";
+            },
+          } as unknown as RenderingContext;
+        }
+        return Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
+      },
+    });
+  });
+  await page.setViewportSize({ width: 1600, height: 900 });
+  await page.goto("/");
+
+  const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-capabilities-resolved", "true");
+  await expect(stage).toHaveAttribute("data-quality-tier", "STATIC");
+  await expect(stage).toHaveAttribute("data-scene-state", "poster");
+  await expect(page.getByTestId("hero-static-poster")).toBeVisible();
+  await expect(page.locator("canvas")).toHaveCount(0);
+});
+
 test("WebGL failure selects the static hero without blocking semantic content", async ({
   page,
 }) => {
@@ -478,6 +744,7 @@ test("WebGL failure selects the static hero without blocking semantic content", 
   await page.goto("/");
 
   const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-capabilities-resolved", "true");
   await expect(stage).toHaveAttribute("data-quality-tier", "STATIC");
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
   await expect(page.getByRole("heading", { level: 1, name: /human potential multiplied/i })).toBeVisible();
@@ -519,6 +786,20 @@ test("runtime WebGL failure keeps the poster fallback after resize", async ({
       value: function getContext(type: string, ...args: unknown[]) {
         if (type === "webgl2" && this.isConnected) return null;
 
+        if (type === "webgl2") {
+          return {
+            getExtension(name: string) {
+              if (name === "WEBGL_debug_renderer_info") {
+                return { UNMASKED_RENDERER_WEBGL: 0 };
+              }
+              return name === "WEBGL_lose_context" ? { loseContext() {} } : null;
+            },
+            getParameter() {
+              return "Test Hardware Renderer";
+            },
+          } as unknown as RenderingContext;
+        }
+
         const context = Reflect.apply(original, this, [type, ...args]) as RenderingContext | null;
         if (type === "webgl2" && context === null) {
           return {
@@ -535,6 +816,7 @@ test("runtime WebGL failure keeps the poster fallback after resize", async ({
   await page.goto("/");
 
   const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-capabilities-resolved", "true");
   await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED)$/);
   await expect(stage).toHaveAttribute("data-scene-state", "fallback", {
     timeout: 30_000,
@@ -562,17 +844,27 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   browser,
   page,
 }) => {
-  // Keep all 119-frame profiles intact on software-rendered WebGL hosts.
+  // Software renderers stay STATIC; every live FULL/BALANCED profile keeps 119 frame intervals.
   test.setTimeout(150_000);
   mkdirSync(screenshotDirectory, { recursive: true });
+  const diagnostics = createHomePerformanceDiagnostics();
+  activeHomePerformanceDiagnostics = diagnostics;
+  diagnostics.record("suite", "start", {
+    head: process.env.GITHUB_SHA ?? process.env.CI_COMMIT_SHA ?? "local-unreported",
+    retries: process.env.CI ? 1 : 0,
+    frameIntervalsPerWebglProfile: 119,
+    testTimeoutMs: 150_000,
+  });
 
   const staticPage = await browser.newPage({
     viewport: { width: 1600, height: 900 },
     reducedMotion: "reduce",
   });
+  await installHomePerformanceDiagnostics(staticPage, "static-reduced-motion", diagnostics);
   await installVitalsObserver(staticPage);
   const staticChunkCollector = collectScriptGzipSizes(staticPage);
   const staticStart = Date.now();
+  diagnostics.record("static-navigation", "start", { viewport: "1600x900", reducedMotion: true });
   await staticPage.goto(`${testBaseURL}/`, { waitUntil: "load" });
   await expect(staticPage.getByTestId("hero-scene-stage")).toHaveAttribute(
     "data-quality-tier",
@@ -595,7 +887,14 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     };
   });
   const staticLoadMs = Date.now() - staticStart;
+  diagnostics.record("static-navigation", "complete", {
+    loadMs: staticLoadMs,
+    scriptCount: Object.keys(staticChunks).length,
+    lcpMs: staticVitals.lcpMs,
+  });
+  diagnostics.record("static-context-close", "start", { url: staticPage.url() });
   await staticPage.close();
+  diagnostics.record("static-context-close", "complete", { closed: staticPage.isClosed() });
 
   const mobilePage = await browser.newPage({
     viewport: { width: 390, height: 844 },
@@ -615,6 +914,12 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   });
   await mobileCdp.send("Emulation.setCPUThrottlingRate", { rate: 4 });
   const mobileStart = Date.now();
+  diagnostics.record("mobile-4g-navigation", "start", {
+    viewport: "390x844",
+    latencyMs: 150,
+    downloadBytesPerSecond: 209715,
+    cpuThrottlingRate: 4,
+  });
   await mobilePage.goto(`${testBaseURL}/`, { waitUntil: "load" });
   await expect(mobilePage.getByTestId("hero-scene-stage")).toHaveAttribute(
     "data-quality-tier",
@@ -622,6 +927,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   );
   await expect(mobilePage.getByTestId("hero-static-poster")).toBeVisible();
   const mobileLoadMs = Date.now() - mobileStart;
+  diagnostics.record("mobile-4g-navigation", "complete", { loadMs: mobileLoadMs });
   await captureScreenshot(mobilePage, {
     path: resolve(screenshotDirectory, "home-performance-mobile-390x844.png"),
     fullPage: false,
@@ -630,6 +936,7 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   await mobilePage
     .getByRole("link", { name: /explore our capabilities/i })
     .click();
+  diagnostics.record("mobile-cta-interaction", "clicked");
   await mobilePage.evaluate(
     () =>
       new Promise<void>((resolveFrame) => {
@@ -663,7 +970,14 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       loadEventMs: navigation?.loadEventEnd ?? 0,
     };
   });
+  diagnostics.record("mobile-vitals-and-chunk-collection", "complete", {
+    lcpMs: mobileVitals.lcpMs,
+    scriptCount: Object.keys(mobileChunks).length,
+    inpSampleCount: mobileVitals.inpSampleCount,
+    inpMs: mobileVitals.inpMs,
+  });
   // Do not let CDP emulation leak from the mobile sample into later route tests.
+  diagnostics.record("mobile-cdp-cleanup", "start");
   await mobileCdp.send("Emulation.setCPUThrottlingRate", { rate: 1 });
   await mobileCdp.send("Network.emulateNetworkConditions", {
     offline: false,
@@ -673,30 +987,42 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     connectionType: "none",
   });
   await mobileCdp.detach();
+  diagnostics.record("mobile-cdp-cleanup", "complete");
+  diagnostics.record("mobile-context-close", "start");
   await mobilePage.close();
+  diagnostics.record("mobile-context-close", "complete", { closed: mobilePage.isClosed() });
 
   await page.setViewportSize({ width: 1600, height: 900 });
+  await installHomePerformanceDiagnostics(page, "desktop-default", diagnostics);
   await installVitalsObserver(page);
   const liveChunkCollector = collectScriptGzipSizes(page);
   const desktopStart = Date.now();
+  diagnostics.record("desktop-navigation", "start", { viewport: "1600x900" });
   await page.goto("/");
   const stage = page.getByTestId("hero-scene-stage");
+  await expect(stage).toHaveAttribute("data-capabilities-resolved", "true");
   await expect(stage).toHaveAttribute("data-quality-tier", /^(FULL|BALANCED|STATIC)$/);
   await expect(page.getByTestId("hero-static-poster")).toBeVisible();
 
   const desktopTier = await stage.getAttribute("data-quality-tier");
   let desktopState = await stage.getAttribute("data-scene-state");
   if (desktopTier !== "STATIC") {
+    diagnostics.record("desktop-scene-readiness", "start", { tier: desktopTier });
     await expect(stage).toHaveAttribute("data-scene-state", /^(ready|fallback)$/i, {
       timeout: 30_000,
     });
     desktopState = await stage.getAttribute("data-scene-state");
+    diagnostics.record("desktop-scene-readiness", "complete", { tier: desktopTier, state: desktopState });
+  } else {
+    diagnostics.record("desktop-scene-readiness", "static", { tier: desktopTier, state: desktopState });
   }
 
-  const desktopFrames =
-    desktopState === "ready" && desktopTier === "FULL"
-      ? await sampleFrameTimes(page)
-      : null;
+  let desktopFrames: Awaited<ReturnType<typeof sampleFrameTimes>> | null = null;
+  if (desktopState === "ready" && desktopTier === "FULL") {
+    diagnostics.record("desktop-full-frame-sampling", "start", { targetIntervals: 119 });
+    desktopFrames = await sampleFrameTimes(page, "desktop-full");
+    diagnostics.record("desktop-full-frame-sampling", "complete", desktopFrames);
+  }
   const desktopCapabilities = await page.evaluate(() => {
     const memoryNavigator = navigator as Navigator & { deviceMemory?: number };
     const canvas = document.querySelector("canvas");
@@ -707,11 +1033,15 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       deviceMemoryGb: memoryNavigator.deviceMemory ?? null,
       devicePixelRatio: window.devicePixelRatio,
       webgl2Ready: Boolean(context),
+      contextLost: context?.isContextLost() ?? null,
+      canvasCount: document.querySelectorAll("canvas").length,
+      canvasSize: canvas ? { width: canvas.width, height: canvas.height } : null,
       renderer: debugInfo
         ? context?.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) ?? null
         : null,
     };
   });
+  diagnostics.record("desktop-renderer-snapshot", "complete", desktopCapabilities);
   const desktopChunks = await liveChunkCollector.finish();
   const liveVitals = await page.evaluate(() => {
     const values = Reflect.get(window, "__nexlabsVitals") as {
@@ -728,12 +1058,23 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     };
   });
   const desktopLoadMs = Date.now() - desktopStart;
+  diagnostics.record("desktop-navigation-and-measurement", "complete", {
+    tier: desktopTier,
+    state: desktopState,
+    loadMs: desktopLoadMs,
+    scriptCount: Object.keys(desktopChunks).length,
+    lcpMs: liveVitals.lcpMs,
+  });
+  diagnostics.record("desktop-scene-cleanup", "start");
   await pauseSceneForCleanup(page);
+  diagnostics.record("desktop-page-close", "start");
   await page.close();
+  diagnostics.record("desktop-page-close", "complete", { closed: page.isClosed() });
 
   const fullProfilePage = await browser.newPage({
     viewport: { width: 1600, height: 900 },
   });
+  await installHomePerformanceDiagnostics(fullProfilePage, "full-capability-profile", diagnostics);
   await fullProfilePage.addInitScript(() => {
     Object.defineProperty(navigator, "hardwareConcurrency", {
       configurable: true,
@@ -744,20 +1085,45 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       value: 8,
     });
   });
+  diagnostics.record("full-profile-navigation", "start", { viewport: "1600x900" });
   await fullProfilePage.goto(`${testBaseURL}/`);
   const fullStage = fullProfilePage.getByTestId("hero-scene-stage");
-  await expect(fullStage).toHaveAttribute("data-quality-tier", "FULL");
-  await expect(fullStage).toHaveAttribute("data-scene-state", "ready", {
-    timeout: 30_000,
-  });
-  const fullFrames = desktopFrames ?? await sampleFrameTimes(fullProfilePage);
+  await expect(fullStage).toHaveAttribute("data-capabilities-resolved", "true");
+  const fullProfileTier = await fullStage.getAttribute("data-quality-tier");
+  let fullProfileState = await fullStage.getAttribute("data-scene-state");
+  let fullFrames: Awaited<ReturnType<typeof sampleFrameTimes>> | null = null;
+  if (fullProfileTier === "FULL") {
+    await expect(fullStage).toHaveAttribute("data-scene-state", "ready", {
+      timeout: 30_000,
+    });
+    fullProfileState = await fullStage.getAttribute("data-scene-state");
+    fullFrames = desktopFrames ?? await sampleFrameTimes(fullProfilePage, "full-capability-profile");
+  } else {
+    expect(fullProfileTier).toBe("STATIC");
+    expect(fullProfileState).toBe("poster");
+    await expect(fullProfilePage.locator("canvas")).toHaveCount(0);
+    await expect(fullProfilePage.getByTestId("hero-static-poster")).toBeVisible();
+  }
   await captureScreenshot(fullProfilePage, {
-    path: resolve(screenshotDirectory, "home-full-scene-1600x900.png"),
+    path: resolve(
+      screenshotDirectory,
+      fullProfileTier === "FULL"
+        ? "home-full-scene-1600x900.png"
+        : "home-static-software-webgl-fallback-1600x900.png",
+    ),
     fullPage: false,
     animations: "disabled",
   });
+  diagnostics.record("full-profile-render-and-screenshot", "complete", {
+    tier: fullProfileTier,
+    state: fullProfileState,
+    frameTimes: fullFrames,
+  });
+  diagnostics.record("full-profile-scene-cleanup", "start");
   await pauseSceneForCleanup(fullProfilePage);
+  diagnostics.record("full-profile-context-close", "start");
   await fullProfilePage.close();
+  diagnostics.record("full-profile-context-close", "complete", { closed: fullProfilePage.isClosed() });
 
   const staticChunkUrls = new Set(Object.keys(staticChunks));
   const staticScriptGzipBytes = Object.values(staticChunks).reduce(
@@ -786,22 +1152,47 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
       viewport: { width: 900, height: 768 },
       deviceScaleFactor: 1,
     });
+    await installHomePerformanceDiagnostics(balancedPage, "balanced-profile", diagnostics);
+    diagnostics.record("balanced-profile-navigation", "start", { viewport: "900x768" });
     await balancedPage.goto(`${testBaseURL}/`);
     const balancedStage = balancedPage.getByTestId("hero-scene-stage");
-    await expect(balancedStage).toHaveAttribute("data-quality-tier", "BALANCED");
-    await expect(balancedStage).toHaveAttribute("data-scene-state", "ready", {
-      timeout: 30_000,
-    });
+    await expect(balancedStage).toHaveAttribute("data-capabilities-resolved", "true");
     balancedTier = await balancedStage.getAttribute("data-quality-tier");
     balancedState = await balancedStage.getAttribute("data-scene-state");
-    balancedFrames = await sampleFrameTimes(balancedPage);
+    if (balancedTier === "BALANCED") {
+      await expect(balancedStage).toHaveAttribute("data-scene-state", "ready", {
+        timeout: 30_000,
+      });
+      balancedState = await balancedStage.getAttribute("data-scene-state");
+      diagnostics.record("balanced-frame-sampling", "start", { targetIntervals: 119 });
+      balancedFrames = await sampleFrameTimes(balancedPage, "balanced-profile");
+      diagnostics.record("balanced-frame-sampling", "complete", balancedFrames);
+    } else {
+      expect(balancedTier).toBe("STATIC");
+      expect(balancedState).toBe("poster");
+      await expect(balancedPage.locator("canvas")).toHaveCount(0);
+      await expect(balancedPage.getByTestId("hero-static-poster")).toBeVisible();
+    }
     await captureScreenshot(balancedPage, {
-      path: resolve(screenshotDirectory, "home-balanced-scene-900x768.png"),
+      path: resolve(
+        screenshotDirectory,
+        balancedTier === "BALANCED"
+          ? "home-balanced-scene-900x768.png"
+          : "home-static-software-webgl-fallback-900x768.png",
+      ),
       fullPage: false,
       animations: "disabled",
     });
+    diagnostics.record("balanced-profile-render-and-screenshot", "complete", {
+      tier: balancedTier,
+      state: balancedState,
+      frameTimes: balancedFrames,
+    });
+    diagnostics.record("balanced-profile-scene-cleanup", "start");
     await pauseSceneForCleanup(balancedPage);
+    diagnostics.record("balanced-profile-context-close", "start");
     await balancedPage.close();
+    diagnostics.record("balanced-profile-context-close", "complete", { closed: balancedPage.isClosed() });
   }
 
   const report = {
@@ -837,12 +1228,12 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     },
     fullCapabilityProfile: {
       viewport: "1600x900",
-      tier: "FULL",
-      state: "ready",
+      tier: fullProfileTier,
+      state: fullProfileState,
       capabilityOverrides: {
         hardwareConcurrency: 16,
         deviceMemoryGb: 8,
-        note: "Exercises the FULL scene path on this WebGL-capable host; this is not a separate high-end-hardware qualification.",
+        note: "Requests FULL on capable hardware. Software-rendered WebGL is required to remain STATIC; this report is not a separate high-end-hardware qualification.",
       },
       frameTimes: fullFrames,
     },
@@ -883,6 +1274,16 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
     Buffer.from(`${JSON.stringify(report, null, 2)}\n`),
   );
 
+  diagnostics.record("acceptance-assertions", "start", {
+    desktopTier,
+    desktopState,
+    fullProfileTier,
+    balancedTier,
+    desktopFrameSamples: desktopFrames?.sampleCount ?? 0,
+    fullFrameSamples: fullFrames?.sampleCount ?? 0,
+    balancedFrameSamples: balancedFrames?.sampleCount ?? 0,
+  });
+
   expect(desktopPosterBytes).toBeLessThan(600 * 1024);
   expect(mobilePosterBytes).toBeLessThan(desktopPosterBytes * 0.75);
   expect(staticScriptGzipBytes).toBeLessThanOrEqual(220 * 1024);
@@ -903,6 +1304,14 @@ test("measures poster-first, lazy chunk size, Web Vitals proxies, and frame prof
   ).toBeLessThanOrEqual(200);
 
   expect(desktopTier).toMatch(/^(FULL|BALANCED|STATIC)$/);
+  expect(fullProfileTier).toMatch(/^(FULL|STATIC)$/);
+  if (desktopTier === "FULL" && desktopState === "ready") {
+    expect(desktopFrames?.sampleCount).toBe(119);
+  }
+  if (fullProfileTier === "FULL") expect(fullFrames?.sampleCount).toBe(119);
+  if (balancedTier === "BALANCED") expect(balancedFrames?.sampleCount).toBe(119);
+  diagnostics.record("acceptance-assertions", "complete");
+  diagnostics.record("suite", "complete");
 });
 
 test("reduced motion keeps the static Home composition usable", async ({ page }) => {

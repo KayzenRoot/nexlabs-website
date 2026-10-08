@@ -25,6 +25,7 @@ export function HeroSceneClient() {
   const [shouldLoad, setShouldLoad] = useState(false);
   const [sceneReady, setSceneReady] = useState(false);
   const [failed, setFailed] = useState(false);
+  const [capabilitiesResolved, setCapabilitiesResolved] = useState(false);
 
   const failScene = useCallback((reason: unknown) => {
     hostRef.current?.parentElement?.removeAttribute("data-scene-live");
@@ -39,6 +40,7 @@ export function HeroSceneClient() {
     const refreshTier = () => {
       const nextTier = resolveHeroQualityTier(readHeroCapabilities());
       setTier(nextTier);
+      setCapabilitiesResolved(true);
       if (nextTier === "STATIC") {
         hostRef.current?.parentElement?.removeAttribute("data-scene-live");
         setShouldLoad(false);
@@ -107,6 +109,7 @@ export function HeroSceneClient() {
       className={`${styles.sceneLayer} ${sceneReady && !failed ? styles.sceneReady : ""}`}
       data-testid="hero-scene-stage"
       data-quality-tier={tier}
+      data-capabilities-resolved={String(capabilitiesResolved)}
       data-scene-state={
         failed ? "fallback" : sceneReady ? "ready" : shouldLoad ? "loading" : "poster"
       }
