@@ -22,12 +22,12 @@ On headless SwiftShader, the diagnostic Home performance test completed in 7.5â€
 
 ## SonarCloud findings and corrections
 
-The actual new-code issues retrieved from SonarCloud before correction were:
+The new-code issues retrieved from SonarCloud were:
 
 | Issue | Prior finding | Correction |
 | --- | --- | --- |
-| `pythonsecurity:S8707` (`AaEaunfYCXFy810awQdb`) | MAJOR path-traversal vulnerability in `tools/visual-pipeline/optimize-runtime-glb.py:116`; Security rating C / HIGH impact | Commit `fdc064501e3d347ddbf3d932f859c9626edc40c5` constrains the optimizer output destination to the admitted fixed path and validates the path before writing. |
-| `css:S4656` (`AaEauncOCXFy810awQda`) | Duplicate `border-radius` declaration in `src/components/home-sections.module.css:530`; MAJOR bug / Reliability rating C | Commit `6adfaf8dd935b2f5e9204d0b82195ced1235a956` removes the duplicate declaration without changing the effective rule. |
+| `pythonsecurity:S8707` (`AaEaunfYCXFy810awQdb`) | Sonar reported a path traversal at the JSON `write_text` sink because `--source` was included as report content. The actual output path was already a fixed, validated user-data path. | `fdc064501e3d347ddbf3d932f859c9626edc40c5` confines the output destination; `90de8fe957269488aaeebd9783ef175f9183ad1d` removes the unnecessary absolute source path from the JSON report while retaining hash/size provenance. Exact-head Security rating remains pending. |
+| `css:S4656` (`AaEauncOCXFy810awQda`) | Duplicate `border-radius` declaration in `src/components/home-sections.module.css:530`; MAJOR bug / Reliability rating C. Sonar later marked it CLOSED and measured Reliability A. | Commit `6adfaf8dd935b2f5e9204d0b82195ced1235a956` removes the duplicate declaration without changing the effective rule. |
 
 No exclusions, suppressions, quality-gate changes or dependency changes were made. The exact-head SonarCloud check must be read from live PR #20 metadata after the evidence push; an older rating is not carried forward.
 
@@ -46,6 +46,6 @@ The three consecutive full production-candidate Chromium suites used one immutab
 | 2 | 31/31 PASS | 1956 ms | 168 ms | 0 | 151,360 bytes |
 | 3 | 31/31 PASS | 1848 ms | 120 ms | 0 | 151,360 bytes |
 
-All are within the unchanged LCP 2500 ms, interaction 200 ms, CLS 0.1 and initial-route JS 225,280-byte limits. The separate same-image hardware run measured lazy Home 3D at 272,599 gzip bytes (716,800-byte budget) and preserved 119 samples for each live FULL/BALANCED tier. Software-rendered suites correctly have no live frame sampling because they select the existing STATIC path.
+All are within the unchanged LCP 2500 ms, interaction 200 ms, CLS 0.1 and initial-route JS 225,280-byte limits. A later rerun after the security-tool change retained the same candidate image/container and produced 31/31 in each consecutive run; its report paths and SHA-256 receipts are recorded in `security-fix/performance-final/run-01` through `run-03`. Those runs measured Home mobile LCP at 1856 / 1832 / 1760 ms, interaction proxy at 88 / 152 / 112 ms, CLS 0 in each, and initial-route JS at 151,360 gzip bytes. The separate same-image hardware run measured lazy Home 3D at 272,599 gzip bytes (716,800-byte budget) and preserved 119 samples for each live FULL/BALANCED tier. Software-rendered suites correctly have no live frame sampling because they select the existing STATIC path.
 
-Local source checks recorded for this candidate: `npm ci`, lint, typecheck, unit tests (5 files / 34 tests), build, `npm audit --audit-level=moderate` (0 vulnerabilities), and full E2E (three consecutive 31/31 runs, retries=0), all PASS. The six routes `/`, `/technology`, `/solutions`, `/research`, `/company` and `/contact` returned HTTP 200 from the candidate at port 3102 and development service at port 3000. Development Docker remains healthy. The current hosted gates are not represented by these local receipts; CI Quality, Browser Smoke, Release Readiness, SonarCloud, Socket and CodeRabbit must be checked on the final pushed PR HEAD.
+Local checks after the optimizer report change: `npm ci` (0 vulnerabilities), lint, typecheck, unit tests (5 files / 43 tests), production build, `npm audit --audit-level=moderate` (0 vulnerabilities), and full E2E (31/31, retries=0), all PASS. The production-candidate evidence contains three consecutive 31/31 runs, retries=0. The six routes `/`, `/technology`, `/solutions`, `/research`, `/company` and `/contact` returned HTTP 200 from the candidate at port 3102 and development service at port 3000. Development Docker remains healthy. The current hosted gates are not represented by these local receipts; CI Quality, Browser Smoke, Release Readiness, SonarCloud, Socket and CodeRabbit must be checked on the final pushed PR HEAD.
