@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
+import { CANONICAL_SITE_URL, PUBLIC_INDEXING_ENABLED } from "../lib/site-seo";
 
-/** Keeps every crawler out until a verified production origin is admitted. */
+/** Production allows discovery. Preview and development remain blocked. */
 export default function robots(): MetadataRoute.Robots {
+  if (!PUBLIC_INDEXING_ENABLED) {
+    return { rules: { userAgent: "*", disallow: "/" } };
+  }
   return {
-    rules: {
-      userAgent: "*",
-      disallow: "/",
-    },
+    rules: { userAgent: "*", allow: "/" },
+    sitemap: CANONICAL_SITE_URL + "/sitemap.xml",
   };
 }
