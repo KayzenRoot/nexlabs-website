@@ -89,7 +89,7 @@ test("production Home preloads the responsive static poster", async ({ page }) =
   );
 });
 
-test("all routes stay noindex and robots blocks crawling without publishing a sitemap", async ({
+test("previews stay noindex and blocked, while the generated sitemap remains internally consistent", async ({
   page,
 }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
@@ -101,8 +101,8 @@ test("all routes stay noindex and robots blocks crawling without publishing a si
     const robotsMeta = await page.locator('meta[name="robots"]').getAttribute("content");
     expect(robotsMeta).toMatch(/noindex/i);
     expect(robotsMeta).toMatch(/nofollow/i);
-    await expect(page.locator('link[rel="canonical"]')).toHaveCount(0);
-    routeReports.push({ path, status: response?.status(), robotsMeta, canonicalAbsent: true });
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://www.nexlabs.company" + (path === "/" ? "/" : path));
+    routeReports.push({ path, status: response?.status(), robotsMeta, canonical: "https://www.nexlabs.company" + path });
   }
 
   const robotsResponse = await page.request.get("/robots.txt");
@@ -113,10 +113,10 @@ test("all routes stay noindex and robots blocks crawling without publishing a si
   expect(robotsBody).not.toMatch(/^Sitemap:/im);
 
   const sitemapResponse = await page.request.get("/sitemap.xml");
-  expect(sitemapResponse.status()).toBe(404);
+  expect(sitemapResponse.status()).toBe(200);
   writeFileSync(
     resolve(evidenceDirectory, "prelaunch-indexing-report.json"),
-    `${JSON.stringify({ routes: routeReports, robots: { status: robotsResponse.status(), body: robotsBody }, sitemap: { status: sitemapResponse.status(), absent: sitemapResponse.status() === 404 }, result: "PASS" }, null, 2)}\n`,
+    `${JSON.stringify({ routes: routeReports, robots: { status: robotsResponse.status(), body: robotsBody }, sitemap: { status: sitemapResponse.status(), present: sitemapResponse.status() === 200 }, result: "PASS" }, null, 2)}\n`,
     "utf8",
   );
 });
