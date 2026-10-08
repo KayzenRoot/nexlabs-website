@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../lib/site-seo";
 import type { ComponentType } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
@@ -26,6 +27,8 @@ const pageCases: readonly SecondaryPageCase[] = [
     Page: ContactPage,
     metadata: contactMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/contact", "Contact | Nex Labs Technology", "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience."),
+      alternates: { canonical: "/contact" },
       title: "Contact | Nex Labs Technology",
       description:
         "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.",
@@ -46,8 +49,8 @@ Evidence & success signals
 What is already known, what remains uncertain and what would count as useful progress.`,
     paragraphs: `Useful conversations begin with a clear problem, the constraints around it and the decision that needs to move. This V1 page helps structure that context without collecting or transmitting information.
 A concise brief makes it easier to understand whether research, engineering or product work may be relevant. Keep confidential, regulated or credential material out of any future message unless a verified secure channel is explicitly provided.
-Nex Labs publishes contact channels only after they are verified and governed. No direct contact channel is published in this V1 build, and this page contains no contact form, upload field, submission endpoint or analytics tracker.
-A future governed increment may add a verified channel without changing the information architecture of this page.
+The founder's public contact mailbox is listed below. This website has no contact form, upload field, submission endpoint or analytics tracker; messages are sent only when visitors choose to use their own email client.
+Do not include passwords, API keys or confidential records in unsolicited email. You can use the same published address to independently verify the founder.
 This page does not request or transmit personal information. Do not send sensitive information through unofficial channels that claim to represent Nex Labs.`,
     links: [
       { name: "Prepare the brief", href: "#brief" },
@@ -60,6 +63,8 @@ This page does not request or transmit personal information. Do not send sensiti
     Page: TechnologyPage,
     metadata: technologyMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/technology", "Technology | Nex Labs Technology", "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems."),
+      alternates: { canonical: "/technology" },
       title: "Technology | Nex Labs Technology",
       description:
         "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems.",
@@ -103,6 +108,8 @@ The technology layer exists to turn useful learning into systems that can be ope
     Page: SolutionsPage,
     metadata: solutionsMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/solutions", "Solutions | Nex Labs Technology", "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints."),
+      alternates: { canonical: "/solutions" },
       title: "Solutions | Nex Labs Technology",
       description:
         "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints.",
@@ -144,6 +151,8 @@ These pages describe areas Nex Labs focuses on exploring and engineering. They d
     Page: ResearchPage,
     metadata: researchMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/research", "Research | Nex Labs Technology", "Explore how Nex Labs turns technical questions into experiments, evidence and systems that can inform future products and platforms."),
+      alternates: { canonical: "/research" },
       title: "Research | Nex Labs Technology",
       description:
         "Explore how Nex Labs turns technical questions into experiments, evidence and systems that can inform future products and platforms.",
@@ -183,6 +192,8 @@ Research directions are not presented as patents, publications, deployed client 
     Page: CompanyPage,
     metadata: companyMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/company", "Company | Nex Labs Technology", "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology."),
+      alternates: { canonical: "/company" },
       title: "Company | Nex Labs Technology",
       description:
         "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology.",
@@ -260,7 +271,9 @@ describe("ContactPage privacy boundary", () => {
   it("stays read-only and free of collection or direct-contact controls", () => {
     const { container } = render(<ContactPage />);
     expect(container.querySelector("form, input, textarea, select, button, [type='file']")).toBeNull();
-    expect(container.querySelector("a[href^='mailto:'], a[href^='tel:']")).toBeNull();
+    expect(container.querySelectorAll("a[href^='mailto:']")).toHaveLength(1);
+    expect(container.querySelector("a[href^='mailto:']")?.getAttribute("href")).toBe("mailto:founder@nexlabs.company");
+    expect(container.querySelector("a[href^='tel:']")).toBeNull();
     expect(container.querySelectorAll("canvas")).toHaveLength(0);
   });
 });

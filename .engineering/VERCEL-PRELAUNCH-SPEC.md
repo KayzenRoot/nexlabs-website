@@ -152,3 +152,13 @@ Stop with:
 - PR #20 still OPEN;
 - no checkpoint promotion;
 - no M07B final-launch declaration.
+
+## Owner-authorized production crawler exception, 2026-10-08
+
+This addendum supersedes only the temporary SEO lockdown from this prior specification and D-0028 for existing public, factual pages. The owner requests an improved, publicly verifiable NexLabs presentation for a later Claude Startups reapplication. There is no waiver of factual accuracy, visual fidelity, safety, accessibility, or independent testing.
+
+On the Vercel **production** target, public pages may use index/follow, robots Allow and a sitemap with self-canonical routes. All Vercel preview/dev builds retain noindex/nofollow and robots Disallow. A founder email mailto link is allowed, while Contact retains zero web-app collection.
+
+The PRE-LAUNCH banner remains mandatory and the full WO-013 visual Master remains blocked for final release. This exception does not authorize a merge to main, production image changes, unfounded Claude API integration claims, partnership claims or representation of an incorporated company.
+
+Supporting Work Order: .engineering/work-orders/NEXLABS-WO-STARTUP-SEO-001.md.

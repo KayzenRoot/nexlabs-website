@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../lib/site-seo";
 import {
   SecondaryHero,
   SecondarySectionHeading,
@@ -7,6 +8,8 @@ import {
 import styles from "./technology.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/technology", "Technology | Nex Labs Technology", "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems."),
+  alternates: { canonical: "/technology" },
   title: "Technology | Nex Labs Technology",
   description:
     "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems.",

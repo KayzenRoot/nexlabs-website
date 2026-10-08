@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../lib/site-seo";
 import { publicProjects } from "../../data/public-projects";
 import styles from "./projects.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/projects", "Projects & Evidence | Nex Labs Technology", "Selected founder-built software and research projects with verified repositories, transparent development stages and public technical evidence."),
+  alternates: { canonical: "/projects" },
   title: "Projects & Evidence | Nex Labs Technology",
   description: "Selected founder-built software and research projects with verified repositories, transparent development stages and public technical evidence.",
 };

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../lib/site-seo";
 import {
   ContactGatewayArtwork,
   SecondaryHero,
@@ -7,6 +8,8 @@ import {
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/contact", "Contact | Nex Labs Technology", "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience."),
+  alternates: { canonical: "/contact" },
   title: "Contact | Nex Labs Technology",
   description:
     "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience.",
@@ -74,14 +77,17 @@ export default function ContactPage() {
             <p className={styles.availabilityEyebrow}>CONTACT AVAILABILITY</p>
             <h2 id="contact-availability-title">Channels stay verified.</h2>
             <p>
-              Nex Labs publishes contact channels only after they are verified and governed. No
-              direct contact channel is published in this V1 build, and this page contains no
-              contact form, upload field, submission endpoint or analytics tracker.
+              The founder's public contact mailbox is listed below. This website has no contact
+              form, upload field, submission endpoint or analytics tracker; messages are sent
+              only when visitors choose to use their own email client.
             </p>
             <p>
-              A future governed increment may add a verified channel without changing the
-              information architecture of this page.
+              Do not include passwords, API keys or confidential records in unsolicited email.
+              You can use the same published address to independently verify the founder.
             </p>
+            <a className={styles.emailLink} href="mailto:founder@nexlabs.company">
+              founder@nexlabs.company
+            </a>
             <a className={styles.availabilityAction} href="/company">
               Explore company principles <span aria-hidden="true">→</span>
             </a>

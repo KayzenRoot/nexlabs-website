@@ -259,3 +259,13 @@
     margin-bottom: 1.2rem;
   }
 }
+
+.emailLink {
+  display: inline-flex;
+  margin-top: 1.15rem;
+  color: var(--color-accent-cyan);
+  text-underline-offset: 0.3em;
+  font-size: clamp(1rem, 1.7vw, 1.22rem);
+  overflow-wrap: anywhere;
+}
+.emailLink:hover { color: #fff; }

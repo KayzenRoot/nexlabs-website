@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../lib/site-seo";
 import {
   CompanyAlignmentArtwork,
   SecondaryHero,
@@ -7,6 +8,8 @@ import {
 import styles from "./company.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/company", "Company | Nex Labs Technology", "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology."),
+  alternates: { canonical: "/company" },
   title: "Company | Nex Labs Technology",
   description:
     "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology.",

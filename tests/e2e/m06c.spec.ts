@@ -115,8 +115,8 @@ test("Contact renders exact canonical copy, metadata and a zero-collection surfa
   for (const text of [
     "Useful conversations begin with a clear problem, the constraints around it and the decision that needs to move. This V1 page helps structure that context without collecting or transmitting information.",
     "A concise brief makes it easier to understand whether research, engineering or product work may be relevant. Keep confidential, regulated or credential material out of any future message unless a verified secure channel is explicitly provided.",
-    "Nex Labs publishes contact channels only after they are verified and governed. No direct contact channel is published in this V1 build, and this page contains no contact form, upload field, submission endpoint or analytics tracker.",
-    "A future governed increment may add a verified channel without changing the information architecture of this page.",
+    "The founder's public contact mailbox is listed below. This website has no contact form, upload field, submission endpoint or analytics tracker; messages are sent only when visitors choose to use their own email client.",
+    "Do not include passwords, API keys or confidential records in unsolicited email. You can use the same published address to independently verify the founder.",
     "This page does not request or transmit personal information. Do not send sensitive information through unofficial channels that claim to represent Nex Labs.",
   ]) {
     await expect(page.getByText(text, { exact: true })).toBeVisible();
@@ -126,7 +126,9 @@ test("Contact renders exact canonical copy, metadata and a zero-collection surfa
   await expect(page.getByRole("link", { name: "Explore company principles" })).toHaveAttribute("href", "/company");
 
   await expect(page.locator("form, input, textarea, select, button:not([data-site-menu-trigger]), [type='file'], [type='submit']")).toHaveCount(0);
-  await expect(page.locator("a[href^='mailto:'], a[href^='tel:']")).toHaveCount(0);
+  await expect(page.locator("a[href^='mailto:']")).toHaveCount(1);
+  await expect(page.locator("a[href='mailto:founder@nexlabs.company']")).toHaveCount(1);
+  await expect(page.locator("a[href^='tel:']")).toHaveCount(0);
   await expect(page.locator("canvas")).toHaveCount(0);
   await expect(page.locator("[data-secondary-page='contact'] canvas, [data-secondary-page='contact'] [data-hero-scene-stage]")).toHaveCount(0);
   expect(nonGetRequests, "Contact must not submit or transmit form-like data").toEqual([]);

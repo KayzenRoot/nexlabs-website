@@ -6,13 +6,13 @@ import NotFound from "./not-found";
 import robots from "./robots";
 
 describe("M07A release-readiness boundaries", () => {
-  it("keeps every route pre-launch noindex without inventing a production origin", () => {
+  it("prevents preview indexing while defining a fixed production canonical origin", () => {
     expect(rootMetadata.robots).toEqual({ index: false, follow: false });
-    expect(rootMetadata.metadataBase).toBeUndefined();
+    expect(rootMetadata.metadataBase?.toString()).toBe("https://www.nexlabs.company/");
     expect(rootMetadata.alternates?.canonical).toBeUndefined();
   });
 
-  it("publishes a robots policy that disallows crawling without a sitemap", () => {
+  it("keeps preview crawlers restricted pending production deployment", () => {
     expect(robots()).toEqual({
       rules: { userAgent: "*", disallow: "/" },
     });
