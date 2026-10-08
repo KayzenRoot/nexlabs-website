@@ -47,8 +47,8 @@ Evidence & success signals
 What is already known, what remains uncertain and what would count as useful progress.`,
     paragraphs: `Useful conversations begin with a clear problem, the constraints around it and the decision that needs to move. This V1 page helps structure that context without collecting or transmitting information.
 A concise brief makes it easier to understand whether research, engineering or product work may be relevant. Keep confidential, regulated or credential material out of any future message unless a verified secure channel is explicitly provided.
-Nex Labs publishes contact channels only after they are verified and governed. No direct contact channel is published in this V1 build, and this page contains no contact form, upload field, submission endpoint or analytics tracker.
-A future governed increment may add a verified channel without changing the information architecture of this page.
+The founder's public contact mailbox is listed below. This website has no contact form, upload field, submission endpoint or analytics tracker; messages are sent only when visitors choose to use their own email client.
+Do not include passwords, API keys or confidential records in unsolicited email. You can use the same published address to independently verify the founder.
 This page does not request or transmit personal information. Do not send sensitive information through unofficial channels that claim to represent Nex Labs.`,
     links: [
       { name: "Prepare the brief", href: "#brief" },
@@ -265,7 +265,9 @@ describe("ContactPage privacy boundary", () => {
   it("stays read-only and free of collection or direct-contact controls", () => {
     const { container } = render(<ContactPage />);
     expect(container.querySelector("form, input, textarea, select, button, [type='file']")).toBeNull();
-    expect(container.querySelector("a[href^='mailto:'], a[href^='tel:']")).toBeNull();
+    expect(container.querySelectorAll("a[href^='mailto:']")).toHaveLength(1);
+    expect(container.querySelector("a[href^='mailto:']")?.getAttribute("href")).toBe("mailto:founder@nexlabs.company");
+    expect(container.querySelector("a[href^='tel:']")).toBeNull();
     expect(container.querySelectorAll("canvas")).toHaveLength(0);
   });
 });
