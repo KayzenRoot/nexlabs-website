@@ -9,7 +9,7 @@ test("SEO candidate uses self-canonical tags and preview-safe noindex", async ({
   for (const path of routes) {
     const response = await page.goto(path);
     expect(response?.status(), path).toBe(200);
-    const canonical = "https://www.nexlabs.company" + path;
+    const canonical = "https://www.nexlabs.company" + (path === "/" ? "" : path);
     await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", canonical);
     await expect(page.locator('meta[name="robots"]')).toHaveAttribute("content", /noindex/);
     await expect(page.locator("[data-prelaunch-banner]")).toContainText("PRE-LAUNCH");

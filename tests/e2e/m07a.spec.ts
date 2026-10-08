@@ -101,7 +101,7 @@ test("previews stay noindex and blocked, while the generated sitemap remains int
     const robotsMeta = await page.locator('meta[name="robots"]').getAttribute("content");
     expect(robotsMeta).toMatch(/noindex/i);
     expect(robotsMeta).toMatch(/nofollow/i);
-    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://www.nexlabs.company" + (path === "/" ? "/" : path));
+    await expect(page.locator('link[rel="canonical"]')).toHaveAttribute("href", "https://www.nexlabs.company" + (path === "/" ? "" : path));
     routeReports.push({ path, status: response?.status(), robotsMeta, canonical: "https://www.nexlabs.company" + path });
   }
 
