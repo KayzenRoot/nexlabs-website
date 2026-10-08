@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../lib/site-seo";
 import {
   ContactGatewayArtwork,
   SecondaryHero,
@@ -7,6 +8,7 @@ import {
 import styles from "./contact.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/contact", "Contact | Nex Labs Technology", "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience."),
   alternates: { canonical: "/contact" },
   title: "Contact | Nex Labs Technology",
   description:

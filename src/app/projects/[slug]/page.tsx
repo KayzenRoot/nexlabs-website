@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../../lib/site-seo";
 import { notFound } from "next/navigation";
 import { getPublicProject, publicProjects } from "../../../data/public-projects";
 import styles from "../projects.module.css";
@@ -16,6 +17,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     alternates: { canonical: "/projects/" + project.slug },
     title: project.name + " | Nex Labs Projects",
+    openGraph: pageOpenGraph("/projects/" + project.slug, project.name + " | Nex Labs Projects", project.summary),
     description: project.summary,
   };
 }

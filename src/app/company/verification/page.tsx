@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../../../lib/site-seo";
 import styles from "./verification.module.css";
 
 export const metadata: Metadata = {
+  openGraph: pageOpenGraph("/company/verification", "Founder & Project Verification | Nex Labs Technology", "Factual founder, operating location, legal-stage and open-source project evidence for NexLabs Technology."),
   alternates: { canonical: "/company/verification" },
   title: "Founder & Project Verification | Nex Labs Technology",
   description: "Factual founder, operating location, legal-stage and open-source project evidence for NexLabs Technology.",

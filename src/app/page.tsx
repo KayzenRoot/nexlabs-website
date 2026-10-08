@@ -1,9 +1,13 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../lib/site-seo";
 import { HomeSections } from "../components/home-sections";
 import { StaticHero } from "../components/static-hero";
 import styles from "./page.module.css";
 
-export const metadata: Metadata = { alternates: { canonical: "/" } };
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: pageOpenGraph("/", "NexLabs Technology | AI Engineering & Open-Source Research", "Evidence-backed, founder-led engineering: HIVE and selected AI software research projects."),
+};
 
 /** Renders the semantic M04 hero and the governed M05 Home content sections. */
 export default function HomePage() {

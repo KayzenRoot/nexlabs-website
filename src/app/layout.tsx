@@ -13,8 +13,6 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "NexLabs Technology",
     locale: "en_US",
-    title: "NexLabs Technology | AI Engineering & Open-Source Research",
-    description: "Evidence-backed, founder-led engineering: HIVE and selected AI software research projects.",
     images: [{ url: "/hero/home-hero-poster.jpg", alt: "NexLabs Technology cinematic laboratory visual" }],
   },
   twitter: { card: "summary_large_image" },

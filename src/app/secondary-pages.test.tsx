@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageOpenGraph } from "../lib/site-seo";
 import type { ComponentType } from "react";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
@@ -26,6 +27,7 @@ const pageCases: readonly SecondaryPageCase[] = [
     Page: ContactPage,
     metadata: contactMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/contact", "Contact | Nex Labs Technology", "Prepare the context for a future conversation with Nex Labs Technology and understand the information boundary of the current V1 contact experience."),
       alternates: { canonical: "/contact" },
       title: "Contact | Nex Labs Technology",
       description:
@@ -61,6 +63,7 @@ This page does not request or transmit personal information. Do not send sensiti
     Page: TechnologyPage,
     metadata: technologyMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/technology", "Technology | Nex Labs Technology", "Explore the modular technology foundations Nex Labs uses to connect intelligence, data, interfaces and real-world systems."),
       alternates: { canonical: "/technology" },
       title: "Technology | Nex Labs Technology",
       description:
@@ -105,6 +108,7 @@ The technology layer exists to turn useful learning into systems that can be ope
     Page: SolutionsPage,
     metadata: solutionsMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/solutions", "Solutions | Nex Labs Technology", "Explore the capability areas and engineering approach Nex Labs uses to frame intelligent systems around real constraints."),
       alternates: { canonical: "/solutions" },
       title: "Solutions | Nex Labs Technology",
       description:
@@ -147,6 +151,7 @@ These pages describe areas Nex Labs focuses on exploring and engineering. They d
     Page: ResearchPage,
     metadata: researchMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/research", "Research | Nex Labs Technology", "Explore how Nex Labs turns technical questions into experiments, evidence and systems that can inform future products and platforms."),
       alternates: { canonical: "/research" },
       title: "Research | Nex Labs Technology",
       description:
@@ -187,6 +192,7 @@ Research directions are not presented as patents, publications, deployed client 
     Page: CompanyPage,
     metadata: companyMetadata,
     expectedMetadata: {
+      openGraph: pageOpenGraph("/company", "Company | Nex Labs Technology", "Learn the purpose, operating principles and engineering mindset that shape Nex Labs Technology."),
       alternates: { canonical: "/company" },
       title: "Company | Nex Labs Technology",
       description:

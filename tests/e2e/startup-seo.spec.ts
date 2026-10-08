@@ -28,3 +28,14 @@ test("sitemap has 13 unique canonical URLs and preview robots stays restricted",
   expect(urls).toContain("https://www.nexlabs.company/company/verification");
   expect(urls).toContain("https://www.nexlabs.company/projects/hive");
 });
+
+test("each shared project uses its own Open Graph metadata", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", /AI Engineering/);
+  await page.goto("/company/verification");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "Founder & Project Verification | Nex Labs Technology");
+  await expect(page.locator('meta[property="og:url"]')).toHaveAttribute("content", "https://www.nexlabs.company/company/verification");
+  await page.goto("/projects/hive");
+  await expect(page.locator('meta[property="og:title"]')).toHaveAttribute("content", "HIVE | Nex Labs Projects");
+  await expect(page.locator('meta[property="og:description"]')).toHaveAttribute("content", /local-first platform/i);
+});
