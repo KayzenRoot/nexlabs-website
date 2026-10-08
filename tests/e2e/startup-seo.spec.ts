@@ -24,7 +24,7 @@ test("sitemap has 14 unique canonical URLs and preview robots stays restricted",
   const xml = await s.text();
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
   expect(urls).toHaveLength(14);
-  expect(new Set(urls).size).toBe(13);
+  expect(new Set(urls).size).toBe(14);
   expect(urls).toContain("https://www.nexlabs.company/company/verification");
   expect(urls).toContain("https://www.nexlabs.company/projects/hive");
 });
