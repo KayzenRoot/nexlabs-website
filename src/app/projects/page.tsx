@@ -19,6 +19,9 @@ export default function ProjectsPage() {
           Each entry links to its public repository and distinguishes released
           software from prototypes and work still in planning.
         </p>
+        <a className={styles.externalAction} href="/company/verification">
+          Founder and project verification <span aria-hidden="true">↗</span>
+        </a>
       </header>
       <section aria-labelledby="portfolio-heading" className={styles.catalogue}>
         <div className={styles.sectionHeading}>
