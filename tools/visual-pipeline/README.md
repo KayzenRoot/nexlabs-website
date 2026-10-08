@@ -112,6 +112,12 @@ pwsh -NoProfile -File tools/visual-pipeline/run-blender-candidate.ps1 `
   -OutputName blender-candidate-wo013
 ```
 
+The runtime GLB optimizer does not accept an output path from command-line input.
+It writes its fixed GLB and report beneath
+`%LOCALAPPDATA%\NexLabs\VisualPipeline\optimized` (or
+`$XDG_DATA_HOME/NexLabs/VisualPipeline/optimized` when `LOCALAPPDATA` is unset)
+and rejects output paths that resolve inside the repository.
+
 ## Model manifest
 
 Copy `model-manifest.example.json` to the local evidence area, resolve exact revisions/files/checksums/licenses, and commit only a sanitized evidence manifest without tokens or private local paths.

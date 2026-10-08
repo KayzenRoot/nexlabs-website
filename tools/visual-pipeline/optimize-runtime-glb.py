@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 from pathlib import Path
 
 import bpy
@@ -24,26 +25,45 @@ def sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def outside_repo(path: Path, repo_root: Path) -> Path:
-    resolved = path.resolve()
+def repository_root() -> Path:
+    return Path(__file__).resolve().parents[2]
+
+
+def safe_output_path(repo_root: Path) -> Path:
+    data_root_value = os.environ.get("LOCALAPPDATA") or os.environ.get("XDG_DATA_HOME")
+    data_root = Path(data_root_value).expanduser() if data_root_value else Path.home() / ".local" / "share"
+    resolved_data_root = data_root.resolve()
+    output_root = (resolved_data_root / "NexLabs" / "VisualPipeline" / "optimized").resolve()
     try:
-        resolved.relative_to(repo_root.resolve())
+        output_root.relative_to(resolved_data_root)
     except ValueError:
-        return resolved
-    raise SystemExit("Optimized Blender outputs must stay outside the Git repository.")
+        raise SystemExit("The optimized output directory must stay under the user data directory.") from None
+    try:
+        output_root.relative_to(repo_root.resolve())
+    except ValueError:
+        pass
+    else:
+        raise SystemExit("Optimized Blender outputs must stay outside the Git repository.")
+
+    output_root.mkdir(parents=True, exist_ok=True)
+    output = output_root / "hero-lab-structure-r17-optimized.glb"
+    report = output.with_suffix(".json")
+    if output.is_symlink() or report.is_symlink():
+        raise SystemExit("Refusing to write through a symbolic link in the optimized output directory.")
+    if (output.exists() and not output.is_file()) or (report.exists() and not report.is_file()):
+        raise SystemExit("Optimized output paths must be regular files when they already exist.")
+    return output
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--source", required=True, type=Path)
     parser.add_argument("--expected-sha256", required=True)
-    parser.add_argument("--output", required=True, type=Path)
-    parser.add_argument("--repo-root", required=True, type=Path)
     parser.add_argument("--ratio", type=float, default=0.55)
     args = parser.parse_args()
 
     source = args.source.resolve(strict=True)
-    output = outside_repo(args.output, args.repo_root)
+    output = safe_output_path(repository_root())
     if not 0.25 <= args.ratio <= 0.9:
         raise SystemExit("Decimation ratio must stay between 0.25 and 0.9 for reviewable geometry.")
     if bpy.app.version_string != "5.2.2 LTS" or not bpy.app.background:
@@ -75,7 +95,6 @@ def main() -> None:
     if not 0 < after_triangles < before_triangles or len(obj.data.materials) != material_count:
         raise SystemExit("Decimation failed to retain non-empty geometry and material slots.")
 
-    output.parent.mkdir(parents=True, exist_ok=True)
     bpy.ops.export_scene.gltf(
         filepath=str(output),
         export_format="GLB",
