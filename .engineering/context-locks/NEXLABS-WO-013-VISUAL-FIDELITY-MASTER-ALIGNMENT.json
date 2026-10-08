@@ -88,6 +88,7 @@
     "tests/e2e/m07a.spec.ts",
     "tests/e2e/wo013-visual-fidelity.spec.ts",
     "tools/visual-pipeline/**",
+    ".engineering/design-director/**",
     ".engineering/evidence/**",
     ".engineering/checkpoint-deltas/**"
   ],
@@ -292,5 +293,20 @@
     "perRoundMinimumBeforeIndependentReview": 8,
     "finalIndependentGate": 85,
     "runtimeMasterPixelsAllowed": false
+  },
+  "permissionCorrection": {
+    "id": "NEXLABS-WO-013-CORRECTION-DELTA-04-PREFLIGHT-WRITEALLOW",
+    "reason": "Grant design-director documentation path required by the already accepted Correction Delta 04 and DESIGN-DIRECTOR-HARNESS.md. No product source, critical source or scope change.",
+    "previousHead": "282f9ec20f16064222fbd2c41e21508f1e44229c",
+    "newlyAuthorized": [
+      ".engineering/design-director/**"
+    ],
+    "prohibitedStill": [
+      "master runtime reuse",
+      "canonical critical-source edits without re-admission",
+      "new dependencies",
+      "M07B final launch",
+      "merge/checkpoint promotion"
+    ]
   }
 }
