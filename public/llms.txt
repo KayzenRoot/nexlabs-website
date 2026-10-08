@@ -1,0 +1,17 @@
+# NexLabs Technology
+> Founder-led AI engineering and software initiative based in Brazil. Currently pre-incorporation, without external funding.
+
+Website: https://www.nexlabs.company/
+Founder verification: https://www.nexlabs.company/company/verification
+Engineering proof: https://www.nexlabs.company/engineering
+Portfolio: https://www.nexlabs.company/projects
+HIVE stable v1.0.2 source: https://github.com/KayzenRoot/hive/releases/tag/v1.0.2
+HIVE documentation: https://github.com/KayzenRoot/hive
+Contact: founder@nexlabs.company
+
+HIVE is open-source local-first project context, retrieval and memory software. v1.0.2 is the documented stable source release; v1.0.3 is a candidate.
+Claude integration is an unverified planned direction, not currently deployed.
+Other projects disclose their implementation stage in the portfolio.
+No investor funding, legal incorporation, sales or customer deployment is claimed.
+
+This is a navigation aid for any retrieval tool. Anthropic has not documented llms.txt as a startup evaluation requirement.

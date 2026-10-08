@@ -1,7 +1,7 @@
 import { expect, test } from "@playwright/test";
 
 const routes = ["/","/technology","/solutions","/research","/company",
-  "/company/verification","/contact","/projects", "/projects/hive",
+  "/company/verification","/contact","/projects","/engineering", "/projects/hive",
   "/projects/nexlabs-company-os","/projects/nerva","/projects/ugas-v2",
   "/projects/coinblink"];
 
@@ -16,15 +16,15 @@ test("SEO candidate uses self-canonical tags and preview-safe noindex", async ({
   }
 });
 
-test("sitemap has 13 unique canonical URLs and preview robots stays restricted", async ({ request }) => {
+test("sitemap has 14 unique canonical URLs and preview robots stays restricted", async ({ request }) => {
   const [r, s] = await Promise.all([request.get("/robots.txt"),request.get("/sitemap.xml")]);
   expect(r.status()).toBe(200);
   expect(await r.text()).toMatch(/Disallow:\s*\//);
   expect(s.status()).toBe(200);
   const xml = await s.text();
   const urls = [...xml.matchAll(/<loc>(.*?)<\/loc>/g)].map(m=>m[1]);
-  expect(urls).toHaveLength(13);
-  expect(new Set(urls).size).toBe(13);
+  expect(urls).toHaveLength(14);
+  expect(new Set(urls).size).toBe(14);
   expect(urls).toContain("https://www.nexlabs.company/company/verification");
   expect(urls).toContain("https://www.nexlabs.company/projects/hive");
 });
