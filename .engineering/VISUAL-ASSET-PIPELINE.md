@@ -2,6 +2,13 @@
 
 Status: CANONICAL WO-013 CORRECTION ENABLER
 
+## CD-05 binding override: Codex image master -> secured Blender Lab MCP
+D-0031 is the newer accepted owner instruction for newly generated WO-013 images, superseding only the ComfyUI-first and Blender CLI-first defaults below. Confirm a real image-generation capability in the active Codex session before any prompt/model invocation, record tool/model if exposed, dimensions, prompt, reference, seed if available, content hash, rights and selection. Each selected static **component master** becomes the immutable reference for its Blender motion/frames/GLB/raster derivatives. Never ship/crop the original approved Home visual master as a website asset.
+
+Official Blender Lab MCP: https://www.blender.org/lab/mcp-server/. Its server executes LLM-generated Blender code with no built-in safety guards. Owner authorizes MCP **only when** its exact add-on/server origin is vetted, running in a disposable/restricted local profile or VM with sanitized working assets, localhost-only and no credentials/SSH keys/wallets/browser profiles/unrelated project data accessible. Do not expose port remotely, auto-install third-party scripts or use an unapproved paid API. If MCP is missing, STOP animation stage as BLOCKED; do not silently substitute Blender CLI. ComfyUI material below remains as historical documentation, not the CD-05 default.
+
+Vercel push policy: Git PR commits can generate Preview deployments while leaving the last production deployment unchanged. Never promote Preview to production or overwrite the live portfolio, verification, SEO, contact and HIVE evidence from PRs #22–25.
+
 ## Purpose
 
 This pipeline exists to close the remaining WO-013 visual fidelity gap against the approved Home Visual Master by producing controlled reference images, icon concepts, materials, textures, 3D scene assets, animation studies and web-ready exports locally on the owner workstation.
@@ -61,9 +68,9 @@ Primary automation path:
 
 This is the default because it is deterministic, auditable and does not expose a code-execution server.
 
-### Blender MCP
+### Blender MCP (D-0027 historical defaults, superseded for new CD-05 images)
 
-The official Blender Lab MCP server is OPTIONAL and DISABLED BY DEFAULT.
+Previously the official Blender Lab MCP server was OPTIONAL and DISABLED BY DEFAULT. D-0031 now authorizes it as a required *but isolation-gated* authoring method for newly animated WO-013 assets.
 
 Reason:
 - Blender's own MCP page warns that the server executes LLM-generated code without guards and recommends isolation from sensitive data.
@@ -78,7 +85,7 @@ WO-013 does **not** require MCP. Blender background Python API is sufficient.
 
 ## Model policy for 8 GB VRAM
 
-### Tier A — required / reliable
+### Tier A — previous ComfyUI baseline (not CD-05 default)
 
 **SDXL 1.0 family**
 

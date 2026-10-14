@@ -58,3 +58,8 @@ Risk: ELEVATED
 - unrelated cleanup.
 
 A temporary Vercel pre-launch deployment is now NECESSARY and admitted solely for external registration, subject to VERCEL-PRELAUNCH-SPEC.md. Do not treat it as M07B or final launch. M07B still waits for WO-013 approval/merge/promotion.
+
+## CD-05 owner-authorized method (2026-10-13)
+**NECESSARY for WO-013 only:** Generate new individual static image masters using the image-generation capability actually exposed in Codex. Review/version hashes, prompts, provenance and licenses before deriving motion via isolated **official Blender Lab MCP**. Keep static-first Next.js outputs, reduced motion and FULL/BALANCED/STATIC. The approved Home master JPG remains reference-only, not a production image. Historical ComfyUI/Blender CLI tools are not substitutes without re-admission.
+
+**BLOCKED locally until proof:** Codex image-generation availability and a secure Blender MCP connection. No silent fallback or paid third-party API. Preview builds from PR pushes are allowed; do not promote to Vercel production. Production last inspected at `4aa20ef0b53918b7d482983bd53bdafecd155198`; PRs #22–25 must be reconciled before any future production cutover. No M07B, merge or checkpoint promotion.

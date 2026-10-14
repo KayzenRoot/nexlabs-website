@@ -1,6 +1,6 @@
 # Project Checkpoint
 
-Status: WO_013_CORRECTION_REQUIRED_DESIGN_DIRECTOR_HARNESS_ADMITTED
+Status: WO_013_CORRECTION_REQUIRED_CD05_TOOL_PREFLIGHT_PENDING
 
 - GEF Bootstrap v1.1.2 and M01 through M06: APPROVED/MERGED.
 - M07A Release Hardening & Production Readiness: APPROVED/MERGED and checkpoint-promoted.
@@ -27,6 +27,11 @@ Status: WO_013_CORRECTION_REQUIRED_DESIGN_DIRECTOR_HARNESS_ADMITTED
 - noindex/nofollow + robots disallow remain mandatory.
 - Development Docker continuity remains mandatory.
 
-Next legal stage: recompile the Context Lock for Correction Delta 04, then Codex executes DESIGN-DIRECTOR-HARNESS.md inside the same WO-013/PR #20. The first gate is reference extraction + design grammar; product-code correction follows only after those artifacts exist. Minimum three deterministic contact-sheet critique rounds are required before the next independent visual review. Temporary Vercel pre-launch remains allowed; do not merge or declare M07B final launch.
+Next legal stage: CD-05 documentary re-admission and exact Context Lock recompilation under D-0031, followed by actual Codex image-tool + isolated official Blender Lab MCP checks; if unavailable, asset work remains BLOCKED. Execute only this WO-013/PR #20. The first gate is reference extraction + design grammar; product-code correction follows only after those artifacts exist. Minimum three deterministic contact-sheet critique rounds are required before the next independent visual review. Temporary Vercel pre-launch remains allowed; do not merge or declare M07B final launch.
 
 The machine-readable view is CHECKPOINT.json.
+
+- CD-05 owner direction: generate selected/new static component image with verified Codex image tool, then use isolated official Blender MCP for derived frames/motion. Historic ComfyUI/Blender CLI remains documented but is not CD-05 default.
+- No change to accepted completed M07A, owner visual acceptance, previous 77/100 executor proposal or independent >=85/100 criterion.
+- Vercel last observed production snapshot SHA: `4aa20ef0b53918b7d482983bd53bdafecd155198` from PR #25; visual PR pushes create separate Preview. Keep current publicly deployed portfolio/SEO/verification/HIVE evidence intact.
+- The unpushed local commit `76607189a68022e2e3028664edca08b4f95f500a` remains outside observed remote Git and must be preserved locally.

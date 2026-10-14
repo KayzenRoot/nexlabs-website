@@ -99,6 +99,9 @@ Section boundaries may change density and camera framing but should not feel lik
 
 ## 4. Generate-then-trace pipeline
 
+**CD-05 owner override D-0031 for new assets:** use an image generator actually connected to Codex to create a candidate, select and version a static *component master*, then use secure official Blender Lab MCP to animate that chosen component with layers, 2.5D depth, deterministic frames, camera and optimized output. Retain prompts/tool/model/hashes/rights and review the first/last frame against its static master. No original approved Home JPG pixels as runtime artwork. Missing image tool or safely isolated MCP => BLOCKED, not an automatic substitution. The ComfyUI/Blender description below documents the previous admitted technique, no longer the default for new CD-05 artwork.
+
+
 Use ComfyUI and Blender as admitted local authoring tools.
 
 ### Generate

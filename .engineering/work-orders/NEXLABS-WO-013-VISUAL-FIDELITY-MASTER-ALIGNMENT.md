@@ -1,6 +1,6 @@
 # NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT — Visual Fidelity Restoration / Master Alignment
 
-Status: CORRECTION REQUIRED — DESIGN DIRECTOR HARNESS ADMITTED
+Status: CORRECTION REQUIRED — CD-05 DOCUMENTARY RE-ADMISSION; LOCAL IMAGE/MCP PREFLIGHT REQUIRED
 
 Risk class: ELEVATED
 
@@ -575,3 +575,19 @@ Stop with:
 - PR #20 OPEN/READY FOR INDEPENDENT REVIEW.
 
 Do not merge, promote checkpoint or declare M07B complete.
+
+## CD-05 Correction Delta: owner-directed image-master-first production (2026-10-13)
+
+**OBJECTIVE:** Improve the existing WO-013 visual master fidelity using a selected newly generated static image per component and secured Blender Lab MCP for living frames/geometry. **CONTEXT:** D-0031 supersedes only prior tool-default choices; original master SHA-256, immutable Precision Blades N and all previously accepted design/site constraints remain unchanged. PR #20 is still open; prior executor score 77/100 below required 85/100.
+
+**SCOPE:** governance re-admission, exact critical-source lock, tool smoke tests, selected/hashed new static component masters, secure MCP animation and optimized Next.js integration with static-first fallback, deterministic screenshot critique and evidence. **OUT OF SCOPE:** public Vercel deployment, M07B, unrelated refactors or packages, paid APIs without explicit approval, untrusted extensions, fake public facts, source Home master screenshot in runtime.
+
+**FILES/SOURCES TO READ:** original WO-013 list plus D-0031, `.engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-05-master-first-codex-blender-owner-directive.md`, current Context Lock, asset manifest and independent last audit.
+
+**REQUIREMENTS / ARCHITECTURE RULES:** verify available Codex image tool and commercial provenance; selected static component master is traceable; isolate official Blender Lab MCP in protected local environment, localhost-only, no access to unrelated files/secrets. No silent ComfyUI or Blender CLI substitution. Web retains one lazy Home R3F runtime, reduced-motion/STATIC/fallback and M07A security/readiness. Pushes may trigger Vercel Preview but may not promote that Preview; deployed site from production branch/snapshot PRs #22–25 must not regress.
+
+**CONSTRAINTS / CONTEXT LOCK:** changing D-0031/WO-013/asset pipeline/harness/Scope invalidates previous Context Lock; recompile critical Git blob SHA fingerprints and baseline-code snapshots before executor product changes. Preserve the **unpushed local** commit `76607189a68022e2e3028664edca08b4f95f500a` on `codex/wo013-images25-codex-native`, inspect diff before incorporating; never reset, rebase, force-push or discard it.
+
+**ACCEPTANCE CRITERIA / TESTS:** model/tool/MCP isolation proven; selected master/derived outputs SHA/license/manifest; semantic text remains HTML; no second WebGL; 3 repeatable design critique rounds; independent visual >=85/100, Hero/N floors and owner acceptance; existing FULL/BALANCED/STATIC, responsive/a11y, M07A, performance and three consecutive full browser candidate suite plus exact-head CI/Browser/Sonar/Socket/Release/CodeRabbit remain mandatory.
+
+**DELIVERABLES / REVIEW FORMAT:** Git PR #20, source/derived assets only if gates passed, verified evidence bundle + proposed checkpoint delta, independent Brazilian Portuguese audit with base/head SHA and real checks. **STOP CONDITION:** if image tool or official isolated Blender MCP unavailable, stop animation as BLOCKED without claiming delivery. No merge, checkpoint promotion, production deploy or M07B before approval.

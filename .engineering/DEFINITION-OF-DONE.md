@@ -206,3 +206,11 @@ The remaining master-alignment correction is not complete until:
 - at least three harsh contact-sheet critique rounds are completed;
 - no required critique dimension remains below 8/10 before independent review;
 - the independent WO-013 score still reaches >=85/100 with the existing per-criterion floors.
+
+## Additional CD-05 preflight and evidence obligations (WO-013, D-0031)
+- Accepted decision and critical source fingerprints match a freshly recompiled exact-HEAD Context Lock; the prior lock is not used for new code changes.
+- Actual Codex image-generation tool/model availability and commercial asset-use rights are validated, or asset generation is BLOCKED rather than claimed complete.
+- Official Blender Lab MCP is installed, locally sandboxed (isolated working set; no credentials/SSH keys/wallets/browser profiles/unrelated repositories), localhost-only and smoke-tested, or animation/frame authoring is BLOCKED without a silent CLI fallback.
+- Every newly generated component master has its own fingerprint, prompt/model/seed when available, provenance and review; derivatives have checksums and composition-preserving comparisons plus static fallback.
+- Save local Codex unpushed commit `76607189a68022e2e3028664edca08b4f95f500a` on `codex/wo013-images25-codex-native`; do not force-push/rebase/reset or assume it is on GitHub.
+- The existing 85/100 independent visual gate and all prior security, a11y, performance, deterministic critique/three-run test gates remain unchanged. Git push may trigger Vercel Preview; never overwrite/promote to production and do not regress existing portfolio/SEO/verification/HIVE pages from release snapshots. Keep PR #20 OPEN, checkpoint UNPROMOTED and M07B BLOCKED.

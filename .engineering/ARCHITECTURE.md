@@ -128,3 +128,6 @@ M06A rules:
 - Repository contains only orchestration scripts, manifests/templates, approved optimized web assets and sanitized evidence.
 - Generated images/meshes are design inputs, not automatically trusted production artifacts.
 - Website integration remains subject to WO-013 performance, a11y, security and fidelity gates.
+
+## CD-05 image-to-motion authoring (D-0031; no web runtime expansion)
+For new/reworked WO-013 visual assets, the owner now requires: verified Codex image-generation capability -> selected independent static component master with source/rights/hash -> locally isolated official Blender Lab MCP for authored 2.5D/3D layers, motion and export -> optimized poster-first Next.js delivery with STATIC/reduced-motion/failure fallback. No original approved Home master image pixels enter production. The immutable Precision Blades N vector remains authoritative. This **supersedes only ComfyUI/Blender CLI default authoring** in older D-0027/D-0029; previously generated work is retained. The MCP runs LLM-generated code without guards and must not access credentials, wallets, SSH, browsers or unrelated files. Existing one-Home-WebGL, semantic content, M07A security and performance limits remain unchanged. Vercel PR Preview is separate from production; no promotion to production without a separately approved integration/release.
