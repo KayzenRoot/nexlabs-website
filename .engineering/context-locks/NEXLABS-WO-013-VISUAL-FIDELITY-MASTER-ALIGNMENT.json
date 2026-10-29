@@ -3,7 +3,7 @@
   "workOrderId": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
   "repository": "KayzenRoot/nexlabs-website",
   "branch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
-  "capturedAtUtc": "2026-10-14T00:45:13.782Z",
+  "capturedAtUtc": "2026-10-29T17:53:41Z",
   "riskClass": "ELEVATED",
   "admission": {
     "state": "CD05_OWNER_DIRECTION_RECOMPILED_CAPABILITY_PROOF_PENDING",
@@ -12,7 +12,7 @@
     "mainSha": "e14cfbe4660b076db85e7e529befffe17a098cd1",
     "sourcePackHeadBeforeLock": "6b5d76d038a546c3b99c494539c283aa79cd1dbd",
     "previousContextLockHead": "6b5d76d038a546c3b99c494539c283aa79cd1dbd",
-    "recompileReason": "2026-10-13 owner D-0031 image-master-first / official Blender Lab MCP after isolated preflight; 30 critical sources matched pre-change, refreshed 55 baseline file SHA fingerprints at current HEAD. Production Preview segregated.",
+    "recompileReason": "2026-10-13 owner D-0031 image-master-first / official Blender Lab MCP after isolated preflight; 30 critical sources matched pre-change, refreshed 55 baseline file SHA fingerprints at current HEAD. Production Preview segregated. Owner-authorized Correction Delta 06 re-admitted at PR #20 HEAD e3d5b82d3bb7a35271ebd69523528ca56496f902; lock fingerprints recompiled before package edits.",
     "mergeAuthorizedNow": false,
     "deploymentAuthorizedNow": false,
     "deploymentAuthorizationScope": "PR20_PREVIEW_ONLY_NO_PRODUCTION_PROMOTION",
@@ -97,7 +97,9 @@
     "tools/visual-pipeline/**",
     ".engineering/design-director/**",
     ".engineering/evidence/**",
-    ".engineering/checkpoint-deltas/**"
+    ".engineering/checkpoint-deltas/**",
+    "package.json",
+    "package-lock.json"
   ],
   "writeForbidden": [
     "master JPG or crop/extract in production runtime/public assets",
@@ -116,8 +118,6 @@
     ".github/workflows/release-readiness.yml weakening or deployment automation",
     "src/app/robots.ts indexing enablement",
     "src/app/layout.tsx removal of noindex/nofollow",
-    "package.json changes",
-    "package-lock.json changes",
     "new npm dependencies",
     "approved public copy/claims/metadata changes except the admitted global PRE-LAUNCH notice",
     "fake search",
@@ -133,7 +133,9 @@
     "canonical Source Pack changes after re-admission without STALE/recompile",
     "force-push/rebase/history rewrite",
     "ruleset weakening",
-    "unrelated cleanup"
+    "unrelated cleanup",
+    "package.json changes beyond next 16.3.8 to 16.4.3 and vitest 4.1.11 to 4.1.12",
+    "package-lock.json changes outside semver-compatible resolutions required to clear the current npm audit findings"
   ],
   "criticalSources": {
     ".engineering/CHECKPOINT.json": "ea527b434b87dc1dde9623727f2c410b06027c41",
@@ -143,14 +145,14 @@
     ".engineering/ARCHITECTURE.md": "6b3c3550684bc1bde50b08ffadf21b84cf6fe566",
     ".engineering/REQUIREMENTS.md": "ca101eaac135165b246e8bea9b2ebee473540db5",
     ".engineering/SCOPE.md": "3aa98f9cc9dcf342265bff594be6889bc3abee17",
-    ".engineering/DECISIONS-LEDGER.md": "fdfe112d55c55779ac35a7e7e140596ef622e28a",
+    ".engineering/DECISIONS-LEDGER.md": "e45ff9533795a6b38d51ebeb2b4c666cbd47723e",
     ".engineering/BACKLOG.md": "f87f545d0233c6278c87855b687722baf590ad39",
     ".engineering/PROJECT-OVERVIEW.md": "9e6243a91adfdb186f58cb0584201a0f1d1ec858",
     ".engineering/VISUAL-FIDELITY-DELTA-SPEC.md": "cf31b073204cc3785d84b783d2eb7a36f9dc62c7",
     ".engineering/VISUAL-ASSET-PIPELINE.md": "7b7a2d91a7a56ff40bfb1ddfd24dbd5a541d6a47",
     ".engineering/DESIGN-DIRECTOR-HARNESS.md": "7b85c9a72a16c8f0716784cf5806e3056f99f7bd",
     ".engineering/VERCEL-PRELAUNCH-SPEC.md": "ecd7bdd3086fb443bcc4d435b547b48f986077b2",
-    ".engineering/work-orders/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.md": "6d4424ba20f413c4106fa4f34c32952427c79a75",
+    ".engineering/work-orders/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.md": "23d7b2dea7332b1a24e51cffadbe11dae629ae01",
     ".engineering/HOME-VISUAL-MASTER-SPEC.md": "b8f161e0880ab2707cbe6c0be8604d90d9924df0",
     ".engineering/VISUAL-DIRECTION.md": "a860d2ee3f11232036434ccdd1168711f1b65e54",
     ".engineering/UI-UX.md": "59eadddca0ac907cc8c03a37d1bf250e13916dbb",
@@ -351,5 +353,40 @@
     ],
     "localUnpushedCommit": "76607189a68022e2e3028664edca08b4f95f500a",
     "stopIfMissing": true
+  },
+  "correctionDelta06": {
+    "id": "NEXLABS-WO-013-CORRECTION-DELTA-06-DEPENDENCY-SECURITY",
+    "state": "OWNER_RE_ADMITTED_PRE_PACKAGE_EDIT_LOCK_RECOMPILED",
+    "authorizedBy": "Owner instruction recorded in PR #20 comment 6504223112",
+    "authorizedAtRemoteHead": "e3d5b82d3bb7a35271ebd69523528ca56496f902",
+    "baseSha": "e14cfbe4660b076db85e7e529befffe17a098cd1",
+    "packagePins": {
+      "next": {
+        "from": "16.3.8",
+        "to": "16.4.3"
+      },
+      "vitest": {
+        "from": "4.1.11",
+        "to": "4.1.12"
+      }
+    },
+    "lockfileRule": "Only semver-compatible package-lock resolutions required to clear the current npm audit findings; no new dependencies or unrelated refresh.",
+    "minimumNode": "22.19.0",
+    "requiredChecks": [
+      "npm ci",
+      "npm audit --audit-level=moderate",
+      "npm run lint",
+      "npm run typecheck",
+      "npm test",
+      "npm run build",
+      "npm run test:e2e with retries=0",
+      "exact-HEAD hosted checks"
+    ],
+    "mergeAuthorizedNow": false,
+    "checkpointPromotionAuthorizedNow": false,
+    "deploymentAuthorizedNow": false,
+    "independentReviewStillRequired": true,
+    "evidencePath": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-06-dependency-security.md",
+    "evidenceBlobSha": "67ec63c7c0641db2dfafb10a0765c1bba1dd3cfd"
   }
 }

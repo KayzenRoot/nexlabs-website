@@ -591,3 +591,18 @@ Do not merge, promote checkpoint or declare M07B complete.
 **ACCEPTANCE CRITERIA / TESTS:** model/tool/MCP isolation proven; selected master/derived outputs SHA/license/manifest; semantic text remains HTML; no second WebGL; 3 repeatable design critique rounds; independent visual >=85/100, Hero/N floors and owner acceptance; existing FULL/BALANCED/STATIC, responsive/a11y, M07A, performance and three consecutive full browser candidate suite plus exact-head CI/Browser/Sonar/Socket/Release/CodeRabbit remain mandatory.
 
 **DELIVERABLES / REVIEW FORMAT:** Git PR #20, source/derived assets only if gates passed, verified evidence bundle + proposed checkpoint delta, independent Brazilian Portuguese audit with base/head SHA and real checks. **STOP CONDITION:** if image tool or official isolated Blender MCP unavailable, stop animation as BLOCKED without claiming delivery. No merge, checkpoint promotion, production deploy or M07B before approval.
+
+## Correction Delta 06: dependency security remediation (2026-10-29)
+
+**OWNER RE-ADMISSION:** Owner instruction “faça vc mesmo os reviews arrume o q tem q arrumar e sempre avance autonomamente”, recorded at PR #20 comment `6504223112`, re-admits this bounded correction under the existing WO-013 and PR #20. This is not a new Work Order.
+
+**OBJECTIVE:** Clear the current npm audit findings without product-code changes or weakening any WO-013/M07A gate.
+
+**AUTHORIZED SCOPE:**
+- `package.json`: change only the existing exact `next` pin from `16.3.8` to `16.4.3` and the existing exact `vitest` pin from `4.1.11` to `4.1.12`.
+- `package-lock.json`: update only semver-compatible resolutions required to clear the currently recorded audit findings, including the existing Next/Vitest dependency trees. Do not introduce a package, change dependency classes, or make unrelated lockfile refreshes.
+- Context Lock and evidence updates necessary to record this delta and its exact source fingerprints.
+
+**VALIDATION:** Confirm the actual Node 22 runtime is at least `22.19.0` (required by the candidate Undici resolution); run `npm ci`, `npm audit --audit-level=moderate`, lint, typecheck, unit, production build, and full Playwright E2E with `retries=0`. Reconcile any required Release Readiness Docker step and run exact-HEAD hosted checks after pushing. Record unavailable gates as `BLOCKED` or `NOT_RUN`; do not infer success from prior HEADs.
+
+**LIMITS / STOP:** No source/runtime/product changes, no new dependency, no npm major migration, no engine/toolchain or workflow changes, no suppressions/exclusions, no acceptance/performance/a11y/security weakening. If audit still reports a current HIGH/CRITICAL finding, or any required check fails, stop this correction, record a new evidence-backed delta and do not proceed to another dependent issue. Blender MCP remains separately BLOCKED until its official origin, localhost-only isolation and handshake are proven. Visual threshold >=85/100, independent exact-HEAD approval, owner visual acceptance, branch protection, checkpoint promotion, merge, deployment and M07B authority remain unchanged. PR #20 stays open.
