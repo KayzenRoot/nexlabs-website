@@ -49,3 +49,29 @@ Any future communication/submission path requires verified channel provenance, s
 - Release Readiness workflow must not receive production credentials or deploy.
 - Dependency and secret checks remain required.
 - Contact zero-collection remains unchanged.
+
+
+## WO-013 local AI/3D tooling security
+
+- ComfyUI must listen on `127.0.0.1` only.
+- Do not use `--listen 0.0.0.0` or LAN exposure.
+- Model/provider tokens stay in user environment or credential storage and must never enter Git/evidence.
+- Model weights require provenance/license/checksum recording.
+- Third-party ComfyUI custom nodes are denied by default; each exception requires source review and a pinned commit.
+- Blender background Python scripts are repository-reviewed local code.
+- Blender automatic Python execution remains disabled unless a reviewed script explicitly needs it.
+- Official Blender MCP is disabled by default due its upstream warning about unguarded execution of LLM-generated Blender code.
+- If MCP is ever authorized, use a sanitized isolated environment with no secrets/wallets/browser credentials/unrelated repositories.
+- Raw generated media is treated as untrusted until optimized and selected.
+
+
+## Temporary public Vercel pre-launch security boundary
+
+- A temporary public HTTPS Vercel deployment is owner-authorized for external registration.
+- Keep global noindex/nofollow and robots disallow.
+- No public form, personal-data collection, tracker, analytics or auth is introduced.
+- Do not store Vercel tokens in Git/evidence.
+- Use authenticated Vercel CLI/session or the existing Vercel account connection only.
+- Do not expose local ComfyUI/Blender services as part of the web deployment.
+- No custom domain/DNS/TLS administration is required in this temporary stage.
+- Live route/header/indexing smoke is mandatory before declaring the temporary deployment usable.

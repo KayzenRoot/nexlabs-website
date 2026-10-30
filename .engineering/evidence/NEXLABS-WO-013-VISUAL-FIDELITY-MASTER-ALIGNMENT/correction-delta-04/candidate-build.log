@@ -1,0 +1,120 @@
+ Image nexlabs-website-release-candidate:wo013-cd04-0dbb768 Building
+#1 [internal] load local bake definitions
+#1 reading from stdin 759B 0.0s done
+#1 DONE 0.0s
+
+#2 [internal] load build definition from Dockerfile.production
+#2 transferring dockerfile: 1.26kB 0.0s done
+#2 DONE 0.1s
+
+#3 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+#3 ...
+
+#4 [auth] library/node:pull token for registry-1.docker.io
+#4 DONE 0.0s
+
+#3 [internal] load metadata for docker.io/library/node:22-bookworm-slim
+#3 DONE 1.5s
+
+#5 [internal] load .dockerignore
+#5 transferring context: 368B done
+#5 DONE 0.0s
+
+#6 [internal] load build context
+#6 DONE 0.0s
+
+#7 [dependencies 1/4] FROM docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392
+#7 resolve docker.io/library/node:22-bookworm-slim@sha256:c3de60bf2f9dd0ac6370e6117950ff62d6e339527e7472301c9c78a017978392 0.1s done
+#7 DONE 0.1s
+
+#6 [internal] load build context
+#6 transferring context: 254.89kB 0.1s done
+#6 DONE 0.1s
+
+#8 [dependencies 4/4] RUN npm ci --ignore-scripts
+#8 CACHED
+
+#9 [dependencies 2/4] WORKDIR /app
+#9 CACHED
+
+#10 [dependencies 3/4] COPY package.json package-lock.json ./
+#10 CACHED
+
+#11 [builder 3/6] COPY --from=dependencies /app/node_modules ./node_modules
+#11 CACHED
+
+#12 [builder 4/6] COPY . .
+#12 DONE 1.1s
+
+#13 [builder 5/6] RUN npm run build
+#13 1.071
+#13 1.071 > nexlabs-website@1.0.0 build
+#13 1.071 > next build
+#13 1.071
+#13 1.607 ▲ Next.js 16.3.8 (Turbopack)
+#13 1.687 ✓ Running next.config.ts took 78ms
+#13 1.707
+#13 1.751   Creating an optimized production build ...
+#13 13.15 ✓ Compiled successfully in 11.1s
+#13 13.16   Running TypeScript ...
+#13 20.67   Finished TypeScript in 7.5s ...
+#13 20.67   Collecting page data using 7 workers ...
+#13 21.79   Generating static pages using 7 workers (0/10) ...
+#13 22.14   Generating static pages using 7 workers (2/10)
+#13 22.27   Generating static pages using 7 workers (4/10)
+#13 22.29   Generating static pages using 7 workers (7/10)
+#13 22.35 ✓ Generating static pages using 7 workers (10/10) in 564ms
+#13 22.36   Finalizing page optimization ...
+#13 23.01
+#13 23.01 Route (app)
+#13 23.01 ┌ ○ /
+#13 23.01 ├ ○ /_not-found
+#13 23.01 ├ ○ /company
+#13 23.01 ├ ○ /contact
+#13 23.01 ├ ○ /icon.svg
+#13 23.01 ├ ○ /research
+#13 23.01 ├ ○ /robots.txt
+#13 23.01 ├ ○ /solutions
+#13 23.01 └ ○ /technology
+#13 23.01
+#13 23.01
+#13 23.01 ○  (Static)  prerendered as static content
+#13 23.01
+#13 23.07 npm notice
+#13 23.07 npm notice New major version of npm available! 10.9.9 -> 12.2.0
+#13 23.07 npm notice Changelog: https://github.com/npm/cli/releases/tag/v12.2.0
+#13 23.07 npm notice To update run: npm install -g npm@12.2.0
+#13 23.07 npm notice
+#13 DONE 23.3s
+
+#14 [builder 6/6] RUN test -f .next/standalone/server.js
+#14 DONE 0.5s
+
+#15 [runtime 3/6] COPY --from=builder /app/public ./public
+#15 CACHED
+
+#16 [runtime 4/6] COPY --from=builder /app/.next/standalone ./
+#16 DONE 1.1s
+
+#17 [runtime 5/6] COPY --from=builder /app/.next/static ./.next/static
+#17 DONE 0.3s
+
+#18 [runtime 6/6] RUN mkdir -p /app/.next/cache && chown node:node /app/.next/cache
+#18 DONE 0.5s
+
+#19 exporting to image
+#19 exporting layers
+#19 exporting layers 2.6s done
+#19 exporting manifest sha256:4f5e93d9ea00305f888cf5a6d98575a62920d7aabaabe6ab170053089bc57a72 0.1s done
+#19 exporting config sha256:bd65716613c094a9705db5366b87cb8bf7abba20c159b497b80268f6a7dba832 0.1s done
+#19 exporting attestation manifest sha256:eb92eed63ff6e4b6f741730976b5ad7b718898c77a32e2a08b65f756122dc86a 0.1s done
+#19 exporting manifest list sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c
+#19 exporting manifest list sha256:2f05c1193e6dbf92313dc1b9414ff360fa834508dea7f46b1f3d6f1b59b35a0c 0.1s done
+#19 naming to docker.io/library/nexlabs-website-release-candidate:wo013-cd04-0dbb768 0.0s done
+#19 unpacking to docker.io/library/nexlabs-website-release-candidate:wo013-cd04-0dbb768
+#19 unpacking to docker.io/library/nexlabs-website-release-candidate:wo013-cd04-0dbb768 1.3s done
+#19 DONE 4.4s
+
+#20 resolving provenance for metadata file
+#20 DONE 0.1s
+ Image nexlabs-website-release-candidate:wo013-cd04-0dbb768 Built

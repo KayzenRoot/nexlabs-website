@@ -1,0 +1,13 @@
+test_accepts_regular_glb_inside_generated_root (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_accepts_regular_glb_inside_generated_root) ... ok
+test_publish_replaces_raced_hard_links_without_following_targets (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_publish_replaces_raced_hard_links_without_following_targets) ... ok
+test_rechecks_output_path_before_publish_after_junction_swap (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rechecks_output_path_before_publish_after_junction_swap) ... ok
+test_rejects_generated_root_inside_repository (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rejects_generated_root_inside_repository) ... ok
+test_rejects_glb_outside_generated_root (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rejects_glb_outside_generated_root) ... ok
+test_rejects_non_glb_file_inside_generated_root (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rejects_non_glb_file_inside_generated_root) ... ok
+test_rejects_path_resolving_outside_generated_root (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rejects_path_resolving_outside_generated_root) ... ok
+test_rejects_preexisting_hard_link_outputs (test_optimize_runtime_glb_paths.SafeSourcePathTests.test_rejects_preexisting_hard_link_outputs) ... ok
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.135s
+
+OK

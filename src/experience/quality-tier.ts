@@ -10,6 +10,12 @@ export interface HeroCapabilities {
   viewportWidth: number;
 }
 
+/** Software rasterizers can expose WebGL while being too slow for the live scene. */
+export function isSoftwareWebGLRenderer(renderer: string | null): boolean {
+  return renderer !== null &&
+    /swiftshader|llvmpipe|softpipe|software rasterizer|basic render driver/i.test(renderer);
+}
+
 /**
  * Resolves quality without user-agent sniffing. Unknown hardware remains usable
  * in BALANCED mode; reduced motion, save-data, constrained devices and missing
@@ -72,8 +78,16 @@ export function probeWebGL2(): boolean {
 
     if (!context) return false;
 
+    const rendererInfo = context.getExtension("WEBGL_debug_renderer_info") as {
+      UNMASKED_RENDERER_WEBGL: number;
+    } | null;
+    const renderer = rendererInfo
+      ? (context.getParameter(rendererInfo.UNMASKED_RENDERER_WEBGL) as string)
+      : null;
+    const hardwareRenderer = !isSoftwareWebGLRenderer(renderer);
+
     context.getExtension("WEBGL_lose_context")?.loseContext();
-    return true;
+    return hardwareRenderer;
   } catch {
     return false;
   }

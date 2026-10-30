@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "workOrder": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
+  "status": "EXECUTOR_PROPOSAL_VISUAL_FLOORS_PENDING",
+  "branch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
+  "authorizedStartingHead": "e5ce80c4e0d6bc1d3ac441fd2e626f851e33377c",
+  "finalSourceAndTestCommit": "recorded after the implementation/evidence commit; SHA-256 fingerprints below are immutable",
+  "master": {
+    "path": ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg",
+    "gitBlob": "52932511adfeb8d372717185fe9a18907625cc0c",
+    "sha256": "d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647",
+    "runtimeUse": false
+  },
+  "referenceDocumentHashes": {
+    "master-style-guide.md": "f0d543f17c97f50be946e5b64d2cb39fbd61eca94a19d375714eb5993badcfc8",
+    "master-scene-graph.md": "c0e6deef051c7dcef68e2b7684876dda165a7131a015e6259e08b44b9bf53eec",
+    "master-state-list.md": "b3d3ba263ce0a3c8816825bccd9a1588705e203f6dbe276c125de38fa211b6f9",
+    "master-asset-manifest.md": "32cefbaa83e589489a68588de38b570eeb67c736068d1017c673c6e63ca068c0"
+  },
+  "determinism": {
+    "browser": "Chromium headed local deterministic visual E2E",
+    "retries": 0,
+    "tierCaptureWaitsForPosterFade": true,
+    "randomProceduralState": false,
+    "motionReducedForStaticState": true
+  },
+  "states": [
+    {
+      "id": "FULL",
+      "viewport": "1600x900",
+      "condition": "Live WebGL scene ready; poster opacity faded to zero",
+      "evidence": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-full-3d-1600x900.png",
+      "sha256": "c614613e084a7efd62c9789fb8e9df32598da0c4fcae4d6a5880f836fe4709dd"
+    },
+    {
+      "id": "BALANCED",
+      "viewport": "900x768",
+      "condition": "Existing quality selection, bounded scene detail and movement",
+      "evidence": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-balanced-3d-900x768.png",
+      "sha256": "97ded787e1b8ae4443fdd487405daab36643dc858a7fc84f0a242056715adf87"
+    },
+    {
+      "id": "STATIC_REDUCED_MOTION",
+      "viewport": "1440x900",
+      "condition": "Static poster; prefers-reduced-motion enabled; no second canvas",
+      "evidence": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-static-reduced-motion-1440x900.png",
+      "sha256": "9351bcfe55aa8d9a0984e4154f09cb5930fa12114e824a603d863dfb51da000e"
+    },
+    {
+      "id": "WEBGL_CONTEXT_LOSS_FALLBACK",
+      "viewport": "1600x900",
+      "condition": "Runtime context-loss simulation; poster/fallback retained",
+      "evidence": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/home-webgl-context-loss-fallback-1600x900.png",
+      "sha256": "9cf98fe49c079e7b2b0a61ac3d682ba65e40a6d97d9287b49172a807439bbb12"
+    },
+    {
+      "id": "MOBILE_POSTER_FIRST",
+      "viewport": "390x844",
+      "condition": "Poster-first mobile composition and responsive navigation",
+      "evidence": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/candidate-home-390x844.png",
+      "sha256": "c405e3b8b22f0aceb90c54751b4b712220e03340ca8c835107708cec88bd23d7"
+    }
+  ],
+  "comparisons": {
+    "hero": {
+      "path": "master-vs-candidate-hero.png",
+      "sha256": "cc1769b1e5d348946c7a00c343fb4ff9234ffa0bc6392248794b0c9200471696"
+    },
+    "header": {
+      "path": "master-vs-candidate-header.png",
+      "sha256": "c5e20393424b3d778f38687cf5c9d2eb997b7968903ced1056ac81c0b03535e3"
+    },
+    "capabilities": {
+      "path": "master-vs-candidate-capabilities.png",
+      "sha256": "b12ce74cc42d7ab916f99b576de4c12e2079f3a457ee0c24bf9e6ff66dbf8c46"
+    },
+    "lowerHome": {
+      "path": "master-vs-candidate-lower-home.png",
+      "sha256": "d197f9f48f5972c1dc60164094dc75b656562af845a57517899ffab1f69a6980"
+    }
+  },
+  "featureEvidence": {
+    "capabilityObjects": {
+      "path": "capabilities-five-objects.png",
+      "sha256": "08e10f5ece6f20dcfbfb4b6282153ca9d03bb4802807cf010bf84faa1e2a5bcf"
+    },
+    "lowerHome": {
+      "path": "home-lower-research-technology.png",
+      "sha256": "97c18bab3272d3ea5c7695d75c08df725317975273a4ef97d257362c856eef56"
+    },
+    "technology": {
+      "path": "technology-1600x900.png",
+      "sha256": "aee01ea4c7106862a3c4008e2fee04d5d4ae92e88315de3997f6968254b60017"
+    },
+    "solutions": {
+      "path": "solutions-1600x900.png",
+      "sha256": "b2786c3b1a9b83aaa335bf189fb63e3d8e9722a04466719a77343aa297a40e60"
+    },
+    "research": {
+      "path": "research-1600x900.png",
+      "sha256": "e3b38f4630fc8e1614c91fa0531f09134af3eadc38da8f3498d99e24c8322307"
+    },
+    "company": {
+      "path": "company-1600x900.png",
+      "sha256": "cbe3810161573c3b8aed54d415ce7abf02ccbd1ae61bd6c296639a8f2c7aa765"
+    },
+    "contact": {
+      "path": "contact-1600x900.png",
+      "sha256": "55e256860b7a25f894e7c7786ce213dc82bc42458d8827348ee468c7ab3a8ca3"
+    },
+    "mobileMenuOpen": {
+      "path": "mobile-menu-open-320x844.png",
+      "sha256": "d3ff0f380cc7a801529877d6cc19d73620b9e85972d387a9d3984134fefd3d5d"
+    }
+  },
+  "critique": {
+    "latestRound": 32,
+    "latestContactSheet": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/design-director/round-32-contact-sheet.png",
+    "latestContactSheetSha256": "db7215e0dab346533e1eb6182997f55d04a737b0b9d97d3b3dd5eb2fb2e37865",
+    "scoresOutOf10": {
+      "composition": 7,
+      "depth": 8,
+      "materialLighting": 8,
+      "environmentDensity": 7,
+      "objectDistinctiveness": 8,
+      "brandAccuracy": 9,
+      "readability": 9,
+      "motionPurpose": 8,
+      "mobileComposition": 8
+    },
+    "criticalFloors": "PENDING: composition and environment density are below 8/10",
+    "independentReview": "PENDING; do not request before the harness floors pass"
+  },
+  "candidateSourceCommit": "a837beeae11921dbe35c7757adedbd42055bc21d",
+  "candidateImageDigest": "sha256:3e2d24733da2fd1518303547ac2b32296dc00fd0f335e85afb7d385e49e558b3"
+}

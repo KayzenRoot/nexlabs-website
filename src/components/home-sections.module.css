@@ -4,9 +4,9 @@
   width: 100%;
   overflow: clip;
   background:
-    radial-gradient(ellipse at 18% 13%, rgb(24 89 164 / 12%), transparent 34rem),
-    radial-gradient(ellipse at 88% 54%, rgb(14 88 183 / 11%), transparent 38rem),
-    linear-gradient(180deg, #05080d, #060a11 48%, #04070c);
+    radial-gradient(ellipse at 18% 13%, rgb(24 89 164 / 16%), transparent 34rem),
+    radial-gradient(ellipse at 88% 54%, rgb(14 88 183 / 15%), transparent 38rem),
+    linear-gradient(180deg, #05080d, #070d17 48%, #04070c);
 }
 
 .sections::before {
@@ -167,14 +167,14 @@
   position: relative;
   display: flex;
   min-width: 0;
-  min-height: 17.5rem;
+  min-height: 14.2rem;
   flex-direction: column;
   overflow: hidden;
   padding: clamp(0.85rem, 1.15vw, 1.15rem);
-  border: 1px solid rgb(71 161 239 / 45%);
-  border-radius: 1rem;
+  border: 1px solid rgb(88 165 222 / 42%);
+  border-radius: 0.48rem;
   background:
-    linear-gradient(155deg, rgb(12 25 43 / 88%), rgb(6 13 23 / 88%) 68%),
+    linear-gradient(145deg, rgb(13 31 50 / 91%), rgb(4 12 23 / 96%) 72%),
     var(--color-surface-glass);
   box-shadow: inset 0 1px rgb(217 240 255 / 7%), 0 14px 36px rgb(0 0 0 / 22%);
   transition:
@@ -187,7 +187,9 @@
 .capabilityCard::before {
   position: absolute;
   inset: 0;
-  background: linear-gradient(130deg, rgb(95 190 255 / 8%), transparent 44%);
+  background:
+    linear-gradient(130deg, rgb(95 190 255 / 11%), transparent 44%),
+    linear-gradient(180deg, transparent 55%, rgb(38 136 232 / 7%));
   content: "";
   opacity: 0.7;
   pointer-events: none;
@@ -203,47 +205,130 @@
     0 18px 42px rgb(0 0 0 / 32%);
 }
 
+.capabilityCard::after {
+  position: absolute;
+  top: -55%;
+  bottom: -55%;
+  left: -52%;
+  width: 24%;
+  transform: rotate(20deg);
+  background: linear-gradient(90deg, transparent, rgb(157 235 255 / 14%), transparent);
+  content: "";
+  opacity: 0;
+  pointer-events: none;
+  transition: left 620ms var(--ease-standard), opacity var(--motion-fast) var(--ease-standard);
+}
+
+.capabilityCard:hover::after,
+.capabilityCard:focus-within::after {
+  left: 130%;
+  opacity: 1;
+}
+
 .cardVisual {
   position: relative;
   display: grid;
-  min-height: 6.6rem;
+  min-height: 9rem;
   flex: 0 0 auto;
   place-items: center;
-  margin: -0.25rem -0.15rem 0.65rem;
+  perspective: 22rem;
+  transform-style: preserve-3d;
+  margin: -0.45rem -0.15rem 0.2rem;
   color: #9be6ff;
+}
+
+.cardVisual::before,
+.cardVisual::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.cardVisual::before {
+  top: 0.4rem;
+  left: 50%;
+  width: 8rem;
+  height: 8rem;
+  transform: translateX(-50%) translateZ(-1rem);
+  border: 1px solid rgb(94 194 255 / 13%);
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 31% 23%, rgb(174 241 255 / 28%), transparent 29%),
+    radial-gradient(circle at 64% 72%, rgb(20 84 181 / 34%), transparent 58%),
+    radial-gradient(circle, rgb(36 117 227 / 22%), rgb(7 24 45 / 4%) 72%);
+  box-shadow: inset 0 0 1.45rem rgb(46 148 255 / 20%), 0 0 2.1rem rgb(29 113 227 / 18%);
+}
+
+.cardVisual::after {
+  right: 8%;
+  bottom: 0.35rem;
+  left: 8%;
+  height: 1rem;
+  transform: perspective(7rem) rotateX(63deg) translateZ(-0.5rem);
+  border: 1px solid rgb(83 195 255 / 26%);
+  border-radius: 50%;
+  background: repeating-radial-gradient(ellipse, transparent 0 0.55rem, rgb(48 145 244 / 20%) 0.58rem 0.62rem, transparent 0.67rem 0.9rem);
+  box-shadow: 0 0.55rem 1rem rgb(0 0 0 / 50%);
 }
 
 .cardHalo {
   position: absolute;
-  width: 5rem;
-  aspect-ratio: 1;
-  border: 1px solid rgb(68 167 255 / 17%);
+  top: 5.15rem;
+  left: 50%;
+  width: 8rem;
+  height: 1.85rem;
+  border: 1px solid rgb(85 194 255 / 28%);
   border-radius: 50%;
-  background: radial-gradient(circle, rgb(28 128 255 / 18%), transparent 68%);
-  box-shadow: 0 0 1.6rem rgb(31 135 255 / 14%);
+  background:
+    radial-gradient(ellipse, rgb(37 170 255 / 38%), rgb(16 55 101 / 28%) 36%, transparent 73%),
+    linear-gradient(180deg, rgb(116 223 255 / 10%), transparent);
+  box-shadow: 0 0.55rem 1.2rem rgb(0 0 0 / 54%), 0 0 1.6rem rgb(31 135 255 / 22%);
+  transform: translateX(-50%) perspective(8rem) rotateX(62deg);
+  animation: capability-field-pulse 8s ease-in-out infinite;
 }
 
 .cardHalo::before,
 .cardHalo::after {
   position: absolute;
-  inset: 0.6rem;
-  border: 1px solid rgb(117 216 255 / 15%);
+  inset: 0.12rem 0.62rem;
+  border: 1px solid rgb(117 216 255 / 34%);
   border-radius: inherit;
   content: "";
 }
 
 .cardHalo::after {
-  inset: -0.35rem;
+  inset: 0.25rem -0.45rem;
   border-style: dashed;
-  opacity: 0.5;
+  border-color: rgb(69 160 255 / 24%);
+  opacity: 0.72;
 }
 
 .capabilityGlyph {
   position: relative;
-  width: clamp(3.5rem, 4.5vw, 4.4rem);
-  height: auto;
-  overflow: visible;
-  filter: drop-shadow(0 0 0.55rem rgb(55 167 255 / 52%));
+  z-index: 1;
+  width: clamp(7rem, 8.2vw, 8.5rem);
+  height: clamp(7rem, 8.2vw, 8.5rem);
+  flex: 0 0 auto;
+  object-fit: contain;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 66% 68% at 50% 47%, #000 45%, rgb(0 0 0 / 95%) 58%, transparent 78%);
+  mask-image: radial-gradient(ellipse 66% 68% at 50% 47%, #000 45%, rgb(0 0 0 / 95%) 58%, transparent 78%);
+  filter: drop-shadow(0 1.05rem 0.9rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.28rem rgb(181 241 255 / 62%)) drop-shadow(0 0 1.1rem rgb(55 167 255 / 72%));
+  transform: translate3d(0, -0.42rem, 0) scale(1.04);
+  transform-style: preserve-3d;
+  transition: filter var(--motion-medium) var(--ease-standard), transform var(--motion-medium) var(--ease-standard);
+}
+
+.capabilityCard:nth-child(1) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.42rem #91eaff) drop-shadow(0 0 1.45rem rgb(43 147 255 / 88%)); }
+.capabilityCard:nth-child(2) .capabilityGlyph { filter: drop-shadow(0 1rem 0.8rem rgb(0 0 0 / 72%)) drop-shadow(0 0 0.38rem rgb(196 243 255 / 76%)) drop-shadow(0 0 1.35rem rgb(58 190 255 / 84%)); }
+.capabilityCard:nth-child(3) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.5rem rgb(182 246 255 / 88%)) drop-shadow(0 0 1.45rem rgb(41 145 255 / 92%)); }
+.capabilityCard:nth-child(4) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.45rem rgb(149 238 255 / 92%)) drop-shadow(0 0 1.4rem rgb(25 125 255 / 92%)); }
+.capabilityCard:nth-child(5) .capabilityGlyph { filter: drop-shadow(0 1rem 0.85rem rgb(0 0 0 / 78%)) drop-shadow(0 0 0.42rem rgb(219 248 255 / 88%)) drop-shadow(0 0 1.45rem rgb(58 149 255 / 88%)); }
+
+.capabilityCard:hover .capabilityGlyph,
+.capabilityCard:focus-within .capabilityGlyph {
+  filter: drop-shadow(0 0.85rem 0.7rem rgb(0 0 0 / 66%)) drop-shadow(0 0 1.2rem rgb(69 196 255 / 94%));
+  transform: translateY(-4px) scale(1.04);
 }
 
 .cardCopy {
@@ -379,6 +464,7 @@
 
 .vision {
   position: relative;
+  overflow: clip;
   padding-block: clamp(3.25rem, 6vw, 5.5rem);
   border-bottom: 1px solid rgb(139 191 240 / 15%);
 }
@@ -436,15 +522,46 @@
 }
 
 .narrativeBand {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   margin-block: clamp(2.25rem, 4vw, 3.75rem);
   border: 1px solid rgb(111 170 227 / 25%);
-  border-radius: var(--radius-lg);
   background:
-    linear-gradient(100deg, rgb(8 20 35 / 94%), rgb(5 13 24 / 93%)),
+    linear-gradient(90deg, transparent 0 8%, rgb(81 172 245 / 8%) 8.1%, transparent 8.25% 92%, rgb(81 172 245 / 8%) 92.1%, transparent 92.25%),
+    repeating-linear-gradient(0deg, transparent 0 5.1rem, rgb(91 157 225 / 3%) 5.14rem 5.18rem, transparent 5.24rem 8.4rem),
+    linear-gradient(180deg, transparent 0 88%, rgb(69 177 255 / 16%) 88.15%, rgb(147 227 255 / 30%) 88.28%, transparent 88.48%),
+    radial-gradient(ellipse at 74% 48%, rgb(17 83 158 / 20%), transparent 42%),
+    linear-gradient(100deg, rgb(4 13 25 / 68%), rgb(3 10 20 / 58%)),
+    linear-gradient(0deg, rgb(3 10 20 / 72%), rgb(3 10 20 / 26%) 52%, rgb(3 10 20 / 58%)),
+    url("/generated/home/hero-lab-backdrop.webp") center 54% / cover no-repeat,
     var(--color-surface-glass);
-  box-shadow: inset 0 1px rgb(214 238 255 / 5%), 0 26px 74px rgb(0 0 0 / 28%);
+  border-radius: 0.48rem;
+  box-shadow: inset 0 1px rgb(214 238 255 / 7%), 0 26px 74px rgb(0 0 0 / 34%), 0 0 2.4rem rgb(20 95 191 / 11%);
+}
+
+.narrativeBand::before {
+  position: absolute;
+  z-index: 2;
+  inset: 0 0 auto;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgb(118 226 255 / 72%), transparent);
+  box-shadow: 0 0 0.7rem rgb(42 155 255 / 52%);
+  content: "";
+  pointer-events: none;
+}
+
+.narrativeBand::after {
+  position: absolute;
+  z-index: 1;
+  top: 7%;
+  bottom: 7%;
+  left: 50%;
+  width: 1px;
+  background: linear-gradient(180deg, transparent, rgb(90 197 255 / 42%) 16%, rgb(101 222 255 / 66%) 50%, rgb(90 197 255 / 42%) 84%, transparent);
+  box-shadow: 0 0 0.85rem rgb(44 157 255 / 42%);
+  content: "";
+  pointer-events: none;
 }
 
 .research,
@@ -461,6 +578,51 @@
   align-items: center;
   gap: 0.7rem;
   border-right: 1px solid rgb(110 182 240 / 25%);
+  isolation: isolate;
+}
+
+.research::before,
+.technology::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  content: "";
+  pointer-events: none;
+}
+
+.research::after,
+.technology::after {
+  position: absolute;
+  z-index: 0;
+  right: 0;
+  bottom: 9%;
+  left: 0;
+  height: 1px;
+  content: "";
+  box-shadow: 0 0 0.7rem rgb(58 170 255 / 42%);
+  pointer-events: none;
+}
+
+.research::after {
+  background: linear-gradient(90deg, transparent, rgb(79 189 255 / 42%) 36%, rgb(125 229 255 / 82%));
+}
+
+.technology::after {
+  background: linear-gradient(90deg, rgb(125 229 255 / 82%), rgb(79 189 255 / 42%) 64%, transparent);
+}
+
+.research::before {
+  background:
+    linear-gradient(90deg, transparent 8%, rgb(41 134 235 / 18%) 8.1%, transparent 8.35%, transparent 90%, rgb(51 151 244 / 14%) 90.1%, transparent 90.35%),
+    linear-gradient(180deg, transparent 0 22%, rgb(39 132 226 / 9%) 22.1%, transparent 22.35% 70%, rgb(39 132 226 / 11%) 70.2%, transparent 70.5%),
+    radial-gradient(ellipse at 75% 45%, rgb(32 128 245 / 22%), transparent 43%);
+}
+
+.technology::before {
+  background:
+    linear-gradient(90deg, transparent 91%, rgb(66 182 255 / 29%) 91.15%, transparent 91.4%),
+    linear-gradient(0deg, rgb(22 95 177 / 11%), transparent 48%),
+    radial-gradient(ellipse at 43% 67%, rgb(22 123 242 / 19%), transparent 47%);
 }
 
 .narrativeCopy {
@@ -490,9 +652,50 @@
 .researchVisual {
   position: relative;
   display: grid;
-  min-height: 17rem;
+  min-height: 21rem;
   place-items: center;
-  color: #7dc9ff;
+  color: #94e4ff;
+  perspective: 34rem;
+  transform-style: preserve-3d;
+  isolation: isolate;
+  z-index: 1;
+}
+
+.researchVisual::before,
+.researchVisual::after,
+.cubeVisual::before,
+.cubeVisual::after {
+  position: absolute;
+  content: "";
+  pointer-events: none;
+}
+
+.researchVisual::before {
+  z-index: -1;
+  right: -5%;
+  bottom: 7%;
+  left: -5%;
+  height: 34%;
+  transform: perspective(28rem) rotateX(64deg) translateZ(-1.8rem);
+  border: 1px solid rgb(72 164 255 / 35%);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 2.2rem, rgb(69 161 255 / 18%) 2.24rem 2.28rem, transparent 2.34rem 3.7rem),
+    repeating-linear-gradient(0deg, transparent 0 1.15rem, rgb(92 181 255 / 12%) 1.19rem 1.23rem, transparent 1.28rem 2rem),
+    radial-gradient(ellipse, rgb(37 127 229 / 27%), transparent 70%);
+  box-shadow: inset 0 0 1.5rem rgb(40 134 237 / 15%), 0 0 1.2rem rgb(32 124 237 / 12%);
+}
+
+.researchVisual::after {
+  z-index: -2;
+  inset: 4% 8% 10%;
+  transform: translateZ(-2rem) rotateY(-14deg);
+  border: 1px solid rgb(90 181 255 / 22%);
+  border-radius: 50%;
+  background:
+    linear-gradient(90deg, transparent 24%, rgb(82 193 255 / 16%) 24.2%, transparent 24.5%, transparent 76%, rgb(61 147 255 / 16%) 76.2%, transparent 76.5%),
+    radial-gradient(ellipse at 50% 55%, rgb(25 101 192 / 20%), transparent 68%);
+  box-shadow: inset 0 0 2rem rgb(49 140 235 / 12%), 0 0 1.8rem rgb(28 106 215 / 15%);
 }
 
 .visualGlow,
@@ -506,10 +709,17 @@
 
 .researchGlyph {
   position: relative;
-  width: min(125%, 25rem);
+  z-index: 1;
+  width: min(158%, 35rem);
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 0 0.8rem rgb(48 154 255 / 38%));
+  filter: drop-shadow(0 1.45rem 1.1rem rgb(0 0 0 / 74%)) drop-shadow(0 0 0.52rem rgb(167 237 255 / 62%)) drop-shadow(0 0 1.8rem rgb(48 154 255 / 78%));
+  transform: perspective(30rem) rotateY(-12deg) rotateX(7deg) translateZ(1.8rem);
+}
+
+.researchImage {
+  mix-blend-mode: screen;
+  filter: hue-rotate(18deg) saturate(1.08) contrast(1.08);
 }
 
 .visualCaption {
@@ -537,9 +747,9 @@
 
 .technologyDetails {
   display: grid;
-  grid-template-columns: minmax(9rem, 0.9fr) minmax(11rem, 1.1fr);
+  grid-template-columns: minmax(0, 1.3fr) minmax(8rem, 0.9fr);
   align-items: center;
-  gap: clamp(0.6rem, 1.4vw, 1.4rem);
+  gap: clamp(0.45rem, 1vw, 1rem);
   margin-top: 0.85rem;
 }
 
@@ -547,9 +757,37 @@
   position: relative;
   display: grid;
   min-width: 0;
-  min-height: 10.5rem;
+  min-height: 17.8rem;
   place-items: center;
+  perspective: 32rem;
+  transform-style: preserve-3d;
+  isolation: isolate;
+  z-index: 1;
   color: #9be8ff;
+}
+
+.cubeVisual::before {
+  z-index: -1;
+  right: -8%;
+  bottom: 6%;
+  left: -8%;
+  height: 35%;
+  transform: perspective(30rem) rotateX(64deg) translateZ(-1.6rem);
+  border: 1px solid rgb(73 177 255 / 35%);
+  border-radius: 50%;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 2rem, rgb(64 161 255 / 17%) 2.03rem 2.08rem, transparent 2.12rem 3.8rem),
+    radial-gradient(ellipse, rgb(31 132 255 / 34%), transparent 72%);
+  box-shadow: inset 0 0 1.2rem rgb(37 140 255 / 18%), 0 0 1.4rem rgb(38 134 246 / 16%);
+}
+
+.cubeVisual::after {
+  z-index: -2;
+  inset: 7% 7% 15%;
+  transform: translateZ(-1.8rem) rotateY(-12deg);
+  border: 1px solid rgb(83 182 255 / 20%);
+  background: linear-gradient(115deg, transparent 45%, rgb(78 200 255 / 12%) 45.2%, transparent 45.6%);
+  box-shadow: inset 0 0 2rem rgb(31 130 246 / 15%), 0 0 1.8rem rgb(25 103 211 / 14%);
 }
 
 .cubeGlow {
@@ -557,21 +795,43 @@
   background: radial-gradient(ellipse, rgb(32 132 255 / 30%), transparent 70%);
 }
 
+.technologyPhoto {
+  position: absolute;
+  z-index: 0;
+  width: min(142%, 35rem);
+  height: auto;
+  object-fit: contain;
+  opacity: 0.62;
+  mix-blend-mode: screen;
+  -webkit-mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
+  mask-image: radial-gradient(ellipse 74% 76% at 50% 48%, #000 44%, rgb(0 0 0 / 92%) 66%, transparent 90%);
+  filter: drop-shadow(0 1.2rem 1rem rgb(0 0 0 / 72%)) drop-shadow(0 0 1.25rem rgb(30 165 255 / 30%));
+  transform: translateY(-0.32rem) scale(1.1);
+}
+
 .technologyGlyph {
   position: relative;
-  width: 124%;
-  max-width: 22rem;
+  z-index: 1;
+  width: 168%;
+  max-width: 37rem;
   height: auto;
   overflow: visible;
-  filter: drop-shadow(0 0 0.75rem rgb(41 148 255 / 35%));
+  opacity: 0.9;
+  filter: drop-shadow(0 1.5rem 1.15rem rgb(0 0 0 / 76%)) drop-shadow(0 0 0.42rem rgb(191 245 255 / 56%)) drop-shadow(0 0 1.55rem rgb(41 148 255 / 68%));
+  transform: perspective(34rem) rotateY(-15deg) rotateX(8deg) translateZ(1.9rem);
 }
 
 .technologyPillars {
+  position: relative;
+  z-index: 2;
   display: grid;
   gap: 0.7rem;
   margin: 0;
-  padding: 0;
+  padding: 0.45rem 0.55rem;
   list-style: none;
+  border-left: 1px solid rgb(89 190 255 / 38%);
+  background: linear-gradient(90deg, rgb(4 12 24 / 76%), rgb(4 12 24 / 62%) 72%, transparent);
+  box-shadow: inset 0.55rem 0 1.15rem rgb(18 103 195 / 12%), 0 0 1.2rem rgb(18 103 195 / 12%);
 }
 
 .technologyPillars li {
@@ -598,6 +858,7 @@
 
 .finalCta {
   position: relative;
+  overflow: clip;
   min-height: 19rem;
   padding-block: clamp(3rem, 5vw, 4.7rem) clamp(3.5rem, 6vw, 5.5rem);
   border-top: 1px solid rgb(115 184 241 / 22%);
@@ -709,6 +970,11 @@
   }
 }
 
+@keyframes capability-field-pulse {
+  0%, 100% { opacity: 0.72; filter: brightness(0.88); }
+  50% { opacity: 1; filter: brightness(1.22); }
+}
+
 @media (max-width: 70rem) {
   .capabilitiesInner {
     grid-template-columns: 1fr;
@@ -723,7 +989,7 @@
   }
 
   .capabilityCard {
-    min-height: 16rem;
+    min-height: 14.25rem;
   }
 
   .principles {
@@ -757,6 +1023,10 @@
     grid-template-columns: 1fr;
   }
 
+  .narrativeBand::after {
+    display: none;
+  }
+
   .research {
     border-right: 0;
     border-bottom: 1px solid rgb(110 182 240 / 25%);
@@ -771,7 +1041,8 @@
   }
 
   .technologyGlyph {
-    width: 115%;
+    width: 132%;
+    max-width: 32rem;
   }
 }
 
@@ -795,12 +1066,24 @@
   }
 
   .capabilityCard {
-    min-height: 16rem;
+    min-height: 14rem;
     padding: 0.85rem;
   }
 
   .cardVisual {
-    min-height: 5.5rem;
+    min-height: 7rem;
+  }
+
+  .capabilityGlyph {
+    width: clamp(5.7rem, 21vw, 6.5rem);
+    height: clamp(5.7rem, 21vw, 6.5rem);
+    transform: perspective(14rem) rotateX(16deg) rotateY(-12deg) translate3d(0, -0.35rem, 0.9rem);
+  }
+
+  .cardHalo {
+    top: 3.85rem;
+    width: 6.1rem;
+    height: 1.35rem;
   }
 
   .cardCopy h3 {
@@ -878,11 +1161,11 @@
   }
 
   .researchVisual {
-    min-height: 12rem;
+    min-height: 15rem;
   }
 
   .researchGlyph {
-    width: min(116%, 20rem);
+    width: min(128%, 23rem);
   }
 
   .technologyDetails {
@@ -891,11 +1174,11 @@
   }
 
   .cubeVisual {
-    min-height: 12.5rem;
+    min-height: 15rem;
   }
 
   .technologyGlyph {
-    width: min(112%, 20rem);
+    width: min(126%, 23rem);
   }
 
   .technologyPillars {
@@ -934,9 +1217,9 @@
   }
 
   .cardVisual {
-    min-height: 4.6rem;
-    justify-content: start;
-    padding-left: 0.2rem;
+    min-height: 6.4rem;
+    justify-content: center;
+    padding-left: 0;
   }
 }
 
@@ -945,7 +1228,14 @@
     animation: none;
   }
 
+  .cardHalo {
+    animation: none;
+  }
+
   .capabilityCard,
+  .capabilityCard::after,
+  .capabilityGlyph,
+  .cardHalo,
   .textLink,
   .textLink span,
   .cardLink,

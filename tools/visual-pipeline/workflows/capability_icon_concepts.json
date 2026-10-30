@@ -1,0 +1,326 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "thin outline icon, flat glyph, text, letters, logo, watermark, background scene, multiple objects, cheap plastic",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "3": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 640,
+      "height": 640,
+      "batch_size": 1
+    }
+  },
+  "100": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a sculptural brain-like neural lattice, many fine metallic neural filaments and precise cyan nodes, dimensional hologram, isolated centered object, black void background, premium cinematic technology art direction, cold blue-white highlights, controlled cyan energy, elegant, refined, high contrast, no typography",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "101": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231003,
+      "steps": 14,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "100",
+        0
+      ],
+      "negative": [
+        "2",
+        0
+      ],
+      "latent_image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "102": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "101",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "103": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_capability_1",
+      "images": [
+        "102",
+        0
+      ]
+    }
+  },
+  "104": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a floating stack of layered precision-machined glass and chrome plates, luminous cyan data layers, volumetric hologram, isolated centered object, black void background, premium cinematic technology art direction, cold blue-white highlights, controlled cyan energy, elegant, refined, high contrast, no typography",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "105": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231017,
+      "steps": 14,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "104",
+        0
+      ],
+      "negative": [
+        "2",
+        0
+      ],
+      "latent_image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "106": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "105",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "107": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_capability_2",
+      "images": [
+        "106",
+        0
+      ]
+    }
+  },
+  "108": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a luminous network globe with precise geodesic cyan nodes and fine orbital routes, layered volumetric hologram, isolated centered object, black void background, premium cinematic technology art direction, cold blue-white highlights, controlled cyan energy, elegant, refined, high contrast, no typography",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "109": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231029,
+      "steps": 14,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "108",
+        0
+      ],
+      "negative": [
+        "2",
+        0
+      ],
+      "latent_image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "110": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "109",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "111": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_capability_3",
+      "images": [
+        "110",
+        0
+      ]
+    }
+  },
+  "112": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a polished energy torus with two concentric chrome rings and a bright cyan energy filament, dimensional hologram, isolated centered object, black void background, premium cinematic technology art direction, cold blue-white highlights, controlled cyan energy, elegant, refined, high contrast, no typography",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "113": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231043,
+      "steps": 14,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "112",
+        0
+      ],
+      "negative": [
+        "2",
+        0
+      ],
+      "latent_image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "114": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "113",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "115": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_capability_4",
+      "images": [
+        "114",
+        0
+      ]
+    }
+  },
+  "116": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "a faceted crystalline research object with sharp geometric planes, internal blue-white refraction and chrome edges, isolated centered object, black void background, premium cinematic technology art direction, cold blue-white highlights, controlled cyan energy, elegant, refined, high contrast, no typography",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "117": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231059,
+      "steps": 14,
+      "cfg": 5.5,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "116",
+        0
+      ],
+      "negative": [
+        "2",
+        0
+      ],
+      "latent_image": [
+        "3",
+        0
+      ]
+    }
+  },
+  "118": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "117",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "119": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_capability_5",
+      "images": [
+        "118",
+        0
+      ]
+    }
+  }
+}

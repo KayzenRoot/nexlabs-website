@@ -1,0 +1,86 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "Seamless 360 degree equirectangular lat-long panorama, exact 2:1 panorama, camera inside a vast premium research laboratory. Dense physical architecture spans the panorama: curved segmented graphite walls, layered vertical machined chrome ribs, tall structural pylons, deep side alcoves with rows of instrument consoles and many small abstract cyan screens, overhead concentric ceiling rings and visible crossbeams. The central sightline remains open and empty except for a low dark circular platform; no pod, tank or monolith. Wide side wings extend left and right with multiple depth planes, glass display banks and repeating workstations. Dark polished metallic floor with fine concentric cyan and ice-white inlays, narrow controlled reflections, never a broad pale surface. Cold axial light shafts, smoked glass, practical blue-white fixtures, restrained cyan energy lines and sparse fine particles. Photographic high-end 3D environment art, cinematic exposure, realistic dark metal and glass response, high architectural density, deep shadows with readable detail, continuous wrapped panorama edges. No human, no central sculpture, no letter N, no logo, no text, no labels, no readable interface, no fisheye, no split screen.",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "empty studio, minimal room, empty black areas, flat wall, sparse architecture, one central tank, cylindrical pod, reactor, monolith, central object, large empty floor, pale floor, white floor, washed out highlights, daylight, beige, fisheye, perspective panorama, split screen, text, typography, labels, logos, watermarks, readable UI, fake dashboard, duplicated ceiling rings, clutter, neon oversaturation, plastic, blurry details, low contrast, black border",
+      "clip": [
+        "1",
+        1
+      ]
+    }
+  },
+  "4": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1024,
+      "height": 512,
+      "batch_size": 1
+    }
+  },
+  "5": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 231415,
+      "steps": 26,
+      "cfg": 5.3,
+      "sampler_name": "euler",
+      "scheduler": "normal",
+      "denoise": 1.0,
+      "model": [
+        "1",
+        0
+      ],
+      "positive": [
+        "2",
+        0
+      ],
+      "negative": [
+        "3",
+        0
+      ],
+      "latent_image": [
+        "4",
+        0
+      ]
+    }
+  },
+  "6": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "5",
+        0
+      ],
+      "vae": [
+        "1",
+        2
+      ]
+    }
+  },
+  "7": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "filename_prefix": "nexlabs_wo013_hero_environment_360_delta04_round15",
+      "images": [
+        "6",
+        0
+      ]
+    }
+  }
+}

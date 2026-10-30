@@ -154,10 +154,63 @@ M07A is complete. The following gate was satisfied:
 
 M07A is complete. Owner visual acceptance remains pending, so M07B remains blocked until WO-013 Visual Fidelity / Master Alignment is APPROVED, merged and checkpoint-promoted.
 
-## Next Definition of Done — WO-013 Visual Fidelity / Master Alignment
+## WO-013 — Visual Fidelity Restoration / Master Alignment
 
-WO-013 is not executable until its Work Order and exact Context Lock are admitted. Its completion gate must require objective master-alignment evidence, preservation of M07A hardening/performance, accessibility/fallback tiers and independent exact-head approval.
+WO-013 is complete only when:
+0. the D-0031 CD-05 asset-tool prerequisite is evidenced: an available Codex image-generation tool/model and commercial-use rights, followed by the official Blender Lab MCP operating in an isolated localhost-only workspace; if either gate is unavailable, asset/frame work remains BLOCKED without ComfyUI or Blender CLI substitution;
+1. the locked master asset fingerprint matches the canonical reference;
+2. the master image/crops are absent from production runtime references;
+3. Home composition is materially closer to the approved master;
+4. Hero copy remains the strong left editorial block;
+5. monumental dimensional N + cylindrical chamber dominate center-right;
+6. material/lighting/floor/Earth/network/panel/human-scale vocabulary is materially improved;
+7. FULL/BALANCED/STATIC preserve the same hierarchy at appropriate cost;
+8. poster-first, WebGL failure/context-loss and reduced-motion paths remain correct;
+9. living-organism energy visibly connects Hero, capabilities and lower Home;
+10. desktop navigation gains active-state and premium interaction without fake search;
+11. mobile navigation is an accessible deliberate menu rather than horizontal-scroll-only;
+12. five capability objects are proprietary holographic motifs without generic icon dependencies;
+13. Research/Technology lower Home materially approach the master visual vocabulary;
+14. secondary pages gain coherent depth without any second WebGL/R3F scene;
+15. public copy/metadata/factual boundaries remain unchanged;
+16. Contact zero-collection remains intact;
+17. M07A security/CSP/noindex/robots/404/Release Readiness behavior remains green;
+18. required deterministic screenshots and four master comparison composites are retained;
+19. executor proposed fidelity score is documented;
+20. independent auditor confirms fidelity score >=85/100, Hero >=15/20 and N/Chamber >=15/20;
+21. required responsive widths have no unexpected overflow;
+22. automated a11y/keyboard/focus/reduced-motion checks pass;
+23. initial JS <=220 KiB gzip and lazy Home 3D <=700 KiB gzip;
+24. non-Home routes load no Home 3D chunks;
+25. final production candidate records 3 consecutive retries=0 full suites with Home mobile LCP <=2500 ms, CLS <=0.10 and interaction proxy <=200 ms;
+26. lint/typecheck/unit/build/E2E/audit/secret checks pass;
+27. development Docker remains UP/healthy and six routes return HTTP 200;
+28. exact-head CI Quality, Browser Smoke, Release Readiness, Sonar, Socket and CodeRabbit/reviewer signals are checked;
+29. Evidence Bundle and Checkpoint Delta PROPOSED are complete;
+30. independent exact-head audit reports APPROVED before merge.
+
+M07B remains blocked until WO-013 approval, merge and checkpoint promotion.
 
 ## Global implementation rule
 
 Each runnable frontend increment remains functional, tested, documented, deployable and objectively validated within its admitted scope. Docker remains running/healthy unless the owner explicitly instructs otherwise.
+
+
+## WO-013 Design Director Harness completion gate
+
+The remaining master-alignment correction is not complete until:
+- reference extraction artifacts exist;
+- the design is rebuilt through ordered specialist passes rather than one monolithic prompt;
+- ComfyUI/Blender outputs are treated as references or ownable assets, never as master-copy shortcuts;
+- deterministic site states are captured;
+- at least three harsh contact-sheet critique rounds are completed;
+- no required critique dimension remains below 8/10 before independent review;
+- the independent WO-013 score still reaches >=85/100 with the existing per-criterion floors.
+
+## Additional CD-05 preflight and evidence obligations (WO-013, D-0031)
+- Accepted decision and critical source fingerprints match a freshly recompiled exact-HEAD Context Lock; the prior lock is not used for new code changes.
+- Actual Codex image-generation tool/model availability and commercial asset-use rights are validated, or asset generation is BLOCKED rather than claimed complete.
+- Official Blender Lab MCP is installed, locally sandboxed (isolated working set; no credentials/SSH keys/wallets/browser profiles/unrelated repositories), localhost-only and smoke-tested, or animation/frame authoring is BLOCKED without a silent CLI fallback.
+- Every newly generated component master has its own fingerprint, prompt/model/seed when available, provenance and review; derivatives have checksums and composition-preserving comparisons plus static fallback.
+- The original local commit `76607189a68022e2e3028664edca08b4f95f500a` was not recoverable in documented searches; owner D-0034 authorizes a new exact-HEAD baseline. Preserve all earlier local checkouts and commits untouched; do not rewrite history.
+- The existing 85/100 independent visual gate and all prior security, a11y, performance, deterministic critique/three-run test gates remain unchanged. Git push may trigger Vercel Preview; never overwrite/promote to production and do not regress existing portfolio/SEO/verification/HIVE pages from release snapshots. Keep PR #20 OPEN, checkpoint UNPROMOTED and M07B BLOCKED.

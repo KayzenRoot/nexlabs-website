@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "models": [
+    {
+      "role": "required-baseline",
+      "source": "stabilityai/stable-diffusion-xl-base-1.0",
+      "revision": "<resolved-by-codex>",
+      "filename": "<resolved-by-codex>.safetensors",
+      "sha256": "<resolved-by-codex>",
+      "license": "OpenRAIL++",
+      "localPath": "<outside-git>",
+      "smokeStatus": "PENDING"
+    },
+    {
+      "role": "optional-reference-edit",
+      "source": "black-forest-labs/FLUX.2-klein-4b-fp8",
+      "revision": "<resolved-by-codex>",
+      "filename": "<resolved-by-codex>",
+      "sha256": "<resolved-by-codex>",
+      "license": "Apache-2.0",
+      "localPath": "<outside-git>",
+      "smokeStatus": "PENDING_8GB_VRAM_TEST"
+    }
+  ]
+}

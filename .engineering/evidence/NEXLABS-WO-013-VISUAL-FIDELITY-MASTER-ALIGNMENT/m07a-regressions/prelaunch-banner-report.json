@@ -1,0 +1,41 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "visible": true,
+      "text": "PRE-LAUNCH\nThis website is still in production and is not yet final."
+    }
+  ],
+  "result": "PASS"
+}

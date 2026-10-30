@@ -7,8 +7,11 @@
   gap: clamp(1rem, 2vw, 2rem);
   margin-inline: auto;
   padding: 1.35rem clamp(var(--space-4), 5.1vw, 5.5rem) 1.7rem;
-  border-top: 1px solid rgb(71 167 239 / 42%);
-  background: linear-gradient(180deg, rgb(5 10 17 / 80%), #04070b);
+  border-top: 1px solid rgb(89 187 255 / 48%);
+  background:
+    radial-gradient(ellipse at 50% 0, rgb(20 78 137 / 17%), transparent 48%),
+    linear-gradient(180deg, rgb(5 12 23 / 96%), #04070b);
+  box-shadow: inset 0 1px rgb(209 243 255 / 5%);
   color: var(--color-text-muted);
   font-size: var(--text-xs);
 }
@@ -69,16 +72,43 @@
 }
 
 .navigation a {
+  position: relative;
+  display: inline-flex;
   color: #d5e1ef;
+  align-items: center;
   font-size: 0.72rem;
+  min-height: 2rem;
+  align-content: center;
   text-decoration: none;
-  text-underline-offset: 0.35em;
-  transition: color var(--motion-fast) var(--ease-standard);
+  transition: color var(--motion-fast) var(--ease-standard), text-shadow var(--motion-fast) var(--ease-standard);
+}
+
+.navigation a::after {
+  position: absolute;
+  right: 50%;
+  bottom: 0.15rem;
+  left: 50%;
+  height: 1px;
+  background: #62ddff;
+  box-shadow: 0 0 0.5rem #138dff;
+  content: "";
+  transition: right var(--motion-fast) var(--ease-standard), left var(--motion-fast) var(--ease-standard);
 }
 
 .navigation a:hover {
   color: #fff;
-  text-decoration: underline;
+  text-shadow: 0 0 0.7rem rgb(98 206 255 / 40%);
+}
+
+.navigation a:hover::after,
+.navigation a:focus-visible::after {
+  right: 0;
+  left: 0;
+}
+
+.navigation a:focus-visible {
+  outline: 2px solid #a4efff;
+  outline-offset: 4px;
 }
 
 @media (max-width: 40rem) {
@@ -103,4 +133,5 @@
   .navigation a {
     transition: none;
   }
+  .navigation a::after { transition: none; }
 }

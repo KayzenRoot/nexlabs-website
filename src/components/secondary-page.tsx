@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { BrandMark } from "./brand-mark";
 import styles from "./secondary-page.module.css";
+import { ScrollReveal } from "./visual/scroll-reveal";
 
 type SecondaryAction = {
   readonly href: string;
@@ -28,6 +29,8 @@ export function SecondaryHero({
   visual,
 }: SecondaryHeroProps) {
   return (
+    <>
+    <ScrollReveal />
     <section aria-labelledby={`${idPrefix}-title`} className={styles.hero}>
       <div className={styles.heroCopy}>
         <p className={styles.eyebrow}>{eyebrow}</p>
@@ -45,10 +48,11 @@ export function SecondaryHero({
           </a>
         </nav>
       </div>
-      <div aria-hidden="true" className={styles.heroArtwork} data-secondary-artwork-motion="">
+      <div aria-hidden="true" className={styles.heroArtwork} data-secondary-artwork-motion="" data-world-reveal="secondary-artwork">
         {visual}
       </div>
     </section>
+    </>
   );
 }
 

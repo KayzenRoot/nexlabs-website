@@ -2,8 +2,8 @@
   position: relative;
   display: flex;
   width: 100%;
-  height: min(24rem, calc(100svh - 4.25rem));
-  min-height: 22rem;
+  height: min(23.5rem, calc(100svh - 4rem));
+  min-height: 23.5rem;
   align-items: flex-start;
   isolation: isolate;
   overflow: clip;
@@ -22,19 +22,31 @@
 
 .world {
   isolation: isolate;
-  background:
-    radial-gradient(ellipse at 62% 46%, rgb(9 59 138 / 28%), transparent 38%),
-    radial-gradient(ellipse at 83% 57%, rgb(5 43 115 / 28%), transparent 37%),
-    linear-gradient(110deg, #03060d 0%, #050b17 43%, #020610 100%);
+  background: #03060d;
+}
+
+.labBackdrop {
+  position: absolute;
+  inset: -34% -5% -18% 30%;
+  background-image:
+    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 48%) 15%, transparent 44%),
+    linear-gradient(0deg, #03060d 0%, transparent 28%, rgb(3 6 13 / 20%) 100%),
+    url("/generated/home/hero-lab-backdrop.webp");
+  background-position: center, center, 52% 66%;
+  background-repeat: no-repeat;
+  background-size: auto, auto, cover;
+  opacity: 0.72;
+  mix-blend-mode: screen;
+  pointer-events: none;
 }
 
 .worldGlow {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 61% 48%, rgb(43 132 255 / 23%), transparent 25%),
-    radial-gradient(ellipse at 62% 71%, rgb(21 104 228 / 18%), transparent 17%),
-    linear-gradient(90deg, #03060d 0%, #03060d 33%, rgb(3 6 13 / 97%) 38%, transparent 48%);
+    radial-gradient(ellipse at 66% 48%, rgb(47 132 255 / 17%), transparent 34%),
+    radial-gradient(ellipse at 80% 58%, rgb(14 96 210 / 12%), transparent 36%),
+    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 92%) 20%, rgb(3 6 13 / 46%) 36%, transparent 50%);
 }
 
 .posterDisplayMask {
@@ -62,22 +74,28 @@
 
 .referencePoster {
   position: absolute;
-  inset: 4.25rem 0 0;
+  top: calc(50% + 2.125rem);
+  left: 74%;
+  width: min(42vw, 42rem);
+  aspect-ratio: 16 / 9;
+  transform: translate(-50%, -50%);
   background-image: url("/hero/home-hero-poster.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+  mask-image: radial-gradient(ellipse 75% 100% at 50% 50%, #000 46%, transparent 95%);
+  mix-blend-mode: screen;
   opacity: 1;
   transition: opacity 760ms ease;
+  will-change: opacity;
 }
 
-.hero:has(.sceneReady) .referencePoster {
-  opacity: 0.4;
-  mask-image: radial-gradient(ellipse 7% 24% at 62% 43%, transparent 0 72%, #000 100%);
+.hero:has([data-scene-state="ready"]) .referencePoster,
+.hero[data-scene-live="true"] .referencePoster {
+  opacity: 0;
+  mask-image: none;
 }
 
-.starField,
-.energyArcs,
 .hologramGlobe,
 .chamber,
 .rightPanel,
@@ -107,13 +125,14 @@
 .energyArcs {
   position: absolute;
   inset: 0;
-  opacity: 0.52;
+  opacity: 0.36;
   background:
     radial-gradient(ellipse at 71% 39%, transparent 32%, rgb(34 121 255 / 54%) 32.1%, transparent 32.35%),
     radial-gradient(ellipse at 77% 54%, transparent 45%, rgb(36 105 227 / 58%) 45.1%, transparent 45.28%),
     radial-gradient(ellipse at 65% 62%, transparent 55%, rgb(19 121 255 / 51%) 55.1%, transparent 55.28%),
     linear-gradient(160deg, transparent 45%, rgb(54 142 255 / 34%) 45.08%, transparent 45.23%);
   filter: drop-shadow(0 0 8px rgb(35 125 255 / 72%));
+  mask-image: linear-gradient(90deg, transparent 18%, #000 38%, #000 100%);
   animation: energy-breathe 8s ease-in-out infinite alternate;
 }
 
@@ -357,13 +376,14 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, #03060d 0%, rgb(3 6 13 / 83%) 25%, transparent 52%),
-    linear-gradient(0deg, #03060d 0%, transparent 14%, transparent 86%, rgb(3 6 13 / 62%) 100%);
+    linear-gradient(90deg, rgb(3 6 13 / 44%), transparent 42%),
+    linear-gradient(0deg, #03060d 0%, transparent 15%, transparent 89%, rgb(3 6 13 / 28%) 100%);
 }
 
 .sceneLayer {
   z-index: 1;
   opacity: 0;
+  mask-image: linear-gradient(90deg, transparent 0%, rgb(0 0 0 / 8%) 24%, #000 45%);
   transition: opacity 760ms ease;
 }
 
@@ -560,10 +580,20 @@
     inset: -4.1rem 0 0;
   }
 
+  .sceneLayer {
+    mask-image: linear-gradient(180deg, transparent 3%, rgb(0 0 0 / 8%) 35%, #000 68%);
+  }
+
   .world {
     background:
       radial-gradient(ellipse at 72% 70%, rgb(10 59 137 / 36%), transparent 41%),
       linear-gradient(180deg, #03060d, #040916 69%, #03060d);
+  }
+
+  .labBackdrop {
+    inset: -5% -24% 4% 4%;
+    background-position: center, center, 50% 68%;
+    opacity: 0.62;
   }
 
   .worldGlow {
@@ -573,10 +603,17 @@
   }
 
   .referencePoster {
-    inset: 4.1rem 0 0;
+    inset: 4.1rem 0 auto;
+    left: 0;
+    width: min(100%, 28rem);
+    height: calc(100% - 4.1rem);
+    aspect-ratio: auto;
+    transform: none;
     background-image: url("/hero/home-hero-poster-mobile.jpg");
     background-position: left bottom;
-    background-size: 125% auto;
+    background-size: min(100%, 28rem) auto;
+    mask-image: none;
+    opacity: 0.92;
   }
 
   .posterDisplayMask,
@@ -603,7 +640,7 @@
   }
 
   .title span {
-    transform: scaleX(1.2);
+    transform: scaleX(1);
   }
 
   .description {
@@ -656,6 +693,10 @@
   .starField {
     mask-image: linear-gradient(180deg, transparent 25%, #000 60%, #000 100%);
   }
+
+  .energyArcs {
+    mask-image: linear-gradient(180deg, transparent 18%, #000 55%, #000 100%);
+  }
 }
 
 @media (max-width: 23rem) {
@@ -664,11 +705,11 @@
   }
 
   .title {
-    font-size: 2.4rem;
+    font-size: clamp(2rem, 9vw, 2.4rem);
   }
 
   .title span {
-    transform: scaleX(1.1);
+    transform: scaleX(1);
   }
 
   .actions {
@@ -689,5 +730,6 @@
 
   .referencePoster {
     transition: none;
+    will-change: auto;
   }
 }

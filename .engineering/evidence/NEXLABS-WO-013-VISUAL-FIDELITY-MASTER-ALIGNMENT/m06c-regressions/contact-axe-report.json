@@ -1,0 +1,439 @@
+{
+  "standard": "WCAG 2.2 AA; axe-core wcag2a, wcag2aa, wcag21a, wcag21aa and wcag22aa",
+  "passes": 21,
+  "incomplete": [
+    {
+      "id": "aria-prohibited-attr",
+      "impact": "serious",
+      "help": "Elements must only use permitted ARIA attributes",
+      "nodeCount": 1,
+      "nodes": [
+        {
+          "target": [
+            ".site-header-module__wBaYfG__prelaunchBanner"
+          ],
+          "reviewReasons": [
+            "aria-label attribute is not well supported on a div with no valid role attribute."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "color-contrast",
+      "impact": "serious",
+      "help": "Elements must meet minimum color contrast ratio thresholds",
+      "nodeCount": 51,
+      "nodes": [
+        {
+          "target": [
+            ".site-header-module__wBaYfG__prelaunchLabel"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__prelaunchMessage"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__name"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__descriptor"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-navigation-module__0KcrDq__desktopNavigation > .site-navigation-module__0KcrDq__link[href$=\"solutions\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-navigation-module__0KcrDq__desktopNavigation > .site-navigation-module__0KcrDq__link[href$=\"technology\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-navigation-module__0KcrDq__desktopNavigation > .site-navigation-module__0KcrDq__link[href$=\"research\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-navigation-module__0KcrDq__desktopNavigation > .site-navigation-module__0KcrDq__link[href$=\"company\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__contactDesktopLabel"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__contactAction > span[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element content contains only non-text characters"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__headerNote > span:nth-child(1)"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__headerNote > span:nth-child(2)"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".site-header-module__wBaYfG__headerNote > span:nth-child(3)"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__heroCopy > .secondary-page-module__N8kQ1G__eyebrow"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            "#contact-title"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__heroLead"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__primaryAction"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__primaryAction > span[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element content contains only non-text characters"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__secondaryAction"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a pseudo element"
+          ]
+        },
+        {
+          "target": [
+            "#brief > .secondary-page-module__N8kQ1G__sectionHeading > .secondary-page-module__N8kQ1G__eyebrow"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "#contact-brief-title"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".secondary-page-module__N8kQ1G__sectionLead"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(1) > .contact-module__swMWYG__briefIndex[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(1) > h3"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(1) > p"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(2) > .contact-module__swMWYG__briefIndex[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(2) > h3"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(2) > p"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(3) > .contact-module__swMWYG__briefIndex[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(3) > h3"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(3) > p"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(4) > .contact-module__swMWYG__briefIndex[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(4) > h3"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "li:nth-child(4) > p"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__availabilityEyebrow"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "#contact-availability-title"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__availabilityCopy > p:nth-child(3)"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__availabilityCopy > p:nth-child(4)"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__availabilityAction"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__availabilityAction > span[aria-hidden=\"true\"]"
+          ],
+          "reviewReasons": [
+            "Element content contains only non-text characters"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__boundary > .secondary-page-module__N8kQ1G__sectionHeading > .secondary-page-module__N8kQ1G__eyebrow"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            "#contact-boundary-title"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".contact-module__swMWYG__boundary > p"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__name"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__descriptor"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__navigation > a[href$=\"solutions\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__navigation > a[href$=\"technology\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__navigation > a[href$=\"research\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__navigation > a[href$=\"company\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__navigation > a[href$=\"contact\"]"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        },
+        {
+          "target": [
+            ".site-footer-module__STLB6W__note"
+          ],
+          "reviewReasons": [
+            "Element's background color could not be determined due to a background gradient"
+          ]
+        }
+      ]
+    }
+  ],
+  "violations": []
+}

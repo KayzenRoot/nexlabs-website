@@ -2,10 +2,11 @@ import AxeBuilder from "@axe-core/playwright";
 import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { expect, test } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-012-M07A-RELEASE-HARDENING-READINESS",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m07a-regressions",
 );
 const sixRoutes = ["/", "/technology", "/solutions", "/research", "/company", "/contact"] as const;
 const requiredCspDirectives = [
@@ -121,6 +122,29 @@ test("all routes stay noindex and robots blocks crawling without publishing a si
   );
 });
 
+
+
+test("prelaunch banner is visible on every public route", async ({ page }) => {
+  mkdirSync(evidenceDirectory, { recursive: true });
+  const reports = [];
+
+  for (const path of sixRoutes) {
+    const response = await page.goto(path, { waitUntil: "networkidle" });
+    expect(response?.status(), `${path} route`).toBe(200);
+    const banner = page.locator("[data-prelaunch-banner]");
+    await expect(banner).toBeVisible();
+    await expect(banner).toContainText("PRE-LAUNCH");
+    await expect(banner).toContainText("This website is still in production and is not yet final.");
+    reports.push({ path, status: response?.status(), visible: true, text: await banner.innerText() });
+  }
+
+  writeFileSync(
+    resolve(evidenceDirectory, "prelaunch-banner-report.json"),
+    `${JSON.stringify({ routes: reports, result: "PASS" }, null, 2)}\n`,
+    "utf8",
+  );
+});
+
 test("branded 404 has no Axe violations and exposes a safe route back Home", async ({ page }) => {
   mkdirSync(evidenceDirectory, { recursive: true });
   const response = await page.goto("/__m07a_missing_route__", { waitUntil: "networkidle" });
@@ -136,7 +160,7 @@ test("branded 404 has no Axe violations and exposes a safe route back Home", asy
     .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"])
     .analyze();
   expect(accessibility.violations).toEqual([]);
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(evidenceDirectory, "branded-404-desktop-1600x900.png"),
     fullPage: true,
     animations: "disabled",

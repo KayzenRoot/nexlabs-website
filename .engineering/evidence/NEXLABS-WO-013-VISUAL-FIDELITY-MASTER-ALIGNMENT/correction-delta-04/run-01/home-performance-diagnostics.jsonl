@@ -1,0 +1,45 @@
+{"recordedAtUtc":"2026-10-08T12:13:29.414Z","elapsedMs":0,"phase":"suite","event":"start","head":"local-unreported","retries":0,"frameIntervalsPerWebglProfile":119,"testTimeoutMs":150000}
+{"recordedAtUtc":"2026-10-08T12:13:29.519Z","elapsedMs":105,"phase":"static-navigation","event":"start","viewport":"1600x900","reducedMotion":true}
+{"recordedAtUtc":"2026-10-08T12:13:29.562Z","elapsedMs":148,"phase":"browser-telemetry","event":"document-start","label":"static-reduced-motion","pageElapsedMs":25.799999997019768,"visibility":"visible","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"recordedAtUtc":"2026-10-08T12:13:29.937Z","elapsedMs":523,"phase":"browser-telemetry","event":"long-task","label":"static-reduced-motion","pageElapsedMs":387.70000000298023,"visibility":"visible","startTime":181.70000000298023,"durationMs":57}
+{"recordedAtUtc":"2026-10-08T12:13:30.049Z","elapsedMs":635,"phase":"static-navigation","event":"complete","loadMs":530,"scriptCount":9,"lcpMs":420}
+{"recordedAtUtc":"2026-10-08T12:13:30.050Z","elapsedMs":636,"phase":"static-context-close","event":"start","url":"http://127.0.0.1:3102/"}
+{"recordedAtUtc":"2026-10-08T12:13:30.152Z","elapsedMs":738,"phase":"static-context-close","event":"complete","closed":true}
+{"recordedAtUtc":"2026-10-08T12:13:30.332Z","elapsedMs":918,"phase":"mobile-4g-navigation","event":"start","viewport":"390x844","latencyMs":150,"downloadBytesPerSecond":209715,"cpuThrottlingRate":4}
+{"recordedAtUtc":"2026-10-08T12:13:33.141Z","elapsedMs":3728,"phase":"mobile-4g-navigation","event":"complete","loadMs":2809}
+{"recordedAtUtc":"2026-10-08T12:13:33.650Z","elapsedMs":4236,"phase":"mobile-cta-interaction","event":"clicked"}
+{"recordedAtUtc":"2026-10-08T12:13:33.902Z","elapsedMs":4488,"phase":"mobile-vitals-and-chunk-collection","event":"complete","lcpMs":1832,"scriptCount":9,"inpSampleCount":3,"inpMs":104}
+{"recordedAtUtc":"2026-10-08T12:13:33.902Z","elapsedMs":4488,"phase":"mobile-cdp-cleanup","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:33.948Z","elapsedMs":4534,"phase":"mobile-cdp-cleanup","event":"complete"}
+{"recordedAtUtc":"2026-10-08T12:13:33.949Z","elapsedMs":4535,"phase":"mobile-context-close","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:34.514Z","elapsedMs":5100,"phase":"mobile-context-close","event":"complete","closed":true}
+{"recordedAtUtc":"2026-10-08T12:13:34.538Z","elapsedMs":5124,"phase":"desktop-navigation","event":"start","viewport":"1600x900"}
+{"recordedAtUtc":"2026-10-08T12:13:34.615Z","elapsedMs":5201,"phase":"browser-telemetry","event":"document-start","label":"desktop-default","pageElapsedMs":51.70000000298023,"visibility":"visible","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"recordedAtUtc":"2026-10-08T12:13:35.028Z","elapsedMs":5614,"phase":"browser-telemetry","event":"long-task","label":"desktop-default","pageElapsedMs":455.29999999701977,"visibility":"visible","startTime":246.5,"durationMs":67}
+{"recordedAtUtc":"2026-10-08T12:13:35.084Z","elapsedMs":5670,"phase":"browser-telemetry","event":"webgl-context-created","label":"desktop-default","pageElapsedMs":527.2999999970198,"visibility":"visible","contextType":"webgl2","canvasConnected":false,"width":300,"height":150,"renderer":"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)","contextLost":false}
+{"recordedAtUtc":"2026-10-08T12:13:35.182Z","elapsedMs":5768,"phase":"desktop-scene-readiness","event":"static","tier":"STATIC","state":"poster"}
+{"recordedAtUtc":"2026-10-08T12:13:35.199Z","elapsedMs":5785,"phase":"desktop-renderer-snapshot","event":"complete","hardwareConcurrency":8,"deviceMemoryGb":16,"devicePixelRatio":1,"webgl2Ready":false,"contextLost":null,"canvasCount":0,"canvasSize":null,"renderer":null}
+{"recordedAtUtc":"2026-10-08T12:13:35.214Z","elapsedMs":5800,"phase":"desktop-navigation-and-measurement","event":"complete","tier":"STATIC","state":"poster","loadMs":675,"scriptCount":9,"lcpMs":512}
+{"recordedAtUtc":"2026-10-08T12:13:35.214Z","elapsedMs":5800,"phase":"desktop-scene-cleanup","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:35.226Z","elapsedMs":5812,"phase":"browser-telemetry","event":"visibility-change","label":"desktop-default","pageElapsedMs":669.5,"visibility":"hidden","nextVisibility":"hidden"}
+{"recordedAtUtc":"2026-10-08T12:13:35.227Z","elapsedMs":5813,"phase":"browser-telemetry","event":"scene-cleanup-start","label":"desktop-default","pageElapsedMs":669.9000000059605,"visibility":"hidden","canvasCount":0,"canvasConnected":false,"contextAvailable":false,"contextAlreadyLost":null,"loseContextExtensionAvailable":false}
+{"recordedAtUtc":"2026-10-08T12:13:35.229Z","elapsedMs":0.7,"phase":"browser-telemetry","event":"scene-cleanup-skipped","label":"desktop-default","pageElapsedMs":670.4000000059605,"visibility":"hidden"}
+{"recordedAtUtc":"2026-10-08T12:13:35.232Z","elapsedMs":5818,"phase":"desktop-page-close","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:35.248Z","elapsedMs":5834,"phase":"browser-telemetry","event":"visibility-change","label":"desktop-default","pageElapsedMs":682.2999999970198,"visibility":"hidden","nextVisibility":"hidden"}
+{"recordedAtUtc":"2026-10-08T12:13:35.251Z","elapsedMs":5837,"phase":"desktop-page-close","event":"complete","closed":true}
+{"recordedAtUtc":"2026-10-08T12:13:35.388Z","elapsedMs":5974,"phase":"full-profile-navigation","event":"start","viewport":"1600x900"}
+{"recordedAtUtc":"2026-10-08T12:13:35.428Z","elapsedMs":6014,"phase":"browser-telemetry","event":"document-start","label":"full-capability-profile","pageElapsedMs":26.099999994039536,"visibility":"visible","userAgent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.8010.12 Safari/537.36"}
+{"recordedAtUtc":"2026-10-08T12:13:35.813Z","elapsedMs":6399,"phase":"browser-telemetry","event":"long-task","label":"full-capability-profile","pageElapsedMs":414.79999999701977,"visibility":"visible","startTime":216.69999998807907,"durationMs":55}
+{"recordedAtUtc":"2026-10-08T12:13:35.914Z","elapsedMs":6500,"phase":"browser-telemetry","event":"webgl-context-created","label":"full-capability-profile","pageElapsedMs":514.6999999880791,"visibility":"visible","contextType":"webgl2","canvasConnected":false,"width":300,"height":150,"renderer":"ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)","contextLost":false}
+{"recordedAtUtc":"2026-10-08T12:13:36.715Z","elapsedMs":7301,"phase":"full-profile-render-and-screenshot","event":"complete","tier":"STATIC","state":"poster","frameTimes":null}
+{"recordedAtUtc":"2026-10-08T12:13:36.715Z","elapsedMs":7301,"phase":"full-profile-scene-cleanup","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:36.724Z","elapsedMs":7310,"phase":"browser-telemetry","event":"visibility-change","label":"full-capability-profile","pageElapsedMs":1326,"visibility":"hidden","nextVisibility":"hidden"}
+{"recordedAtUtc":"2026-10-08T12:13:36.727Z","elapsedMs":7313,"phase":"browser-telemetry","event":"scene-cleanup-start","label":"full-capability-profile","pageElapsedMs":1326.5,"visibility":"hidden","canvasCount":0,"canvasConnected":false,"contextAvailable":false,"contextAlreadyLost":null,"loseContextExtensionAvailable":false}
+{"recordedAtUtc":"2026-10-08T12:13:36.727Z","elapsedMs":0.7,"phase":"browser-telemetry","event":"scene-cleanup-skipped","label":"full-capability-profile","pageElapsedMs":1326.699999988079,"visibility":"hidden"}
+{"recordedAtUtc":"2026-10-08T12:13:36.730Z","elapsedMs":7316,"phase":"full-profile-context-close","event":"start"}
+{"recordedAtUtc":"2026-10-08T12:13:36.890Z","elapsedMs":7476,"phase":"full-profile-context-close","event":"complete","closed":true}
+{"recordedAtUtc":"2026-10-08T12:13:36.894Z","elapsedMs":7481,"phase":"acceptance-assertions","event":"start","desktopTier":"STATIC","desktopState":"poster","fullProfileTier":"STATIC","balancedTier":null,"desktopFrameSamples":0,"fullFrameSamples":0,"balancedFrameSamples":0}
+{"recordedAtUtc":"2026-10-08T12:13:36.908Z","elapsedMs":7494,"phase":"acceptance-assertions","event":"complete"}
+{"recordedAtUtc":"2026-10-08T12:13:36.909Z","elapsedMs":7495,"phase":"suite","event":"complete"}
+{"recordedAtUtc":"2026-10-08T12:13:36.911Z","elapsedMs":7497,"phase":"context-cleanup","event":"start","contextCount":1,"pageCount":0}
+{"recordedAtUtc":"2026-10-08T12:13:36.912Z","elapsedMs":7498,"phase":"context-cleanup","event":"complete","remainingContexts":1}

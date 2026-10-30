@@ -1,12 +1,6 @@
 import styles from "./site-header.module.css";
 import { BrandMark } from "./brand-mark";
-
-const navigation = [
-  { href: "/solutions", label: "Solutions" },
-  { href: "/technology", label: "Technology" },
-  { href: "/research", label: "Research" },
-  { href: "/company", label: "Company" },
-];
+import { SiteNavigation } from "./site-navigation";
 
 /**
  * Renders the selected identity and route-aware global navigation.
@@ -14,6 +8,10 @@ const navigation = [
 export function SiteHeader() {
   return (
     <header className={styles.header}>
+      <div className={styles.prelaunchBanner} data-prelaunch-banner aria-label="Pre-launch notice">
+        <span className={styles.prelaunchLabel}>PRE-LAUNCH</span>
+        <span className={styles.prelaunchMessage}>This website is still in production and is not yet final.</span>
+      </div>
       <div className={styles.inner}>
         <a className={styles.brandLink} href="/" aria-label="Nex Labs Technology — home">
           <span className={styles.markFrame}>
@@ -25,16 +23,12 @@ export function SiteHeader() {
           </span>
         </a>
 
-        <nav className={styles.navigation} aria-label="Main navigation">
-          {navigation.map((item) => (
-            <a className={styles.link} href={item.href} key={item.href}>
-              {item.label}
-            </a>
-          ))}
-        </nav>
+        <SiteNavigation />
 
-        <a className={styles.contactAction} href="/contact">
-          Contact Nex Labs <span aria-hidden="true">→</span>
+        <a aria-label="Contact Nex Labs" className={styles.contactAction} href="/contact">
+          <span className={styles.contactDesktopLabel}>Contact Nex Labs</span>
+          <span className={styles.contactMobileLabel}>Contact</span>
+          <span aria-hidden="true">→</span>
         </a>
 
         <p className={styles.headerNote}>

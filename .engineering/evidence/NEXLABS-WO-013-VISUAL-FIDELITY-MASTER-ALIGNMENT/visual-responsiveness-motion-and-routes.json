@@ -1,0 +1,72 @@
+{
+  "master": {
+    "path": ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg",
+    "sha256": "d7a715dbee7c2174ed6e4a0bcdc02cba0b3a644af5d24845cae55d30f60ff647",
+    "gitBlobAtAdmission": "52932511adfeb8d372717185fe9a18907625cc0c",
+    "productionReference": false
+  },
+  "responsive": {
+    "viewports": [
+      "1600x900",
+      "1440x900",
+      "900x768",
+      "390x844",
+      "320x844"
+    ],
+    "mobile390HorizontalOverflow": false,
+    "mobile320HorizontalOverflow": false,
+    "internalMobileHorizontalOverflow": false
+  },
+  "motion": {
+    "reducedMotion": {
+      "preference": true,
+      "sceneTier": "STATIC",
+      "canvasCount": 0,
+      "posterVisible": true,
+      "revealTransition": "1e-05s"
+    },
+    "full": "FULL",
+    "balanced": "BALANCED",
+    "static": "STATIC",
+    "contextLoss": "fallback rendered; canvas removed"
+  },
+  "mobileNavigation": {
+    "closed": "menu hidden and inert",
+    "open": "all four routes plus Contact visible",
+    "escape": "closes and restores trigger focus",
+    "activeRoute": "Company exposes aria-current=page"
+  },
+  "routes": [
+    {
+      "path": "/",
+      "status": 200,
+      "screenshot": "candidate-home-1600x900.png"
+    },
+    {
+      "path": "/technology",
+      "status": 200,
+      "screenshot": "technology-1600x900.png"
+    },
+    {
+      "path": "/solutions",
+      "status": 200,
+      "screenshot": "solutions-1600x900.png"
+    },
+    {
+      "path": "/research",
+      "status": 200,
+      "screenshot": "research-1600x900.png"
+    },
+    {
+      "path": "/company",
+      "status": 200,
+      "screenshot": "company-1600x900.png"
+    },
+    {
+      "path": "/contact",
+      "status": 200,
+      "screenshot": "contact-1600x900.png"
+    }
+  ],
+  "axeCoverage": "Existing Home and M06 route WCAG 2.2 AA axe suites remain enabled in the full E2E runs."
+}

@@ -138,3 +138,44 @@ Home planned sections:
 - Preserve six-route content, Contact zero-collection and Home 3D architecture.
 - Retain container rollback rehearsal evidence.
 - Do not deploy publicly in M07A.
+
+
+### WO-013 Visual Fidelity / Master Alignment requirements
+
+- Treat the approved 1600×900 master and HOME-VISUAL-MASTER-SPEC.md as binding visual composition targets.
+- Materially improve Home 3D depth, N/chamber prominence, lighting, floor/platform, Earth/network, panels and human scale.
+- Materially improve living-organism energy continuity, premium navigation/menu interactions and proprietary capability iconography.
+- Preserve factual copy and do not reproduce unsupported concept metrics/search/social proof.
+- Never use the master JPG/crops as production UI.
+- Keep one Home R3F runtime only; secondary pages remain free of Home 3D runtime.
+- Keep Precision Blades core vector geometry unchanged.
+- Desktop navigation must expose route-active state; mobile navigation must be deliberate, accessible and not horizontal-scroll-only.
+- Preserve FULL/BALANCED/STATIC, poster-first, reduced-motion and WebGL fallback.
+- Preserve M07A hardening, Contact zero-collection and all route semantics.
+- No dependency addition by default.
+- Maintain existing performance budgets; final candidate requires three consecutive retries=0 full-suite passes at Home mobile LCP <=2.5 s.
+- Visual completion requires independent fidelity score >=85/100 using VISUAL-FIDELITY-DELTA-SPEC.md.
+
+
+### WO-013 local visual asset pipeline requirements (D-0031 active method)
+
+- For new or reworked CD-05 visual assets, use the image-generation capability actually connected to Codex to create a static component master, then use the official Blender Lab MCP for derived layers, frames and motion only after its isolation preflight passes.
+- Verify the actual image tool/model, commercial-use rights, source/reference provenance, prompt and output hash; if rights or capability are unverified, block asset generation and do not claim completion.
+- Blender MCP use requires verified official origin, a disposable/restricted local workspace, localhost-only binding, and no access to secrets, SSH keys, wallets, browser profiles or unrelated repositories.
+- If image generation or isolated Blender MCP is unavailable, mark the affected CD-05 asset/frame task BLOCKED. Do not silently substitute ComfyUI, Blender CLI or a paid third-party API; those paths require explicit re-admission.
+- Preserve the canonical Home master as reference-only; do not ship its pixels or crops. Keep the approved Precision Blades N geometry, one Home WebGL runtime, static-first fallbacks, reduced motion, performance budgets, M07A security and factual-content rules.
+- Historical ComfyUI/Blender CLI documentation and previously generated work remain preserved, but do not satisfy the D-0031 path for new CD-05 assets.
+- Keep model weights/raw renders outside Git; record provenance, license, hashes and selection for any approved generated asset.
+- No unreviewed third-party ComfyUI custom node and no dependency addition by default.
+
+### WO-013 temporary Vercel pre-launch requirements
+
+- Owner explicitly authorizes a public temporary Vercel deployment before final visual acceptance solely to support Anthropic/company registration.
+- This temporary deployment does not satisfy M07B and does not relax the final WO-013 >=85/100 visual gate.
+- Every route must show: `PRE-LAUNCH — This website is still in production and is not yet final.`
+- Banner must be visible/responsive/non-dismissible and must not obstruct navigation/content.
+- Vercel target is the already linked `nexlabs-website` project under the owner team.
+- Keep noindex/nofollow, robots disallow, no sitemap and no analytics.
+- No custom domain or DNS change is required for the temporary deployment.
+- Live Vercel smoke must verify all six routes, branded 404, banner, indexing posture, navigation and Contact zero-collection.
+- PR #20 remains open after deployment; deployment success does not authorize merge/checkpoint promotion.

@@ -4,23 +4,23 @@
 
 - M01 through M05 — APPROVED/MERGED.
 - M06 Secondary Pages — COMPLETE.
-- M07A Release Hardening & Production Readiness — APPROVED in PR #18; checkpoint promotion is this governance increment.
+- M07A Release Hardening & Production Readiness — APPROVED/MERGED/checkpoint-promoted.
 
-## Next — NECESSARY
+## Active — NECESSARY
 
 ### WO-013 — Visual Fidelity Restoration / Master Alignment
 
-Owner visual acceptance is still pending. The site must be materially closer to the approved Home Visual Master before launch.
+ADMITTED under `NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT`.
 
-Required direction:
-- stronger Home 3D composition, N/chamber/material/lighting/floor/Earth/panels;
-- stronger living-organism energy continuity;
-- proprietary holographic capability iconography;
-- higher-fidelity Research/Technology lower-world composition;
-- more elaborate desktop/mobile navigation and microinteractions;
-- richer depth on secondary pages without a second WebGL runtime;
-- deterministic master-vs-candidate visual evidence;
-- preserve M07A security/performance hardening and all accessibility/fallback tiers.
+- stronger Home 3D master composition;
+- monumental N/chamber/material/lighting/floor/Earth/panels;
+- living-organism energy continuity;
+- premium desktop/mobile navigation;
+- proprietary five-object capability iconography;
+- Research/Technology lower-world continuity;
+- richer secondary-page depth without second WebGL;
+- deterministic master comparisons + independent score >=85/100;
+- preserve M07A security/performance/a11y/fallbacks.
 
 ## Blocked
 

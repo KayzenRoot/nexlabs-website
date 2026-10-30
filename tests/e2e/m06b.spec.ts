@@ -3,10 +3,11 @@ import { mkdirSync, writeFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { gzipSync } from "node:zlib";
 import { expect, test, type Page, type Response } from "@playwright/test";
+import { captureScreenshot } from "./evidence";
 
 const evidenceDirectory = resolve(
   process.cwd(),
-  ".engineering/evidence/NEXLABS-WO-011-M06C-CONTACT-FINAL-INTEGRATION/m06b-regressions",
+  ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/m06b-regressions",
 );
 
 const routeCases = [
@@ -216,7 +217,7 @@ test("Research and Company render canonical content, metadata and isolated route
     if (metrics.lcpMs > 0) expect(metrics.lcpMs).toBeLessThanOrEqual(2500);
     expect(metrics.cls).toBeLessThanOrEqual(0.1);
 
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, route.desktopScreenshot),
       fullPage: false,
       animations: "disabled",
@@ -235,7 +236,7 @@ test("Research and Company render canonical content, metadata and isolated route
       expect(mobileMetrics.lcpMs, `${route.path} mobile LCP`).toBeLessThanOrEqual(2500);
     }
     expect(mobileMetrics.cls, `${route.path} mobile CLS`).toBeLessThanOrEqual(0.1);
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, route.mobileScreenshot),
       fullPage: false,
       animations: "disabled",
@@ -262,7 +263,7 @@ test("Research and Company render canonical content, metadata and isolated route
     resolve(evidenceDirectory, "route-performance-report.json"),
     `${JSON.stringify(
       {
-        source: "Playwright Chromium; local production build; desktop 1600x900 and mobile 390x844",
+        source: "Playwright Chromium; local production build; desktop performance and layout metrics 1600x900; mobile performance and layout metrics 390x844",
         routeJsBudgetGzipBytes: 220 * 1024,
         routes: reports,
       },
@@ -314,7 +315,7 @@ test("Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and respon
       .toBeGreaterThanOrEqual(0);
     await page.keyboard.press("Tab");
     await expect(page.getByRole("link", { name: "Nex Labs Technology — home" })).toBeFocused();
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, `${route.path.slice(1)}-keyboard-focus.png`),
       fullPage: false,
       animations: "disabled",
@@ -360,7 +361,7 @@ test("Research and Company pass WCAG 2.2 AA, keyboard, reduced-motion and respon
     expect(
       motionState.animationDurations.every((duration) => Number.parseFloat(duration) <= 0.0001),
     ).toBe(true);
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, `${route.path.slice(1)}-reduced-motion.png`),
       fullPage: false,
       animations: "disabled",
@@ -421,7 +422,7 @@ test("M06B navigation and all admitted Research transitions resolve with Contact
       await page.setViewportSize({ width: 1600, height: 900 });
       await footer.scrollIntoViewIfNeeded();
       await expect(footer).toBeVisible();
-      await page.screenshot({
+      await captureScreenshot(page, {
         path: resolve(evidenceDirectory, `${path.slice(1)}-footer-navigation-1600x900.png`),
         fullPage: false,
         animations: "disabled",
@@ -446,7 +447,7 @@ test("M06B navigation and all admitted Research transitions resolve with Contact
     "href",
     "/research",
   );
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(evidenceDirectory, "home-research-cta-transition-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -466,7 +467,7 @@ test("M06B navigation and all admitted Research transitions resolve with Contact
     "href",
     "/contact",
   );
-  await page.screenshot({
+  await captureScreenshot(page, {
     path: resolve(evidenceDirectory, "home-final-contact-cta-transition-1600x900.png"),
     fullPage: false,
     animations: "disabled",
@@ -478,7 +479,7 @@ test("M06B navigation and all admitted Research transitions resolve with Contact
       "href",
       "/research",
     );
-    await page.screenshot({
+    await captureScreenshot(page, {
       path: resolve(evidenceDirectory, `${path.slice(1)}-research-cta-transition-1600x900.png`),
       fullPage: false,
       animations: "disabled",

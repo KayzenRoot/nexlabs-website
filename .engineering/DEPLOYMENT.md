@@ -2,42 +2,49 @@
 
 ## Current state
 
-Production deployment is **NOT_ADMITTED** in M07A. No hosting provider, production URL, domain/DNS target, TLS termination or production credential has been selected.
+Final production launch remains **NOT_ADMITTED**. A narrowly scoped temporary Vercel pre-launch deployment is now explicitly admitted for external company/service registration.
 
-## M07 program split
+M07A Release Hardening & Production Readiness is APPROVED/MERGED and established the production-candidate/security/readiness baseline.
 
-### M07A — Release Hardening & Production Readiness
+The owner has made WO-013 Visual Fidelity / Master Alignment a required gate before launch.
 
-Admitted work may:
-- create/test a production candidate artifact locally;
-- establish production security headers;
-- establish noindex/robots pre-launch posture;
-- establish a minimal production container;
-- add release-readiness CI;
-- rehearse provider-neutral container rollback.
+## Current launch gate
 
-M07A must not publish or deploy the website.
+M07B remains BLOCKED until:
+1. WO-013 is independently APPROVED;
+2. WO-013 is merged;
+3. WO-013 checkpoint is promoted;
+4. provider/origin/domain inputs are explicitly approved.
 
-### M07B — Deployment Admission + Production Launch Validation
+WO-013 may perform the temporary public deployment defined by `.engineering/VERCEL-PRELAUNCH-SPEC.md`. This exception does not constitute final visual acceptance or M07B launch completion.
 
-M07B remains blocked until M07A approval/promotion and must separately:
-- select hosting/runtime provider with an accepted decision/ADR;
-- define preview/staging/production environment contract;
-- define verified production origin;
-- define secrets/environment-variable ownership;
-- decide domain/DNS/TLS/HSTS;
-- add canonical URLs/sitemap/index enablement;
-- execute deployment;
-- retain post-deploy smoke/security/a11y/performance evidence;
-- retain provider-specific rollback/roll-forward evidence.
+## M07B future scope
 
-## Rollback model before provider selection
+Only after the visual gate:
+- provider selection + ADR;
+- environment contract;
+- verified production origin;
+- domain/DNS/TLS/HSTS;
+- canonical URL/sitemap/index enablement;
+- deployment;
+- post-deploy smoke/security/a11y/performance;
+- provider-specific rollback/roll-forward evidence.
 
-M07A rollback proof is container-level only:
-- identify prior approved artifact SHA/digest;
-- identify candidate SHA/digest;
-- verify candidate;
-- restore prior approved artifact;
-- re-run six-route health checks.
+The M07A container-level rollback rehearsal remains the provider-neutral baseline until M07B.
 
-This rehearsal does not claim a future provider RTO/RPO or zero-downtime behavior.
+
+## Temporary Vercel pre-launch exception
+
+Owner authorization on 2026-10-07 permits an immediate public Vercel deployment of the current functional WO-013 candidate to support Anthropic/company registration.
+
+Binding conditions:
+- use Vercel project `nexlabs-website` (`prj_HtZ5M9lpS0JZhkaHLbTCrWX38YHV`) in team `claytons-projects-5922d27c`;
+- deploy from the exact reviewed PR #20 branch/working tree without merging;
+- persistent PRE-LAUNCH banner on every route;
+- keep noindex/nofollow + robots disallow + no sitemap;
+- no custom domain/DNS required;
+- no analytics or Contact collection;
+- live smoke/evidence required;
+- final M07B launch gate remains blocked by WO-013 visual approval.
+
+See `.engineering/VERCEL-PRELAUNCH-SPEC.md`.
