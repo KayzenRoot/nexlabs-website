@@ -1,6 +1,6 @@
 # NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT — Visual Fidelity Restoration / Master Alignment
 
-Status: CORRECTION REQUIRED — CD-05 DOCUMENTARY RE-ADMISSION; LOCAL IMAGE/MCP PREFLIGHT REQUIRED
+Status: ACTIVE — CD-05/CD-06 RE-ADMITTED AFTER D-0034; IMAGE/MCP PREFLIGHT PENDING
 
 Risk class: ELEVATED
 
@@ -586,7 +586,7 @@ Do not merge, promote checkpoint or declare M07B complete.
 
 **REQUIREMENTS / ARCHITECTURE RULES:** verify available Codex image tool and commercial provenance; selected static component master is traceable; isolate official Blender Lab MCP in protected local environment, localhost-only, no access to unrelated files/secrets. No silent ComfyUI or Blender CLI substitution. Web retains one lazy Home R3F runtime, reduced-motion/STATIC/fallback and M07A security/readiness. Pushes may trigger Vercel Preview but may not promote that Preview; deployed site from production branch/snapshot PRs #22–25 must not regress.
 
-**CONSTRAINTS / CONTEXT LOCK:** changing D-0031/WO-013/asset pipeline/harness/Scope invalidates previous Context Lock; recompile critical Git blob SHA fingerprints and baseline-code snapshots before executor product changes. Preserve the **unpushed local** commit `76607189a68022e2e3028664edca08b4f95f500a` on `codex/wo013-images25-codex-native`, inspect diff before incorporating; never reset, rebase, force-push or discard it.
+**CONSTRAINTS / CONTEXT LOCK:** the original local commit `76607189a68022e2e3028664edca08b4f95f500a` was not found in documented searches. Owner D-0034 authorizes replacing only its preservation requirement with the newly cloned exact PR #20 baseline `379c12a950dae03b512a2543672cb54f339cc124`. Preserve all previous checkouts and local changes untouched; compile a fresh exact-source Context Lock before implementation. Never reset, rebase, force-push or discard prior work.
 
 **ACCEPTANCE CRITERIA / TESTS:** model/tool/MCP isolation proven; selected master/derived outputs SHA/license/manifest; semantic text remains HTML; no second WebGL; 3 repeatable design critique rounds; independent visual >=85/100, Hero/N floors and owner acceptance; existing FULL/BALANCED/STATIC, responsive/a11y, M07A, performance and three consecutive full browser candidate suite plus exact-head CI/Browser/Sonar/Socket/Release/CodeRabbit remain mandatory.
 
@@ -606,3 +606,10 @@ Do not merge, promote checkpoint or declare M07B complete.
 **VALIDATION:** Confirm the actual Node 22 runtime is at least `22.19.0` (required by the candidate Undici resolution); run `npm ci`, `npm audit --audit-level=moderate`, lint, typecheck, unit, production build, and full Playwright E2E with `retries=0`. Reconcile any required Release Readiness Docker step and run exact-HEAD hosted checks after pushing. Record unavailable gates as `BLOCKED` or `NOT_RUN`; do not infer success from prior HEADs.
 
 **LIMITS / STOP:** No source/runtime/product changes, no new dependency, no npm major migration, no engine/toolchain or workflow changes, no suppressions/exclusions, no acceptance/performance/a11y/security weakening. If audit still reports a current HIGH/CRITICAL finding, or any required check fails, stop this correction, record a new evidence-backed delta and do not proceed to another dependent issue. Blender MCP remains separately BLOCKED until its official origin, localhost-only isolation and handshake are proven. Visual threshold >=85/100, independent exact-HEAD approval, owner visual acceptance, branch protection, checkpoint promotion, merge, deployment and M07B authority remain unchanged. PR #20 stays open.
+
+
+## CD-05 / CD-06 re-admission after owner decision D-0034
+
+Owner instruction in PR #20 comment `6529953961` authorizes treating the local commit `76607189a68022e2e3028664edca08b4f95f500a` as unrecoverable and replacing its preservation gate with a new exact-HEAD baseline. The replacement baseline is PR branch `work/nexlabs-wo-013-visual-fidelity-master-alignment` at `379c12a950dae03b512a2543672cb54f339cc124`; prior local checkouts remain untouched.
+This re-admits only the existing WO-013 CD-05 and CD-06 scopes after Context Lock v5 is compiled. CD-05 asset/frame implementation remains gated by actual Codex image tool/model and commercial-use proof plus official Blender Lab MCP isolation/localhost proof; missing proof blocks that asset stage without a CLI/ComfyUI fallback. CD-06 authorizes only its existing exact Next/Vitest pins and compatible lockfile resolutions.
+No product scope expansion, new Work Order, new dependency, test/budget weakening, independent-review waiver, merge, checkpoint promotion, deployment or M07B authorization is granted.

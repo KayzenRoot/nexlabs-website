@@ -157,20 +157,16 @@ Home planned sections:
 - Visual completion requires independent fidelity score >=85/100 using VISUAL-FIDELITY-DELTA-SPEC.md.
 
 
-### WO-013 local visual asset pipeline requirements
+### WO-013 local visual asset pipeline requirements (D-0031 active method)
 
-- Bootstrap a reproducible local ComfyUI + Blender authoring pipeline before the next visual-fidelity correction pass.
-- Target Windows + RTX 5050 8 GB; detect actual hardware before selecting model/runtime profile.
-- ComfyUI must bind localhost only and expose its local API for deterministic workflow execution.
-- Blender automation must use background Python API by default.
-- Official Blender MCP may not be enabled by default; any use requires explicit isolation because upstream warns it executes LLM-generated code without guards.
-- Keep model weights/raw renders outside Git and record model source, revision, SHA-256 and license.
-- Install at least one commercially usable image model that passes an 8 GB smoke generation.
-- SDXL is the required baseline; FLUX.2 Klein 4B FP8 is optional after automated memory smoke test; FLUX.1 dev is excluded by default because of non-commercial weight license.
-- No unreviewed third-party ComfyUI custom node.
-- Pipeline outputs are candidate assets only until selected, optimized and reviewed.
-- Tooling must not weaken M07A/WO-013 performance, CSP, security or public factual boundaries.
-
+- For new or reworked CD-05 visual assets, use the image-generation capability actually connected to Codex to create a static component master, then use the official Blender Lab MCP for derived layers, frames and motion only after its isolation preflight passes.
+- Verify the actual image tool/model, commercial-use rights, source/reference provenance, prompt and output hash; if rights or capability are unverified, block asset generation and do not claim completion.
+- Blender MCP use requires verified official origin, a disposable/restricted local workspace, localhost-only binding, and no access to secrets, SSH keys, wallets, browser profiles or unrelated repositories.
+- If image generation or isolated Blender MCP is unavailable, mark the affected CD-05 asset/frame task BLOCKED. Do not silently substitute ComfyUI, Blender CLI or a paid third-party API; those paths require explicit re-admission.
+- Preserve the canonical Home master as reference-only; do not ship its pixels or crops. Keep the approved Precision Blades N geometry, one Home WebGL runtime, static-first fallbacks, reduced motion, performance budgets, M07A security and factual-content rules.
+- Historical ComfyUI/Blender CLI documentation and previously generated work remain preserved, but do not satisfy the D-0031 path for new CD-05 assets.
+- Keep model weights/raw renders outside Git; record provenance, license, hashes and selection for any approved generated asset.
+- No unreviewed third-party ComfyUI custom node and no dependency addition by default.
 
 ### WO-013 temporary Vercel pre-launch requirements
 

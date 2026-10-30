@@ -31,3 +31,9 @@ As engines/peers atuais do registry foram consultadas para Next `16.4.3`, Vitest
 O Delta 06 e a autorização foram registrados também em D-0032 e no Work Order WO-013. O Context Lock desta PR é atualizado com escopo exato, fingerprints e timestamp antes da edição de pacotes e será recompilado depois da edição. O teste/audit final, revisão do diff, retestes e checks exatos do novo HEAD serão anexados aqui após execução.
 
 Visual acceptance >=85/100, aprovação independente exata, aceite visual do owner, Blender MCP, regras de branch, checkpoint, merge, produção e M07B permanecem gates separados. Esta evidência não declara esses gates satisfeitos.
+
+
+## Re-admission after owner-authorized baseline substitution — 2026-10-30
+
+The owner authorized replacement of the unrecoverable local commit preservation requirement in PR #20 comment `6529953961` (D-0034). CD-06 is re-admitted under the new Context Lock v5 and exact replacement baseline HEAD `379c12a950dae03b512a2543672cb54f339cc124`, base `e14cfbe4660b076db85e7e529befffe17a098cd1`.
+The package remediation remains limited to Next.js `16.3.8 → 16.4.3`, Vitest `4.1.11 → 4.1.12`, and only compatible lockfile resolutions needed to clear the already-recorded audit findings. No new dependency, product behavior change, gate waiver, merge, checkpoint promotion or deployment is authorized.

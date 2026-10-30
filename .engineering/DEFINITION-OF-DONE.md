@@ -157,7 +157,7 @@ M07A is complete. Owner visual acceptance remains pending, so M07B remains block
 ## WO-013 — Visual Fidelity Restoration / Master Alignment
 
 WO-013 is complete only when:
-0. the local visual asset pipeline prerequisite is evidenced: ComfyUI localhost API + one commercial-use image model smoke PASS + Blender background Python render/export PASS, with model weights/raw renders/secrets excluded from Git;
+0. the D-0031 CD-05 asset-tool prerequisite is evidenced: an available Codex image-generation tool/model and commercial-use rights, followed by the official Blender Lab MCP operating in an isolated localhost-only workspace; if either gate is unavailable, asset/frame work remains BLOCKED without ComfyUI or Blender CLI substitution;
 1. the locked master asset fingerprint matches the canonical reference;
 2. the master image/crops are absent from production runtime references;
 3. Home composition is materially closer to the approved master;
@@ -212,5 +212,5 @@ The remaining master-alignment correction is not complete until:
 - Actual Codex image-generation tool/model availability and commercial asset-use rights are validated, or asset generation is BLOCKED rather than claimed complete.
 - Official Blender Lab MCP is installed, locally sandboxed (isolated working set; no credentials/SSH keys/wallets/browser profiles/unrelated repositories), localhost-only and smoke-tested, or animation/frame authoring is BLOCKED without a silent CLI fallback.
 - Every newly generated component master has its own fingerprint, prompt/model/seed when available, provenance and review; derivatives have checksums and composition-preserving comparisons plus static fallback.
-- Save local Codex unpushed commit `76607189a68022e2e3028664edca08b4f95f500a` on `codex/wo013-images25-codex-native`; do not force-push/rebase/reset or assume it is on GitHub.
+- The original local commit `76607189a68022e2e3028664edca08b4f95f500a` was not recoverable in documented searches; owner D-0034 authorizes a new exact-HEAD baseline. Preserve all earlier local checkouts and commits untouched; do not rewrite history.
 - The existing 85/100 independent visual gate and all prior security, a11y, performance, deterministic critique/three-run test gates remain unchanged. Git push may trigger Vercel Preview; never overwrite/promote to production and do not regress existing portfolio/SEO/verification/HIVE pages from release snapshots. Keep PR #20 OPEN, checkpoint UNPROMOTED and M07B BLOCKED.

@@ -1,4 +1,4 @@
-# Local Visual Asset Pipeline — ComfyUI + Blender
+# Local Visual Asset Pipeline — Codex Image Masters + Blender MCP (ComfyUI historical)
 
 Status: CANONICAL WO-013 CORRECTION ENABLER
 
@@ -75,13 +75,13 @@ Previously the official Blender Lab MCP server was OPTIONAL and DISABLED BY DEFA
 Reason:
 - Blender's own MCP page warns that the server executes LLM-generated code without guards and recommends isolation from sensitive data.
 
-If the owner later explicitly authorizes MCP:
+D-0031 already authorizes Blender Lab MCP for new CD-05 assets, conditional on the security proof below:
 - use only the official Blender Lab MCP implementation;
 - run against a dedicated sanitized working directory or disposable VM/profile;
 - deny access to secrets, browser profiles, SSH keys, wallets and unrelated repositories;
 - never expose the MCP server publicly.
 
-WO-013 does **not** require MCP. Blender background Python API is sufficient.
+For new or reworked CD-05 motion/frame authoring, Blender Lab MCP is required after its isolation gate passes. If it is unavailable or unsafe, block that asset stage; Blender background Python does not silently substitute for it.
 
 ## Model policy for 8 GB VRAM
 
@@ -238,7 +238,7 @@ The pipeline must never auto-publish generated assets without a selection/review
 - ComfyUI Manager may be enabled for inspection but automatic third-party installs are not allowed without review;
 - generated assets are untrusted input until sanitized/optimized;
 - Blender autoexec remains disabled unless a reviewed local script explicitly requires controlled execution;
-- official Blender MCP remains disabled by default.
+- official Blender MCP remains unavailable until the D-0031 isolation gate is proven; enable it only inside the sanitized, localhost-only workspace.
 
 ## Evidence obligations
 

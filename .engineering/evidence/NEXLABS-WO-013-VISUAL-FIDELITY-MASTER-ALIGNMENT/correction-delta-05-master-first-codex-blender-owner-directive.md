@@ -1,7 +1,7 @@
 # WO-013 — Correction Delta 05: Master-First Image + Blender MCP
 
 **Date:** 2026-10-13
-**Status:** OWNER DIRECTION RECORDED — GOVERNANCE RE-ADMISSION REQUIRED BEFORE IMPLEMENTATION
+**Status:** OWNER DIRECTION RE-ADMITTED — CONTEXT LOCK V5 / IMAGE AND BLENDER PREFLIGHT PENDING
 **Risk:** ELEVATED
 **Repository:** `KayzenRoot/nexlabs-website`
 **PR:** #20
@@ -66,3 +66,11 @@ PRs #22–25 are separate production-snapshot work with portfolio, founder verif
 **CORRECTION REQUIRED** for PR #20. The last executor-proposed score remains **77/100**, below 85; the score has *not* been independently reproduced from raw screenshots by this note. Published 2026-10-08 evidence says technical checks passed on then-current head; any new commit needs new exact-head checks. This document is an owner directive and scoped correction plan, **not a completed implementation, audit approval or checkpoint promotion**.
 
 STOP at the first unproven image-generation/MCP capability, missing sandbox controls, stale context, unapproved scope expansion, HIGH/CRITICAL defect or failed visual/performance gate. Keep PR #20 open.
+
+
+## Owner-authorized baseline substitution and re-admission — 2026-10-30
+
+The owner authorized replacing the preservation requirement for local commit `76607189a68022e2e3028664edca08b4f95f500a` after the documented local and remote searches did not recover the object. The decision is recorded in PR #20 comment `6529953961` and D-0034. It replaces only that missing-commit gate; it does not waive tool, rights, security, visual, performance, accessibility, testing, independent-review or release requirements.
+The new baseline is the clean isolated clone of PR branch `work/nexlabs-wo-013-visual-fidelity-master-alignment` at HEAD `379c12a950dae03b512a2543672cb54f339cc124`, based on main `e14cfbe4660b076db85e7e529befffe17a098cd1`. All pre-existing local checkouts and commits remain untouched.
+CD-05 is re-admitted for the existing asset-authoring scope under Context Lock v5. The Codex image-generation tool is present in the active tool inventory, but smoke/model/right proof remains pending. Blender Lab MCP is absent from the active tool inventory and its official origin/isolation/localhost handshake is unproven; animation/frame authoring remains BLOCKED until proven. No ComfyUI or Blender CLI substitution is authorized.
+CD-06 is re-admitted under the same WO-013 and Context Lock v5 for only the exact Next.js/Vitest pins and semver-compatible lockfile resolutions already listed in the CD-06 evidence.

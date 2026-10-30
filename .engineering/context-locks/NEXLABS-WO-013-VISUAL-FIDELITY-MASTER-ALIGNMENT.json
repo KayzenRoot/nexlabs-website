@@ -1,24 +1,29 @@
 {
-  "schemaVersion": 4,
+  "schemaVersion": 5,
   "workOrderId": "NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT",
   "repository": "KayzenRoot/nexlabs-website",
   "branch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
-  "capturedAtUtc": "2026-10-29T17:53:41Z",
+  "capturedAtUtc": "2026-10-30T18:17:10Z",
   "riskClass": "ELEVATED",
   "admission": {
-    "state": "CD05_OWNER_DIRECTION_RECOMPILED_CAPABILITY_PROOF_PENDING",
-    "source": "Owner explicitly prioritized a functional public Vercel deployment for Anthropic/company registration before final visual acceptance.",
-    "startingHead": "6b5d76d038a546c3b99c494539c283aa79cd1dbd",
+    "state": "CD05_CD06_OWNER_RE_ADMITTED_AFTER_D0034_TOOL_PREFLIGHT_PENDING",
+    "source": "Owner instruction authorizing baseline substitution, recorded in PR #20 comment 6529953961.",
+    "startingHead": "379c12a950dae03b512a2543672cb54f339cc124",
     "mainSha": "e14cfbe4660b076db85e7e529befffe17a098cd1",
-    "sourcePackHeadBeforeLock": "6b5d76d038a546c3b99c494539c283aa79cd1dbd",
-    "previousContextLockHead": "6b5d76d038a546c3b99c494539c283aa79cd1dbd",
-    "recompileReason": "2026-10-13 owner D-0031 image-master-first / official Blender Lab MCP after isolated preflight; 30 critical sources matched pre-change, refreshed 55 baseline file SHA fingerprints at current HEAD. Production Preview segregated. Owner-authorized Correction Delta 06 re-admitted at PR #20 HEAD e3d5b82d3bb7a35271ebd69523528ca56496f902; lock fingerprints recompiled before package edits.",
+    "sourcePackHeadBeforeLock": "379c12a950dae03b512a2543672cb54f339cc124",
+    "previousContextLockHead": "379c12a950dae03b512a2543672cb54f339cc124",
+    "recompileReason": "Context Lock v5 was recompiled in a clean clone based on exact PR #20 HEAD 379c12a950dae03b512a2543672cb54f339cc124. It fingerprints 30 critical-source blobs and 55 baseline-code blobs in the D-0034 re-admission tree. CD-05 and CD-06 are re-admitted; CD-05 image-tool rights and official isolated Blender Lab MCP proof remain pending.",
     "mergeAuthorizedNow": false,
     "deploymentAuthorizedNow": false,
     "deploymentAuthorizationScope": "PR20_PREVIEW_ONLY_NO_PRODUCTION_PROMOTION",
     "finalLaunchAuthorizedNow": false,
     "implementationAuthorizedNow": true,
-    "executor": "CODEX"
+    "executor": "CODEX",
+    "recompiledFromHead": "379c12a950dae03b512a2543672cb54f339cc124",
+    "recompiledLockVersion": 5,
+    "cd05AssetImplementationAuthorizedNow": false,
+    "cd06DependencyRemediationAuthorizedNow": true,
+    "ownerDecision": "D-0034 / PR #20 comment 6529953961"
   },
   "referenceAssets": {
     "primaryVisualMaster": {
@@ -32,7 +37,7 @@
     },
     "ownerDirective": {
       "path": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-05-master-first-codex-blender-owner-directive.md",
-      "gitBlobSha": "59a7be42c1c49f83a41b079b31e7516084767ee4",
+      "gitBlobSha": "c61f623c1312d5a9380d2ecb70045cd45b63c2e2",
       "ownerAuthorized": true
     }
   },
@@ -99,7 +104,15 @@
     ".engineering/evidence/**",
     ".engineering/checkpoint-deltas/**",
     "package.json",
-    "package-lock.json"
+    "package-lock.json",
+    ".engineering/context-locks/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.json",
+    ".engineering/DECISIONS-LEDGER.md",
+    ".engineering/CHECKPOINT.json",
+    ".engineering/CHECKPOINT.md",
+    ".engineering/DEFINITION-OF-DONE.md",
+    ".engineering/REQUIREMENTS.md",
+    ".engineering/VISUAL-ASSET-PIPELINE.md",
+    ".engineering/work-orders/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.md"
   ],
   "writeForbidden": [
     "master JPG or crop/extract in production runtime/public assets",
@@ -138,21 +151,21 @@
     "package-lock.json changes outside semver-compatible resolutions required to clear the current npm audit findings"
   ],
   "criticalSources": {
-    ".engineering/CHECKPOINT.json": "ea527b434b87dc1dde9623727f2c410b06027c41",
-    ".engineering/CHECKPOINT.md": "b5c9651a506ca82ac11662da48fb4966beec6b84",
+    ".engineering/CHECKPOINT.json": "f18022a3b6243f4ab913eb6f685d1304d8ef6d01",
+    ".engineering/CHECKPOINT.md": "1c17db34179b559aca96d6a690d5d0584f0e39da",
     ".engineering/SOURCE-HIERARCHY.md": "3a7c52f4ed21d5e68df5795bf7a07e85e1e594eb",
-    ".engineering/DEFINITION-OF-DONE.md": "a6b644cc849d713b7734cdd623a780ed8e2eb235",
+    ".engineering/DEFINITION-OF-DONE.md": "9286a0c86ecad69ecaea08f2eff68cdf93782060",
     ".engineering/ARCHITECTURE.md": "6b3c3550684bc1bde50b08ffadf21b84cf6fe566",
-    ".engineering/REQUIREMENTS.md": "ca101eaac135165b246e8bea9b2ebee473540db5",
+    ".engineering/REQUIREMENTS.md": "f0e365e8025c85ecd765c1caa5d901db487d4499",
     ".engineering/SCOPE.md": "3aa98f9cc9dcf342265bff594be6889bc3abee17",
-    ".engineering/DECISIONS-LEDGER.md": "e45ff9533795a6b38d51ebeb2b4c666cbd47723e",
+    ".engineering/DECISIONS-LEDGER.md": "5b582aa17a781db8657dc63605091d5621fc3439",
     ".engineering/BACKLOG.md": "f87f545d0233c6278c87855b687722baf590ad39",
     ".engineering/PROJECT-OVERVIEW.md": "9e6243a91adfdb186f58cb0584201a0f1d1ec858",
     ".engineering/VISUAL-FIDELITY-DELTA-SPEC.md": "cf31b073204cc3785d84b783d2eb7a36f9dc62c7",
-    ".engineering/VISUAL-ASSET-PIPELINE.md": "7b7a2d91a7a56ff40bfb1ddfd24dbd5a541d6a47",
+    ".engineering/VISUAL-ASSET-PIPELINE.md": "7d7795fea2655e86d514f3dea7486bcd6890904d",
     ".engineering/DESIGN-DIRECTOR-HARNESS.md": "7b85c9a72a16c8f0716784cf5806e3056f99f7bd",
     ".engineering/VERCEL-PRELAUNCH-SPEC.md": "ecd7bdd3086fb443bcc4d435b547b48f986077b2",
-    ".engineering/work-orders/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.md": "23d7b2dea7332b1a24e51cffadbe11dae629ae01",
+    ".engineering/work-orders/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT.md": "688f7a1cd0156d4dec1f3d7c8c131ec99c11e019",
     ".engineering/HOME-VISUAL-MASTER-SPEC.md": "b8f161e0880ab2707cbe6c0be8604d90d9924df0",
     ".engineering/VISUAL-DIRECTION.md": "a860d2ee3f11232036434ccdd1168711f1b65e54",
     ".engineering/UI-UX.md": "59eadddca0ac907cc8c03a37d1bf250e13916dbb",
@@ -259,8 +272,9 @@
     "quality-tier defect correction, if any, has causal reproduction and unit/Chromium coverage",
     "SonarCloud Reliability/Security new-code ratings meet required A grade without exclusions",
     "local two unpushed commits and uncommitted changes preserved during branch reconciliation",
-    "Preserve local unpushed Codex commit 76607189a68022e2e3028664edca08b4f95f500a without rebase/reset/force-push.",
-    "Only Vercel Preview from PR commits; exact production SHA and existing PRs #22–25 public content unaffected."
+    "D-0034: treat local commit 76607189a68022e2e3028664edca08b4f95f500a as unrecoverable; do not reconstruct it. Preserve all prior local checkouts untouched and execute only from the new isolated baseline at PR #20 HEAD 379c12a950dae03b512a2543672cb54f339cc124.",
+    "Only Vercel Preview from PR commits; exact production SHA and existing PRs #22–25 public content unaffected.",
+    "Before CD-05 asset/frame work, verify Codex image tool/model and commercial-use rights, then verify official Blender Lab MCP origin, isolated local workspace, localhost-only binding and restricted filesystem. If any gate fails, block that asset stage without ComfyUI or Blender CLI substitution."
   ],
   "staleIfChanged": [
     ".engineering/CHECKPOINT.json",
@@ -294,7 +308,7 @@
     "package-lock.json",
     ".engineering/evidence/NEXLABS-WO-007-HOME-HERO-LIVING-ORGANISM/approved-home-visual-master.jpg"
   ],
-  "stopCondition": "CD05_RELOCKED_LOCAL_CODEX_IMAGE_AND_OFFICIAL_BLENDER_MCP_PREFLIGHT_PENDING_KEEP_PR20_OPEN_NO_MERGE_NO_PRODUCTION_NO_M07B",
+  "stopCondition": "CD05_IMAGE_TOOL_MODEL_RIGHTS_AND_OFFICIAL_ISOLATED_BLENDER_MCP_PREFLIGHT_PENDING; CD06_DEPENDENCY_REMEDIATION_AUTHORIZED; KEEP_PR20_OPEN_NO_MERGE_NO_PRODUCTION_NO_M07B",
   "designDirectorHarness": {
     "canonicalSource": ".engineering/DESIGN-DIRECTOR-HARNESS.md",
     "externalTechniqueReference": "https://x.com/0xMovez/status/2104216919033192746",
@@ -323,7 +337,7 @@
     ],
     "reason": "Local working tree contains a change in the protected tier selector; CI failure evidence shows FULL/ready with poster opacity 1, which does not prove tier selector is the root cause. Grant conditional correction scope only, with tests and diagnostic evidence before modification.",
     "mandatoryDiagnostics": [
-      "Reconcile and inspect the user's two unpushed commits and uncommitted quality-tier.ts patch; preserve all work and review the diff before changing it.",
+      "Leave existing local checkouts, commits and uncommitted changes untouched; do not import any prior local patch into the replacement baseline without a separate authorized diff review.",
       "Reproduce Chromium CI poster crossfade failure under same simulated capabilities, evaluate computed CSS selectors and document root cause.",
       "The tier selector must NOT be changed unless causal evidence proves the defect is in tier resolution or capability probe.",
       "If poster CSS/state handshake is root cause, fix in already-approved component/CSS paths, and restore the local quality-tier.ts change if unnecessary.",
@@ -336,11 +350,11 @@
   },
   "cd05": {
     "directivePath": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-05-master-first-codex-blender-owner-directive.md",
-    "directiveBlobSha": "59a7be42c1c49f83a41b079b31e7516084767ee4",
+    "directiveBlobSha": "c61f623c1312d5a9380d2ecb70045cd45b63c2e2",
     "decisionId": "D-0031",
     "previousContextLock": "STALE_SUPERSEDED",
-    "imageTool": "REQUIRES_LOCAL_SMOKE_TEST",
-    "blenderMcp": "REQUIRES_LOCAL_ISOLATION_AND_HANDSHAKE",
+    "imageTool": "AVAILABLE_IN_CODEX_TOOL_INVENTORY_SMOKE_AND_RIGHTS_NOT_VERIFIED",
+    "blenderMcp": "NOT_AVAILABLE_IN_ACTIVE_TOOL_INVENTORY_OR_ISOLATION_HANDSHAKE",
     "sourcePackAdmission": "DOCUMENTARY_ONLY",
     "noProductionDeploy": true,
     "previewDeployPermitted": true,
@@ -351,12 +365,20 @@
       24,
       25
     ],
-    "localUnpushedCommit": "76607189a68022e2e3028664edca08b4f95f500a",
-    "stopIfMissing": true
+    "localUnpushedCommit": null,
+    "stopIfMissing": false,
+    "status": "OWNER_RE_ADMITTED_TOOL_PREFLIGHT_PENDING",
+    "originalLocalCommitSha": "76607189a68022e2e3028664edca08b4f95f500a",
+    "localCommitDisposition": "UNRECOVERABLE_OWNER_AUTHORIZED_SUBSTITUTION_D0034",
+    "substitutionDecision": "PR #20 comment 6529953961",
+    "replacementBaselineHead": "379c12a950dae03b512a2543672cb54f339cc124",
+    "replacementBaselineBranch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
+    "assetImplementationAuthorizedNow": false,
+    "assetStageStopCondition": "NO_IMAGE_RIGHTS_OR_OFFICIAL_ISOLATED_BLENDER_MCP_PROOF_NO_ASSET_OR_ANIMATION_IMPLEMENTATION"
   },
   "correctionDelta06": {
     "id": "NEXLABS-WO-013-CORRECTION-DELTA-06-DEPENDENCY-SECURITY",
-    "state": "OWNER_RE_ADMITTED_PRE_PACKAGE_EDIT_LOCK_RECOMPILED",
+    "state": "OWNER_RE_ADMITTED_UNDER_CONTEXT_LOCK_V5_PRE_PACKAGE_EDIT",
     "authorizedBy": "Owner instruction recorded in PR #20 comment 6504223112",
     "authorizedAtRemoteHead": "e3d5b82d3bb7a35271ebd69523528ca56496f902",
     "baseSha": "e14cfbe4660b076db85e7e529befffe17a098cd1",
@@ -387,6 +409,18 @@
     "deploymentAuthorizedNow": false,
     "independentReviewStillRequired": true,
     "evidencePath": ".engineering/evidence/NEXLABS-WO-013-VISUAL-FIDELITY-MASTER-ALIGNMENT/correction-delta-06-dependency-security.md",
-    "evidenceBlobSha": "67ec63c7c0641db2dfafb10a0765c1bba1dd3cfd"
+    "evidenceBlobSha": "e60504255e67803aecbf5f35ff2a881180544cb9",
+    "reAdmittedBy": "Owner instruction recorded in PR #20 comment 6529953961",
+    "reAdmittedAtHead": "379c12a950dae03b512a2543672cb54f339cc124"
+  },
+  "ownerDecisionSubstitution": {
+    "decisionId": "D-0034",
+    "authorizedBy": "Owner instruction recorded in PR #20 comment 6529953961",
+    "originalCommitSha": "76607189a68022e2e3028664edca08b4f95f500a",
+    "originalCommitStatus": "UNRECOVERABLE_AFTER_DOCUMENTED_SEARCHES",
+    "replacementBaselineHead": "379c12a950dae03b512a2543672cb54f339cc124",
+    "replacementBaselineBranch": "work/nexlabs-wo-013-visual-fidelity-master-alignment",
+    "existingLocalCheckoutsPreserved": true,
+    "scope": "Recompile Context Lock and re-admit CD-05/CD-06 under the existing WO-013; no gate waiver."
   }
 }
